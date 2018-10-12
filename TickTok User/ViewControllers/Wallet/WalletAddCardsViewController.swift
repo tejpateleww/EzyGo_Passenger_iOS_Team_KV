@@ -211,7 +211,7 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
         txtCardNumber.formatter = CardNumberFormatter()
         txtCardNumber.placeholder = "Card Number"
         txtCardNumber.leftMargin = 0
-        txtCardNumber.cornerRadius = 5
+        txtCardNumber.layer.cornerRadius = 5
 //        txtCardNumber.backgroundColor = UIColor.white
 //        txtCardNumber.activeBackgroundColor = UIColor.white
 //        txtCardNumber.enabledBackgroundColor = UIColor.white

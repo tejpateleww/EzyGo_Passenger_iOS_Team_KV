@@ -263,7 +263,7 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
                 for controller in self.navigationController!.viewControllers as Array {
                     if controller.isKind(of: CustomSideMenuViewController.self) {
                         
-                        homeVC = (controller.childViewControllers[0] as! UINavigationController).childViewControllers[0] as! HomeViewController
+                        homeVC = (controller.childViewControllers[0] as! UINavigationController).childViewControllers[0] as? HomeViewController
                         self.navigationController!.popToViewController(controller, animated: true)
                         break
                     }

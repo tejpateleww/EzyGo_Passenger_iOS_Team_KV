@@ -24,7 +24,9 @@ class UpCommingTableViewCell: UITableViewCell {
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
-
+    
+    @IBOutlet weak var lblDriverName: UILabel!
+    
     @IBOutlet weak var lblDropoffAddress: UILabel!
     @IBOutlet weak var lblDateAndTime: UILabel!
     
@@ -35,4 +37,11 @@ class UpCommingTableViewCell: UITableViewCell {
     @IBOutlet weak var btnCancelRequest: UIButton!
     
     @IBOutlet weak var viewDetails: UIView!
+    
+    @IBOutlet weak var lblPickupTime: UILabel!
+    @IBOutlet weak var lblDistanceTravelled: UILabel!
+    
+    @IBOutlet weak var lblBookingId: UILabel!
+    
+    
 }

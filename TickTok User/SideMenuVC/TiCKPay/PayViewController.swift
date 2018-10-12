@@ -147,7 +147,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtCardNumber.formatter = CardNumberFormatter()
         txtCardNumber.placeholder = "Card Number"
         txtCardNumber.leftMargin = 0
-        txtCardNumber.cornerRadius = 5
+        txtCardNumber.layer.cornerRadius = 5
         txtCardNumber.backgroundColor = UIColor.white
         txtCardNumber.activeBackgroundColor = UIColor.white
         txtCardNumber.enabledBackgroundColor = UIColor.white
@@ -186,7 +186,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtExpiryDate.placeholder = "Expiration Date (MM/YY)"
         
         txtExpiryDate.leftMargin = 0
-        txtExpiryDate.cornerRadius = 5
+        txtExpiryDate.layer.cornerRadius = 5
         txtExpiryDate.backgroundColor = UIColor.white
         txtExpiryDate.activeBackgroundColor = UIColor.white
         txtExpiryDate.enabledBackgroundColor = UIColor.white
@@ -208,7 +208,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtCVV.placeholder = "CVC"
         
         txtCVV.leftMargin = 0
-        txtCVV.cornerRadius = 5
+        txtCVV.layer.cornerRadius = 5
         txtCVV.backgroundColor = UIColor.white
         txtCVV.activeBackgroundColor = UIColor.white
         txtCVV.enabledBackgroundColor = UIColor.white

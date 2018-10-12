@@ -79,5 +79,7 @@ class PastBooingTableViewCell: UITableViewCell {
     
     @IBOutlet weak var stackViewTotalCost: UIStackView!
     @IBOutlet weak var lblTotalCost: UILabel!
-   
+    
+    @IBOutlet weak var lblWaitingTime: UILabel!
+    
 }

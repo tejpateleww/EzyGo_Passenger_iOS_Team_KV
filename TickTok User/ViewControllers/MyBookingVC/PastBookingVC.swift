@@ -19,6 +19,8 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     var strDropoffLat = String()
     var strDropoffLng = String()
     
+    var strNotAvailable: String = "N/A"
+    
     var expandedCellPaths = Set<IndexPath>()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -87,6 +89,9 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             
             cell.selectionStyle = .none
             
+            let currentData = (aryData.object(at: indexPath.row) as! NSDictionary)
+            
+            
             if let name = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DriverName") as? String {
                 
                 if name == "" {
@@ -131,85 +136,177 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             // DropOff Address is PickupAddress
             // Pickup Address is DropOffAddress
             
-            if let pickupAddress = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String {
-//                DropoffLocation
-                if pickupAddress == "" {
-                     cell.lblPickupAddress.isHidden = true
-                    
-                }
-                else {
-                    cell.lblPickupAddress.text = pickupAddress
+            let pickupLocation = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable)
+            let dropoffLocation = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable)
+            let pickupTime = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "PickupTime", isNotHave: strNotAvailable)
+            let DropoffTime = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "DropTime", isNotHave: strNotAvailable)
+            let strModel = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable)
+            let strTripDistance = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripDistance", isNotHave: strNotAvailable)
+            let strTripFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripFare", isNotHave: strNotAvailable)
+            let strNightFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "NightFare", isNotHave: strNotAvailable)
+            
+            let strTollFee = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TollFee", isNotHave: strNotAvailable)
+            let strWaitingTimeCost = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "WaitingTimeCost", isNotHave: strNotAvailable)
+//            let strModel = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable)
+//            let strTripDistance = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripDistance", isNotHave: strNotAvailable)
+//            let strTripFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripFare", isNotHave: strNotAvailable)
+//            let strNightFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "NightFare", isNotHave: strNotAvailable)
+            
+            
+            
+            let waitingTime = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "WaitingTime", isNotHave: strNotAvailable)
+            
+            var strWaitingTime: String = "00:00:00"
+      
+            if waitingTime != strNotAvailable {
+                let intWaitingTime = Int(waitingTime)
+                let WaitingTimeIs = ConvertSecondsToHoursMinutesSeconds(seconds: intWaitingTime!)
+                if WaitingTimeIs.0 == 0 {
+                    if WaitingTimeIs.1 == 0 {
+                        strWaitingTime = "00:00:\(WaitingTimeIs.2)"
+                    } else {
+                        strWaitingTime = "00:\(WaitingTimeIs.1):\(WaitingTimeIs.2)"
+                    }
+                } else {
+                    strWaitingTime = "\(WaitingTimeIs.0):\(WaitingTimeIs.1):\(WaitingTimeIs.2)"
                 }
             }
+            else {
+                strWaitingTime = waitingTime
+            }
+            
+            cell.lblWaitingTime.text = strWaitingTime
+            
+            cell.lblPickupAddress.text = pickupLocation
+            cell.lblDropoffAddress.text = dropoffLocation
+            
+            if pickupTime == strNotAvailable {
+                 cell.lblPickupTime.text = pickupTime
+            } else {
+                 cell.lblPickupTime.text = setTimeStampToDate(timeStamp: pickupTime)
+            }
+            
+            if DropoffTime == strNotAvailable {
+                 cell.lblDropoffTime.text = DropoffTime
+            } else {
+                cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
+            }
+            
+            cell.lblVehicleType.text = strModel
+            cell.lblDistanceTravelled.text = strTripDistance
+            cell.lblTripFare.text = strTripFare
+            cell.lblNightFare.text = strNightFare
+            
+            
+            cell.lblTollFee.text = strTollFee // (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
+            cell.lblWaitingCost.text = strWaitingTimeCost // (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
+            cell.lblBookingCharge.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "BookingCharge", isNotHave: strNotAvailable) //(aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
+            cell.lblTax.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Tax", isNotHave: strNotAvailable) // (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
+            cell.lblDiscount.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Discount", isNotHave: strNotAvailable)// (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
+            cell.lblPaymentType.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "PaymentType", isNotHave: strNotAvailable)//(aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PaymentType") as? String
+            cell.lblTotalCost.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "GrandTotal", isNotHave: strNotAvailable)
+    
+            
+            
+//            if let pickupAddress = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String {
+////                DropoffLocation
+//                if pickupAddress == "" {
+//                     cell.lblPickupAddress.isHidden = true
+//                }
+//                else {
+//                    cell.lblPickupAddress.text = pickupAddress
+//                }
+//            }
            
-            if let dropoffAddress = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String {
-//                PickupLocation
-                if dropoffAddress == "" {
-                    cell.lblDropoffAddress.isHidden = true
-                }
-                else {
-                    cell.lblDropoffAddress.text = dropoffAddress
-                }
-            }
+//            if let dropoffAddress = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String {
+////                PickupLocation
+//                if dropoffAddress == "" {
+//                    cell.lblDropoffAddress.isHidden = true
+//                }
+//                else {
+//                    cell.lblDropoffAddress.text = dropoffAddress
+//                }
+//            }
             
 //            cell.lblPickupAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String
 //            cell.lblDropoffAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String
             
-            if let pickupTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String {
-                if pickupTime == "" {
-                    cell.lblPickupTime.isHidden = true
-                    cell.stackViewPickupTime.isHidden = true
-                }
-                else {
-                    cell.lblPickupTime.text = setTimeStampToDate(timeStamp: pickupTime)
-                }
-            }
+//            if let pickupTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String {
+//                if pickupTime == "" {
+//                    cell.lblPickupTime.isHidden = true
+//                    cell.stackViewPickupTime.isHidden = true
+//                }
+//                else {
+//                    cell.lblPickupTime.text = setTimeStampToDate(timeStamp: pickupTime)
+//                }
+//            }
             
-            if let DropoffTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String {
-                if DropoffTime == "" {
-                    cell.lblDropoffTime.isHidden = true
-                    cell.stackViewDropoffTime.isHidden = true
-                }
-                else {
-                    cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
-                }
-            }
+//            if let DropoffTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String {
+//                if DropoffTime == "" {
+//                    cell.lblDropoffTime.isHidden = true
+//                    cell.stackViewDropoffTime.isHidden = true
+//                }
+//                else {
+//                    cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
+//                }
+//            }
             
 //            cell.lblPickupTime.text = setTimeStampToDate(timeStamp: ((aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String)!)
 //            cell.lblDropoffTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String
             
-            if let strModel = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Model") as? String {
-                if strModel == "" {
-                    cell.lblVehicleType.isHidden = true
-                    cell.stackViewVehicleType.isHidden = true
-                }
-                else {
-                    cell.lblVehicleType.text = strModel
-                }
-            }
+//            if let strModel = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Model") as? String {
+//                if strModel == "" {
+//                    cell.lblVehicleType.isHidden = true
+//                    cell.stackViewVehicleType.isHidden = true
+//                }
+//                else {
+//                    cell.lblVehicleType.text = strModel
+//                }
+//            }
 //            cell.lblVehicleType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Model") as? String
-            if let strTripDistance = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String {
-                if strTripDistance == "" {
-                    cell.lblDistanceTravelled.isHidden = true
-                    cell.stackViewDistanceTravelled.isHidden = true
-                }
-                else {
-                    cell.lblDistanceTravelled.text = strTripDistance
-                }
-            }
+//            if let strTripDistance = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String {
+//                if strTripDistance == "" {
+//                    cell.lblDistanceTravelled.isHidden = true
+//                    cell.stackViewDistanceTravelled.isHidden = true
+//                }
+//                else {
+//                    cell.lblDistanceTravelled.text = strTripDistance
+//                }
+//            }
 //            cell.lblDistanceTravelled.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String
             
             
+//            if let strTripFare = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String {
+//                if strTripFare == "" {
+//                    cell.lblTripFare.text = strNotAvailable
+//                }
+//                else {
+//                    cell.lblTripFare.text = strTripFare
+//                }
+//            }
+
+//            if let strNightFare = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String {
+//                if strNightFare == "" {
+//                    cell.lblNightFare.isHidden = true
+//                    cell.stackViewNightFare.isHidden = true
+//                }
+//                else {
+//                    cell.lblNightFare.text = strNightFare
+//                }
+//            }
             
-            cell.lblTripFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String
-            cell.lblNightFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String
-            cell.lblTollFee.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
-            cell.lblWaitingCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
-            cell.lblBookingCharge.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
-            cell.lblTax.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
-            cell.lblDiscount.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
-            cell.lblPaymentType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PaymentType") as? String
-            cell.lblTotalCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "GrandTotal") as? String
+            
+//            cell.lblTripFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String
+//            cell.lblNightFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String
+            
+            
+//            cell.lblTollFee.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
+//            cell.lblWaitingCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
+//            cell.lblBookingCharge.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
+//            cell.lblTax.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
+//            cell.lblDiscount.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
+//            cell.lblPaymentType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PaymentType") as? String
+//            cell.lblTotalCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "GrandTotal") as? String
             
             
             cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)

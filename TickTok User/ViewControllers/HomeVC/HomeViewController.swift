@@ -34,6 +34,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     let baseUrlForGetAddress = "https://maps.googleapis.com/maps/api/geocode/json?"
+    let baseUrlForAutocompleteAddress = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
+    
     let apikey = googlPlacesApiKey //"AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"
     
     let socket = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
@@ -231,6 +233,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var strSpecialRequest = String()
     var strSpecialRequestFareCharge = String()
     
+    var strPickUpLatitude = String()
+    var strPickUpLongitude = String()
+    
+    
     @IBOutlet weak var ConstantViewCarListsHeight: NSLayoutConstraint! // 170
     @IBOutlet weak var constraintTopSpaceViewDriverInfo: NSLayoutConstraint!
     
@@ -353,8 +359,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //        viewDestinationLocation.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
         //
         //        self.setupSideMenu()
-        ////        webserviceCallForGettingCarLists()
+//                webserviceCallForGettingCarLists()
         //
+       
+        
     }
     @IBOutlet weak var viewHeaderHeightConstant: NSLayoutConstraint!
     
@@ -582,9 +590,28 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var routePolyline = GMSPolyline()
     var demoPolylineOLD = GMSPolyline()
+    
+    var setDummyLineIndex = 0
+    var dummyTimer = Timer()
+    
+    
     @IBAction func btnCurrentLocation(_ sender: UIButton) {
+//        self.getDummyDataLinedata()
+//        dummyTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(dummyCarMovement), userInfo: nil, repeats: true)
         
         currentLocationAction()
+    }
+    
+    @objc func dummyCarMovement() {
+        
+        self.setDummyLine(index: setDummyLineIndex)
+        setDummyLineIndex += 1
+        
+        if setDummyLineIndex == aryDummyLineData.count {
+            setDummyLineIndex = 0
+            self.setDummyLine(index: setDummyLineIndex)
+        }
+       
     }
     
     func currentLocationAction() {
@@ -635,7 +662,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         
         self.btnDoneForLocationSelected.isHidden = true
-     
     }
     
     var strLocationType = String()
@@ -644,7 +670,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         
         if Connectivity.isConnectedToInternet() {
-            
             
             if MarkerCurrntLocation.isHidden == false {
                 
@@ -801,7 +826,32 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if markerType == currentLocationMarkerText {
             let url = NSURL(string: "\(baseUrlForGetAddress)latlng=\(latitude),\(longitude)&key=\(apikey)")
+            
+            let autoCompleteHTTPs = NSURL(string: "\(baseUrlForAutocompleteAddress)input=35&location=\(latitude),\(longitude)&radius=1000&sensor=true&key=\(apikey)&components=&language=en")
+            print("autoCompleteHTTPs Link is : \(autoCompleteHTTPs)")
+            
             print("Link is : \(url)")
+            
+//            do {
+//                let data = NSData(contentsOf: autoCompleteHTTPs as! URL)
+//                if data != nil {
+//                    if let json = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.allowFragments) as? NSDictionary {
+//                        if let result = json["predictions"] as? [[String:AnyObject]] {
+//                            if result != nil {
+//                                if result.count > 0 {
+//                                    if result.first != nil && result.first?.count != 0 {
+//                                        self.txtCurrentLocation.text = result.first?["description"] as? String
+//                                        self.strPickupLocation = result.first!["description"] as! String
+//                                        self.btnDoneForLocationSelected.isHidden = false
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+            
+
             do {
                 let data = NSData(contentsOf: url! as URL)
                 let json = try! JSONSerialization.jsonObject(with: data! as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
@@ -819,32 +869,31 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                 for i in 0..<address.count {
                                     
                                     if i == 0 {
-                                        if let number = address[i]["short_name"] as? String {
+                                        if let number = address[i]["long_name"] as? String {
                                             streetNumber = number
                                         }
                                     }
                                     else if i == 1 {
-                                        if let street = address[i]["short_name"] as? String {
+                                        if let street = address[i]["long_name"] as? String {
                                             streetStreet = street
                                         }
                                     }
                                     else if i == 2 {
-                                        if let city = address[i]["short_name"] as? String {
+                                        if let city = address[i]["long_name"] as? String {
                                             streetCity = city
                                         }
                                     }
                                     else if i == 3 {
-                                        if let state = address[i]["short_name"] as? String {
+                                        if let state = address[i]["long_name"] as? String {
                                             streetState = state
                                         }
                                     }
                                     else if i == 4 {
-                                        if let city = address[i]["short_name"] as? String {
+                                        if let city = address[i]["long_name"] as? String {
                                             streetCity = city
                                         }
                                     }
                                 }
-                                
                                 
                                 //                    let zip = address[6]["short_name"] as? String
                                 print("\n\(streetNumber) \(streetStreet), \(streetCity), \(streetState)")
@@ -865,6 +914,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         else if markerType == destinationLocationMarkerText {
             let url = NSURL(string: "\(baseUrlForGetAddress)latlng=\(latitude),\(longitude)&key=\(apikey)")
+            
             print("Link is : \(url)")
             do {
                 let data = NSData(contentsOf: url! as URL)
@@ -884,27 +934,27 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                 for i in 0..<address.count {
                                     
                                     if i == 0 {
-                                        if let number = address[i]["short_name"] as? String {
+                                        if let number = address[i]["long_name"] as? String {
                                             streetNumber = number
                                         }
                                     }
                                     else if i == 1 {
-                                        if let street = address[i]["short_name"] as? String {
+                                        if let street = address[i]["long_name"] as? String {
                                             streetStreet = street
                                         }
                                     }
                                     else if i == 2 {
-                                        if let city = address[i]["short_name"] as? String {
+                                        if let city = address[i]["long_name"] as? String {
                                             streetCity = city
                                         }
                                     }
                                     else if i == 3 {
-                                        if let state = address[i]["short_name"] as? String {
+                                        if let state = address[i]["long_name"] as? String {
                                             streetState = state
                                         }
                                     }
                                     else if i == 4 {
-                                        if let city = address[i]["short_name"] as? String {
+                                        if let city = address[i]["long_name"] as? String {
                                             streetCity = city
                                         }
                                     }
@@ -1119,7 +1169,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         dictParam["Notes"] = "" as AnyObject
         
         webserviceForMissBookingRequest(dictParam as AnyObject) { (result, status) in
-            
             
         }
     }
@@ -1722,8 +1771,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         param["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
         param["Type"] = type as AnyObject
         param["Address"] = txtDestinationLocation.text as AnyObject
-        param["Lat"] = SingletonClass.sharedInstance.currentLatitude as AnyObject
-        param["Lng"] = SingletonClass.sharedInstance.currentLongitude as AnyObject
+        param["Lat"] = doubleDropOffLat as AnyObject  // SingletonClass.sharedInstance.currentLatitude as AnyObject
+        param["Lng"] = doubleDropOffLng as AnyObject  // SingletonClass.sharedInstance.currentLongitude as AnyObject
         
         webserviceForAddAddress(param as AnyObject) { (result, status) in
             
@@ -1866,7 +1915,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBAction func btnCollectionViewScrollRight(_ sender: Any) {
         if (arrTotalNumberOfCars.count <= 5) {
             
-            self.collectionViewCars.scrollToItem(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .right, animated: true)
+//            self.collectionViewCars.scrollToItem(at: NSIndexPath(row: 0, section: 0) as IndexPath, at: .right, animated: true)
         }
         else {
             
@@ -2449,12 +2498,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
                 var lati = dictOnlineCarData.object(forKey: "Lat") as! Double
                 var longi = dictOnlineCarData.object(forKey: "Lng") as! Double
-                
-                let camera = GMSCameraPosition.camera(withLatitude: lati,
-                                                      longitude: longi,
-                                                      zoom: 17.5)
-                
-                self.mapView.camera = camera
+//
+//                let camera = GMSCameraPosition.camera(withLatitude: lati,
+//                                                      longitude: longi,
+//                                                      zoom: 17.5)
+//
+//                self.mapView.camera = camera
                 
                 let locationsArray = (dictOnlineCarData.object(forKey: "locations") as! [[String:AnyObject]])
                 
@@ -2474,8 +2523,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         self.aryMarkerOnlineCars.append(self.markerOnlineCars)
                         
                         //                        self.markerOnlineCars.map = nil
-                        
                         //                    self.markerOnlineCars.map = self.mapView
+                      
+                    }
+                }
+                
+                // Show Nearest Driver from Passenger
+                if self.aryMarkerOnlineCars.count != 0 {
+                    if self.aryMarkerOnlineCars.first != nil {
+                        if let nearestDriver = self.aryMarkerOnlineCars.first {
+                            
+                            let camera = GMSCameraPosition.camera(withLatitude: nearestDriver.position.latitude, longitude: nearestDriver.position.longitude, zoom: 17.5)
+                            self.mapView.camera = camera
+                        }
                     }
                 }
                 
@@ -2968,7 +3028,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @objc func updateCounting(){
         let myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID, "Lat": doublePickupLat, "Long": doublePickupLng, "Token" : SingletonClass.sharedInstance.deviceToken, "ShareRide": SingletonClass.sharedInstance.isShareRide] as [String : Any]
         socket.emit(SocketData.kUpdatePassengerLatLong , with: [myJSON])
-
+        
     }
     
     func methodsAfterConnectingToSocket()
@@ -3128,6 +3188,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let originalLoc: String = "\(PickupLat),\(PickupLng)"
         let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
         
+        strPickUpLatitude = PickupLat
+        strPickUpLongitude = DropOffLon
         
         let camera = GMSCameraPosition.camera(withLatitude: Double(DropOffLat)!,
                                               longitude: Double(DropOffLon)!,
@@ -3137,6 +3199,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.getDirectionsAcceptRequest(origin: originalLoc, destination: destiantionLoc, waypoints: ["\(waypointLatitude),\(waypointSetLongitude)"], travelMode: nil) { (index, title) in
         }
+        
+        updatePolyLineToMapFromDriverLocation()
         
         NotificationCenter.default.post(name: NotificationForAddNewBooingOnSideMenu, object: nil)
         
@@ -3888,8 +3952,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 //New bearing value from backend after car movement is done
             })
             
-            self.driverMarker.position = newCordinate
-            self.driverMarker.map = self.mapView
+             UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
+                self.driverMarker.position = newCordinate
+                self.driverMarker.map = self.mapView
+                
+                self.updatePolyLineToMapFromDriverLocation()
+             })
+            
             CATransaction.commit()
             // ----------------------------------------------------------------------
             
@@ -3909,8 +3978,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if timerToGetDriverLocation == nil {
             timerToGetDriverLocation = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(HomeViewController.getDriverLocation), userInfo: nil, repeats: true)
         }
-        
-        
         
     }
     
@@ -4163,10 +4230,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.mapView.camera = camera
             mapView.animate(to: camera)
             
-            if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
-                postPickupAndDropLocationForEstimateFare()
-            }
-            
+        }
+        
+        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
+            postPickupAndDropLocationForEstimateFare()
         }
         
         dismiss(animated: true, completion: nil)
@@ -4275,6 +4342,109 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     //-------------------------------------------------------------
+    // MARK: - Custom Methods
+    //-------------------------------------------------------------
+    
+    
+    let aryDummyLineData = [[23.073178, 72.514223], [23.073104, 72.514438], [23.073045, 72.514604], [23.073052, 72.514700], [23.072985, 72.514826],
+                            [23.073000, 72.514885], [23.072985, 72.514944], [23.072931, 72.514949], [23.072896, 72.514960], [23.072875, 72.514959],
+                            [23.072791, 72.514941], [23.072722, 72.514920], [23.072554, 72.514807], [23.072416, 72.514716], [23.071898, 72.514432],
+                            [23.071641, 72.514282], [23.071365, 72.514110], [23.071329, 72.514090], [23.071299, 72.514085], [23.071262, 72.514176],
+                            [23.071195, 72.514350], [23.071121, 72.514508]]
+    
+    var dummyOriginCordinate = CLLocationCoordinate2D()
+    var dummyDestinationCordinate = CLLocationCoordinate2D()
+    
+    var dummyOriginCordinateMarker: GMSMarker!
+    var dummyDestinationCordinateMarker: GMSMarker!
+    
+    func getDummyDataLinedata() {
+        
+        for index in 0..<aryDummyLineData.count {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.setDummyLine(index: index)
+            }
+        }
+    }
+    
+    func setDummyLine(index: Int) {
+
+        let dt = aryDummyLineData[index]
+        
+        let PickupLat = "\(dt[0])"
+        let PickupLng = "\(dt[1])"
+       
+        let DropOffLat = "\(aryDummyLineData.last![0])"
+        let DropOffLon = "\(aryDummyLineData.last![1])"
+        
+        
+        let dummyLatitude = Double(PickupLat)! - Double(DropOffLat)!
+        let dummyLongitude = Double(PickupLng)! - Double(DropOffLon)!
+        
+        let waypointLatitude = Double(PickupLat)! - dummyLatitude
+        let waypointSetLongitude = Double(PickupLng)! - dummyLongitude
+        
+        let originalLoc: String = "\(PickupLat),\(PickupLng)"
+        let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
+
+//        changePolyLine(origin: originalLoc, destination: destiantionLoc, waypoints: ["\(waypointLatitude),\(waypointSetLongitude)"], travelMode: nil, completionHandler: nil)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.getDirectionsChangedPolyLine(origin: originalLoc, destination: destiantionLoc, waypoints: ["\(waypointLatitude),\(waypointSetLongitude)"], travelMode: nil, completionHandler: nil)
+        }
+    }
+   
+    func updatePolyLineToMapFromDriverLocation() {
+        
+        var DoubleLat = Double()
+        var DoubleLng = Double()
+        
+        if !SingletonClass.sharedInstance.driverLocation.isEmpty {
+        
+            if let lat = SingletonClass.sharedInstance.driverLocation["Location"]! as? [Double] {
+                DoubleLat = lat[0]
+                DoubleLng = lat[1]
+            }
+            else if let lat = SingletonClass.sharedInstance.driverLocation["Location"]! as? [String] {
+                DoubleLat = Double(lat[0])!
+                DoubleLng = Double(lat[1])!
+            }
+        
+//            DoubleLat = defaultLocation.coordinate.latitude
+//            DoubleLng = defaultLocation.coordinate.longitude
+        
+            if strPickUpLatitude != "" {
+        
+                let PickupLat = "\(DoubleLat)" // strPickUpLatitude // "\(DoubleLat)" // "\(pickUpLat)"
+                let PickupLng = "\(DoubleLng)" // strPickUpLongitude // "\(DoubleLng)"  // pickupLng
+                
+                //        let DropOffLat = driverInfo.object(forKey: "PickupLat") as! String
+                //        let DropOffLon = driverInfo.object(forKey: "PickupLng") as! String
+                
+                let DropOffLat = strPickUpLatitude // "23.008183" // strPickUpLatitude // "\(DoubleLat)" // dropOffLat
+                let DropOffLon = strPickUpLongitude // "72.513819" // strPickUpLongitude // "\(DoubleLng)" // dropOfLng
+                
+                let dummyLatitude = Double(PickupLat)! - Double(DropOffLat)! // 23.008183, 72.513819
+                let dummyLongitude = Double(PickupLng)! - Double(DropOffLon)!
+                
+                let waypointLatitude = Double(PickupLat)! - dummyLatitude
+                let waypointSetLongitude = Double(PickupLng)! - dummyLongitude
+                
+                let originalLoc: String = "\(PickupLat),\(PickupLng)"
+                let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
+        
+        
+                DispatchQueue.global(qos: .background).async {
+                    self.getDirectionsChangedPolyLine(origin: originalLoc, destination: destiantionLoc, waypoints: ["\(waypointLatitude),\(waypointSetLongitude)"], travelMode: nil, completionHandler: nil)
+                }
+
+        
+            }
+        }
+//
+    }
+    
+    //-------------------------------------------------------------
     // MARK: - Map Draw Line
     //-------------------------------------------------------------
     
@@ -4299,7 +4469,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         let originalLoc: String = "\(PickupLat),\(PickupLng)"
         let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
-        
         
         self.getDirectionsSeconMethod(origin: originalLoc, destination: destiantionLoc, waypoints: ["\(waypointLatitude),\(waypointSetLongitude)"], travelMode: nil, completionHandler: nil)
         
@@ -4509,6 +4678,170 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    var demoPolyline = GMSPolyline()
+//    var demoPolylineOLD = GMSPolyline()
+    
+    func getDirectionsChangedPolyLine(origin: String!, destination: String!, waypoints: Array<String>!, travelMode: AnyObject!, completionHandler: ((_ status:   String, _ success: Bool) -> Void)?)
+    {
+        
+//        clearMap()
+        
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+            if let originLocation = origin {
+                if let destinationLocation = destination {
+                    var directionsURLString = self.baseURLDirections + "origin=" + originLocation + "&destination=" + destinationLocation
+                    if let routeWaypoints = waypoints {
+                        directionsURLString += "&waypoints=optimize:true"
+                        
+                        for waypoint in routeWaypoints {
+                            directionsURLString += "|" + waypoint
+                        }
+                    }
+                    
+                    directionsURLString = directionsURLString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+                    
+                    let directionsURL = NSURL(string: directionsURLString)
+                    DispatchQueue.main.async( execute: { () -> Void in
+                        let directionsData = NSData(contentsOf: directionsURL! as URL)
+                        do{
+                            let dictionary: Dictionary<String, AnyObject> = try JSONSerialization.jsonObject(with: directionsData! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
+                            
+                            let status = dictionary["status"] as! String
+                            if status == "OK" {
+                                
+                                self.selectedRoute = (dictionary["routes"] as! Array<Dictionary<String, AnyObject>>)[0]
+                                self.overviewPolyline = self.selectedRoute["overview_polyline"] as! Dictionary<String, AnyObject>
+                                
+                                let legs = self.selectedRoute["legs"] as! Array<Dictionary<String, AnyObject>>
+                                let startLocationDictionary = legs[0]["start_location"] as! Dictionary<String, AnyObject>
+                                self.originCoordinate = CLLocationCoordinate2DMake(startLocationDictionary["lat"] as! Double, startLocationDictionary["lng"] as! Double)
+                                let endLocationDictionary = legs[legs.count - 1]["end_location"] as! Dictionary<String, AnyObject>
+                                self.destinationCoordinate = CLLocationCoordinate2DMake(endLocationDictionary["lat"] as! Double, endLocationDictionary["lng"] as! Double)
+                                self.locationManager.startUpdatingLocation()
+                                
+                                let route = self.overviewPolyline["points"] as! String
+                                let path: GMSPath = GMSPath(fromEncodedPath: route)!
+                                
+                                
+                                
+//                                self.dummyOriginCordinateMarker = self.dummyDestinationCordinateMarker
+//
+//                                self.dummyDestinationCordinateMarker = nil
+                                
+//                                if self.dummyDestinationCordinateMarker == nil {
+//                                    self.dummyDestinationCordinateMarker = GMSMarker(position: self.originCoordinate)
+//                                }
+//
+//                                self.dummyDestinationCordinateMarker.map = self.mapView
+//                                self.dummyDestinationCordinateMarker.icon = GMSMarker.markerImage(with: UIColor.green)
+//                                self.dummyOriginCordinateMarker = self.dummyDestinationCordinateMarker
+//
+//                                self.dummyDestinationCordinateMarker.map = nil
+//                                self.dummyDestinationCordinateMarker.map = self.mapView
+////
+//
+//
+//                                UIView.animate(withDuration: 5, delay: 0, options: .curveLinear, animations: {
+//
+//                                    if self.dummyOriginCordinateMarker == nil {
+//                                        self.dummyOriginCordinateMarker = GMSMarker(position: self.originCoordinate)
+//                                        self.dummyOriginCordinateMarker.map = self.mapView
+//                                        self.dummyOriginCordinateMarker.icon = GMSMarker.markerImage(with: UIColor.green)
+////                                        self.dummyDestinationCordinateMarker = self.dummyOriginCordinateMarker
+////
+////                                    self.dummyOriginCordinateMarker.map = nil
+////                                    self.dummyOriginCordinateMarker.map = self.mapView
+//
+//                                    }
+//                                }, completion: nil)
+//
+//
+                                
+//                                    self.demoPolylineOLD = self.demoPolyline
+//                                    self.demoPolylineOLD.strokeColor = themeYellowColor
+//                                    self.demoPolylineOLD.strokeWidth = 3.0
+//                                    self.demoPolylineOLD.map = self.mapView
+//                                    self.demoPolyline.map = nil
+//
+//
+//                                self.demoPolyline = GMSPolyline(path: path)
+//                                self.demoPolyline.map = self.mapView
+//                                self.demoPolyline.strokeColor = themeYellowColor
+//                                self.demoPolyline.strokeWidth = 3.0
+//                                self.demoPolylineOLD.map = nil
+                                
+//                                if self.driverMarker == nil {
+//
+//                                    self.driverMarker = GMSMarker(position: self.defaultLocation.coordinate) // self.originCoordinate
+//                                    self.driverMarker.map = self.mapView
+//                                    self.driverMarker.icon = UIImage(named: "dummyCar")
+//
+//                                }
+                                
+                                DispatchQueue.main.async {
+                                    
+                                    self.demoPolylineOLD = self.demoPolyline
+                                    self.demoPolylineOLD.strokeColor = themeYellowColor
+                                    self.demoPolylineOLD.strokeWidth = 3.0
+                                    self.demoPolylineOLD.map = self.mapView
+                                    self.demoPolyline.map = nil
+                                    
+                                    self.demoPolyline = GMSPolyline(path: path)
+                                    self.demoPolyline.map = self.mapView
+                                    self.demoPolyline.strokeColor = themeYellowColor
+                                    self.demoPolyline.strokeWidth = 3.0
+                                    self.demoPolylineOLD.map = nil
+                                    
+                                }
+                                
+                                
+                                
+//                                if GMSGeometryIsLocationOnPath(self.destinationCoordinate, path, true) {
+//                                    print("GMSGeometryIsLocationOnPath")
+//                                } else {
+//                                    print("Else")
+//                                }
+                                
+                              
+//                                UIView.animate(withDuration: 3.0, delay: 0, options: .curveLinear, animations: {
+//                                    self.demoPolyline = GMSPolyline(path: path)
+//                                    self.demoPolyline.map = self.mapView
+//                                    self.demoPolyline.strokeColor = themeYellowColor
+//                                    self.demoPolyline.strokeWidth = 3.0
+//                                    self.demoPolylineOLD.map = nil
+//                                }, completion: { (status) in
+//
+//                                })
+                                
+                                    
+                                    print("Line Drawn")
+                                
+                                
+                                UtilityClass.hideACProgressHUD()
+                            } else {
+                                UtilityClass.hideACProgressHUD()
+                                self.getDirectionsChangedPolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: travelMode, completionHandler: completionHandler)
+                            }
+                        } catch {
+                            UtilityClass.hideACProgressHUD()
+                            self.getDirectionsChangedPolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: travelMode, completionHandler: completionHandler)
+                        }
+                    })
+                } else {
+                    UtilityClass.hideACProgressHUD()
+                    self.getDirectionsChangedPolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: travelMode, completionHandler: completionHandler)
+                }
+            } else {
+                UtilityClass.hideACProgressHUD()
+                self.getDirectionsChangedPolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: travelMode, completionHandler: completionHandler)
+            }
+        }
+    }
+    
+    
     
     func changePolyLine(origin: String!, destination: String!, waypoints: Array<String>!, travelMode: AnyObject!, completionHandler: ((_ status:   String, _ success: Bool) -> Void)?)
     {
@@ -4535,25 +4868,80 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         let status = dictionary["status"] as! String
                         
                         if status == "OK" {
+                          
+                            self.locationManager.startUpdatingLocation()
+                            
                             self.selectedRoute = (dictionary["routes"] as! Array<Dictionary<String, AnyObject>>)[0]
                             self.overviewPolyline = self.selectedRoute["overview_polyline"] as! Dictionary<String, AnyObject>
                             
+                            let legs = self.selectedRoute["legs"] as! Array<Dictionary<String, AnyObject>>
+                            
+                            let startLocationDictionary = legs[0]["start_location"] as! Dictionary<String, AnyObject>
+                            self.dummyOriginCordinate = CLLocationCoordinate2DMake(startLocationDictionary["lat"] as! Double, startLocationDictionary["lng"] as! Double)
+                            
+                            let endLocationDictionary = legs[legs.count - 1]["end_location"] as! Dictionary<String, AnyObject>
+                            self.dummyDestinationCordinate = CLLocationCoordinate2DMake(endLocationDictionary["lat"] as! Double, endLocationDictionary["lng"] as! Double)
+                            
                             self.locationManager.startUpdatingLocation()
                             
+                             if self.dummyOriginCordinateMarker == nil {
+                                self.dummyOriginCordinateMarker = GMSMarker(position: self.dummyOriginCordinate)// self.destinationCoordinate  // self.destinationCoordinate
+                                self.dummyOriginCordinateMarker.map = self.mapView
+                                self.dummyOriginCordinateMarker.icon = GMSMarker.markerImage(with: UIColor.green)
+                                //                            destinationMarker.title = destinationAddres
+                                
+//                                let route = self.overviewPolyline["points"] as! String
+//                                let path: GMSPath = GMSPath(fromEncodedPath: route)!
+//                                self.routePolyline = GMSPolyline(path: path)
+//                                self.routePolyline.map = self.mapView
+//                                self.routePolyline.strokeColor = UIColor.blue // themeYellowColor
+//                                self.routePolyline.strokeWidth = 3.0
+//                                self.demoPolylineOLD.map = nil
+                            }
                             
-                            self.demoPolylineOLD = self.routePolyline
-                            self.demoPolylineOLD.strokeColor = UIColor.blue
-                            self.demoPolylineOLD.strokeWidth = 3.0
-                            self.demoPolylineOLD.map = self.mapView
-                            self.routePolyline.map = nil
+                            if self.dummyDestinationCordinateMarker == nil {
+                                self.dummyDestinationCordinateMarker = GMSMarker(position: self.dummyDestinationCordinate)// self.destinationCoordinate  // self.destinationCoordinate
+                                self.dummyDestinationCordinateMarker.map = self.mapView
+                                self.dummyDestinationCordinateMarker.icon = GMSMarker.markerImage(with: UIColor.blue)
+                            }
+                          
+//                            if self.routePolyline.map == nil {
+//                                self.demoPolylineOLD = self.routePolyline
+//                                self.demoPolylineOLD.map = self.mapView
+//                                self.demoPolylineOLD.strokeColor = themeYellowColor
+//                                self.demoPolylineOLD.strokeWidth = 5.0
+//                               self.routePolyline.map = nil
+
+                            
+ 
+//                                let route = self.overviewPolyline["points"] as! String
+//                                let path: GMSPath = GMSPath(fromEncodedPath: route)!
+//                                self.routePolyline = GMSPolyline(path: path)
+//                                self.routePolyline.map = self.mapView
+//                                self.routePolyline.strokeColor = UIColor.blue // themeYellowColor
+//                                self.routePolyline.strokeWidth = 3.0
+//                                self.demoPolylineOLD.map = nil
+
+
+                            // ----------------------------------------------------------------------
+//                            self.demoPolylineOLD = self.routePolyline
+//                            self.demoPolylineOLD.map = self.mapView
+//
+//                            self.demoPolylineOLD.strokeColor = UIColor.green
+//                            self.demoPolylineOLD.strokeWidth = 3.0
+//                            self.routePolyline.map = nil
                             
                             let route = self.overviewPolyline["points"] as! String
                             let path: GMSPath = GMSPath(fromEncodedPath: route)!
+                            
                             self.routePolyline = GMSPolyline(path: path)
                             self.routePolyline.map = self.mapView
-                            self.routePolyline.strokeColor = themeYellowColor
+                            self.routePolyline.strokeColor = UIColor.blue
                             self.routePolyline.strokeWidth = 3.0
                             self.demoPolylineOLD.map = nil
+                            // ----------------------------------------------------------------------
+                            
+                            
                             print("Line Drawn")
                             
                         }
@@ -4571,6 +4959,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         UtilityClass.hideACProgressHUD()
                         
                         UtilityClass.setCustomAlert(title: "\(appName)", message: "Not able to get location data, please restart app") { (index, title) in
+                            self.changePolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: nil, completionHandler: nil)
                         }
                         // completionHandler(status: "", success: false)
                     }
@@ -4582,6 +4971,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 UtilityClass.hideACProgressHUD()
                 
                 UtilityClass.setCustomAlert(title: "\(appName)", message: "Not able to get location Destination, please restart app") { (index, title) in
+                    self.changePolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: nil, completionHandler: nil)
                 }
                 //completionHandler(status: "Destination is nil.", success: false)
             }
@@ -4592,6 +4982,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             UtilityClass.hideACProgressHUD()
             
             UtilityClass.setCustomAlert(title: "\(appName)", message: "Not able to get location Origin, please restart app") { (index, title) in
+                self.changePolyLine(origin: origin, destination: destination, waypoints: waypoints, travelMode: nil, completionHandler: nil)
             }
             //completionHandler(status: "Origin is nil", success: false)
         }
@@ -4719,25 +5110,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                     }
                                     
                                     aryDistance.append(distance)
-                                    
                                 }
                                 
                                 if finalDistance == 0 {
-                                    
                                 }
-                                else
-                                {
+                                else {
                                     self.sumOfFinalDistance = finalDistance
-                                    
-                                    
                                 }
                                 
-                                let route = self.overviewPolyline["points"] as! String
-                                let path: GMSPath = GMSPath(fromEncodedPath: route)!
-                                let routePolyline = GMSPolyline(path: path)
-                                routePolyline.map = self.mapView
-                                routePolyline.strokeColor = themeYellowColor
-                                routePolyline.strokeWidth = 3.0
+//                                let route = self.overviewPolyline["points"] as! String
+//                                let path: GMSPath = GMSPath(fromEncodedPath: route)!
+//                                let routePolyline = GMSPolyline(path: path)
+//                                routePolyline.map = self.mapView
+//                                routePolyline.strokeColor = themeYellowColor
+//                                routePolyline.strokeWidth = 3.0
                                 
                                 UtilityClass.hideACProgressHUD()
                                 
@@ -5361,6 +5747,8 @@ extension HomeViewController: CLLocationManagerDelegate {
             else {
             }
         })
+        
+//        updatePolyLineToMapFromDriverLocation()
         
     }
     

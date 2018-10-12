@@ -15,6 +15,7 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
     var aryData = NSArray()
     var urlForMail = String()
     var counts = Int()
+    var messages = String()
     
     var expandedCellPaths = Set<IndexPath>()
     
@@ -165,44 +166,55 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
         let emailTitle = ""
         let messageBody = urlForMail
         let toRecipents = [""]
-        let mc: MFMailComposeViewController = MFMailComposeViewController()
-        mc.mailComposeDelegate = self
-        mc.setSubject(emailTitle)
-        mc.setMessageBody(messageBody, isHTML: false)
-        mc.setToRecipients(toRecipents)
+    
         
-        self.present(mc, animated: true, completion: nil)
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(toRecipents)
+            mail.setMessageBody(messageBody, isHTML: true)
+            
+            present(mail, animated: true)
+        } else {
+            UtilityClass.setCustomAlert(title: "Missing", message: "Please login into setting with emaild id") { (index, title) in
+            }
+        }
+        
+       
     }
     
     func mailComposeController(_ controller:MFMailComposeViewController, didFinishWith result:MFMailComposeResult, error:Error?) {
         switch result {
         case MFMailComposeResult.cancelled:
             print("Mail cancelled")
-
-            UtilityClass.setCustomAlert(title: "Error", message: "Mail cancelled") { (index, title) in
-            }
+            messages = "Mail cancelled"
+//            UtilityClass.setCustomAlert(title: "Error", message: "Mail cancelled") { (index, title) in
+//            }
         case MFMailComposeResult.saved:
             print("Mail saved")
-
-            UtilityClass.setCustomAlert(title: "Done", message: "Mail saved") { (index, title) in
-            }
+            messages = "Mail saved"
+//            UtilityClass.setCustomAlert(title: "Done", message: "Mail saved") { (index, title) in
+//            }
         case MFMailComposeResult.sent:
             print("Mail sent")
-
-            UtilityClass.setCustomAlert(title: "Done", message: "Mail sent") { (index, title) in
-            }
+            messages = "Mail sent"
+//            UtilityClass.setCustomAlert(title: "Done", message: "Mail sent") { (index, title) in
+//            }
         case MFMailComposeResult.failed:
             print("Mail sent failure: \(String(describing: error?.localizedDescription))")
-
-            UtilityClass.setCustomAlert(title: "Error", message: "Mail sent failure: \(String(describing: error?.localizedDescription))") { (index, title) in
-            }
+            messages = "Mail sent failure: \(String(describing: error?.localizedDescription))"
+//            UtilityClass.setCustomAlert(title: "Error", message: "Mail sent failure: \(String(describing: error?.localizedDescription))") { (index, title) in
+//      }
         default:
-        
-            UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
-            }
+            messages = "Something went wrong"
+//            UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
+//            }
             break
         }
-        self.dismiss(animated: true, completion: nil)
+        
+        controller.dismiss(animated: true) {
+            self.mailAlert(strMsg: self.messages)
+        }
     }
 
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
@@ -226,20 +238,21 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
         //            UtilityClass.showAlert("", message: "Mail sent failure: \(String(describing: error?.localizedDescription))", vc: self)
         default:
 //            UtilityClass.showAlert("", message: "Something went wrong", vc: self)
-            UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
-            }
+//            UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
+//            }
+            messages = "Something went wrong"
 //            
             break
         }
-        self.dismiss(animated: true) {
+        controller.dismiss(animated: true) {
             self.mailAlert(strMsg: self.messages)
         }
     }
     
-    var messages = String()
+    
     func mailAlert(strMsg: String) {
         
-        UtilityClass.setCustomAlert(title: "Error", message: strMsg) { (index, title) in
+        UtilityClass.setCustomAlert(title: appName, message: strMsg) { (index, title) in
         }
     }
     //-------------------------------------------------------------

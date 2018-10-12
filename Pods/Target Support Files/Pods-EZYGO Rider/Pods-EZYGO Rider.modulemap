@@ -1,0 +1,6 @@
+framework module Pods_EZYGO_Rider {
+  umbrella header "Pods-EZYGO Rider-umbrella.h"
+
+  export *
+  module * { export * }
+}

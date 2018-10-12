@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate { 
 
     
     var aryData = NSArray()
@@ -18,6 +18,7 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
     
     var strDropoffLat = String()
     var strDropoffLng = String()
+    let notAvailable: String = "N/A"
     
     var bookinType = String()
     
@@ -86,8 +87,18 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: "UpCommingTableViewCell") as! UpCommingTableViewCell
         
         if aryData.count > 0 {
-
-cell.selectionStyle = .none
+            
+            
+            let currentData = (aryData.object(at: indexPath.row) as! [String:AnyObject])
+            
+            cell.selectionStyle = .none
+            
+            let myString = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DriverName") as? String
+            let myAttribute = [ NSAttributedStringKey.foregroundColor: UIColor.black, .underlineStyle: NSUnderlineStyle.styleSingle.rawValue] as [NSAttributedStringKey : Any]
+            let myAttrString = NSAttributedString(string: myString!, attributes: myAttribute)
+            cell.lblDriverName.attributedText = myAttrString
+            
+            
             cell.lblPickupAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String // PickupLocation
             cell.lblDropoffAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String //  DropoffLocation
             var time = ((aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "CreatedDate") as? String)
@@ -103,6 +114,11 @@ cell.selectionStyle = .none
                 cell.btnCancelRequest.tag = bookingID
             }
             
+            cell.lblPickupTime.text = checkDictionaryHaveValue(dictData: currentData, didHaveValue: "PickupTime", isNotHave: notAvailable)
+            cell.lblDistanceTravelled.text = checkDictionaryHaveValue(dictData: currentData, didHaveValue: "TripDistance", isNotHave: notAvailable)
+            
+            cell.lblBookingId.text = "Booking Id: \(checkDictionaryHaveValue(dictData: currentData, didHaveValue: "Id", isNotHave: notAvailable))"
+            
             bookinType = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingType") as! String
             cell.btnCancelRequest.addTarget(self, action: #selector(self.CancelRequest), for: .touchUpInside)
             
@@ -114,8 +130,6 @@ cell.selectionStyle = .none
         
         return cell
     }
-    
-  
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
      
@@ -132,11 +146,9 @@ cell.selectionStyle = .none
         }
     }
     
-    
     @objc func CancelRequest(sender: UIButton) {
         
         let bookingID = sender.tag
-        
         
         let socketData = ((self.navigationController?.childViewControllers[1] as! CustomSideMenuViewController).childViewControllers[0].childViewControllers[0] as! HomeViewController).socket
         let showTopView = ((self.navigationController?.childViewControllers[1] as! CustomSideMenuViewController).childViewControllers[0].childViewControllers[0] as! HomeViewController)
@@ -187,8 +199,6 @@ cell.selectionStyle = .none
             }
         }
         
-       
-       
     }
     
     //-------------------------------------------------------------
@@ -211,8 +221,6 @@ cell.selectionStyle = .none
     }
     
     func changeDateAndTimeFormate(dateAndTime: String) -> String {
-        
-       
         
         let time = dateAndTime // "22:02:00"
         
