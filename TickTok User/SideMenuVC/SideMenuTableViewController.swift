@@ -14,14 +14,19 @@ protocol delegateForTiCKPayVerifyStatus {
 }
 
 class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, delegateForTiCKPayVerifyStatus {
-  
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblMobileNumber: UILabel!
+    
+    
     
     var ProfileData = NSDictionary()
     
     var arrMenuIcons = [String]()
     var arrMenuTitle = [String]()
-
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -29,7 +34,7 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        giveGradientColor()
+        //        giveGradientColor()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.SetRating), name: NSNotification.Name(rawValue: "rating"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.setNewBookingOnArray), name: NotificationForAddNewBooingOnSideMenu, object: nil)
@@ -37,7 +42,7 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         if SingletonClass.sharedInstance.bookingId != "" {
             setNewBookingOnArray()
         }
-
+        
         webserviceOfTickPayStatus()
         
         ProfileData = SingletonClass.sharedInstance.dictProfile
@@ -45,17 +50,15 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-
+        self.SetLayout()
         
-        arrMenuIcons = ["iconMyBooking","iconPaymentOption","iconWallet","iconStarOfSideMenu","iconMyreceipts","iconInviteFriends","iconSettings","iconMyBooking","iconPackageHistory","iconLogOut"]
         
-        arrMenuTitle = ["My Booking","Payment Options","Wallet","Favourites","My Receipts","Invite Friends","Settings","Become a \(appName) Driver","Package History","LogOut"]
+        arrMenuIcons = ["iconBecomeDriver","iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver","iconLogOut"]
         
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        arrMenuTitle = ["My Profile","My Trips", "Payment Options", "Wallet", "Promo Credits", "My Receipts/Invoices", "My Ratings", "Favourites", "Invite Friends", "Customer Support", "Settings","Logout"]
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -64,16 +67,16 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        giveGradientColor()
+        //        giveGradientColor()
         
-//        UIApplication.shared.isStatusBarHidden = true
-//        UIApplication.shared.statusBarStyle = .lightContent
+        //        UIApplication.shared.isStatusBarHidden = true
+        //        UIApplication.shared.statusBarStyle = .lightContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//
-//
+        //
+        //
     }
     
     
@@ -111,50 +114,31 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         self.view.layer.insertSublayer(gradientLayer, at: 0)
         
     }
-
+    
     // MARK: - Table view data source
-
-     func numberOfSections(in tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0
-        {
-            return 1
-        }
-        else
-        {
-            return arrMenuIcons.count
-        }
+        return arrMenuIcons.count
     }
-  
     
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-
-        if (indexPath.section == 0)
+        
+        if (indexPath.row == self.arrMenuIcons.count - 1 )
         {
-            let cellHeader = tableView.dequeueReusableCell(withIdentifier: "MainHeaderTableViewCell") as! MainHeaderTableViewCell
-            cellHeader.selectionStyle = .none
+            let LogoutCell = tableView.dequeueReusableCell(withIdentifier: "LogoutTblCell") as! UITableViewCell
             
-            cellHeader.imgProfile.layer.cornerRadius = cellHeader.imgProfile.frame.width / 2
-             cellHeader.imgProfile.layer.borderWidth = 1.0
-             cellHeader.imgProfile.layer.borderColor = UIColor.white.cgColor
-            cellHeader.imgProfile.layer.masksToBounds = true
-            
-            cellHeader.imgProfile.sd_setImage(with: URL(string: ProfileData.object(forKey: "Image") as! String), completed: nil)
-            cellHeader.lblName.text = ProfileData.object(forKey: "Fullname") as? String
-            
-            cellHeader.lblMobileNumber.text = ProfileData.object(forKey: "MobileNo") as? String
-            cellHeader.lblRating.text = SingletonClass.sharedInstance.passengerRating
-
-            return cellHeader
+            return LogoutCell
         }
         else
         {
             let cellMenu = tableView.dequeueReusableCell(withIdentifier: "ContentTableViewCell") as! ContentTableViewCell
-
+            
             cellMenu.imgDetail?.image = UIImage.init(named:  "\(arrMenuIcons[indexPath.row])")
             cellMenu.selectionStyle = .none
             
@@ -165,228 +149,185 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         
         
         // Configure the cell...
-
-//        return cellHeader
+        
+        //        return cellHeader
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.section == 0 {
-            
-//            let next = self.storyboard?.instantiateViewController(withIdentifier: "CommingSoonViewController") as! CommingSoonViewController
-//            self.navigationController?.pushViewController(next, animated: true)
-            
+        if arrMenuTitle[indexPath.row] == "My Profile" {
             let next = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
             self.navigationController?.pushViewController(next, animated: true)
-
         }
-        else if (indexPath.section == 1)
-        {
-//            ["New Booking","My Booking","Payment Options","Wallet","Favourites","My Receipts","Invite Friends","Settings","Become a \(appName) Driver","Package History","LogOut"]
-            if arrMenuTitle[indexPath.row] == "New Booking" {
-                NotificationCenter.default.post(name: NotificationForBookingNewTrip, object: nil)
-                sideMenuController?.toggle()
-                
-            }
-            if arrMenuTitle[indexPath.row] == "My Booking"
-            {
-//                self.performSegue(withIdentifier: "segueMyBooking", sender: self)
-
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "MyBookingViewController") as! MyBookingViewController
-                self.navigationController?.pushViewController(next, animated: true)
-                
-            }
-            
-            if arrMenuTitle[indexPath.row] == "Payment Options" {
-                
-//                if SingletonClass.sharedInstance.setPasscode == "" {
-//                    let viewController = self.storyboard?.instantiateViewController(withIdentifier: "SetPasscodeViewController") as! SetPasscodeViewController
-//                    self.navigationController?.pushViewController(viewController, animated: true)
-//                }
-//                else {
-//
-//                    if (SingletonClass.sharedInstance.passwordFirstTime) {
-//
-                        if SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0 {
-                            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
-                            self.navigationController?.pushViewController(next, animated: true)
-                        }
-                        else {
-                            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletCardsVC") as! WalletCardsVC
-                            self.navigationController?.pushViewController(next, animated: true)
-                        }
-//                    }
-//                    else {
-//                        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPasswordViewController") as! VerifyPasswordViewController
-//                        self.navigationController?.pushViewController(viewController, animated: true)
-//
-//                    }
-//                }
-                
-            }
-            else if arrMenuTitle[indexPath.row] == "Wallet" {
-                
-                if (SingletonClass.sharedInstance.isPasscodeON) {
-                    
-                    if SingletonClass.sharedInstance.setPasscode == "" {
-                        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "SetPasscodeViewController") as! SetPasscodeViewController
-                        viewController.strStatusToNavigate = "Wallet"
-                        self.navigationController?.pushViewController(viewController, animated: true)
-                    }
-                    else {
-                        
-//                        if (SingletonClass.sharedInstance.passwordFirstTime) {
-//
-//                            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletViewController") as! WalletViewController
-//                            self.navigationController?.pushViewController(next, animated: true)
-//
-//                        }
-//                        else {
-                            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPasswordViewController") as! VerifyPasswordViewController
-                            viewController.strStatusToNavigate = "Wallet"
-                            self.navigationController?.pushViewController(viewController, animated: true)
-                            
-//                        }
-                    }
-                }
-                else {
-                    let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletViewController") as! WalletViewController
-                    self.navigationController?.pushViewController(next, animated: true)
-                }
-                
-            }
-            else if arrMenuTitle[indexPath.row] == "Favourites" {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
-                
-//                let homeVC = ((self.navigationController?.childViewControllers[1] as! CustomSideMenuViewController).childViewControllers[0] as! UINavigationController).childViewControllers[0] as! HomeViewController
-                var homeVC : HomeViewController!
-                for controller in self.navigationController!.viewControllers as Array {
-                    if controller.isKind(of: CustomSideMenuViewController.self) {
-                        
-                        homeVC = (controller.childViewControllers[0] as! UINavigationController).childViewControllers[0] as? HomeViewController
-                        self.navigationController!.popToViewController(controller, animated: true)
-                        break
-                    }
-                }
-                
-                next.delegateForFavourite = homeVC.self as? FavouriteLocationDelegate!
-                
-                self.navigationController?.pushViewController(next, animated: true)
-            }
-            else if arrMenuTitle[indexPath.row] == "My Receipts" {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "MyReceiptsViewController") as! MyReceiptsViewController
-                self.navigationController?.pushViewController(next, animated: true)
-            }
-            else if arrMenuTitle[indexPath.row] == "Invite Friends" {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "InviteDriverViewController") as! InviteDriverViewController
-                self.navigationController?.pushViewController(next, animated: true)
-            }
-            else if arrMenuTitle[indexPath.row] == "Settings" {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "SettingPasscodeVC") as! SettingPasscodeVC
-                self.navigationController?.pushViewController(next, animated: true)
-            }
-            else if arrMenuTitle[indexPath.row] == "Become a \(appName) Driver" {
-                UIApplication.shared.openURL(NSURL(string: "https://itunes.apple.com/us/app/pick-n-go-driver/id1320783710?mt=8")! as URL)
-            }
-            else if arrMenuTitle[indexPath.row] == "Package History"
-            {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "PackageHistoryViewController") as! PackageHistoryViewController
-                self.navigationController?.pushViewController(next, animated: true)
-            }
-            
-            
-            if (arrMenuTitle[indexPath.row] == "LogOut")
-            {
-                self.performSegue(withIdentifier: "unwindToContainerVC", sender: self)
-                UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-                
-                UserDefaults.standard.removeObject(forKey: "Passcode")
-                SingletonClass.sharedInstance.setPasscode = ""
-                
-                UserDefaults.standard.removeObject(forKey: "isPasscodeON")
-                SingletonClass.sharedInstance.isPasscodeON = false
-                
-            }
-//            else if (indexPath.row == arrMenuTitle.count - 2)
-//            {
-//                self.performSegue(withIdentifier: "pushToBlank", sender: self)
-//            }
-        }
-
-        
-    }
-    
-    
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section == 0)
-        {
-            return 130
-        }
-        else
-        {
-            return 42
-        }
-    }
-    
-    func didRegisterCompleted() {
-        
-        webserviceOfTickPayStatus()
-    }
-    
-    //-------------------------------------------------------------
-    // MARK: - Custom Methods
-    //-------------------------------------------------------------
-    
-    func navigateToTiCKPay() {
-//        webserviceOfTickPayStatus()
-        
-        if self.varifyKey == 0 {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "TickPayRegistrationViewController") as! TickPayRegistrationViewController
-            next.delegateForVerifyStatus = self
+        else if arrMenuTitle[indexPath.row] == "My Trips" {
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "MyBookingViewController") as! MyBookingViewController
             self.navigationController?.pushViewController(next, animated: true)
         }
-            
-        else if self.varifyKey == 1 {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "TiCKPayNeedToVarifyViewController") as! TiCKPayNeedToVarifyViewController
-            self.navigationController?.pushViewController(next, animated: true)
-        }
-            
-        else if self.varifyKey == 2 {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "PayViewController") as! PayViewController
-            self.navigationController?.pushViewController(next, animated: true)
-        }
-    }
-    
-    
-    
-    //-------------------------------------------------------------
-    // MARK: - Webservice Methods
-    //-------------------------------------------------------------
-    
-    var varifyKey = Int()
-    func webserviceOfTickPayStatus() {
-        
-        webserviceForTickpayApprovalStatus(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
-            
-            if (status) {
-                print(result)
-                
-                if let id = (result as! [String:AnyObject])["Verify"] as? String {
-                    
-//                    SingletonClass.sharedInstance.TiCKPayVarifyKey = Int(id)!
-                    self.varifyKey = Int(id)!
-                }
-                else if let id = (result as! [String:AnyObject])["Verify"] as? Int {
-                    
-//                    SingletonClass.sharedInstance.TiCKPayVarifyKey = id
-                    self.varifyKey = id
-                }
-
+        else if arrMenuTitle[indexPath.row] == "Payment Options" {
+            if SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0 {
+                let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
+                self.navigationController?.pushViewController(next, animated: true)
             }
             else {
-                print(result)
+                let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletCardsVC") as! WalletCardsVC
+                self.navigationController?.pushViewController(next, animated: true)
             }
         }
+        else if arrMenuTitle[indexPath.row] == "Wallet" {
+            
+            if (SingletonClass.sharedInstance.isPasscodeON) {
+                
+                if SingletonClass.sharedInstance.setPasscode == "" {
+                    let viewController = self.storyboard?.instantiateViewController(withIdentifier: "SetPasscodeViewController") as! SetPasscodeViewController
+                    viewController.strStatusToNavigate = "Wallet"
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+                else {
+                    let viewController = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPasswordViewController") as! VerifyPasswordViewController
+                    viewController.strStatusToNavigate = "Wallet"
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            }
+            else {
+                let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletViewController") as! WalletViewController
+                self.navigationController?.pushViewController(next, animated: true)
+            }
+        }
+        else if arrMenuTitle[indexPath.row] == "Promo Credits" {
+            
+            
+        }
+        else if arrMenuTitle[indexPath.row] == "My Receipts/Invoices" {
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "MyReceiptsViewController") as! MyReceiptsViewController
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+        else if arrMenuTitle[indexPath.row] == "My Ratings" {
+            
+            
+        }
+        else if arrMenuTitle[indexPath.row] == "Favourites" {
+         
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
+            var homeVC : HomeViewController!
+            for controller in self.navigationController!.viewControllers as Array {
+                if controller.isKind(of: CustomSideMenuViewController.self) {
+                    homeVC = (controller.childViewControllers[0] as! UINavigationController).childViewControllers[0] as? HomeViewController
+                    self.navigationController!.popToViewController(controller, animated: true)
+                    break
+                }
+            }
+            next.delegateForFavourite = homeVC.self as? FavouriteLocationDelegate!
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+        else if arrMenuTitle[indexPath.row] == "Invite Friends" {
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "InviteDriverViewController") as! InviteDriverViewController
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+        else if arrMenuTitle[indexPath.row] == "Settings" {
+            let next = self.storyboard?.instantiateViewController(withIdentifier: "SettingPasscodeVC") as! SettingPasscodeVC
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+        else if (arrMenuTitle[indexPath.row] == "Logout")
+        {
+            self.performSegue(withIdentifier: "unwindToContainerVC", sender: self)
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            
+            UserDefaults.standard.removeObject(forKey: "Passcode")
+            SingletonClass.sharedInstance.setPasscode = ""
+            
+            UserDefaults.standard.removeObject(forKey: "isPasscodeON")
+            SingletonClass.sharedInstance.isPasscodeON = false
+            
+        }
+}
+
+
+func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if (indexPath.row == self.arrMenuIcons.count - 1)
+    {
+        return 80
     }
+    else
+    {
+        return 42
+    }
+}
+
+func didRegisterCompleted() {
+    
+    webserviceOfTickPayStatus()
+}
+
+//-------------------------------------------------------------
+// MARK: - Custom Methods
+//-------------------------------------------------------------
+
+func navigateToTiCKPay() {
+    //        webserviceOfTickPayStatus()
+    
+    if self.varifyKey == 0 {
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "TickPayRegistrationViewController") as! TickPayRegistrationViewController
+        next.delegateForVerifyStatus = self
+        self.navigationController?.pushViewController(next, animated: true)
+    }
+        
+    else if self.varifyKey == 1 {
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "TiCKPayNeedToVarifyViewController") as! TiCKPayNeedToVarifyViewController
+        self.navigationController?.pushViewController(next, animated: true)
+    }
+        
+    else if self.varifyKey == 2 {
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "PayViewController") as! PayViewController
+        self.navigationController?.pushViewController(next, animated: true)
+    }
+}
+
+
+func SetLayout(){
+    
+    self.imgProfile.layer.cornerRadius = self.imgProfile.frame.width / 2
+    self.imgProfile.layer.borderWidth = 1.0
+    self.imgProfile.layer.borderColor = UIColor.white.cgColor
+    self.imgProfile.layer.masksToBounds = true
+    
+    self.imgProfile.sd_setImage(with: URL(string: ProfileData.object(forKey: "Image") as! String), completed: nil)
+    self.lblName.text = ProfileData.object(forKey: "Fullname") as? String
+    
+    self.lblMobileNumber.text = ProfileData.object(forKey: "Email") as? String
     
 }
+
+
+//-------------------------------------------------------------
+// MARK: - Webservice Methods
+//-------------------------------------------------------------
+
+var varifyKey = Int()
+func webserviceOfTickPayStatus() {
+    
+    webserviceForTickpayApprovalStatus(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
+        
+        if (status) {
+            print(result)
+            
+            if let id = (result as! [String:AnyObject])["Verify"] as? String {
+                
+                //                    SingletonClass.sharedInstance.TiCKPayVarifyKey = Int(id)!
+                self.varifyKey = Int(id)!
+            }
+            else if let id = (result as! [String:AnyObject])["Verify"] as? Int {
+                
+                //                    SingletonClass.sharedInstance.TiCKPayVarifyKey = id
+                self.varifyKey = id
+            }
+            
+        }
+        else {
+            print(result)
+        }
+    }
+}
+
+}
+
+

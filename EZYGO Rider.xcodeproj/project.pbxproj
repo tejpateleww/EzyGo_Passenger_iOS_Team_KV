@@ -248,7 +248,6 @@
 		2174B6301FE003D100462E91 /* WalletBalanceMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletBalanceMainTableViewCell.swift; sourceTree = "<group>"; };
 		2174B6311FE003D100462E91 /* WalletCardsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletCardsTableViewCell.swift; sourceTree = "<group>"; };
 		2174B6321FE003D100462E91 /* WalletHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletHistoryTableViewCell.swift; sourceTree = "<group>"; };
-		2174B6361FE00DF500462E91 /* PickNGo User-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PickNGo User-Bridging-Header.h"; sourceTree = "<group>"; };
 		2174B6381FE0122500462E91 /* CreditCardValidationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidationType.swift; sourceTree = "<group>"; };
 		2174B6391FE0122500462E91 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
 		217F254D1FE390030084F6C8 /* MyFavouriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavouriteTableViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +278,7 @@
 		21DA90D21FEBB60300E9B179 /* TiCKPayNeedToVarifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiCKPayNeedToVarifyViewController.swift; sourceTree = "<group>"; };
 		21F74B10203421F3000F8769 /* AJAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJAlertController.swift; sourceTree = "<group>"; };
 		21F74B11203421F3000F8769 /* AJAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJAlertController.xib; sourceTree = "<group>"; };
+		3412C5072170BD79000D6583 /* EZYGO Rider-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EZYGO Rider-Bridging-Header.h"; sourceTree = "<group>"; };
 		545B30B6204C22DA0019012F /* PackageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageViewController.swift; sourceTree = "<group>"; };
 		545B30B9204C230B0019012F /* PackageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDetailViewController.swift; sourceTree = "<group>"; };
 		6C5BB4D02F5DAB560A69DD39 /* Pods_PickNGo_User.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickNGo_User.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -500,7 +500,7 @@
 				0079BFA71FA35EAE00EFB38D /* UtilityClass */,
 				0079BFA51FA35E9F00EFB38D /* WebserviceFiles */,
 				EE3D4CC821709C7000B67991 /* Storyboards */,
-				2174B6361FE00DF500462E91 /* PickNGo User-Bridging-Header.h */,
+				3412C5072170BD79000D6583 /* EZYGO Rider-Bridging-Header.h */,
 				008D22371FA08DCF001223DF /* Assets.xcassets */,
 				008D22391FA08DCF001223DF /* LaunchScreen.storyboard */,
 				008D223C1FA08DCF001223DF /* Info.plist */,
@@ -1254,7 +1254,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TickTok User/PickNGo User-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok User/EZYGO Rider-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1279,7 +1279,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/TickTok User/PickNGo User-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok User/EZYGO Rider-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
