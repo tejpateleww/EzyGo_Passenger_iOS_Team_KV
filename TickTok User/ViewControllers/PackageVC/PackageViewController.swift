@@ -405,7 +405,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate, UICollec
                cell.lblHours.text = "\(dictData.object(forKey: "Time") as! String) Days"
             }
             
-            cell.lblAmount.text = "LKR \(dictData.object(forKey: "Amount") as! String)"
+            cell.lblAmount.text = "$ \(dictData.object(forKey: "Amount") as! String)"
             cell.lblAdditional.text = dictData.object(forKey: "Notes") as? String
         }
         else
@@ -421,7 +421,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate, UICollec
             {
                 cell.lblHours.text = "\(dictData.object(forKey: "Time") as! String) Days"
             }
-            cell.lblAmount.text = "LKR \(dictData.object(forKey: "Amount") as! String)"
+            cell.lblAmount.text = "$ \(dictData.object(forKey: "Amount") as! String)"
             cell.lblAdditional.text = dictData.object(forKey: "Notes") as? String
         }
         

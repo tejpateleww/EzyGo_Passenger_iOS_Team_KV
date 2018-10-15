@@ -310,8 +310,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         btnDriverInfo.layer.masksToBounds = true
         btnRequest.layer.cornerRadius = 5
         btnRequest.layer.masksToBounds = true
-        btnCurrentLocation.layer.cornerRadius = 5
-        btnCurrentLocation.layer.masksToBounds = true
+//        btnCurrentLocation.layer.cornerRadius = 5
+//        btnCurrentLocation.layer.masksToBounds = true
         
         self.btnCancelStartedTrip.isHidden = true
         
@@ -400,9 +400,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if (SingletonClass.sharedInstance.isFromNotificationBookLater) {
             
             if strCarModelID == "" {
-                
-                UtilityClass.setCustomAlert(title: "Missing", message: "Select Car") { (index, title) in
-                }
+                UtilityClass.showAlert("", message: "Please select service type eg Standard, Premium, Van!", vc: self)
+//                UtilityClass.setCustomAlert(title: "", message: "Select Car") { (index, title) in
+//                }
             }
             else if strDestinationLocationForBookLater != "" {
                 let profileData = SingletonClass.sharedInstance.dictProfile
@@ -428,7 +428,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             else {
                 
-                UtilityClass.setCustomAlert(title: "Missing", message: "We did not get proper address") { (index, title) in
+                UtilityClass.setCustomAlert(title: "", message: "We did not get proper address") { (index, title) in
                 }
             }
             
@@ -573,7 +573,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             btnDoneForLocationSelected.isHidden = true
             self.viewCarLists.isHidden = false
 //            self.viewShareRideView.isHidden = false
-            self.ConstantViewCarListsHeight.constant = 150
+            self.ConstantViewCarListsHeight.constant = 230
         }
         else {
             self.ConstantViewCarListsHeight.constant = 0
@@ -584,7 +584,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
-    @IBOutlet weak var btnCurrentLocation: UIButton!
+//    @IBOutlet weak var btnCurrentLocation: UIButton!
+    
     var currentLocationMarker = GMSMarker()
     var destinationLocationMarker = GMSMarker()
     
@@ -1098,7 +1099,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if txtDestinationLocation.text!.count == 0 {
             
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Destination Address") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Destination Address") { (index, title) in
             }
         }
         else {
@@ -1149,7 +1150,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         viewCurrentLocation.isHidden = status
         viewDestinationLocation.isHidden = status
-        btnCurrentLocation.isHidden = status
+//        btnCurrentLocation.isHidden = status
     }
     
     
@@ -1915,10 +1916,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
+    @IBOutlet weak var btnBookNow: UIButton!
+    
     @IBAction func btnBookNow(_ sender: Any) {
+        
+        self.btnBookNow.setTitleColor(UIColor.white, for: .normal)
+        self.btnBookNow.backgroundColor = themeYellowColor
+        
+        self.btnBookLater.setTitleColor(themeYellowColor, for: .normal)
+        self.btnBookLater.backgroundColor = UIColor.black
+        
         if Connectivity.isConnectedToInternet()
         {
-            
             if intShareRide == 1 {
                 self.stackViewNumberOfPassenger.isHidden = false
                 txtNumberOfPassengers.text = "1"
@@ -1932,12 +1941,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             {
                 if txtCurrentLocation.text!.count == 0 {
                     
-                    UtilityClass.setCustomAlert(title: "Missing", message: "Please enter your pickup location again") { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: "Please enter your pickup location again") { (index, title) in
                     }
                 }
                 else if txtDestinationLocation.text!.count == 0 {
                     
-                    UtilityClass.setCustomAlert(title: "Missing", message: "Please enter your destination again") { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: "Please enter your destination again") { (index, title) in
                     }
                 }
                 else if strModelId == "" {
@@ -1958,7 +1967,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         
                     })
                     
-                    
                     alert.addAction(OK)
                     alert.addAction(Cancel)
                     self.present(alert, animated: true, completion: nil)
@@ -1966,7 +1974,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 }
                 else {
                     
-                    UtilityClass.setCustomAlert(title: "Missing", message: "Locations or select available car") { (index, title) in
+                    UtilityClass.setCustomAlert(title: "", message: "Locations or select available car") { (index, title) in
                     }
                 }
                 
@@ -2092,7 +2100,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         paymentOptions()
     }
     
+    
+    @IBOutlet weak var btnBookLater: UIButton!
+    
     @IBAction func btnBookLater(_ sender: Any) {
+        
+        self.btnBookLater.setTitleColor(UIColor.white, for: .normal)
+        self.btnBookLater.backgroundColor = themeYellowColor
+        
+        self.btnBookNow.setTitleColor(themeYellowColor, for: .normal)
+        self.btnBookNow.backgroundColor = UIColor.black
         
         if Connectivity.isConnectedToInternet() {
             
@@ -2102,14 +2119,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             if (SingletonClass.sharedInstance.isFromNotificationBookLater) {
                 
                 if strCarModelID == "" {
-                    
-                    UtilityClass.setCustomAlert(title: "Missing", message: "Select Car") { (index, title) in
-                    }
+                    UtilityClass.showAlert("", message: "Please select service type eg Standard, Premium, Van!", vc: self)
+//                    UtilityClass.setCustomAlert(title: "", message: "Select Car") { (index, title) in
+//                    }
                 }
                 else {
                     let next = self.storyboard?.instantiateViewController(withIdentifier: "BookLaterViewController") as! BookLaterViewController
-                    
-                    SingletonClass.sharedInstance.isFromNotificationBookLater = false
+                     SingletonClass.sharedInstance.isFromNotificationBookLater = false
                     
                     next.strModelId = strCarModelID
                     next.strCarModelURL = strNavigateCarModel
@@ -2132,8 +2148,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             else {
                 
                 if strCarModelID == "" && strCarModelIDIfZero == ""{
-                    UtilityClass.setCustomAlert(title: "Missing", message: "Select Car") { (index, title) in
-                    }
+                      UtilityClass.showAlert("", message: "Please select service type eg Standard, Premium, Van!", vc: self)
+//                    UtilityClass.setCustomAlert(title: "", message: "Select Car") { (index, title) in
+//                    }
                 }
                 else {
                     let next = self.storyboard?.instantiateViewController(withIdentifier: "BookLaterViewController") as! BookLaterViewController
@@ -2169,8 +2186,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if txtCurrentLocation.text == "" || txtDestinationLocation.text == "" {
             
-            
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please enter both address.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter both address.") { (index, title) in
             }
         }
             
@@ -2207,7 +2223,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.viewTripActions.isHidden = true
         self.viewCarLists.isHidden = true
-        self.ConstantViewCarListsHeight.constant = 150
+        self.ConstantViewCarListsHeight.constant = 230
         //        self.constraintTopSpaceViewDriverInfo.constant = 170
 //        self.viewShareRideView.isHidden = true
         
@@ -2348,6 +2364,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
+    
+    @IBOutlet weak var lblMinutes: UILabel!
+    @IBOutlet weak var lblPrices: UILabel!
+    
+    
     //MARK:- Collectionview Delegate and Datasource methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
@@ -2355,7 +2376,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return 5
         }
         
-        return self.arrNumberOfOnlineCars.count + 1
+        return self.arrNumberOfOnlineCars.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -2363,23 +2384,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarsCollectionViewCell", for: indexPath as IndexPath) as! CarsCollectionViewCell
         
-        cell.viewOfImage.layer.cornerRadius = cell.viewOfImage.frame.width / 2
-        cell.viewOfImage.layer.borderWidth = 3.0
         if selectedIndexPath == indexPath {
-            cell.viewOfImage.layer.borderColor = themeYellowColor.cgColor
-            cell.viewOfImage.layer.masksToBounds = true
+            cell.lblCarType.textColor = UIColor.init (red: 9.0/255.0, green: 149.0/255.0, blue: 184.0/255.0, alpha: 1.0)
+//            cell.selectedArrow.isHidden = false
         }
         else {
-            cell.viewOfImage.layer.borderColor = themeGrayColor.cgColor
-            cell.viewOfImage.layer.masksToBounds = true
+//            cell.selectedArrow.isHidden = true
+            cell.lblCarType.textColor = UIColor.white
         }
         
-        if self.arrNumberOfOnlineCars.count == 0 {
-            cell.imgCars.sd_setIndicatorStyle(.gray)
-            cell.imgCars.sd_setShowActivityIndicatorView(true)
-            
-        }
-        else if (self.arrNumberOfOnlineCars.count != 0 && indexPath.row < self.arrNumberOfOnlineCars.count)
+        if (self.arrNumberOfOnlineCars.count > 0)
         {
             let dictOnlineCarData = (arrNumberOfOnlineCars.object(at: indexPath.row) as! [String : AnyObject])
             let imageURL = dictOnlineCarData["Image"] as! String
@@ -2391,57 +2405,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.imgCars.sd_setShowActivityIndicatorView(false)
             })
             
-            cell.lblMinutes.text = "0 min"
-            cell.lblPrices.text = "\(currencySign) 0.00"
-            
-            
-            if dictOnlineCarData["carCount"] as! Int != 0 {
-                
-                if self.aryEstimateFareData.count != 0 {
-                    
-                    if ((self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "duration") as? NSNull) != nil {
-                        
-                        cell.lblMinutes.text = "\(0.00) min"
-                    }
-                    else if let minute = (self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "duration") as? Double {
-                        cell.lblMinutes.text = "\(minute) min"
-                    }
-                    
-                    if ((self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "total") as? NSNull) != nil {
-                        
-                        cell.lblPrices.text = "\(currencySign) \(0)"
-                    }
-                    else if let price = (self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "total") as? Double {
-                        
-                        cell.lblPrices.text = "\(currencySign) \(price)"
-                        
-                    }
-                    
-//                    if (intShareRide == 1) {
-//
-//                        if let ride = (self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "share_ride") as? String {
-//
-//                            if ride == "1" {
-//                                cell.contentView.isUserInteractionEnabled = true
-//                            }
-//                            else if ride == "0" {
-//
-//                            }
-//                        }
-//                    }
+        }
 
-                    
-                    
-                }
-            }
-        }
-        else
-        {
-            cell.imgCars.image = UIImage(named: "iconPackage")
-            cell.lblMinutes.text = "Packages"
-            cell.lblPrices.text = ""
-            
-        }
         
         return cell
         
@@ -2457,15 +2422,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         MarkerCurrntLocation.isHidden = true
         
-        if self.arrNumberOfOnlineCars.count == 0 {
-            // do nothing here
-        }
-        else if (arrNumberOfOnlineCars.count != 0 && indexPath.row < self.arrNumberOfOnlineCars.count)
-        {
-            
+//        if self.arrNumberOfOnlineCars.count == 0 {
+//            // do nothing here
+//        }
+//        else if (arrNumberOfOnlineCars.count != 0 && indexPath.row < self.arrNumberOfOnlineCars.count)
+//        {
+        
             let dictOnlineCarData = (arrNumberOfOnlineCars.object(at: indexPath.row) as! NSDictionary)
             strSpecialRequestFareCharge = dictOnlineCarData.object(forKey: "SpecialExtraCharge") as? String ?? ""
-            if dictOnlineCarData.object(forKey: "carCount") as! Int != 0 {
+        
+        if dictOnlineCarData.object(forKey: "carCount") as! Int != 0 {
   
                 self.markerOnlineCars.map = nil
                 
@@ -2592,22 +2558,45 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     strModelId = ""
                 }
                 
+                if available != 0 {
+                    
+                    if self.aryEstimateFareData.count != 0 {
+                        
+                        if ((self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "duration") as? NSNull) != nil {
+                            
+                            self.lblMinutes.text = "Approximate arrival time \(0.00) minutes"
+                        }
+                        else if let minute = (self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "duration") as? Double {
+                            self.lblMinutes.text = "Approximate arrival time \(minute) minutes"
+                        }
+                        
+                        if ((self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "total") as? NSNull) != nil {
+                            
+                            self.lblPrices.text = "\(currencySign) \(0)"
+                        }
+                        else if let price = (self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "total") as? Double {
+                            
+                            self.lblPrices.text = "\(currencySign) \(price)"
+                            
+                        }
+                    }
+                }
             }
             collectionViewCars.reloadData()
-        }
-        else
-        {
-            
-            let PackageVC = self.storyboard?.instantiateViewController(withIdentifier: "PackageViewController")as! PackageViewController
-            let navController = UINavigationController(rootViewController: PackageVC) // Creating a navigation controller with VC1 at the root of the navigation stack.
-            
-            PackageVC.strPickupLocation = strPickupLocation
-            PackageVC.doublePickupLat = doublePickupLat
-            PackageVC.doublePickupLng = doublePickupLng
-            
-            self.present(navController, animated:true, completion: nil)
-            
-        }
+//        }
+//        else
+//        {
+//
+//            let PackageVC = self.storyboard?.instantiateViewController(withIdentifier: "PackageViewController")as! PackageViewController
+//            let navController = UINavigationController(rootViewController: PackageVC) // Creating a navigation controller with VC1 at the root of the navigation stack.
+//
+//            PackageVC.strPickupLocation = strPickupLocation
+//            PackageVC.doublePickupLat = doublePickupLat
+//            PackageVC.doublePickupLng = doublePickupLng
+//
+//            self.present(navController, animated:true, completion: nil)
+//
+//        }
     }
     
     
@@ -2620,8 +2609,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: self.view.frame.size.width/6, height: self.collectionViewCars.frame.size.height)
+        let CellWidth = UIScreen.main.bounds.width - 20
+        return CGSize(width: CellWidth/3 , height: self.collectionViewCars.frame.size.height)
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
@@ -2688,8 +2679,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 tempDict.setObject(carLocationsLat, forKey: "Lat" as NSCopying)
                 tempDict.setObject(carLocationsLng, forKey: "Lng" as NSCopying)
                 tempDict.setObject(tempAryLocationOfDriver, forKey: "locations" as NSCopying)
-                
-                
                 aryTempOnlineCars.add(tempDict)
             }
             
@@ -3586,7 +3575,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.viewTripActions.isHidden = true
                 self.viewCarLists.isHidden = false
 //                self.viewShareRideView.isHidden = false
-                self.ConstantViewCarListsHeight.constant = 150
+                self.ConstantViewCarListsHeight.constant = 230
                 //                    self.constraintTopSpaceViewDriverInfo.constant = 170
                 self.viewMainFinalRating.isHidden = true
                 SingletonClass.sharedInstance.passengerTypeOther = false

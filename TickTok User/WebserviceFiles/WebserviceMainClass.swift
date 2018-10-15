@@ -10,10 +10,7 @@ import UIKit
 import Alamofire
 
 
-
 var request : Request!
-
-
 
 let header: [String:String] = ["key":"PickNGo123*#*"]
 
@@ -70,6 +67,9 @@ func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ r
     
     Alamofire.request(url, method: .get, parameters: dictParams as? [String : AnyObject], encoding: URLEncoding.default, headers: header)
         .validate()
+        .responseString(completionHandler: { (ResponseString:DataResponse<String>) in
+            print(ResponseString)
+        })
         .responseJSON
         { (response) in
             
@@ -86,7 +86,6 @@ func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ r
                 {
                     completion(JSON as AnyObject, true)
                     UtilityClass.hideACProgressHUD()
-                    
                 }
             }
             else

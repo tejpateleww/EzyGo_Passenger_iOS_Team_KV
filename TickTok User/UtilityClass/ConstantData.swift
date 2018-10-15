@@ -14,8 +14,13 @@ let themeGrayColor: UIColor = UIColor.init(red: 114/255, green: 114/255, blue: 1
 //let ThemeYellowColor : UIColor = UIColor.init(hex: "ffa300")
 
 let currencySign = "$"
+<<<<<<< HEAD
 let appName = "EZYGO Rider"
 let helpLineNumber = "1234567890"
+=======
+let appName = "Pick'N'Go"
+let helpLineNumber = "0772506506"
+>>>>>>> bda4fb2a3d92ad6c026f5a6aaa7ff7b991f74d85
 
 let googleAnalyticsTrackId = "UA-122360832-1"
 

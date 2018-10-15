@@ -49,7 +49,7 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
         lblPackageType.text = dictCarModelData["Type"] as? String
         lblDistance.text = "\(dictCarModelData["KM"] as! String) KMs"
         
-        lblAmount.text = "LKR \(dictCarModelData["Amount"] as! String)"
+        lblAmount.text = "$ \(dictCarModelData["Amount"] as! String)"
         lblVehicleType.text = strVehicleType
         
         if dictCarModelData["Type"] as? String == "hours"

@@ -54,6 +54,7 @@ class SplashViewController: UIViewController {
     
     @objc func moveToLogin()
     {
+<<<<<<< HEAD:TickTok User/ViewControllers/LoginVC/SplashViewController.swift
         let StroyBordLogin = UIStoryboard(name: "Login", bundle: nil)
       
         let SplaceScreenVc: UIViewController = StroyBordLogin.instantiateViewController(withIdentifier: "SplashViewController")
@@ -66,6 +67,15 @@ class SplashViewController: UIViewController {
         //
         //        let viewLoginController = self.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
         //        let viewHomeController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController
+=======
+        
+        let sba = UIStoryboard(name: "Login", bundle: nil)
+        let vca: UIViewController = sba.instantiateViewController(withIdentifier: "SplashViewController")
+        self.navigationController?.pushViewController(vca, animated: false)
+        let vc: UIViewController = sba.instantiateViewController(withIdentifier: "LoginViewController")
+        self.navigationController?.pushViewController(vc, animated: false)
+        
+>>>>>>> bda4fb2a3d92ad6c026f5a6aaa7ff7b991f74d85:TickTok User/ViewControllers/LoginVC/ViewController.swift
         
         
         //                if (UserDefaults.standard.object(forKey:  driverProfileKeys.kKeyDriverProfile) != nil)
