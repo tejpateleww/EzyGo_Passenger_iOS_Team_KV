@@ -53,7 +53,7 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         self.SetLayout()
         
         
-        arrMenuIcons = ["iconBecomeDriver","iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver", "iconBecomeDriver","iconLogOut"]
+        arrMenuIcons = ["icon_MyProfile_Unselected","icon_MyBooking_Unselected", "icon_PaymentOption_Unselect", "icon_Wallet_Unselected", "icon_Promocode_Unselect", "icon_Receipts_Unselected", "icon_Rating_Unselected", "icon_Favourite_Unselected", "icon_InviteFriend_Unselected", "icon_CustomerSupport_Unselect", "icon_Setting_Unselected","iconLogOut"]
         
         arrMenuTitle = ["My Profile","My Trips", "Payment Options", "Wallet", "Promo Credits", "My Receipts/Invoices", "My Ratings", "Favourites", "Invite Friends", "Customer Support", "Settings","Logout"]
         

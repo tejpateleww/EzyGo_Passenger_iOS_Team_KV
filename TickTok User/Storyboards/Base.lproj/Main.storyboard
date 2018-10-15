@@ -3494,7 +3494,7 @@ Hours</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconLogOut" translatesAutoresizingMaskIntoConstraints="NO" id="gNv-nx-AXq">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Logout_Unselected" translatesAutoresizingMaskIntoConstraints="NO" id="gNv-nx-AXq">
                                                     <rect key="frame" x="145" y="15" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="OJg-As-mSl"/>
@@ -8506,7 +8506,6 @@ Hours</string>
         <image name="iconLock" width="64" height="64"/>
         <image name="iconLockBack" width="64" height="64"/>
         <image name="iconLockStar" width="64" height="64"/>
-        <image name="iconLogOut" width="42" height="42"/>
         <image name="iconMovies" width="85" height="85"/>
         <image name="iconNab" width="133" height="133"/>
         <image name="iconNewLogo" width="150" height="150"/>
@@ -8519,6 +8518,7 @@ Hours</string>
         <image name="iconTwitter" width="64" height="64"/>
         <image name="iconVline" width="85" height="85"/>
         <image name="iconWhatsApp" width="64" height="64"/>
+        <image name="icon_Logout_Unselected" width="30" height="30"/>
         <image name="imgBackground" width="384" height="682"/>
         <image name="woolworths.jpg" width="420" height="130"/>
     </resources>
