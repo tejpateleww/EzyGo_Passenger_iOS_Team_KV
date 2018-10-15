@@ -13,7 +13,7 @@ let themeYellowColor: UIColor = UIColor.init(red: 237/255, green: 122/255, blue:
 let themeGrayColor: UIColor = UIColor.init(red: 114/255, green: 114/255, blue: 114/255, alpha: 1.0)
 //let ThemeYellowColor : UIColor = UIColor.init(hex: "ffa300")
 
-let currencySign = "LKR"
+let currencySign = "$"
 let appName = "Pick'N'Go"
 let helpLineNumber = "0772506506"
 

@@ -56,13 +56,14 @@ class SplashViewController: UIViewController {
     
     @objc func moveToLogin()
     {
-        var sb = UIStoryboard(name: "MainStoryboard", bundle: nil)
-        var vc: UIViewController = sb.instantiateViewController(withIdentifier: "LoginViewController")
+        
+        let sba = UIStoryboard(name: "Login", bundle: nil)
+        let vca: UIViewController = sba.instantiateViewController(withIdentifier: "SplashViewController")
+        self.navigationController?.pushViewController(vca, animated: false)
+        let vc: UIViewController = sba.instantiateViewController(withIdentifier: "LoginViewController")
+        self.navigationController?.pushViewController(vc, animated: false)
         
         
-        var sba = UIStoryboard(name: "MainStoryboard", bundle: nil)
-        var vca: UIViewController = sba.instantiateViewController(withIdentifier: "SplashViewController")
-
         
 //        let storybordLogin * LoginStoryBoard = [UIStoryboard ]
 //

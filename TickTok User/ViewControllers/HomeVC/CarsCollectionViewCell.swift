@@ -11,10 +11,13 @@ import UIKit
 class CarsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imgCars: UIImageView!
-    @IBOutlet weak var lblAvailableCars: UILabel!
+//    @IBOutlet weak var lblAvailableCars: UILabel!
+    @IBOutlet weak var lblCarType: UILabel!
     
-    @IBOutlet weak var lblMinutes: UILabel!
-    @IBOutlet weak var lblPrices: UILabel!
+//    @IBOutlet weak var lblMinutes: UILabel!
+//    @IBOutlet weak var lblPrices: UILabel!
     
     @IBOutlet weak var viewOfImage: UIView!
+    @IBOutlet weak var selectedArrow: UIImageView!
+    
 }

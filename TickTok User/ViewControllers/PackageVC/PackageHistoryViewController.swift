@@ -111,7 +111,7 @@ class PackageHistoryViewController: ParentViewController, UITableViewDataSource,
         cell.lblPaymentType.text! = (dictData["PaymentType"] as? String)!
         cell.lblPaymentStatus.text! = (dictData["PaymentStatus"] as? String)!
         cell.lblDistance.text! = "\(dictData["details"]!["KM"] as! String) Km"
-        cell.lblAmount.text! = "LKR \(dictData["details"]!["Amount"] as! String)"
+        cell.lblAmount.text! = "$ \(dictData["details"]!["Amount"] as! String)"
         cell.lblDescription.text! = (dictData["details"]!["Description"] as? String)!
         
 
