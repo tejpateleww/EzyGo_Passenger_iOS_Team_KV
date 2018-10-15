@@ -26,9 +26,14 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
     @IBOutlet weak var btnSignUp: TransitionButton!
     
-    @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!
-    @IBOutlet weak var txtRafarralCode: ACFloatingTextfield!
+    @IBOutlet weak var txtInviteCode: ACFloatingTextfield!
+    @IBOutlet weak var btnFemale: AKRadioButton!
+    @IBOutlet weak var btnMale: AKRadioButton!
+    @IBOutlet weak var txtAddress: ACFloatingTextfield!
+    @IBOutlet weak var txtAgeGroup: ACFloatingTextfield!
+    @IBOutlet weak var txtPostCode: ACFloatingTextfield!
     
+  
     @IBOutlet weak var imgProfile: UIImageView!
 
     var strPhoneNumber = String()
@@ -54,7 +59,25 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
 //        txtFirstName.text = "rahul"
 //        txtLastName.text = "patel"
+    
+    
+    
+    
+        UtilityClass.setCornerRadiusTextField(textField: txtFirstName, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtInviteCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtLastName, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtAgeGroup, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+    
+        UtilityClass.setCornerRadiusTextField(textField: txtPostCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        
+        UtilityClass.setCornerRadiusTextField(textField: txtAddress, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        
+        UtilityClass.setCornerRadiusButton(button: btnMale, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        
+          UtilityClass.setCornerRadiusButton(button: btnFemale, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
     }
+    
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.imgProfile.layer.cornerRadius = self.imgProfile.frame.size.width/2
@@ -141,7 +164,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func txtDateOfBirth(_ sender: ACFloatingTextfield) {
+    @IBAction func txtAgeGroup(_ sender: ACFloatingTextfield) {
         
         let datePickerView:UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
@@ -153,8 +176,8 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     {
         let dateFormaterView = DateFormatter()
         dateFormaterView.dateFormat = "yyyy-MM-dd"
-        txtDateOfBirth.text = dateFormaterView.string(from: sender.date)
-        strDateOfBirth = txtDateOfBirth.text!
+        txtAgeGroup.text = dateFormaterView.string(from: sender.date)
+        strDateOfBirth = txtAgeGroup.text!
         
     }
 
@@ -168,33 +191,33 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         if (txtFirstName.text?.count == 0)
         {
 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter First Name") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter First Name") { (index, title) in
             }
             return false
         }
         else if (txtLastName.text?.count == 0)
         {
             
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Last Name") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Last Name") { (index, title) in
             }
             return false
         }
 //        else if imgProfile.image == UIImage(named: "iconProfilePicBlank")
 //        {
 //
-//            UtilityClass.setCustomAlert(title: "Missing", message: "Please choose profile picture") { (index, title) in
+//            UtilityClass.setCustomAlert(title: "", message: "Please choose profile picture") { (index, title) in
 //            }
 //            return false
 //        }
         else if strDateOfBirth == "" {
            
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please choose Date of Birth") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please choose Date of Birth") { (index, title) in
             }
             return false
         }
         else if gender == "" {
             
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please choose Gender") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please choose Gender") { (index, title) in
             }
             return false
         }
@@ -234,7 +257,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         let dictParams = NSMutableDictionary()
         dictParams.setObject(txtFirstName.text!, forKey: "Firstname" as NSCopying)
         dictParams.setObject(txtLastName.text!, forKey: "Lastname" as NSCopying)
-        dictParams.setObject(txtRafarralCode.text!, forKey: "ReferralCode" as NSCopying)
+        dictParams.setObject(txtPostCode.text!, forKey: "ReferralCode" as NSCopying)
         dictParams.setObject(strPhoneNumber, forKey: "MobileNo" as NSCopying)
         dictParams.setObject(strEmail, forKey: "Email" as NSCopying)
         dictParams.setObject(strPassword, forKey: "Password" as NSCopying)

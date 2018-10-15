@@ -16,7 +16,6 @@ import CoreLocation
 
 class LoginViewController: UIViewController, CLLocationManagerDelegate, alertViewMethodsDelegates {
     
-    
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -82,7 +81,11 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             txtEmail.text = "9904439228"
             txtPassword.text = "12345678"
         }
-      
+        btnSignup.layer.borderWidth = 1.0
+        btnSignup.layer.borderColor = UIColor.white.cgColor
+
+           UtilityClass.setCornerRadiusTextField(textField: txtEmail, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+           UtilityClass.setCornerRadiusTextField(textField: txtPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +106,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         if (txtEmail.text?.count == 0)
         {
 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Mobile Number") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Mobile Number") { (index, title) in
             }
             
              // txtEmail.showErrorWithText(errorText: "Enter Email")
@@ -112,7 +115,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         else if (txtPassword.text?.count == 0)
         {
 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Password") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Password") { (index, title) in
             }
 
             return false

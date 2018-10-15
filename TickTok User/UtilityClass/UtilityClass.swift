@@ -41,6 +41,34 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         
     }
     
+    class func setCornerRadiusTextField(textField : UITextField, borderColor : UIColor , bgColor : UIColor, textColor : UIColor)
+    {
+        textField.layer.cornerRadius = textField.frame.size.height / 2
+        textField.backgroundColor = bgColor
+        textField.layer.borderColor = borderColor.cgColor
+        textField.layer.borderWidth = 1.0
+        textField.textColor = textColor
+        textField.clipsToBounds = true
+    }
+    
+    class func setCornerRadiusButton(button : UIButton , borderColor : UIColor , bgColor : UIColor, textColor : UIColor)
+    {
+        button.layer.cornerRadius = button.frame.size.height / 2
+        button.clipsToBounds = true
+        button.backgroundColor = bgColor
+        button.setTitleColor(textColor, for: .normal)
+        button.layer.borderColor = borderColor.cgColor
+        button.layer.borderWidth = 1.0
+    }
+    
+    class func setCornerRadiusView(view: UIView, borderColor: UIColor, bgColor: UIColor) {
+        view.layer.cornerRadius = view.frame.size.height / 2
+        view.clipsToBounds = true
+        view.backgroundColor = bgColor
+        view.layer.borderColor = borderColor.cgColor
+        view.layer.borderWidth = 1.0
+    }
+    
     class func showAlertWithCompletion(_ title: String, message: String, vc: UIViewController,completionHandler: @escaping CompletionHandler) -> Void
     {
         let alert = UIAlertController(title: title,

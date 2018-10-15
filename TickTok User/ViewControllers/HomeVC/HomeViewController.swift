@@ -1375,12 +1375,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.webserviceCallForBookingCar()
     }
-    
-    
-    
-    // ----------------------------------------------------------------------
-    
-    
+
     //-------------------------------------------------------------
     // MARK: - PickerView Methods
     //-------------------------------------------------------------
@@ -1417,23 +1412,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             let myImageView = UIImageView(frame: CGRect(x:myView.center.x - 50, y:myView.center.y - 50, width:100, height:100))
             var rowString = String()
-            switch row {
-                
-                case 0:
-                    myImageView.image = UIImage(named: "circle.png")
-                    rowString = "1"
-                case 1:
-                    myImageView.image = UIImage(named: "circle.png")
-                    rowString = "2"
-                default:
-                print("something wrong")
-            }
+           
             
             let myLabel = UILabel(frame: CGRect(x:myImageView.center.x-10, y:myImageView.center.y-25, width:50, height:50 ))
             myLabel.font = UIFont.systemFont(ofSize: 30)
             myLabel.text = rowString
             
-           
             myView.addSubview(myImageView)
             myView.addSubview(myLabel)
             

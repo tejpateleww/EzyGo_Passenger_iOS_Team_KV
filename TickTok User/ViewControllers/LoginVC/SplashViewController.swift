@@ -20,9 +20,7 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         
         self.iconLogo.alpha = 0
-      
-        
-        // Do any additional setup after loading the view.
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,29 +54,30 @@ class SplashViewController: UIViewController {
     
     @objc func moveToLogin()
     {
-        var sb = UIStoryboard(name: "MainStoryboard", bundle: nil)
-        var vc: UIViewController = sb.instantiateViewController(withIdentifier: "LoginViewController")
-        
-        
-        var sba = UIStoryboard(name: "MainStoryboard", bundle: nil)
-        var vca: UIViewController = sba.instantiateViewController(withIdentifier: "SplashViewController")
+        let StroyBordLogin = UIStoryboard(name: "Login", bundle: nil)
+      
+        let SplaceScreenVc: UIViewController = StroyBordLogin.instantiateViewController(withIdentifier: "SplashViewController")
+        let LoginVc: UIViewController = StroyBordLogin.instantiateViewController(withIdentifier: "LoginViewController")
+        self.navigationController?.pushViewController(SplaceScreenVc, animated: false)
+        self.navigationController?.pushViewController(LoginVc, animated: false)
+     
 
+        //        let storybordLogin * LoginStoryBoard = [UIStoryboard]
+        //
+        //        let viewLoginController = self.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+        //        let viewHomeController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController
         
-//        let storybordLogin * LoginStoryBoard = [UIStoryboard ]
+        
+        //                if (UserDefaults.standard.object(forKey:  driverProfileKeys.kKeyDriverProfile) != nil)
+//                {
+//                    SingletonClass.sharedInstance.isDriverLoggedIN = true
 //
-//        let viewLoginController = self.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-//        let viewHomeController = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController
+//                }
+//                else
+//                {
+//                    SingletonClass.sharedInstance.isDriverLoggedIN = false
         
-        //        if (UserDefaults.standard.object(forKey:  driverProfileKeys.kKeyDriverProfile) != nil)
-        //        {
-        //            SingletonClass.sharedInstance.isDriverLoggedIN = true
-//        self.navigationController?.pushViewController(viewLoginController!, animated: false)
-        //        }
-        //        else
-        //        {
-        //            SingletonClass.sharedInstance.isDriverLoggedIN = false
-//                    self.navigationController?.pushViewController(viewLoginController!, animated: false)
-        //        }
+//                }
         
         
     }

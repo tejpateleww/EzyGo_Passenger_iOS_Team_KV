@@ -225,7 +225,7 @@ class AJAlertController: UIViewController {
      - parameter aCancelBtnTitle: Cancel button title
      - parameter aOtherBtnTitle: Other button title
      - parameter otherButtonArr: Array of other button title
-     - parameter completion:     Completion block. Other Button Index - 1 and Cancel Button Index - 0
+     - parameter completion:Completion block. Other Button Index - 1 and Cancel Button Index - 0
      */
     
     public func showAlert( aStrMessage:String,

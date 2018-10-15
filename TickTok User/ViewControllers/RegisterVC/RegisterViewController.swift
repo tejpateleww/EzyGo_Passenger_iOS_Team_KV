@@ -9,18 +9,23 @@
 import UIKit
 import ACFloatingTextfield_Swift
 
-class RegisterViewController: UIViewController, UITextFieldDelegate {
+class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerViewDataSource,UIPickerViewDelegate{
+   
+    var aryContoryNum = [String:AnyObject]()
     
     @IBOutlet weak var txtPhoneNumber: ACFloatingTextfield!
     @IBOutlet weak var txtEmail: ACFloatingTextfield!
     @IBOutlet weak var txtPassword: ACFloatingTextfield!
     @IBOutlet weak var txtConfirmPassword: ACFloatingTextfield!
     
-
+    let countoryz : Int = 0
     
+    var countoryPicker = UIPickerView()
+    var pickerView = UIPickerView()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        aryContoryNum = ["name" : "+64","namea" : "+91"] as [String : AnyObject]
         txtPhoneNumber.delegate = self
         
         //        txtPhoneNumber.text = "1234567890"
@@ -28,6 +33,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         //        txtPassword.text = "12345678"
         //        txtConfirmPassword.text = "12345678"
         
+        
+        UtilityClass.setCornerRadiusTextField(textField: txtPhoneNumber, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtEmail, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtConfirmPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         
 //        txtPhoneNumber.placeHolderColor = UIColor.red
         // Do any additional setup after loading the view.
@@ -52,9 +62,79 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    //-------------------------------------------------------------
+    // MARK: - PickerView Methods
+    //-------------------------------------------------------------
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == countoryPicker{
+            return 2
+        }
+        
+        return aryContoryNum.count
+    }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        if pickerView == countoryPicker {
+            return 120
+        }
+        return 60
+    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        
+        if pickerView == countoryPicker
+        {
+        //mainview
+         let viewOfContryCode = UIView(frame: CGRect(x: 10, y: 10, width: countoryPicker.frame.size.width , height: countoryPicker.frame.size.height ))
+        
+        //image
+        let imgOfCountry = UIImageView(frame: CGRect(x:viewOfContryCode.center.x - 20, y:viewOfContryCode.center.y - 20 , width: 100, height: 50))
+        
+        //labelNum
+        let lblOfCountryNum = UILabel(frame: CGRect(x: imgOfCountry.center.x - 10, y: imgOfCountry.center.y - 25, width: 60, height: 60))
+        //addsubview
+        viewOfContryCode.addSubview(imgOfCountry)
+        viewOfContryCode.addSubview(lblOfCountryNum)
+        
+       // return mainview
+        return viewOfContryCode
+        
+        
+        }
+        
+        let dataOfCountory = aryContoryNum
+        var strcountory = String()
+        let viewContoryCode = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
+        
+        let imageOfCountoryPicker =  UIImageView(frame: CGRect(x:0, y:0, width:50, height:50))
+  
+        var  imgStr = String()
+        
+
+        switch countoryz {
+        case 0:
+            strcountory = dataOfCountory["name"] as! String
+            imageOfCountoryPicker.image = UIImage(named: "iconActiveDriver")
+        case 1 :
+            strcountory = dataOfCountory["name"] as! String
+            imageOfCountoryPicker.image = UIImage(named: "iconActiveDriver")
+        default:
+            print("Error")
+        }
+        
+
+        let lblOfCountryNum = UILabel(frame: CGRect(x:60, y:0, width:pickerView.bounds.width - 90, height:60 ))
+        viewContoryCode.addSubview(lblOfCountryNum)
+        viewContoryCode.addSubview(imageOfCountoryPicker)
+        
+     return pickerView
+    }
     
+
     // MARK: - Navigation
     
     
@@ -94,7 +174,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         if (txtPhoneNumber.text?.count == 0)
         {
 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Phone Number") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Phone Number") { (index, title) in
             }
 
             return false
@@ -102,28 +182,28 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         else if ((txtPhoneNumber.text?.count)! < 10)
         {
 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Phone Number should 10 digits") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Phone Number should 10 digits") { (index, title) in
             }
 
             return false
         }
         else if (txtEmail.text?.count == 0)
         {
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Email Address") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Email Address") { (index, title) in
             }
 
             return false
         }
         else if (!isEmailAddressValid)
         {
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Valid Email ID") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please Enter Valid Email ID") { (index, title) in
             }
 
             return false
         }
         else if (txtPassword.text?.count == 0)
         {
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Password") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Enter Password") { (index, title) in
             }
 
             return false
@@ -131,14 +211,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
         else if ((txtPassword.text?.count)! < 6)
         {
-            UtilityClass.setCustomAlert(title: "Required", message: "Password should be of more than 6 characters") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Password should be of more than 6 characters") { (index, title) in
             }
 
             return false
         }
         else if (txtPassword.text != txtConfirmPassword.text)
         {
-            UtilityClass.setCustomAlert(title: "Missing", message: "Password and Confirm Password does not match") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Password and Confirm Password does not match") { (index, title) in
             }
 
             return false

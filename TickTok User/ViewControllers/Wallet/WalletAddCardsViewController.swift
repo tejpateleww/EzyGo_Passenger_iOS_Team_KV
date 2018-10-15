@@ -19,6 +19,7 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
     var strSelectYear = String()
     
     var pickerView = UIPickerView()
+    var pickerOfCountory = UIPickerView()
     
     weak var delegateAddCard: AddCadsDelegate!
     

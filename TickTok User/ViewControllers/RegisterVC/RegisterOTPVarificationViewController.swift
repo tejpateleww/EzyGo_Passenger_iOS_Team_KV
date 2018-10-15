@@ -18,7 +18,8 @@ class RegisterOTPVarificationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        UtilityClass.setCornerRadiusTextField(textField: txtOTP, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+       
        
     }
 
@@ -42,7 +43,7 @@ class RegisterOTPVarificationViewController: UIViewController {
     
     @IBAction func btnNext(_ sender: UIButton) {
         
-        if SingletonClass.sharedInstance.otpCode == txtOTP.text {
+        if SingletonClass.sharedInstance.otpCode == txtOTP.text{
 
             let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
             registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
@@ -50,7 +51,7 @@ class RegisterOTPVarificationViewController: UIViewController {
         }
         else
         {
-            UtilityClass.setCustomAlert(title: "\(appName)", message: "Please Enter Valid OTP Code", completionHandler: { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please Enter Valid OTP Code", completionHandler: { (index, title) in
                 
             })
         }
