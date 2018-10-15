@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cRf-l7-VjQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cRf-l7-VjQ">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1008,7 +1010,7 @@ Hours</string>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9V4-8B-tdM">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9V4-8B-tdM">
                                                             <rect key="frame" x="0.0" y="74" width="320" height="50.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICKUP LOCATION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlH-Ez-31m">
@@ -1027,7 +1029,7 @@ Hours</string>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="10, SOLA, Ahmedabad,Gujarat 380060, India" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTj-mU-zVw">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10, SOLA, Ahmedabad,Gujarat 380060, India" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTj-mU-zVw">
                                                                     <rect key="frame" x="164" y="0.0" width="146" height="50.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <nil key="textColor"/>
@@ -1047,7 +1049,7 @@ Hours</string>
                                                                 <constraint firstAttribute="bottom" secondItem="hTj-mU-zVw" secondAttribute="bottom" id="xMh-wI-lYN"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="2018-03-05 10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nt-J3-AJz">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-03-05 10:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nt-J3-AJz">
                                                             <rect key="frame" x="8" y="144.5" width="120" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="Eka-lX-Txn"/>
@@ -1056,7 +1058,7 @@ Hours</string>
                                                             <color key="textColor" red="0.50386577070000005" green="0.50386577070000005" blue="0.50386577070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PpS-CQ-OOL">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PpS-CQ-OOL">
                                                             <rect key="frame" x="0.0" y="212.5" width="320" height="17"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PACKAGE TYPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RP1-mo-GOd">
@@ -1101,7 +1103,7 @@ Hours</string>
                                                                 <constraint firstAttribute="bottom" secondItem="7Cy-Tt-4TB" secondAttribute="bottom" id="ye3-YN-U8D"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9g-00-wD9">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9g-00-wD9">
                                                             <rect key="frame" x="0.0" y="231.5" width="320" height="17"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PACKAGE STATUS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="406-Sg-JsG">
@@ -1146,7 +1148,7 @@ Hours</string>
                                                                 <constraint firstItem="hLK-CS-GgP" firstAttribute="leading" secondItem="406-Sg-JsG" secondAttribute="trailing" constant="2" id="vAB-Yd-6Cu"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eem-58-zAv">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eem-58-zAv">
                                                             <rect key="frame" x="0.0" y="250.5" width="320" height="17"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENT TYPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQB-jM-PpN">
@@ -1191,7 +1193,7 @@ Hours</string>
                                                                 <constraint firstAttribute="bottom" secondItem="GQB-jM-PpN" secondAttribute="bottom" id="xSb-gI-Fh5"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cSu-jo-ymX">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSu-jo-ymX">
                                                             <rect key="frame" x="0.0" y="269.5" width="320" height="17"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENT STATUS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7P-S8-6Yp">
@@ -1236,7 +1238,7 @@ Hours</string>
                                                                 <constraint firstItem="e7P-S8-6Yp" firstAttribute="leading" secondItem="cSu-jo-ymX" secondAttribute="leading" constant="8" id="xE2-4u-B9h"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYc-yX-E7M">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SYc-yX-E7M">
                                                             <rect key="frame" x="0.0" y="288.5" width="320" height="17"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISTANCE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uZ-Yd-RZh">
@@ -1281,7 +1283,7 @@ Hours</string>
                                                                 <constraint firstAttribute="bottom" secondItem="pHf-3F-MUd" secondAttribute="bottom" id="w3R-MX-ixW"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFK-aT-11E">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFK-aT-11E">
                                                             <rect key="frame" x="0.0" y="307.5" width="320" height="17"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMOUNT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXv-Bl-yAP">
@@ -1326,7 +1328,7 @@ Hours</string>
                                                                 <constraint firstAttribute="bottom" secondItem="GdY-Hs-aYn" secondAttribute="bottom" id="tFI-HI-ruO"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-ha-la8">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZA-ha-la8">
                                                             <rect key="frame" x="0.0" y="326.5" width="320" height="13.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DESCRIPTION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkN-ls-sWO">
@@ -1345,7 +1347,7 @@ Hours</string>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="asdasdas" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPG-tD-icX">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdasdas" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPG-tD-icX">
                                                                     <rect key="frame" x="164" y="0.0" width="146" height="13.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                     <color key="textColor" red="0.50386577070000005" green="0.50386577070000005" blue="0.50386577070000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3492,7 +3494,7 @@ Hours</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconLogOut" translatesAutoresizingMaskIntoConstraints="NO" id="gNv-nx-AXq">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_Logout_Unselected" translatesAutoresizingMaskIntoConstraints="NO" id="gNv-nx-AXq">
                                                     <rect key="frame" x="145" y="15" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="OJg-As-mSl"/>
@@ -3500,7 +3502,7 @@ Hours</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N18-JV-njo">
-                                                    <rect key="frame" x="131.5" y="47" width="57.5" height="25"/>
+                                                    <rect key="frame" x="132" y="47" width="57.5" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="jou-44-SAZ"/>
                                                     </constraints>
@@ -8467,7 +8469,6 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pBW-MG-cyH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1058" y="656"/>
         </scene>
     </scenes>
     <resources>
@@ -8481,31 +8482,30 @@ Hours</string>
         <image name="amazon.jpg" width="420" height="130"/>
         <image name="coles.jpg" width="420" height="130"/>
         <image name="costcoWholesale.png" width="1000" height="358"/>
-        <image name="iConStarSelected" width="135" height="135"/>
-        <image name="iConStarUnselected" width="135" height="135"/>
+        <image name="iConStarSelected" width="60" height="60"/>
+        <image name="iConStarUnselected" width="60" height="60"/>
         <image name="iconArrow" width="42" height="42"/>
         <image name="iconArrowGray" width="42" height="42"/>
         <image name="iconAutoParts" width="348" height="348"/>
         <image name="iconBack" width="42" height="42"/>
         <image name="iconBus" width="85" height="85"/>
         <image name="iconCallSmall" width="26" height="26"/>
-        <image name="iconCamera" width="27.5" height="20.5"/>
+        <image name="iconCamera" width="27" height="20"/>
         <image name="iconCloseAlert" width="40" height="40"/>
         <image name="iconDiscount" width="85" height="85"/>
         <image name="iconDropDown" width="21" height="21"/>
         <image name="iconDummyCard" width="42" height="26"/>
         <image name="iconDummyProfilePic" width="170" height="170"/>
-        <image name="iconEmail" width="128" height="128"/>
-        <image name="iconFB" width="128" height="128"/>
+        <image name="iconEmail" width="64" height="64"/>
+        <image name="iconFB" width="64" height="64"/>
         <image name="iconFerry" width="85" height="85"/>
         <image name="iconFestival" width="85" height="85"/>
         <image name="iconFlight" width="85" height="85"/>
         <image name="iconGiftCard" width="85" height="85"/>
         <image name="iconGroceries" width="85" height="85"/>
-        <image name="iconLock" width="102.40000152587891" height="102.40000152587891"/>
-        <image name="iconLockBack" width="102.40000152587891" height="102.40000152587891"/>
-        <image name="iconLockStar" width="128" height="128"/>
-        <image name="iconLogOut" width="42" height="42"/>
+        <image name="iconLock" width="64" height="64"/>
+        <image name="iconLockBack" width="64" height="64"/>
+        <image name="iconLockStar" width="64" height="64"/>
         <image name="iconMovies" width="85" height="85"/>
         <image name="iconNab" width="133" height="133"/>
         <image name="iconNewLogo" width="150" height="150"/>
@@ -8515,10 +8515,11 @@ Hours</string>
         <image name="iconSMS" width="42" height="42"/>
         <image name="iconTrain" width="85" height="85"/>
         <image name="iconTram" width="85" height="85"/>
-        <image name="iconTwitter" width="128" height="128"/>
+        <image name="iconTwitter" width="64" height="64"/>
         <image name="iconVline" width="85" height="85"/>
-        <image name="iconWhatsApp" width="128" height="128"/>
-        <image name="imgBackground" width="414" height="736"/>
+        <image name="iconWhatsApp" width="64" height="64"/>
+        <image name="icon_Logout_Unselected" width="30" height="30"/>
+        <image name="imgBackground" width="384" height="682"/>
         <image name="woolworths.jpg" width="420" height="130"/>
     </resources>
 </document>
