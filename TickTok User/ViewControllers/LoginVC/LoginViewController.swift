@@ -82,7 +82,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             txtEmail.text = "9904439228"
             txtPassword.text = "12345678"
         }
-        
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {

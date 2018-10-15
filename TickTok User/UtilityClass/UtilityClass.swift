@@ -5,7 +5,6 @@
 //  Created by Excellent Webworld on 27/10/17.
 //  Copyright © 2017 Excellent Webworld. All rights reserved.
 //
-
 import UIKit
 import NVActivityIndicatorView
 import Alamofire
@@ -24,10 +23,7 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         
         let cancelAction = UIAlertAction(title: "OK",
                                          style: .cancel, handler: nil)
-        
-        
-        
-        alert.addAction(cancelAction)
+                alert.addAction(cancelAction)
         
         if((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.presentedViewController != nil)
         {
