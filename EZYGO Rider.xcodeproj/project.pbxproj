@@ -135,6 +135,7 @@
 		21DA90D31FEBB60300E9B179 /* TiCKPayNeedToVarifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA90D21FEBB60300E9B179 /* TiCKPayNeedToVarifyViewController.swift */; };
 		21F74B12203421F4000F8769 /* AJAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F74B10203421F3000F8769 /* AJAlertController.swift */; };
 		21F74B13203421F4000F8769 /* AJAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F74B11203421F3000F8769 /* AJAlertController.xib */; };
+		346449432175FCC500BF617E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 346449422175FCC400BF617E /* Assets.xcassets */; };
 		50854B122174AF95009E5991 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50854B112174AF95009E5991 /* SplashVC.swift */; };
 		545B30B7204C22DA0019012F /* PackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545B30B6204C22DA0019012F /* PackageViewController.swift */; };
 		545B30BA204C230B0019012F /* PackageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545B30B9204C230B0019012F /* PackageDetailViewController.swift */; };
@@ -142,7 +143,6 @@
 		EE3D4CC421709C2A00B67991 /* Booking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE3D4CC221709C2A00B67991 /* Booking.storyboard */; };
 		EE3D4CC721709C6700B67991 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE3D4CC521709C6700B67991 /* Profile.storyboard */; };
 		EE3D4CCB21709D0600B67991 /* Wallet.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE3D4CC921709D0600B67991 /* Wallet.storyboard */; };
-		EE3D4CCC2170A02100B67991 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 008D22371FA08DCF001223DF /* Assets.xcassets */; };
 		EED6F28A20385CF900C7B2E9 /* PickNGo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EED6F28920385CF900C7B2E9 /* PickNGo.mp3 */; };
 /* End PBXBuildFile section */
 
@@ -183,7 +183,6 @@
 		008D222D1FA08DCF001223DF /* EZYGO Rider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EZYGO Rider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		008D22301FA08DCF001223DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		008D22351FA08DCF001223DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		008D22371FA08DCF001223DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		008D223A1FA08DCF001223DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		008D223C1FA08DCF001223DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		008D22421FA08E14001223DF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +279,7 @@
 		21F74B10203421F3000F8769 /* AJAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJAlertController.swift; sourceTree = "<group>"; };
 		21F74B11203421F3000F8769 /* AJAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJAlertController.xib; sourceTree = "<group>"; };
 		3412C5072170BD79000D6583 /* EZYGO Rider-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EZYGO Rider-Bridging-Header.h"; sourceTree = "<group>"; };
+		346449422175FCC400BF617E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50854B112174AF95009E5991 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		545B30B6204C22DA0019012F /* PackageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageViewController.swift; sourceTree = "<group>"; };
 		545B30B9204C230B0019012F /* PackageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageDetailViewController.swift; sourceTree = "<group>"; };
@@ -503,8 +503,8 @@
 				0079BFA51FA35E9F00EFB38D /* WebserviceFiles */,
 				EE3D4CC821709C7000B67991 /* Storyboards */,
 				3412C5072170BD79000D6583 /* EZYGO Rider-Bridging-Header.h */,
-				008D22371FA08DCF001223DF /* Assets.xcassets */,
 				008D22391FA08DCF001223DF /* LaunchScreen.storyboard */,
+				346449422175FCC400BF617E /* Assets.xcassets */,
 				008D223C1FA08DCF001223DF /* Info.plist */,
 				0061785C1FAC59D80094651F /* TempData.swift */,
 				21CE100A2003951600FF821F /* TempDataOfWebservice.swift */,
@@ -848,7 +848,7 @@
 				008D22361FA08DCF001223DF /* Main.storyboard in Resources */,
 				217F255C1FE3C6DB0084F6C8 /* coles.jpg in Resources */,
 				2170D7C42017391E00CAD52D /* round50.png in Resources */,
-				EE3D4CCC2170A02100B67991 /* Assets.xcassets in Resources */,
+				346449432175FCC500BF617E /* Assets.xcassets in Resources */,
 				217F255B1FE3C6DB0084F6C8 /* woolworths.jpg in Resources */,
 				EE3D4CC421709C2A00B67991 /* Booking.storyboard in Resources */,
 				212BC5831FEA3615008498D3 /* IGABrand.jpg in Resources */,

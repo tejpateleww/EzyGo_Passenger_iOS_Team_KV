@@ -279,7 +279,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.webserviceOfRunningTripTrack), name: NotificationTrackRunningTrip, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.newBooking(_:)), name: NotificationForBookingNewTrip, object: nil)
         
-        self.stackViewNumberOfPassenger.isHidden = true
+//        self.stackViewNumberOfPassenger.isHidden = true
         
         self.btnDoneForLocationSelected.isHidden = true
         self.ConstantViewCarListsHeight.constant = 0
@@ -437,11 +437,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         viewSubFinalRating.layer.cornerRadius = 5
         viewSubFinalRating.layer.masksToBounds = true
         
-        viewSelectPaymentOption.layer.borderWidth = 1.0
-        viewSelectPaymentOption.layer.borderColor = UIColor.gray.cgColor
-        viewSelectPaymentOption.layer.cornerRadius = 5
-        viewSelectPaymentOption.layer.masksToBounds = true
-        
+//        viewSelectPaymentOption.layer.borderWidth = 1.0
+//        viewSelectPaymentOption.layer.borderColor = UIColor.gray.cgColor
+//        viewSelectPaymentOption.layer.cornerRadius = 5
+//        viewSelectPaymentOption.layer.masksToBounds = true
+//
         viewSelectPaymentOptionParent.layer.cornerRadius = 5
         viewSelectPaymentOptionParent.layer.masksToBounds = true
         
@@ -1110,6 +1110,35 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
     }
+    
+    
+    @IBOutlet weak var btnSwapAddress: UIButton!
+    @IBAction func btnSwapAddress(_ sender: UIButton) {
+     
+        let pickupLet = self.doublePickupLat
+        let pickuplong = self.doublePickupLng
+        
+        let dropoffLet = self.doubleDropOffLat
+        let dropoffLong = self.doubleDropOffLng
+        
+        let FromAddress:String = self.txtCurrentLocation.text!
+        let ToAddress:String = self.txtDestinationLocation.text!
+        
+        self.doublePickupLat = dropoffLet
+        self.doublePickupLng = dropoffLong
+        
+        self.doubleDropOffLat = pickupLet
+        self.doubleDropOffLng = pickuplong
+        
+        self.txtDestinationLocation.text = FromAddress
+        self.txtCurrentLocation.text = ToAddress
+    
+        self.btnDoneForLocationSelected.isHidden = false
+    }
+    
+    
+    
+    
     @IBOutlet weak var btnCall: UIButton!
     @IBAction func btCallClicked(_ sender: UIButton)
     {
@@ -1137,12 +1166,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
+    
+    
     func setPaymentType() {
         
         pickerView.selectRow(0, inComponent: 0, animated: true)
         
-        imgPaymentType.image = UIImage(named: "iconCashBlack")
-        txtSelectPaymentOption.text = "cash"
+//        imgPaymentType.image = UIImage(named: "iconCashBlack")
+//        txtSelectPaymentOption.text = "cash"
         
     }
     
@@ -1294,28 +1325,112 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var viewBookNow: UIView!
     
     @IBOutlet weak var viewSelectPaymentOptionParent: UIView!
-    @IBOutlet weak var viewSelectPaymentOption: UIView!
-    @IBOutlet weak var txtSelectPaymentOption: UITextField!
+    
+//    @IBOutlet weak var viewSelectPaymentOption: UIView!
+    
+//    @IBOutlet weak var txtSelectPaymentOption: UITextField!
     
     @IBOutlet weak var viewHavePromocode: M13Checkbox!
-    @IBOutlet weak var stackViewOfPromocode: UIStackView!
-    @IBOutlet weak var stackViewNumberOfPassenger: UIStackView!
     
-    @IBOutlet weak var txtNumberOfPassengers: UITextField!
+    @IBOutlet weak var stackViewOfPromocode: UIView!
+    
+//    @IBOutlet weak var stackViewNumberOfPassenger: UIStackView!
+    
+    @IBOutlet weak var lblNumberOfPassengers: UILabel!
     
     
-    @IBOutlet weak var imgPaymentType: UIImageView!
+//    @IBOutlet weak var imgPaymentType: UIImageView!
     @IBOutlet weak var txtHavePromocode: UITextField!
+    
+    
     @IBOutlet weak var txtNote: UITextField!
     var boolIsSelected = Bool()
+    
+    @IBOutlet weak var PayCashView: UIView!
+    @IBOutlet weak var CashLogo: UIImageView!
+    @IBOutlet weak var btnCash: UIButton!
+    
+    @IBOutlet weak var PayWalletView: UIView!
+    @IBOutlet weak var WalletLogo: UIImageView!
+    @IBOutlet weak var btnWallet: UIButton!
+    
+    
+    @IBOutlet weak var PayCardView: UIView!
+    @IBOutlet weak var CardLogo: UIImageView!
+    @IBOutlet weak var btnCard: UIButton!
+    
+    
+    
+    @IBAction func btnPayment(_ sender: UIButton) {
+        
+        switch sender {
+        case self.btnCard:
+            self.SetPaymentOption(SelectionIndex: 0)
+        case self.btnCash:
+            self.SetPaymentOption(SelectionIndex: 1)
+        case self.btnWallet:
+            self.SetPaymentOption(SelectionIndex: 2)
+        default:
+            break
+        }
+        
+        
+    }
+    
+    func SetPaymentOption(SelectionIndex:Int) {
+        
+        self.PayWalletView.backgroundColor = UIColor.white
+        self.PayCardView.backgroundColor = UIColor.white
+        
+        self.PayCashView.backgroundColor = UIColor.white
+        
+        if SelectionIndex == 0 {
+            self.PayCardView.backgroundColor = UIColor.lightGray
+            
+            
+        } else if SelectionIndex == 1 {
+            self.PayCashView.backgroundColor = UIColor.lightGray
+            paymentType = "cash"
+        } else if SelectionIndex == 2 {
+            self.PayWalletView.backgroundColor = UIColor.lightGray
+            paymentType = "wallet"
+        }
+        
+    }
+    
     
     var pickerView = UIPickerView()
     var pickerViewForNoOfPassenger = UIPickerView()
     
+    var pickerViewForInvoiceType = UIPickerView()
+    
     var CardID = String()
     var paymentType = String()
     
-    var intNumberOfPassengerOnShareRiding = Int()
+    var intNumberOfPassengerOnShareRiding:Int = 1
+    
+    var InvoiceType:[String] = ["Trip Receipt", "Tax Invoice"]
+    
+    
+    @IBAction func IncreasePassengerCount(_ sender: UIButton) {
+        if intNumberOfPassengerOnShareRiding < 6 {
+            intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding + 1
+        }
+        self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
+    }
+    
+    
+    @IBAction func DecreasePassengerCount(_ sender: UIButton) {
+        
+        if intNumberOfPassengerOnShareRiding > 1 {
+            intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding - 1
+            
+        }
+        self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
+        
+    }
+    
+    
     
     @IBAction func btnPromocode(_ sender: UIButton) {
         
@@ -1333,6 +1448,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
     }
+    
+    
+    
     
     @IBAction func viewHavePromocode(_ sender: M13Checkbox) {
         
@@ -1355,7 +1473,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        txtSelectPaymentOption.inputView = pickerView
+//        txtSelectPaymentOption.inputView = pickerView
     }
     
     @IBAction func txtNumberOfPassenger(_ sender: UITextField) {
@@ -1363,7 +1481,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         pickerViewForNoOfPassenger.delegate = self
         pickerViewForNoOfPassenger.dataSource = self
         
-        txtNumberOfPassengers.inputView = pickerViewForNoOfPassenger
+//        txtNumberOfPassengers.inputView = pickerViewForNoOfPassenger
         
     }
     
@@ -1488,15 +1606,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             } else if row == 1 {
                 intNumberOfPassengerOnShareRiding = 2
             }
-            txtNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
+//            txtNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
             
         }
         else {
             
             let data = cardData[row]
             
-            imgPaymentType.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-            txtSelectPaymentOption.text = data["CardNum2"] as? String
+//            imgPaymentType.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+//            txtSelectPaymentOption.text = data["CardNum2"] as? String
             
             let type = data["CardNum"] as! String
             
@@ -1924,12 +2042,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if Connectivity.isConnectedToInternet()
         {
             if intShareRide == 1 {
-                self.stackViewNumberOfPassenger.isHidden = false
-                txtNumberOfPassengers.text = "1"
+//                self.stackViewNumberOfPassenger.isHidden = false
+//                txtNumberOfPassengers.text = "1"
             }
             else {
-                self.stackViewNumberOfPassenger.isHidden = true
-                txtNumberOfPassengers.text = ""
+//                self.stackViewNumberOfPassenger.isHidden = true
+//                txtNumberOfPassengers.text = ""
             }
             
             if SingletonClass.sharedInstance.strPassengerID == "" || strModelId == "" || strPickupLocation == "" || strDropoffLocation == "" || doublePickupLat == 0 || doublePickupLng == 0 || doubleDropOffLat == 0 || doubleDropOffLng == 0 || strCarModelID == ""
@@ -2068,8 +2186,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         let data = cardData[0]
         
-        imgPaymentType.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        txtSelectPaymentOption.text = data["CardNum2"] as? String
+//        imgPaymentType.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
+//        txtSelectPaymentOption.text = data["CardNum2"] as? String
         
         let type = data["CardNum"] as! String
         
@@ -3632,7 +3750,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.txtNote.text = ""
         self.txtFeedbackFinal.text = ""
         self.txtHavePromocode.text = ""
-        self.txtSelectPaymentOption.text = ""
+//        self.txtSelectPaymentOption.text = ""
         SingletonClass.sharedInstance.isTripContinue = false
         
         
