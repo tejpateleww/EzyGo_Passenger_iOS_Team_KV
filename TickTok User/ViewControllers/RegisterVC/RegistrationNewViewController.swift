@@ -10,12 +10,14 @@ import UIKit
 import ACFloatingTextfield_Swift
 import TransitionButton
 
-class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate {
  
     
-    
+    var aryage = [String:AnyObject]()
     var strDateOfBirth = String()
 
+    var agePicker = UIPickerView()
+    var pickerView = UIPickerView()
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -47,7 +49,9 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        agePicker.delegate = self
+        agePicker.dataSource = self
+          txtAgeGroup.inputView = agePicker
         // Do any additional setup after loading the view.
         
         self.radioButtonsController = AKRadioButtonsController(radioButtons: self.radioButtons)
@@ -181,6 +185,64 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         
     }
 
+    
+    //-------------------------------------------------------------
+    // MARK: - PickerView Methods
+    //-------------------------------------------------------------
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == agePicker{
+            return 2
+        }
+        
+        return aryage.count
+    }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        if pickerView == agePicker {
+            return 120
+        }
+        return 60
+    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        
+        if pickerView == agePicker
+        {
+            //mainview
+            let viewOfage = UIView(frame: CGRect(x: 10, y: 10, width: agePicker.frame.size.width , height: agePicker.frame.size.height ))
+            
+          
+            //labelNum
+            let lblOfCountryNum = UILabel(frame: CGRect(x: 10 , y: 10
+                , width: 60, height: 60))
+            //addsubview
+            viewOfage.addSubview(lblOfCountryNum)
+            // return mainview
+            return viewOfage
+            
+        }
+        
+      
+        var strcountory = String()
+        let viewContoryCode = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
+
+        let lblOfCountryNum = UILabel(frame: CGRect(x:60, y:0, width:pickerView.bounds.width - 90, height:60 ))
+        viewContoryCode.addSubview(lblOfCountryNum)
+       
+        
+        return pickerView
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        
+      
+    }
+    // MARK: - Navigation
     
    
     

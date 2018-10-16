@@ -18,6 +18,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     @IBOutlet weak var txtPassword: ACFloatingTextfield!
     @IBOutlet weak var txtConfirmPassword: ACFloatingTextfield!
     
+    @IBOutlet weak var txtContoryNum: UITextField!
     let countoryz : Int = 0
     
     var countoryPicker = UIPickerView()
@@ -27,22 +28,29 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         super.viewDidLoad()
         aryContoryNum = ["name" : "+64","namea" : "+91"] as [String : AnyObject]
         txtPhoneNumber.delegate = self
-        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+       
         //        txtPhoneNumber.text = "1234567890"
         //        txtEmail.text = "rahul.bbit@gmail.com"
         //        txtPassword.text = "12345678"
         //        txtConfirmPassword.text = "12345678"
         
-        
         UtilityClass.setCornerRadiusTextField(textField: txtPhoneNumber, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtEmail, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtConfirmPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+         UtilityClass.setCornerRadiusTextField(textField: txtContoryNum, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         
+        countoryPicker.delegate = self
+        countoryPicker.dataSource = self
+        
+        txtContoryNum.inputView = countoryPicker
 //        txtPhoneNumber.placeHolderColor = UIColor.red
         // Do any additional setup after loading the view.
     }
     
+  
     //-------------------------------------------------------------
     // MARK: - TextField Delegate Method
     //-------------------------------------------------------------
@@ -99,10 +107,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         //addsubview
         viewOfContryCode.addSubview(imgOfCountry)
         viewOfContryCode.addSubview(lblOfCountryNum)
-        
        // return mainview
         return viewOfContryCode
-        
         
         }
         
@@ -134,7 +140,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
      return pickerView
     }
     
-
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        
+        if pickerView == countoryPicker {
+            
+         
+    }
+    }
     // MARK: - Navigation
     
     

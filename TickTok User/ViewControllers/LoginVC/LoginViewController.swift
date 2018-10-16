@@ -20,7 +20,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     // MARK: - Outlets
     //-------------------------------------------------------------
     @IBOutlet weak var viewMain: UIView!
-    
     @IBOutlet weak var txtPassword: ACFloatingTextfield!
     @IBOutlet weak var txtEmail: ACFloatingTextfield!
     @IBOutlet weak var btnLogin: TransitionButton!
@@ -69,8 +68,11 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         }
     }
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
+        txtEmail.text = "9904439228"
+        txtPassword.text = "12345678"
         viewMain.isHidden = true
         
 //        txtEmail.lineColor = UIColor.white

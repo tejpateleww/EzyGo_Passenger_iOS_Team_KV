@@ -311,9 +311,6 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
 //            dictData["PromoCode"] = lblPromoCode.text as AnyObject
 //        }
         
-        
-        
-        
         webserviceForBookPackage(dictPara as AnyObject)
         { (result, status) in
             if (status)

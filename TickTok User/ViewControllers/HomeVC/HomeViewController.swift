@@ -1362,15 +1362,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         pickerViewForNoOfPassenger.delegate = self
         pickerViewForNoOfPassenger.dataSource = self
-//        pickerViewForNoOfPassenger.sc
         
         txtNumberOfPassengers.inputView = pickerViewForNoOfPassenger
         
     }
-    
-    
-    
-    
     
     @IBAction func btnRequestNow(_ sender: UIButton) {
         

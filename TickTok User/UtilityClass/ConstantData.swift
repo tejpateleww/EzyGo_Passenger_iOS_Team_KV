@@ -1,4 +1,4 @@
-//
+ //
 //  ConstantData.swift
 //  TickTok User
 //
@@ -9,18 +9,14 @@
 import UIKit
 import Foundation
 
-let themeYellowColor: UIColor = UIColor.init(red: 237/255, green: 122/255, blue: 4/255, alpha: 1.0)
+let themeYellowColor: UIColor = UIColor.init(red: 190/255, green: 98/255, blue: 6/255, alpha: 1.0)//(red: 237/255, green: 122/255, blue: 4/255, alpha: 1.0)
 let themeGrayColor: UIColor = UIColor.init(red: 114/255, green: 114/255, blue: 114/255, alpha: 1.0)
-//let ThemeYellowColor : UIColor = UIColor.init(hex: "ffa300")
+//let ThemeYellowColor : UIColor = UIColor.init(hex: ""BE6206)
 
 let currencySign = "$"
-<<<<<<< HEAD
 let appName = "EZYGO Rider"
 let helpLineNumber = "1234567890"
-=======
-let appName = "Pick'N'Go"
-let helpLineNumber = "0772506506"
->>>>>>> bda4fb2a3d92ad6c026f5a6aaa7ff7b991f74d85
+
 
 let googleAnalyticsTrackId = "UA-122360832-1"
 
