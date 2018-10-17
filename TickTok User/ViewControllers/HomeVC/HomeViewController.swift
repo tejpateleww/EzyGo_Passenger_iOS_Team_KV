@@ -1133,7 +1133,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.txtDestinationLocation.text = FromAddress
         self.txtCurrentLocation.text = ToAddress
     
-        self.btnDoneForLocationSelected.isHidden = false
     }
     
     
@@ -1170,7 +1169,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func setPaymentType() {
         
-        pickerView.selectRow(0, inComponent: 0, animated: true)
+//        pickerView.selectRow(0, inComponent: 0, animated: true)
         
 //        imgPaymentType.image = UIImage(named: "iconCashBlack")
 //        txtSelectPaymentOption.text = "cash"
@@ -1386,8 +1385,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if SelectionIndex == 0 {
             self.PayCardView.backgroundColor = UIColor.lightGray
-            
-            
         } else if SelectionIndex == 1 {
             self.PayCashView.backgroundColor = UIColor.lightGray
             paymentType = "cash"
@@ -1399,8 +1396,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
-    var pickerView = UIPickerView()
-    var pickerViewForNoOfPassenger = UIPickerView()
     
     var pickerViewForInvoiceType = UIPickerView()
     
@@ -1409,7 +1404,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var intNumberOfPassengerOnShareRiding:Int = 1
     
-    var InvoiceType:[String] = ["Trip Receipt", "Tax Invoice"]
+    var InvoiceTypes:[String] = ["Trip Receipt", "Tax Invoice"]
+    
     
     
     @IBAction func IncreasePassengerCount(_ sender: UIButton) {
@@ -1429,6 +1425,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
         
     }
+    
     
     
     
@@ -1453,47 +1450,30 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     
     @IBAction func viewHavePromocode(_ sender: M13Checkbox) {
-        
-        //        boolIsSelected = !boolIsSelected
-        //
-        //        if (boolIsSelected) {
-        //            stackViewOfPromocode.isHidden = false
-        //        }
-        //        else {
-        //            stackViewOfPromocode.isHidden = true
-        //
-        //        }
     }
     @IBAction func tapToDismissBookNowView(_ sender: UITapGestureRecognizer) {
         viewBookNow.isHidden = true
-        
     }
     
-    @IBAction func txtPaymentOption(_ sender: UITextField) {
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        
-//        txtSelectPaymentOption.inputView = pickerView
-    }
+    @IBOutlet weak var txtInvoiceType: UITextField!
     
-    @IBAction func txtNumberOfPassenger(_ sender: UITextField) {
+    @IBAction func txtInvoiceType(_ sender: UITextField) {
         
-        pickerViewForNoOfPassenger.delegate = self
-        pickerViewForNoOfPassenger.dataSource = self
+        pickerViewForInvoiceType.delegate = self
+        pickerViewForInvoiceType.dataSource = self
         
-//        txtNumberOfPassengers.inputView = pickerViewForNoOfPassenger
+        txtInvoiceType.inputView = pickerViewForInvoiceType
         
     }
     
     @IBAction func btnRequestNow(_ sender: UIButton) {
-        
         self.webserviceCallForBookingCar()
     }
 
+    
     //-------------------------------------------------------------
     // MARK: - PickerView Methods
     //-------------------------------------------------------------
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -1501,139 +1481,15 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        if pickerView == pickerViewForNoOfPassenger {
-            return 2
-        }
-        return cardData.count
+        return InvoiceTypes.count
     }
-    
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        if pickerView == pickerViewForNoOfPassenger {
-            return 120
-        }
-        return 60
-    }
-    
-    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    //
-    //    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
-        if pickerView == pickerViewForNoOfPassenger {
-            
-            let myView = UIView(frame: CGRect(x:0, y:0, width: pickerViewForNoOfPassenger.frame.size.width, height: pickerViewForNoOfPassenger.frame.size.height))
-            
-            let myImageView = UIImageView(frame: CGRect(x:myView.center.x - 50, y:myView.center.y - 50, width:100, height:100))
-            var rowString = String()
-           
-            
-            let myLabel = UILabel(frame: CGRect(x:myImageView.center.x-10, y:myImageView.center.y-25, width:50, height:50 ))
-            myLabel.font = UIFont.systemFont(ofSize: 30)
-            myLabel.text = rowString
-            
-            myView.addSubview(myImageView)
-            myView.addSubview(myLabel)
-            
-            return myView
-        }
-        
-        let data = cardData[row]
-        
-        let myView = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
-        
-        let myImageView = UIImageView(frame: CGRect(x:0, y:0, width:50, height:50))
-        
-        var rowString = String()
-        
-        
-        switch row {
-            
-        case 0:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 1:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 2:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 3:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 4:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 5:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 6:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 7:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 8:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 9:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        case 10:
-            rowString = data["CardNum2"] as! String
-            myImageView.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-        default:
-            rowString = "Error: too many rows"
-            myImageView.image = nil
-        }
-        let myLabel = UILabel(frame: CGRect(x:60, y:0, width:pickerView.bounds.width - 90, height:60 ))
-        //        myLabel.font = UIFont(name:some, font, size: 18)
-        myLabel.text = rowString
-        
-        myView.addSubview(myLabel)
-        myView.addSubview(myImageView)
-        
-        return myView
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return InvoiceTypes[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        if pickerView == pickerViewForNoOfPassenger {
-            
-            if row == 0 {
-                intNumberOfPassengerOnShareRiding = 1
-            
-            } else if row == 1 {
-                intNumberOfPassengerOnShareRiding = 2
-            }
-//            txtNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
-            
-        }
-        else {
-            
-            let data = cardData[row]
-            
-//            imgPaymentType.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
-//            txtSelectPaymentOption.text = data["CardNum2"] as? String
-            
-            let type = data["CardNum"] as! String
-            
-            if type  == "wallet" {
-                paymentType = "wallet"
-            }
-            else if type == "cash" {
-                paymentType = "cash"
-            }
-            else {
-                paymentType = "card"
-            }
-            
-            if paymentType == "card" {
-                CardID = data["Id"] as! String
-            }
-            
-        }
-        
+            self.txtInvoiceType.text = InvoiceTypes[row]
         // do something with selected row
     }
     
@@ -1691,8 +1547,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var isReloadWebserviceOfCardList = Bool()
     
     @objc func reloadWebserviceOfCardList() {
-        
-        
         self.webserviceOfCardList()
         isReloadWebserviceOfCardList = true
         
@@ -1731,7 +1585,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
                 SingletonClass.sharedInstance.CardsVCHaveAryData = (result as! NSDictionary).object(forKey: "cards") as! [[String:AnyObject]]
                 
-                self.pickerView.reloadAllComponents()
+//                self.pickerView.reloadAllComponents()
                 
                 NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CardListReload"), object: nil)
                 
@@ -2182,7 +2036,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cardData.append(aryCardsListForBookNow[i])
             }
         }
-        self.pickerView.reloadAllComponents()
+//        self.pickerView.reloadAllComponents()
         
         let data = cardData[0]
         
@@ -2206,6 +2060,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
         viewBookNow.isHidden = false
+        self.txtInvoiceType.text = InvoiceTypes[0]
     }
     
     func didAddCardFromHomeVC() {

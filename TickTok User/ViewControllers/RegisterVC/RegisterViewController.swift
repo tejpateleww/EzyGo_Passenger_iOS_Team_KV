@@ -3,7 +3,7 @@
 //  TickTok User
 //
 //  Created by Excellent Webworld on 25/10/17.
-//  Copyright © 2017 Excellent Webworld. All rights reserved.
+//  Copyright © 2017 Excellent Webworld. All rigwwssrgegtrg bdtr                                              hts reserved.
 //
 
 import UIKit
