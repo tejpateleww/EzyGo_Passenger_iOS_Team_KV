@@ -57,7 +57,7 @@ class ChangePasswordVC: UIViewController {
                 webserviceOfChangePassword()
             }
             else {
-                UtilityClass.setCustomAlert(title: "Missing", message: "Password should be minimum 8 characters.") { (index, title) in
+                UtilityClass.setCustomAlert(title: "", message: "Password should be minimum 8 characters.") { (index, title) in
             }
             }
         }

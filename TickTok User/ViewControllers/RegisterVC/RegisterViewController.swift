@@ -60,7 +60,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         if textField == txtPhoneNumber {
             let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
             
-            if resultText!.count >= 11 {
+            if resultText!.count >= 10 {
                 return false
             }
             else {
@@ -192,10 +192,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
 
             return false
         }
-        else if ((txtPhoneNumber.text?.count)! < 10)
+        else if ((txtPhoneNumber.text?.count)! < 8)
         {
 
-            UtilityClass.setCustomAlert(title: "", message: "Phone Number should 10 digits") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Phone Number should 8 digits") { (index, title) in
             }
 
             return false

@@ -10,10 +10,20 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
 
+    //-----------------------------------------------------------
+    // MARK: - Outlets
+    //-----------------------------------------------------------
+    
+    @IBOutlet weak var viewEditProfile: UIView!
+    @IBOutlet weak var viewAccount: UIView!
+    @IBOutlet weak var viewMain: UIView!
+    @IBOutlet weak var btnAccount: UIButton!
+    @IBOutlet weak var btnEditProfile: UIButton!
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,9 +40,9 @@ class EditProfileViewController: UIViewController {
 //        AnimationToView()
 
         setImageColor()
-        
-        iconProfile.image = setImageColorOfImage(name: "iconEditProfile")
-        iconAccount.image = setImageColorOfImage(name: "iconAccount")
+//
+//        iconProfile.image = setImageColorOfImage(name: "iconEditProfile")
+//        iconAccount.image = setImageColorOfImage(name: "iconAccount")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,14 +66,17 @@ class EditProfileViewController: UIViewController {
     
     func setImageColor() {
         
-        let img = UIImage(named: "iconArrowGrey")
-        imgArrowProfile.image = img?.maskWithColor(color: UIColor.white)
-        imgArrowAccount.image = img?.maskWithColor(color: UIColor.white)
+//        let img = UIImage(named: "iconArrowGrey")
+//        imgArrowProfile.image = img?.maskWithColor(color: UIColor.white)
+//        imgArrowAccount.image = img?.maskWithColor(color: UIColor.white)
     }
+    
+    
+    
     
     func setImageColorOfImage(name: String) -> UIImage {
         
-        var imageView = UIImageView()
+        let imageView = UIImageView()
         
         let img = UIImage(named: name)
         imageView.image = img?.maskWithColor(color: UIColor.white)
@@ -72,27 +85,10 @@ class EditProfileViewController: UIViewController {
         return imageView.image!
     }
     
-    //-------------------------------------------------------------
-    // MARK: - Outlets
-    //-------------------------------------------------------------
-    
-    @IBOutlet weak var viewEditProfile: UIView!
-    @IBOutlet weak var viewAccount: UIView!
-    
-    @IBOutlet weak var imgArrowProfile: UIImageView!
-    @IBOutlet weak var imgArrowAccount: UIImageView!
-    
-    @IBOutlet weak var ConstraintEditProfileX: NSLayoutConstraint!
-    @IBOutlet weak var constraintAccountTailing: NSLayoutConstraint!
-    
-    @IBOutlet weak var viewMain: UIView!
-    
-    @IBOutlet weak var iconProfile: UIImageView!
-    @IBOutlet weak var iconAccount: UIImageView!
-    
-    //-------------------------------------------------------------
+
+    //----------------------------------------------------------
     // MARK: - Actions
-    //-------------------------------------------------------------
+    //----------------------------------------------------------
     
     @IBAction func btnBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -137,28 +133,28 @@ class EditProfileViewController: UIViewController {
             }
         }
     }
-    func AnimationToView() {
-
-        self.ConstraintEditProfileX.constant = self.view.frame.origin.x - viewEditProfile.frame.size.width - 20
-        self.constraintAccountTailing.constant = -(viewEditProfile.frame.size.width + 20)
-        
-        self.viewMain.layoutIfNeeded()
-        
-        UIView.animate(withDuration: 2.0, delay: 0.0, options: .curveEaseIn, animations: {
-
-            
-            self.ConstraintEditProfileX.constant = 20
-            self.constraintAccountTailing.constant = 20
-            
-            self.viewMain.layoutIfNeeded()
-            
-            
-        }, completion: { finished in
-            
-        })
-        
-        
-    }
+//    func AnimationToView() {
+//
+//        self.ConstraintEditPr    ofileX.constant = self.view.frame.origin.x - viewEditProfile.frame.size.width - 20
+//        self.constraintAccountTailing.constant = -(viewEditProfile.frame.size.width + 20)
+//
+//        self.viewMain.layoutIfNeeded()
+//
+//        UIView.animate(withDuration: 2.0, delay: 0.0, options: .curveEaseIn, animations: {
+//
+//
+//            self.ConstraintEditProfileX.constant = 20
+//            self.constraintAccountTailing.constant = 20
+//
+//            self.viewMain.layoutIfNeeded()
+//
+//
+//        }, completion: { finished in
+//
+//        })
+//
+//
+//    }
     
 
 }

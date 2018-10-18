@@ -20,8 +20,6 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblMobileNumber: UILabel!
     
-    
-    
     var ProfileData = NSDictionary()
     
     var arrMenuIcons = [String]()
