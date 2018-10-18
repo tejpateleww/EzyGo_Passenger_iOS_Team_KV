@@ -36,7 +36,6 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -51,6 +50,7 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
             aryData = SingletonClass.sharedInstance.walletHistoryData
             self.lblAvailableFundsDesc.text = "\(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
         }
+    
        
     }
     
@@ -158,14 +158,14 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
         else {
             
             if dictData["Type"] as! String == "-" {
-                cell.statusHeight.constant = 0
+//                cell.statusHeight.constant = 0
                 cell.lblStatus.isHidden = true
                 
                 cell.lblPrice.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
                 cell.lblPrice.textColor = UIColor.black
             }
             else {
-                cell.statusHeight.constant = 0
+//                cell.statusHeight.constant = 0
                 cell.lblStatus.isHidden = true
                 
                 cell.lblPrice.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"

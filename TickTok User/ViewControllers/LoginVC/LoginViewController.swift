@@ -208,7 +208,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             }
         }
     }
-
     
      //MARK: - Webservice Call for Forgot Password
     
@@ -336,7 +335,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     @IBAction func btnLogin(_ sender: Any) {
         
         if (checkValidation()) {
-            self.btnLogin.startAnimation()
+//            self.btnLogin.startAnimation()
             self.webserviceCallForLogin()
         }
     
@@ -436,6 +435,5 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
 //        self.navigationController?.present(next, animated: false, completion: nil)
         
     }
-   
     
 }

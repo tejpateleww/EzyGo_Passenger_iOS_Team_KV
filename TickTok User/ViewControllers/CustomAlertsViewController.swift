@@ -164,7 +164,6 @@ class CustomAlertsViewController: UIViewController
                 self.viewMainAlert.layoutIfNeeded()
         }) { _ in
         }
-        
     }
     
     func DismissAnimation() {
@@ -185,14 +184,5 @@ class CustomAlertsViewController: UIViewController
              self.delegateOfAlertView?.didCancelButtonPressed!()
             })
         }
-        
     }
-    
-    
 }
-
-
-
-
-
-

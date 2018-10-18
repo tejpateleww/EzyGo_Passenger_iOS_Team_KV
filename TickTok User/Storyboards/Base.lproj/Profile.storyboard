@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a31-9t-SSP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -90,6 +90,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="131" height="131"/>
                                                         <color key="backgroundColor" red="0.92156862750000001" green="0.47843137250000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" image="iconAccount"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="30"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="btnEditProfile:" destination="a31-9t-SSP" eventType="touchUpInside" id="WAw-CJ-TnO"/>
                                                         </connections>
@@ -138,7 +143,7 @@
                                                 <state key="normal" image="iconAccount"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="50"/>
+                                                        <real key="value" value="30"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -199,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yj0-KI-3ue" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3012" y="1272.4137931034484"/>
+            <point key="canvasLocation" x="-3300" y="1280"/>
         </scene>
         <!--Update Profile View Controller-->
         <scene sceneID="Jrz-b9-cQa">
@@ -686,7 +691,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQu-ck-nmR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2274" y="1272"/>
+            <point key="canvasLocation" x="-2534" y="1298"/>
         </scene>
         <!--Edit Account View Controller-->
         <scene sceneID="tbH-Ep-Dr2">
@@ -1180,7 +1185,7 @@
     <resources>
         <image name="iConStarSelected" width="135" height="135"/>
         <image name="iconAccount" width="42" height="42"/>
-        <image name="iconArrow" width="85" height="85"/>
+        <image name="iconArrow" width="40" height="40"/>
         <image name="iconCallSmall" width="85" height="85"/>
         <image name="iconSave" width="42" height="42"/>
     </resources>

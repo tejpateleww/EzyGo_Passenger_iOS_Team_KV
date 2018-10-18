@@ -35,14 +35,19 @@ class EditProfileViewController: UIViewController {
        
 //        self.ConstraintEditProfileX.constant = self.view.frame.origin.x - viewEditProfile.frame.size.width - 20
 //        self.constraintAccountTailing.constant = -(viewEditProfile.frame.size.width + 20)
-//
-        
 //        AnimationToView()
-
         setImageColor()
 //
 //        iconProfile.image = setImageColorOfImage(name: "iconEditProfile")
 //        iconAccount.image = setImageColorOfImage(name: "iconAccount")
+        
+        btnEditProfile.layer.cornerRadius = 30
+        btnEditProfile.layer.masksToBounds = true
+    
+        btnAccount.layer.cornerRadius = 30
+        btnAccount.layer.masksToBounds = true
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

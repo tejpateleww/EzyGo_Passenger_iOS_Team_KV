@@ -304,7 +304,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             strEmail = (registerVC.txtEmail.text)!
             strPassword = (registerVC.txtPassword.text)!
             
-            self.btnSignUp.startAnimation()
+//            self.btnSignUp.startAnimation()
             
             webServiceCallForRegister()
         }

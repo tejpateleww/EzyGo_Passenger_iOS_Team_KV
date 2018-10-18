@@ -102,7 +102,6 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
         txtBankAccountNo.text = ""
         txtBSB.text = ""
         strAmt = ""
-        
     }
 
     //-------------------------------------------------------------
@@ -111,12 +110,10 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
     
     @IBOutlet weak var lblCardTitle: UILabel!
     @IBOutlet weak var lblCurrentBalanceTitle: UILabel!
-    
     @IBOutlet weak var txtAmount: UITextField!
     @IBOutlet weak var btnWithdrawFunds: UIButton!
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var btnCardTitle: UIButton!
-    
     @IBOutlet weak var txtAccountHolderName: ACFloatingTextfield!
     @IBOutlet weak var txtABN: ACFloatingTextfield!
     @IBOutlet weak var txtBankName: ACFloatingTextfield!
