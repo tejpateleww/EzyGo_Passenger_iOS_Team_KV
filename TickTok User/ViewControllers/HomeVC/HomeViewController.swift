@@ -30,7 +30,7 @@ protocol addCardFromHomeVCDelegate {
 }
 
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GMSAutocompleteViewControllerDelegate, FavouriteLocationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate, FloatRatingViewDelegate, CompleterTripInfoDelegate, ARCarMovementDelegate, GMSMapViewDelegate, addCardFromHomeVCDelegate {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GMSAutocompleteViewControllerDelegate, FavouriteLocationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, NVActivityIndicatorViewable, UIGestureRecognizerDelegate, FloatRatingViewDelegate, CompleterTripInfoDelegate, ARCarMovementDelegate, GMSMapViewDelegate, addCardFromHomeVCDelegate, UITableViewDataSource, UITableViewDelegate {
     
     let baseURLDirections = "https://maps.googleapis.com/maps/api/directions/json?"
     let baseUrlForGetAddress = "https://maps.googleapis.com/maps/api/geocode/json?"
@@ -261,6 +261,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var viewDestinationLocation: UIView!
     @IBOutlet weak var viewCurrentLocation: UIView!
+    @IBOutlet weak var viewParentFromToLocation: UIView!
+    
     @IBOutlet weak var txtDestinationLocation: UITextField!
     @IBOutlet weak var txtCurrentLocation: UITextField!
     @IBOutlet weak var viewMap: UIView!
@@ -306,10 +308,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setPaymentType()
         
         viewMainFinalRating.isHidden = true
-        btnDriverInfo.layer.cornerRadius = 5
-        btnDriverInfo.layer.masksToBounds = true
-        btnRequest.layer.cornerRadius = 5
-        btnRequest.layer.masksToBounds = true
+//        btnDriverInfo.layer.cornerRadius = 5
+//        btnDriverInfo.layer.masksToBounds = true
+//        btnRequest.layer.cornerRadius = 5
+//        btnRequest.layer.masksToBounds = true
 //        btnCurrentLocation.layer.cornerRadius = 5
 //        btnCurrentLocation.layer.masksToBounds = true
         
@@ -339,9 +341,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         webserviceOfCardList()
         
         viewForMainFavourite.isHidden = true
-        
-        viewForFavourite.layer.cornerRadius = 5
-        viewForFavourite.layer.masksToBounds = true
         
         SingletonClass.sharedInstance.isFirstTimeDidupdateLocation = true;
         self.view.bringSubview(toFront: btnFavourite)
@@ -1095,6 +1094,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     
     @IBOutlet weak var btnFavourite: UIButton!
+    
+    @IBOutlet weak var tblFavourite: UITableView!
+    
+    let arrFavourites = ["Home","Office", "Airport","Others"]
+    let arrFavImages = ["iconHome", "iconOffice", "iconAirport", "iconOthers"]
+    
     @IBAction func btnFavourite(_ sender: UIButton) {
         
         if txtDestinationLocation.text!.count == 0 {
@@ -1109,6 +1114,30 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
         }
         
+    }
+    
+    
+    //MARK:- Favourite TableView Methods
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrFavourites.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let FavCell = self.tblFavourite.dequeueReusableCell(withIdentifier: "FavrouiteTableViewCell") as! FavrouiteTableViewCell
+        
+        FavCell.imgLogo.image = UIImage(named: self.arrFavImages[indexPath.row])
+        FavCell.lblFavName.text = self.arrFavourites[indexPath.row]
+        
+        return FavCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        webserviceOfAddAddressToFavourite(type: self.arrFavourites[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     
@@ -1177,9 +1206,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func setHideAndShowTopViewWhenRequestAcceptedAndTripStarted(status: Bool) {
-        
-        viewCurrentLocation.isHidden = status
-        viewDestinationLocation.isHidden = status
+            self.viewParentFromToLocation.isHidden = status
+//        viewCurrentLocation.isHidden = status
+//        viewDestinationLocation.isHidden = status
 //        btnCurrentLocation.isHidden = status
     }
     
@@ -2368,6 +2397,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             cell.imgCars.sd_setIndicatorStyle(.gray)
             cell.imgCars.sd_setShowActivityIndicatorView(true)
+            cell.lblCarType.text = dictOnlineCarData["Name"] as! String
             
             cell.imgCars.sd_setImage(with: URL(string: imageURL), completed: { (image, error, cacheType, url) in
                 cell.imgCars.sd_setShowActivityIndicatorView(false)

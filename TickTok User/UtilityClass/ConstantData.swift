@@ -24,7 +24,9 @@ let googleAnalyticsTrackId = "UA-122360832-1"
 
 
 struct WebserviceURLs {
-    static let kBaseURL                                 = "https://pickngolk.info/web/Passenger_Api/" // "http://54.169.67.226/web/Passenger_Api/" // "https://pickngolk.info/web/Passenger_Api/" "http://54.169.67.226/web/Passenger_Api/" //
+    static let kBaseURL                                 = "http://13.237.0.107/web/Passenger_Api/"
+    
+    // "http://54.169.67.226/web/Passenger_Api/" // "https://pickngolk.info/web/Passenger_Api/" "http://54.169.67.226/web/Passenger_Api/" //
     static let kDriverRegister                          = "Register"
     static let kDriverLogin                             = "Login"
     static let kChangePassword                          = "ChangePassword"
@@ -36,7 +38,7 @@ struct WebserviceURLs {
     static let kDriver                                  = "Driver"
     static let kBookingHistory                          = "BookingHistory/"
     static let kGetEstimateFare                         = "GetEstimateFare"
-    static let kImageBaseURL                            = "https://pickngolk.info/web/" // "https://pickngolk.info/web/" "http://54.169.67.226/web/" //
+    static let kImageBaseURL                            = "http://13.237.0.107/web/" // "https://pickngolk.info/web/" "http://54.169.67.226/web/" //
     
     static let kCardsList                               = "Cards/"
     static let kPackageBookingHistory                   = "PackageBookingHistory"
@@ -73,7 +75,8 @@ struct WebserviceURLs {
 
 struct SocketData {
     
-    static let kBaseURL                                     = "https://pickngolk.info:8081" // "http://54.255.222.125:8080/" // "https://pickngolk.info:8081" "http://54.169.67.226:8080" // 
+    static let kBaseURL                                     = "http://13.237.0.107:8080/"
+    // "http://54.255.222.125:8080/" // "https://pickngolk.info:8081" "http://54.169.67.226:8080" // 
     static let kNearByDriverList                            = "NearByDriverListIOS"
     static let kUpdatePassengerLatLong                      = "UpdatePassengerLatLong"
     static let kAcceptBookingRequestNotification            = "AcceptBookingRequestNotification"

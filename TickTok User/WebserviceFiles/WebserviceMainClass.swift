@@ -12,7 +12,7 @@ import Alamofire
 
 var request : Request!
 
-let header: [String:String] = ["key":"PickNGo123*#*"]
+let header: [String:String] = ["key":"EzyGo123*#*"]
 
 //-------------------------------------------------------------
 // MARK: - Webservice For PostData Method

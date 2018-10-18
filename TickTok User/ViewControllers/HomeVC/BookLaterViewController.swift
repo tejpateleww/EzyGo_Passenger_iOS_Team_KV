@@ -208,7 +208,8 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 //        imgViewLineForFlightNumberHeight.constant = 0
 //        imgViewLineForNotesHeight.constant = 0
         
-        txtFlightNumber.isHidden = true
+//        txtFlightNumber.isHidden = true
+        View_FlightNumber.isHidden = true
         txtFlightNumber.isEnabled = false
         txtDescription.isEnabled = false
         
@@ -264,7 +265,10 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     @IBOutlet weak var txtDataAndTimeFromCalendar: UITextField!
     @IBOutlet weak var btnCalendar: UIButton!
  
+    
     @IBOutlet weak var txtFlightNumber: UITextField!
+    @IBOutlet weak var View_FlightNumber: UIView!
+    
 //    @IBOutlet weak var constraintsHeightOFtxtFlightNumber: NSLayoutConstraint!
 //    @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint! // 10
     
@@ -442,7 +446,8 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 //            constraintsHeightOFtxtFlightNumber.constant = 40
 //            constaintsOfTxtFlightNumber.constant = 10
 //            imgViewLineForFlightNumberHeight.constant = 1
-            txtFlightNumber.isHidden = false
+            self.View_FlightNumber.isHidden = false
+//            txtFlightNumber.isHidden = false
             txtFlightNumber.isEnabled = true
         }
         else {
@@ -450,7 +455,8 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 //            constraintsHeightOFtxtFlightNumber.constant = 0
 //            constaintsOfTxtFlightNumber.constant = 0
 //            imgViewLineForFlightNumberHeight.constant = 0
-            txtFlightNumber.isHidden = true
+            self.View_FlightNumber.isHidden = true
+//            txtFlightNumber.isHidden = true
             txtFlightNumber.isEnabled = false
            
         }
@@ -709,6 +715,9 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == pickerViewForInvoiceType {
+            return InvoiceTypes.count
+        }
         return aryCards.count
     }
     
@@ -722,6 +731,20 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
+        if pickerView == pickerViewForInvoiceType {
+            
+            let myView = UIView(frame: CGRect(x:0, y:0, width: UIScreen.main.bounds.width, height: 60))
+            
+            let myLabel = UILabel(frame: CGRect(x:10, y: 5, width:UIScreen.main.bounds.width - 20, height:50 ))
+            myLabel.font = UIFont.systemFont(ofSize: 30)
+            myLabel.text = self.InvoiceTypes[row]
+            myLabel.textAlignment = .center
+            myView.addSubview(myLabel)
+            
+            return myView
+        }
+        
+        
         let data = aryCards[row]
         
         let myView = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
@@ -733,8 +756,6 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         myImageView.contentMode = .scaleAspectFit
         
         var rowString = String()
-       
-     
         switch row {
             
         case 0:
@@ -788,6 +809,12 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        if pickerView == self.pickerViewForInvoiceType {
+            
+            
+        } else {
+        
+        
         let data = aryCards[row]
         
         imgPaymentOption.image = UIImage(named: setCardIcon(str: data["Type"] as! String))
@@ -817,6 +844,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
             if data["Id"] as? String != "" {
                 CardID = data["Id"] as! String
             }
+        }
         }
         
         // do something with selected row
