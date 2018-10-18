@@ -2135,7 +2135,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if (SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0) && self.aryCardsListForBookNow.count == 2 {
             //                UtilityClass.showAlert("", message: "There is no card, If you want to add card than choose payment options to add card.", vc: self)
             
-            let alert = UIAlertController(title: nil, message: "Do you want to add card.", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "Select Payment Method Credit Card Cash Wallet.", preferredStyle: .alert)
             let OK = UIAlertAction(title: "OK", style: .default, handler: { ACTION in
                 
                 let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController

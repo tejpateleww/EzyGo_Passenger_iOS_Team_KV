@@ -14,7 +14,6 @@ import ACFloatingTextfield_Swift
 
 class UpdateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    
     var firstName = String()
     var lastName = String()
     var fullName = String()
