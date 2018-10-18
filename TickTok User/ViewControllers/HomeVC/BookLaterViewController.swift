@@ -101,8 +101,6 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         
         viewProocode.isHidden = true
         
-
-        
         webserviceOfCardList()
         
         pickerView.delegate = self
