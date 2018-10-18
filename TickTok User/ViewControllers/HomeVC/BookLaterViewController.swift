@@ -33,6 +33,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
 
     var pickerView = UIPickerView()
+    var pickerViewForInvoiceType = UIPickerView()
     var strModelId = String()
     var BoolCurrentLocation = Bool()
     var strCarModelURL = String()
@@ -53,6 +54,10 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     var CardID = String()
     var paymentType = String()
+    
+    var intNumberOfPassengerOnShareRiding:Int = 1
+    
+    var InvoiceTypes:[String] = ["Trip Receipt", "Tax Invoice"]
     
     var selector = WWCalendarTimeSelector.instantiate()
     
@@ -90,9 +95,9 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         selector.delegate = self
 //        alertView.removeFromSuperview()
         
-        btnForMySelfAction.addTarget(self, action: #selector(self.ActionForViewMySelf), for: .touchUpInside)
-        
-        btnForOthersAction.addTarget(self, action: #selector(self.ActionForViewOther), for: .touchUpInside)
+//        btnForMySelfAction.addTarget(self, action: #selector(self.ActionForViewMySelf), for: .touchUpInside)
+//
+//        btnForOthersAction.addTarget(self, action: #selector(self.ActionForViewOther), for: .touchUpInside)
         
         viewProocode.isHidden = true
         
@@ -177,33 +182,33 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         
 //        let themeColor: UIColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0)
         
-        viewMySelf.tintColor = themeYellowColor
-        viewOthers.tintColor = themeYellowColor
+//        viewMySelf.tintColor = themeYellowColor
+//        viewOthers.tintColor = themeYellowColor
         viewFlightNumber.tintColor = themeYellowColor
-        btnNotes.tintColor = themeYellowColor
+//        btnNotes.tintColor = themeYellowColor
         
         
-        viewMySelf.stateChangeAnimation = .fill
-        viewOthers.stateChangeAnimation = .fill
+//        viewMySelf.stateChangeAnimation = .fill
+//        viewOthers.stateChangeAnimation = .fill
         viewFlightNumber.stateChangeAnimation = .fill
-        btnNotes.stateChangeAnimation = .fill
+//        btnNotes.stateChangeAnimation = .fill
+//
+//        viewMySelf.boxType = .square
         
-        viewMySelf.boxType = .square
-        
-        viewMySelf.checkState = .checked
-        viewOthers.boxType = .square
-        btnNotes.boxType = .square
+//        viewMySelf.checkState = .checked
+//        viewOthers.boxType = .square
+//        btnNotes.boxType = .square
         strPassengerType = "myself"
         viewFlightNumber.boxType = .square
         
-        constraintsHeightOFtxtFlightNumber.constant = 0 // 30 Height
-        constaintsOfTxtFlightNumber.constant = 0
-        imgViewLineForFlightNumberHeight.constant = 0
-        
-        constantHavePromoCodeTop.constant = 0
-        constantNoteHeight.constant = 0
-        imgViewLineForFlightNumberHeight.constant = 0
-        imgViewLineForNotesHeight.constant = 0
+//        constraintsHeightOFtxtFlightNumber.constant = 0 // 30 Height
+//        constaintsOfTxtFlightNumber.constant = 0
+//        imgViewLineForFlightNumberHeight.constant = 0
+//
+//        constantHavePromoCodeTop.constant = 0
+//        constantNoteHeight.constant = 0
+//        imgViewLineForFlightNumberHeight.constant = 0
+//        imgViewLineForNotesHeight.constant = 0
         
         txtFlightNumber.isHidden = true
         txtFlightNumber.isEnabled = false
@@ -239,15 +244,15 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     @IBOutlet weak var viewProocode: UIView!
     @IBOutlet weak var btnSubmit: UIButton!
     
-    @IBOutlet weak var viewMySelf: M13Checkbox!
-    @IBOutlet weak var viewOthers: M13Checkbox!
+//    @IBOutlet weak var viewMySelf: M13Checkbox!
+//    @IBOutlet weak var viewOthers: M13Checkbox!
     @IBOutlet weak var viewFlightNumber: M13Checkbox!
     
     @IBOutlet weak var viewDestinationLocation: UIView!
     @IBOutlet weak var viewCurrentLocation: UIView!
     
-    @IBOutlet weak var lblMySelf: UILabel!
-    @IBOutlet weak var lblOthers: UILabel!
+//    @IBOutlet weak var lblMySelf: UILabel!
+//    @IBOutlet weak var lblOthers: UILabel!
     
     @IBOutlet weak var lblCareModelClass: UILabel!
     @IBOutlet weak var imgCareModel: UIImageView!
@@ -257,21 +262,22 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     @IBOutlet weak var txtFullName: UITextField!
     @IBOutlet weak var txtMobileNumber: FormTextField!
+    
     @IBOutlet weak var txtDataAndTimeFromCalendar: UITextField!
     @IBOutlet weak var btnCalendar: UIButton!
  
     @IBOutlet weak var txtFlightNumber: UITextField!
-    @IBOutlet weak var constraintsHeightOFtxtFlightNumber: NSLayoutConstraint!
-    @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint! // 10
+//    @IBOutlet weak var constraintsHeightOFtxtFlightNumber: NSLayoutConstraint!
+//    @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint! // 10
     
     @IBOutlet weak var txtSelectPaymentMethod: UITextField!
     @IBOutlet weak var imgPaymentOption: UIImageView!
     
-    @IBOutlet weak var btnNotes: M13Checkbox!
-    
-    @IBOutlet weak var constantNoteHeight: NSLayoutConstraint!  // 40
-    
-    @IBOutlet weak var constantHavePromoCodeTop: NSLayoutConstraint!  // 10
+//    @IBOutlet weak var btnNotes: M13Checkbox!
+//
+//    @IBOutlet weak var constantNoteHeight: NSLayoutConstraint!  // 40
+//
+//    @IBOutlet weak var constantHavePromoCodeTop: NSLayoutConstraint!  // 10
     
     @IBOutlet weak var txtPromoCode: UITextField!
     
@@ -282,16 +288,50 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     @IBOutlet weak var lblPromoCode: UILabel!
     var BackView = UIView()
     
-    @IBOutlet weak var btnForMySelfAction: UIButton!
-    @IBOutlet weak var btnForOthersAction: UIButton!
+//    @IBOutlet weak var btnForMySelfAction: UIButton!
+//    @IBOutlet weak var btnForOthersAction: UIButton!
+//    @IBOutlet weak var imgViewLineForFlightNumberHeight: NSLayoutConstraint!
+//    @IBOutlet weak var imgViewLineForNotesHeight: NSLayoutConstraint!
     
-    @IBOutlet weak var imgViewLineForFlightNumberHeight: NSLayoutConstraint!
-    @IBOutlet weak var imgViewLineForNotesHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var txtInvoiceType: UITextField!
+    
+    @IBOutlet weak var lblNumberOfPassengers: UILabel!
     
     
     //-------------------------------------------------------------
     // MARK: - Button Actions
     //-------------------------------------------------------------
+    
+    @IBAction func IncreasePassengerCount(_ sender: UIButton) {
+        if intNumberOfPassengerOnShareRiding < 6 {
+            intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding + 1
+        }
+        self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
+    }
+    
+    
+    @IBAction func DecreasePassengerCount(_ sender: UIButton) {
+        
+        if intNumberOfPassengerOnShareRiding > 1 {
+            intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding - 1
+            
+        }
+        self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
+        
+    }
+    
+    
+    
+    
+    @IBAction func txtInvoiceType(_ sender: UITextField) {
+        
+        pickerViewForInvoiceType.delegate = self
+        pickerViewForInvoiceType.dataSource = self
+        
+        txtInvoiceType.inputView = pickerViewForInvoiceType
+        
+    }
     
     @IBAction func btnApply(_ sender: UIButton) {
         
@@ -331,17 +371,17 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         
         if (boolIsSelectedNotes) {
             
-            constantNoteHeight.constant = 40
-            constantHavePromoCodeTop.constant = 10
-            imgViewLineForNotesHeight.constant = 1
+//            constantNoteHeight.constant = 40
+//            constantHavePromoCodeTop.constant = 10
+//            imgViewLineForNotesHeight.constant = 1
             txtSelectPaymentMethod.isHidden = false
              txtDescription.isEnabled = true
         }
         else {
             
-            constantNoteHeight.constant = 0
-            constantHavePromoCodeTop.constant = 0
-            imgViewLineForNotesHeight.constant = 0
+//            constantNoteHeight.constant = 0
+//            constantHavePromoCodeTop.constant = 0
+//            imgViewLineForNotesHeight.constant = 0
             txtSelectPaymentMethod.isHidden = true
             txtDescription.isEnabled = false
 
@@ -367,10 +407,11 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     @objc func ActionForViewMySelf() {
         
-        viewMySelf.checkState = .checked
-        viewOthers.checkState = .unchecked
-        viewMySelf.stateChangeAnimation = .fill
-    
+//        viewMySelf.checkState = .checked
+//        viewOthers.checkState = .unchecked
+//        viewMySelf.stateChangeAnimation = .fill
+
+        
         txtFullName.text = strFullname
         txtMobileNumber.text = strMobileNumber
 
@@ -379,9 +420,9 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     }
     
     @objc func ActionForViewOther() {
-        viewMySelf.checkState = .unchecked
-        viewOthers.checkState = .checked
-        viewOthers.stateChangeAnimation = .fill
+//        viewMySelf.checkState = .unchecked
+//        viewOthers.checkState = .checked
+//        viewOthers.stateChangeAnimation = .fill
       
         txtFullName.text = ""
         txtMobileNumber.text = ""
@@ -400,17 +441,17 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         
         if (boolIsSelected) {
             
-            constraintsHeightOFtxtFlightNumber.constant = 40
-            constaintsOfTxtFlightNumber.constant = 10
-            imgViewLineForFlightNumberHeight.constant = 1
+//            constraintsHeightOFtxtFlightNumber.constant = 40
+//            constaintsOfTxtFlightNumber.constant = 10
+//            imgViewLineForFlightNumberHeight.constant = 1
             txtFlightNumber.isHidden = false
             txtFlightNumber.isEnabled = true
         }
         else {
             
-            constraintsHeightOFtxtFlightNumber.constant = 0
-            constaintsOfTxtFlightNumber.constant = 0
-            imgViewLineForFlightNumberHeight.constant = 0
+//            constraintsHeightOFtxtFlightNumber.constant = 0
+//            constaintsOfTxtFlightNumber.constant = 0
+//            imgViewLineForFlightNumberHeight.constant = 0
             txtFlightNumber.isHidden = true
             txtFlightNumber.isEnabled = false
            
@@ -488,12 +529,12 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
             UtilityClass.setCustomAlert(title: "Missing", message: "All fields are required...") { (index, title) in
             }
         }
-        else if viewMySelf.checkState == .unchecked && viewOthers.checkState == .unchecked {
-            
-           
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please Checked Myself or Other") { (index, title) in
-            }
-        }
+//        else if viewMySelf.checkState == .unchecked && viewOthers.checkState == .unchecked {
+//
+//
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Please Checked Myself or Other") { (index, title) in
+//            }
+//        }
         else {
             webserviceOFBookLater()
         }
