@@ -226,8 +226,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                 }
             }
             else {
-
-                 UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                 }
             }
         }
