@@ -34,24 +34,21 @@ class DriverInfoViewController: UIViewController {
         super.viewDidLoad()
 
         fillAllFields()
-        
-      
-        
-        btnOk.layer.cornerRadius = 5
-        btnOk.layer.masksToBounds = true
-        viewCarAndDriverInfo.layer.cornerRadius = 5
-        viewCarAndDriverInfo.layer.masksToBounds = true
+//        btnOk.layer.cornerRadius = 5
+//        btnOk.layer.masksToBounds = true
+//        viewCarAndDriverInfo.layer.cornerRadius = 5
+//        viewCarAndDriverInfo.layer.masksToBounds = true
         
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        imgCar.layer.cornerRadius = imgCar.frame.size.width / 2
-        imgCar.layer.masksToBounds = true
-        
-        imgDriver.layer.cornerRadius = imgDriver.frame.size.width / 2
-        imgDriver.layer.masksToBounds = true
+//        imgCar.layer.cornerRadius = imgCar.frame.size.width / 2
+//        imgCar.layer.masksToBounds = true
+//
+//        imgDriver.layer.cornerRadius = imgDriver.frame.size.width / 2
+//        imgDriver.layer.masksToBounds = true
         
     }
 
@@ -65,13 +62,18 @@ class DriverInfoViewController: UIViewController {
     // MARK: - Outlets
     //-------------------------------------------------------------
     
-    @IBOutlet weak var imgCar: UIImageView!
-    @IBOutlet weak var lblCareName: UILabel!
-    @IBOutlet weak var lblCarClassModel: UILabel!
+//    @IBOutlet weak var imgCar: UIImageView!
+//    @IBOutlet weak var lblCareName: UILabel!
+//    @IBOutlet weak var lblCarClassModel: UILabel!
+
+
     @IBOutlet weak var lblPickupLocation: UILabel!
     @IBOutlet weak var lblDropoffLocation: UILabel!
+    @IBOutlet weak var lblCarDetail: UILabel!
     
-    @IBOutlet weak var lblCarPlateNumber: UILabel!
+    
+//    @IBOutlet weak var lblCarPlateNumber: UILabel!
+    
     @IBOutlet weak var imgDriver: UIImageView!
     @IBOutlet weak var lblDriverName: UILabel!
     
@@ -91,19 +93,18 @@ class DriverInfoViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func btnCall(_ sender: UIButton) {
-        
         let contactNumber = strPassengerMobileNumber
-        
         if contactNumber == "" {
-            
             UtilityClass.setCustomAlert(title: "\(appName)", message: "Contact number is not available") { (index, title) in
             }
         }
         else {
             callNumber(phoneNumber: contactNumber)
         }
-        
     }
+    
+    
+    
     
     //-------------------------------------------------------------
     // MARK: - Custom Methods
@@ -111,11 +112,11 @@ class DriverInfoViewController: UIViewController {
     
     func fillAllFields() {
         
-        if let carImg = strCarImage as? String {
-            imgCar.sd_setShowActivityIndicatorView(true)
-            imgCar.sd_setIndicatorStyle(.gray)
-            imgCar.sd_setImage(with: URL(string: carImg), completed: nil)
-        }
+//        if let carImg = strCarImage as? String {
+//            imgCar.sd_setShowActivityIndicatorView(true)
+//            imgCar.sd_setIndicatorStyle(.gray)
+//            imgCar.sd_setImage(with: URL(string: carImg), completed: nil)
+//        }
         
         if let driverImg = strDriverImage as? String {
             imgDriver.sd_setShowActivityIndicatorView(true)
@@ -123,23 +124,23 @@ class DriverInfoViewController: UIViewController {
             imgDriver.sd_setImage(with: URL(string: driverImg), completed: nil)
         }
         
-        lblCareName.text = strCareName
-        lblCarPlateNumber.text = strCarPlateNumber
+//        lblCareName.text = strCareName
+//        lblCarPlateNumber.text = strCarPlateNumber
        
         lblPickupLocation.text = strPickupLocation
         lblDropoffLocation.text = strDropoffLocation
         lblDriverName.text = strDriverName
+        lblCarDetail.text = "\(strCareName) - \(strCarPlateNumber) - \(strCarClass)"
        
-        if strCarClass.count == 1 {
-            lblCarClassModel.text = carClass(strClass: strCarClass)
-        }
-        else {
-            lblCarClassModel.text = strCarClass
-        }
-        
-      
-        
+//        if strCarClass.count == 1 {
+//            lblCarClassModel.text = carClass(strClass: strCarClass)
+//        }
+//        else {
+//            lblCarClassModel.text = strCarClass
+//        }
     }
+    
+    
     @IBAction func btnCallToDriver(_ sender: UIButton) {
         
         let contactNumber = strPassengerMobileNumber

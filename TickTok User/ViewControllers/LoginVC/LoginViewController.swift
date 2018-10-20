@@ -210,6 +210,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     }
     
      //MARK: - Webservice Call for Forgot Password
+<<<<<<< HEAD
 //    
 //    func webserviceCallForForgotPassword(strEmail : String)
 //    {
@@ -232,6 +233,29 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
 //            }
 //        }
 //    }
+=======
+    
+    func webserviceCallForForgotPassword(strEmail : String)
+    {
+        let dictparam = NSMutableDictionary()
+        dictparam.setObject(strEmail, forKey: "MobileNo" as NSCopying)
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        webserviceForForgotPassword(dictparam) { (result, status) in
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
+            if ((result as! NSDictionary).object(forKey: "status") as! Int == 1) {
+  
+                 UtilityClass.setCustomAlert(title: "Success", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                }
+            }
+            else {
+                UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                }
+            }
+        }
+    }
+>>>>>>> f4f8cf503f80baffcb4c521ce1b2b1f13730d853
     
     func webserviceOfAppSetting() {
 //        version : 1.0.0 , (app_type : AndroidPassenger , AndroidDriver , IOSPassenger , IOSDriver)
