@@ -24,6 +24,16 @@ class EditProfileViewController: UIViewController {
     // MARK: - Base Methods
     //-------------------------------------------------------------
    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        btnEditProfile.layer.cornerRadius = btnEditProfile.frame.width / 2
+//        btnEditProfile.layer.borderWidth = 1.0
+        btnEditProfile.layer.masksToBounds = true
+        btnAccount.layer.cornerRadius = btnAccount.frame.width / 2
+      //btnAccount.layer.borderWidth = 1.0
+        btnAccount.layer.masksToBounds = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

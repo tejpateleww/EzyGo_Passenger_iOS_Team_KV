@@ -60,9 +60,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                 {
                     locationManager.startUpdatingLocation()
                     locationManager.delegate = self
-                    
                 }
-                
                 //                manager.startUpdatingLocation()
             }
         }
@@ -74,6 +72,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         txtEmail.text = "9904439228"
         txtPassword.text = "12345678"
         viewMain.isHidden = true
+        btnLogin.titleLabel?.text = "Log In"
+
         
 //        txtEmail.lineColor = UIColor.white
 //        txtPassword.lineColor = UIColor.white
@@ -210,28 +210,28 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     }
     
      //MARK: - Webservice Call for Forgot Password
-    
-    func webserviceCallForForgotPassword(strEmail : String)
-    {
-        let dictparam = NSMutableDictionary()
-        dictparam.setObject(strEmail, forKey: "MobileNo" as NSCopying)
-        let activityData = ActivityData()
-        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
-        webserviceForForgotPassword(dictparam) { (result, status) in
-            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-
-            if ((result as! NSDictionary).object(forKey: "status") as! Int == 1) {
-  
-                 UtilityClass.setCustomAlert(title: "Success", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-                }
-            }
-            else {
-
-                 UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-                }
-            }
-        }
-    }
+//    
+//    func webserviceCallForForgotPassword(strEmail : String)
+//    {
+//        let dictparam = NSMutableDictionary()
+//        dictparam.setObject(strEmail, forKey: "MobileNo" as NSCopying)
+//        let activityData = ActivityData()
+//        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+//        webserviceForForgotPassword(dictparam) { (result, status) in
+//            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+//
+//            if ((result as! NSDictionary).object(forKey: "status") as! Int == 1) {
+//  
+//                 UtilityClass.setCustomAlert(title: "Success", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+//                }
+//            }
+//            else {
+//
+//                 UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+//                }
+//            }
+//        }
+//    }
     
     func webserviceOfAppSetting() {
 //        version : 1.0.0 , (app_type : AndroidPassenger , AndroidDriver , IOSPassenger , IOSDriver)
@@ -349,31 +349,34 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     
     @IBAction func btnForgotPassword(_ sender: UIButton) {
         
-        //1. Create the alert controller.
-        let alert = UIAlertController(title: "Forgot Password?", message: "Enter Mobile Number", preferredStyle: .alert)
+        performSegue(withIdentifier: "segueToForgotPassword", sender: self)
         
-        //2. Add the text field. You can configure it however you need.
-        alert.addTextField { (textField) in
-            
-            textField.placeholder = "Mobile Number"
-        }
-        
-        // 3. Grab the value from the text field, and print it when the user clicks OK.
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
-            print("Text field: \(String(describing: textField?.text))")
-            
-            if (textField?.text?.count != 0)
-            {
-                self.webserviceCallForForgotPassword(strEmail: (textField?.text)!)
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
-        }))
-        
-        // 4. Present the alert.
-        self.present(alert, animated: true, completion: nil)
+//
+//        //1. Create the alert controller.
+//        let alert = UIAlertController(title: "Forgot Password?", message: "Enter Mobile Number", preferredStyle: .alert)
+//
+//        //2. Add the text field. You can configure it however you need.
+//        alert.addTextField { (textField) in
+//
+//            textField.placeholder = "Mobile Number"
+//        }
+//
+//        // 3. Grab the value from the text field, and print it when the user clicks OK.
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+//            let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+//            print("Text field: \(String(describing: textField?.text))")
+//
+//            if (textField?.text?.count != 0)
+//            {
+//                self.webserviceCallForForgotPassword(strEmail: (textField?.text)!)
+//            }
+//        }))
+//
+//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
+//        }))
+//
+//        // 4. Present the alert.
+//        self.present(alert, animated: true, completion: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
