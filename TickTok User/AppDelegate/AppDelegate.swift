@@ -18,8 +18,8 @@ import UserNotifications
 import Firebase
 
 
-let googlApiKey = "AIzaSyB7GS-O76Vp0jkS2nU-eZ_jkxLXJaUHAjg" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
-let googlPlacesApiKey = "AIzaSyB7GS-O76Vp0jkS2nU-eZ_jkxLXJaUHAjg" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
+let googlApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
+let googlPlacesApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 
 //AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 @UIApplicationMain

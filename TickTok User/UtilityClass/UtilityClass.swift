@@ -82,10 +82,10 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         
         if((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.presentedViewController != nil)
         {
-            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.dismiss(animated: true, completion: {
-                //                vc.present(alert, animated: true, completion: nil)
-                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-            })
+//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.dismiss(animated: true, completion: {
+//                //                vc.present(alert, animated: true, completion: nil)
+//                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+//            })
         }
         else {
             (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)

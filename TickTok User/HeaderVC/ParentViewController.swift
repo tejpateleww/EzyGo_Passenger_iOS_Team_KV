@@ -171,8 +171,6 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         
         UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
         
-         
-        
         let screenRect: CGRect = UIScreen.main.bounds
         let screenWidth: CGFloat = screenRect.size.width
         let hView = HeaderView.headerView(withDelegate: self)

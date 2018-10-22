@@ -72,6 +72,9 @@ class DriverInfoViewController: UIViewController {
     @IBOutlet weak var lblCarDetail: UILabel!
     
     
+    
+    
+    
 //    @IBOutlet weak var lblCarPlateNumber: UILabel!
     
     @IBOutlet weak var imgDriver: UIImageView!

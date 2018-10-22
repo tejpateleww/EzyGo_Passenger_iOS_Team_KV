@@ -11,7 +11,7 @@
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.681702825424-qt99n9d47sn8ig60fmg9a3nk417s88cb</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAPVKUbLmI7myrRSMUC5jN0t4nVMHpjYFA</string>
+	<string>AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg</string>
 	<key>GCM_SENDER_ID</key>
 	<string>681702825424</string>
 	<key>PLIST_VERSION</key>
@@ -23,15 +23,15 @@
 	<key>STORAGE_BUCKET</key>
 	<string>pickngo-194413.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:681702825424:ios:4857a64226ff8467</string>
 	<key>DATABASE_URL</key>
