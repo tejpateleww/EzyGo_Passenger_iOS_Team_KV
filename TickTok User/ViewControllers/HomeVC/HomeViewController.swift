@@ -3310,8 +3310,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //        else {
         next.strPassengerMobileNumber = DriverInfo.object(forKey: "MobileNo") as! String
         //        }
-        
-        
         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
     }
     
@@ -3918,16 +3916,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             CATransaction.setAnimationDuration(0.5)
             CATransaction.setValue(Int(2.0), forKey: kCATransactionAnimationDuration)
             CATransaction.setCompletionBlock({() -> Void in
-//            self.driverMarker.groundAnchor = CGPoint(x: CGFloat(0.5), y: CGFloat(0.5))//cresh
-                
+                if self.driverMarker != nil {
+                    self.driverMarker.groundAnchor = CGPoint(x: CGFloat(0.5), y: CGFloat(0.5))
+                }
                 //New bearing value from backend after car movement is done
             })
             
              UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
-                self.driverMarker.position = newCordinate
-                self.driverMarker.map = self.mapView
-                
-                self.updatePolyLineToMapFromDriverLocation()
+                if self.driverMarker != nil {
+                    self.driverMarker.position = newCordinate
+                    self.driverMarker.map = self.mapView
+                    self.updatePolyLineToMapFromDriverLocation()
+                }
              })
             
             CATransaction.commit()
@@ -4137,10 +4137,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBAction func txtCurrentLocation(_ sender: UITextField) {
         
-        
         let visibleRegion = mapView.projection.visibleRegion()
         let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
-        
         
         let acController = GMSAutocompleteViewController()
         acController.delegate = self

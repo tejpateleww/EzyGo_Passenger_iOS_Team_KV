@@ -40,12 +40,23 @@ class TripDetailsViewController: ParentViewController {
         dictData.setObject(dict.object(forKey: "Discount")!, forKey: "Discount" as NSCopying)
         dictData.setObject(dict.object(forKey: "SubTotal")!, forKey: "Sub Total" as NSCopying)
         dictData.setObject(dict.object(forKey: "Status")!, forKey: "Status" as NSCopying)
+        dictData.setObject(dict.object(forKey: "PickupTime")!, forKey: "PickupTime" as NSCopying)
+        dictData.setObject(dict.object(forKey: "DropTime")!, forKey: "DropoffTime" as NSCopying)
+        dictData.setObject(dict.object(forKey: "Status")!, forKey: "BaseFare" as NSCopying)
+        dictData.setObject(dict.object(forKey: "Status")!, forKey: "MileageCost" as NSCopying)
+        dictData.setObject(dict.object(forKey: "Status")!, forKey: "AirportBackup" as NSCopying)
+        dictData.setObject(dict.object(forKey: "SoilDamageCharge")!, forKey: "SoilingDamage" as NSCopying)
+        dictData.setObject(dict.object(forKey: "CancellationFee")!, forKey: "CancelllationCharge" as NSCopying)
+        dictData.setObject(dict.object(forKey: "Status")!, forKey: "PromoCreditUsed" as NSCopying)
+        dictData.setObject(dict.object(forKey: "GrandTotal")!, forKey: "TotalPaidToDriver" as NSCopying)
+        dictData.setObject(dict.object(forKey: "TripDuration")!, forKey: "TripDuration" as NSCopying)
+        dictData.setObject(dict.object(forKey: "TripDistance")!, forKey: "DistanceTravelled" as NSCopying)
 
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+//        super.viewWillAppear(animated)
         
          
           
@@ -58,22 +69,35 @@ class TripDetailsViewController: ParentViewController {
     
     @IBOutlet weak var lblPickupLocation: UILabel!
     @IBOutlet weak var lblDropoffLocation: UILabel!
+    @IBOutlet weak var lblPickupTime: UILabel!
+    @IBOutlet weak var lblDropOffTime: UILabel!
+    @IBOutlet weak var lblMileageCost: UILabel!
     
+    
+    @IBOutlet weak var lblAirportPickup: UILabel!
+    @IBOutlet weak var lblAirportDropOff: UILabel!
+    
+    @IBOutlet weak var lblCancelCharge: UILabel!
     @IBOutlet weak var lblBaseFare: UILabel!
-    @IBOutlet weak var lblDistanceFare: UILabel!
-    @IBOutlet weak var lblNightFare: UILabel!
+//    @IBOutlet weak var lblDistanceFare: UILabel!
+//    @IBOutlet weak var lblNightFare: UILabel!
     @IBOutlet weak var lblWaitingCost: UILabel!
-    @IBOutlet weak var lblTollFee: UILabel!
+//    @IBOutlet weak var lblTollFee: UILabel!
     @IBOutlet weak var lblSubTotal: UILabel!
-    
     @IBOutlet weak var lblBookingCharge: UILabel!
-    @IBOutlet weak var lblSpecialExtraCharge: UILabel!
-    @IBOutlet weak var lblTax: UILabel!
-    @IBOutlet weak var lblDiscount: UILabel!
+//    @IBOutlet weak var lblSpecialExtraCharge: UILabel!
+////    @IBOutlet weak var lblTax: UILabel!
+//    @IBOutlet weak var lblDiscount: UILabel!
     
     @IBOutlet weak var lblGrandTotal: UILabel!
     
-    @IBOutlet weak var stackViewSpecialExtraCharge: UIStackView!
+    @IBOutlet weak var lblSoilingDamage: UILabel!
+    @IBOutlet weak var lblTripDuration: UILabel!
+    
+    @IBOutlet weak var lblPromoUsed: UILabel!
+    @IBOutlet weak var lblDistanceTravelled: UILabel!
+    
+//    @IBOutlet weak var stackViewSpecialExtraCharge: UIStackView!
     //-------------------------------------------------------------
     // MARK: - Custom Methods
     //-------------------------------------------------------------
@@ -82,37 +106,49 @@ class TripDetailsViewController: ParentViewController {
         
         if let data = arrData.object(at: 0) as? NSDictionary {
             
-            let distanceFare = "\(data.object(forKey: "DistanceFare")!) (\(data.object(forKey: "TripDistance")!) km)"
-        
-            lblPickupLocation.text = data.object(forKey: "PickupLocation") as? String
+//            let distanceFare = "\(data.object(forKey: "DistanceFare")!) (\(data.object(forKey: "TripDistance")!) km)"
+            lblPickupTime.text = data.object(forKey: "") as? String
+            lblDropOffTime.text = data.object(forKey: "") as? String
+            
+            lblPickupLocation.text =  data.object(forKey: "PickupLocation") as? String
             lblDropoffLocation.text = data.object(forKey: "DropoffLocation") as? String
+            lblBookingCharge.text = data.object(forKey: "") as? String
+            lblBaseFare.text = data.object(forKey: "") as? String
+            lblMileageCost.text = data.object(forKey: "") as? String
             
             lblBaseFare.text = data.object(forKey: "TripFare") as? String
-            lblDistanceFare.text = distanceFare
-            lblNightFare.text = data.object(forKey: "NightFare") as? String
-            lblWaitingCost.text = data.object(forKey: "WaitingTimeCost") as? String
-            lblTollFee.text = data.object(forKey: "TollFee") as? String
-            lblSubTotal.text = data.object(forKey: "SubTotal") as? String
+            lblAirportPickup.text = data.object(forKey: "") as? String
+            lblAirportDropOff.text = data.object(forKey: "") as? String
+            lblSoilingDamage.text = data.object(forKey: "") as? String
+            lblCancelCharge.text = data.object(forKey: "") as? String
+            lblPromoUsed.text = data.object(forKey: "") as? String
+    
             
+//            lblDistanceFare.text = distanceFare
+//            lblNightFare.text = data.object(forKey: "NightFare") as? String
+            
+            lblWaitingCost.text = data.object(forKey: "WaitingTimeCost") as? String
+//            lblTollFee.text = data.object(forKey: "TollFee") as? String
+            lblSubTotal.text = data.object(forKey: "SubTotal") as? String
             lblBookingCharge.text = data.object(forKey: "BookingCharge") as? String
-            lblTax.text = data.object(forKey: "Tax") as? String
-            lblDiscount.text = data.object(forKey: "Discount") as? String
+//            lblTax.text = data.object(forKey: "Tax") as? String
+//            lblDiscount.text = data.object(forKey: "Discount") as? String
             
             lblGrandTotal.text = data.object(forKey: "GrandTotal") as? String
             
-            var strSpecial = String()
+//            var strSpecial = String()
+//
+//            if let special = data.object(forKey: "Special") as? String {
+//                strSpecial = special
+//            } else if let special = data.object(forKey: "Special") as? Int {
+//                strSpecial = String(special)
+//            }
             
-            if let special = data.object(forKey: "Special") as? String {
-                strSpecial = special
-            } else if let special = data.object(forKey: "Special") as? Int {
-                strSpecial = String(special)
-            }
-            
-            stackViewSpecialExtraCharge.isHidden = true
-            if strSpecial == "1" {
-                stackViewSpecialExtraCharge.isHidden = false
-                lblSpecialExtraCharge.text = data.object(forKey: "SpecialExtraCharge") as? String
-            }
+//            stackViewSpecialExtraCharge.isHidden = true
+//            if strSpecial == "1" {
+//                stackViewSpecialExtraCharge.isHidden = false
+//                lblSpecialExtraCharge.text = data.object(forKey: "SpecialExtraCharge") as? String
+//            }
             
             
         }
