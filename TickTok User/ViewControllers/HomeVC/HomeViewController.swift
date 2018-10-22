@@ -3918,7 +3918,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             CATransaction.setAnimationDuration(0.5)
             CATransaction.setValue(Int(2.0), forKey: kCATransactionAnimationDuration)
             CATransaction.setCompletionBlock({() -> Void in
-                self.driverMarker.groundAnchor = CGPoint(x: CGFloat(0.5), y: CGFloat(0.5))
+//            self.driverMarker.groundAnchor = CGPoint(x: CGFloat(0.5), y: CGFloat(0.5))//cresh
                 
                 //New bearing value from backend after car movement is done
             })
