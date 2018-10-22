@@ -115,11 +115,11 @@ class EditProfileViewController: UIViewController {
     }
     
     @IBAction func btnEditProfile(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "SegueToEditProfile", sender: self)
     }
     
     @IBAction func btnEditAccount(_ sender: UIButton) {
-        
+        performSegue(withIdentifier: "segueToEditAccountVc", sender: self)
     }
     @IBOutlet weak var btnCall: UIButton!
     @IBAction func btCallClicked(_ sender: UIButton)

@@ -44,9 +44,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
             }
         }
-        
-        
-        
         webserviceOfAppSetting()
         
         locationManager.requestAlwaysAuthorization()
@@ -69,7 +66,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        txtEmail.text = "9904439228"
+        txtEmail.text = "1122334456"
         txtPassword.text = "12345678"
         viewMain.isHidden = true
         btnLogin.titleLabel?.text = "Log In"
@@ -78,7 +75,8 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
 //        txtEmail.lineColor = UIColor.white
 //        txtPassword.lineColor = UIColor.white
 
-        if UIDevice.current.name == "Bhavesh iPhone" || UIDevice.current.name == "Excellent Web's iPhone 5s" || UIDevice.current.name == "Rahul's iPhone" {
+        if UIDevice.current.name == "Bhavesh iPhone" || UIDevice.current.name == "Excellent Web's iPhone 5s" || UIDevice.current.name == "Rahul's iPhone"
+        {
             
             txtEmail.text = "9904439228"
             txtPassword.text = "12345678"
@@ -125,12 +123,11 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         return true
     }
     
-    
     //MARK: - Webservice Call for Login
     
     func webserviceCallForLogin()
     {
-       
+        
         let dictparam = NSMutableDictionary()
         dictparam.setObject(txtEmail.text!, forKey: "Username" as NSCopying)
         dictparam.setObject(txtPassword.text!, forKey: "Password" as NSCopying)
@@ -143,9 +140,9 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             
             if ((result as! NSDictionary).object(forKey: "status") as! Int == 1)
             {
-                DispatchQueue.main.async(execute: { () -> Void in
+//                DispatchQueue.main.async(execute: { () -> Void in
 
-                    self.btnLogin.stopAnimation(animationStyle: .normal, completion: {
+//                    self.btnLogin.stopAnimation(animationStyle: .normal, completion: {
                         SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: (result as! NSDictionary).object(forKey: "profile") as! NSDictionary)
                         SingletonClass.sharedInstance.arrCarLists = NSMutableArray(array: (result as! NSDictionary).object(forKey: "car_class") as! NSArray)
                         SingletonClass.sharedInstance.strPassengerID = String(describing: SingletonClass.sharedInstance.dictProfile.object(forKey: "Id")!)//as! String
@@ -159,13 +156,14 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                         self.webserviceForAllDrivers()
                         
 //                        self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
-                    })
-                })
-            }
+//                    })
+                }
+                
+        
             else
             {
-                self.btnLogin.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
-                    
+//                self.btnLogin.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
+                
 //                    let next = self.storyboard?.instantiateViewController(withIdentifier: "CustomAlertsViewController") as! CustomAlertsViewController
 //                    next.delegateOfAlertView = self
 //                    next.strTitle = "Error"
@@ -176,13 +174,10 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                      UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
             }
 
-                })
+//                })
             }
         }
     }
-    
-   
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "segueToHomeVC") {
        
@@ -210,7 +205,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     }
     
      //MARK: - Webservice Call for Forgot Password
-<<<<<<< HEAD
+
 //    
 //    func webserviceCallForForgotPassword(strEmail : String)
 //    {
@@ -232,13 +227,12 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
 //                }
 //            }
 //        }
-//    }
-=======
-    
+//
     func webserviceCallForForgotPassword(strEmail : String)
     {
         let dictparam = NSMutableDictionary()
         dictparam.setObject(strEmail, forKey: "MobileNo" as NSCopying)
+
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
         webserviceForForgotPassword(dictparam) { (result, status) in
@@ -255,7 +249,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             }
         }
     }
->>>>>>> f4f8cf503f80baffcb4c521ce1b2b1f13730d853
+//>>>>>>> f4f8cf503f80baffcb4c521ce1b2b1f13730d853
     
     func webserviceOfAppSetting() {
 //        version : 1.0.0 , (app_type : AndroidPassenger , AndroidDriver , IOSPassenger , IOSDriver)

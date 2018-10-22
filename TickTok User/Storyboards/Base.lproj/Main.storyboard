@@ -735,7 +735,7 @@ Hours</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.11162685602903366" green="0.14452078938484192" blue="0.17111140489578247" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.0039215686274509803" green="0.0078431372549019607" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="83g-ES-5a4" firstAttribute="leading" secondItem="HSm-8I-qaB" secondAttribute="leading" constant="30" id="Iwu-RB-iyt"/>
                                                             <constraint firstAttribute="bottom" secondItem="ze2-GK-BfE" secondAttribute="bottom" constant="10" id="Vs4-Sa-rn2"/>
@@ -3016,7 +3016,7 @@ Hours</string>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY BOOKING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhi-aN-h2g">
                                         <rect key="frame" x="98.5" y="10" width="123" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="0.74401390550000002" green="0.38514220710000002" blue="0.02445753291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQo-35-Gcm">
@@ -3232,7 +3232,7 @@ Hours</string>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRIP DETAILS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ouK-ED-vAE">
                                         <rect key="frame" x="99" y="20" width="122" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="0.74401390550000002" green="0.38514220710000002" blue="0.02445753291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4r-Kn-ZFA">
@@ -7666,7 +7666,7 @@ Hours</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSCODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4S-Dr-Q5V">
                                                 <rect key="frame" x="116" y="12" width="88" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.74401390550000002" green="0.38514220710000002" blue="0.02445753291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -7960,15 +7960,15 @@ Hours</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0JL-dB-sge">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V72-TL-Wlb">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="484"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="bRY-ka-59t">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4O-vu-AF0">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4O-vu-AF0">
                                                         <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzd-24-dcS">
@@ -8008,10 +8008,10 @@ Hours</string>
                                                             <constraint firstItem="iho-iJ-aIm" firstAttribute="centerY" secondItem="y4O-vu-AF0" secondAttribute="centerY" id="uCk-hm-vRl"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9e-Fm-L8Z">
-                                                        <rect key="frame" x="0.0" y="50" width="320" height="50"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T9e-Fm-L8Z">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBH-ab-dY3">
+                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CBH-ab-dY3">
                                                                 <rect key="frame" x="10" y="5" width="300" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="Cp2-DG-WL8"/>
@@ -8045,7 +8045,7 @@ Hours</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQe-BB-72T">
-                                                        <rect key="frame" x="0.0" y="100" width="320" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueO-rS-Sq1">
                                                                 <rect key="frame" x="10" y="5" width="300" height="40"/>
@@ -8114,7 +8114,7 @@ Hours</string>
                             <constraint firstItem="0JL-dB-sge" firstAttribute="leading" secondItem="FUw-KV-Hvb" secondAttribute="leading" id="T7x-Fn-Xi5"/>
                             <constraint firstItem="FUw-KV-Hvb" firstAttribute="trailing" secondItem="0JL-dB-sge" secondAttribute="trailing" id="XcY-4K-Xvw"/>
                             <constraint firstItem="0JL-dB-sge" firstAttribute="width" secondItem="4jf-lW-Hjq" secondAttribute="width" id="YBY-z3-UCh"/>
-                            <constraint firstItem="0JL-dB-sge" firstAttribute="top" secondItem="FUw-KV-Hvb" secondAttribute="top" id="qMe-JH-Zom"/>
+                            <constraint firstItem="0JL-dB-sge" firstAttribute="top" secondItem="4jf-lW-Hjq" secondAttribute="top" id="qMe-JH-Zom"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FUw-KV-Hvb"/>
                     </view>
@@ -8163,7 +8163,7 @@ Hours</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PASSCODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UB-Ow-CEg">
                                                 <rect key="frame" x="116" y="12" width="88" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.74401390550000002" green="0.38514220710000002" blue="0.02445753291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>

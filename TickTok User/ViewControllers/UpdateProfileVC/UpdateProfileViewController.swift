@@ -12,26 +12,58 @@ import M13Checkbox
 import NVActivityIndicatorView
 import ACFloatingTextfield_Swift
 
-class UpdateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+class UpdateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,UIPickerViewDataSource,UIPickerViewDelegate {
+    
+    var aryContoryNum = [[String:Any]]()
     var firstName = String()
     var lastName = String()
     var fullName = String()
     var gender = String()
     
-
+    var countoryPicker = UIPickerView()
+    var pickerView = UIPickerView()
+    
+    //-------------------------------------------------------------
+    // MARK: - Outlets
+    //-------------------------------------------------------------
+    
+    @IBOutlet weak var imgProfile: UIImageView!
+    @IBOutlet weak var lblEmailId: UILabel!
+    @IBOutlet weak var lblContactNumber: UILabel!
+    
+    @IBOutlet weak var txtAge: UITextField!
+    @IBOutlet weak var txtMobileNum: UITextField!
+    @IBOutlet weak var txtFirstName: ACFloatingTextfield!
+    @IBOutlet weak var txtLastName: ACFloatingTextfield!
+    @IBOutlet weak var txtAddress: ACFloatingTextfield!
+    @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!
+    
+    @IBOutlet weak var txtHomeNumber: ACFloatingTextfield!
+    @IBOutlet weak var viewMale: M13Checkbox!
+    @IBOutlet weak var viewFemale: M13Checkbox!
+    
+    @IBOutlet weak var btnSave: UIButton!
+    
+    @IBOutlet var viewChangePassword: UIView!
+    @IBOutlet var btnChangePassword: UIButton!
+    @IBOutlet var btnProfile: UIButton!
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+ aryContoryNum = [["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"],["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"]] as [[String : AnyObject]]
         setData()
         
         btnSave.layer.cornerRadius = 5
         btnSave.layer.masksToBounds = true
-        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        countoryPicker.delegate = self
+        countoryPicker.dataSource = self
+        txtAge.inputView = pickerView
     }
     
     override func viewDidLayoutSubviews() {
@@ -53,32 +85,70 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
          
     }
     
-    //-------------------------------------------------------------
-    // MARK: - Outlets
-    //-------------------------------------------------------------
-    
-    @IBOutlet weak var imgProfile: UIImageView!
-    @IBOutlet weak var lblEmailId: UILabel!
-    @IBOutlet weak var lblContactNumber: UILabel!
-    
-    @IBOutlet weak var txtFirstName: ACFloatingTextfield!
-    @IBOutlet weak var txtLastName: ACFloatingTextfield!
-    @IBOutlet weak var txtAddress: ACFloatingTextfield!
-    @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!
-    
-    @IBOutlet weak var viewMale: M13Checkbox!
-    @IBOutlet weak var viewFemale: M13Checkbox!
   
-    @IBOutlet weak var btnSave: UIButton!
+    //-------------------------------------------------------------
+    // MARK: - PickerView Methods
+    //-------------------------------------------------------------
     
-    @IBOutlet var viewChangePassword: UIView!
-    @IBOutlet var btnChangePassword: UIButton!
-    @IBOutlet var btnProfile: UIButton!
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == countoryPicker{
+            return 2
+        }
+        
+        return aryContoryNum.count
+    }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        if pickerView == countoryPicker {
+            return 120
+        }
+        return 60
+    }
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        
+        if pickerView == countoryPicker
+        {
+            //mainview
+            let viewOfContryCode = UIView(frame: CGRect(x: 10, y: 10, width: countoryPicker.frame.size.width , height: 50))
+            
+            //image
+            
+            
+            //labelNum
+            let lblOfCountryNum = UILabel(frame: CGRect(x: 60 , y:  10, width: 50, height: 30))
+            //addsubview
+          
+            viewOfContryCode.addSubview(lblOfCountryNum)
+            let dictCountry = aryContoryNum[row]
+            
+            if let CountryCode:String = dictCountry["countoryCode"] as? String {
+                lblOfCountryNum.text = CountryCode
+            }
+            // return mainview
+            return viewOfContryCode
+            
+        }
+        
+        return pickerView
+    }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        
+        if pickerView == countoryPicker {
+            
+            
+        }
+    }
     //-------------------------------------------------------------
     // MARK: - Actions
     //-------------------------------------------------------------
+    
+   
     
     @IBAction func btnMale(_ sender: UIButton) {
         
@@ -123,23 +193,23 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
             }
         }
     }
-    @IBAction func txtDateOfBirthAction(_ sender: ACFloatingTextfield) {
-        
-        
-        let datePickerView:UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(self.pickupdateMethod(_:)), for: UIControlEvents.valueChanged)
-    }
-    
-    @objc func pickupdateMethod(_ sender: UIDatePicker)
-    {
-        let dateFormaterView = DateFormatter()
-        dateFormaterView.dateFormat = "yyyy-MM-dd"
-        
-        txtDateOfBirth.text = dateFormaterView.string(from: sender.date)
-    }
-    
+//    @IBAction func txtDateOfBirthAction(_ sender: ACFloatingTextfield) {
+//
+//
+//        let datePickerView:UIDatePicker = UIDatePicker()
+//        datePickerView.datePickerMode = UIDatePickerMode.date
+//        sender.inputView = datePickerView
+//        datePickerView.addTarget(self, action: #selector(self.pickupdateMethod(_:)), for: UIControlEvents.valueChanged)
+//    }
+//
+//    @objc func pickupdateMethod(_ sender: UIDatePicker)
+//    {
+//        let dateFormaterView = DateFormatter()
+//        dateFormaterView.dateFormat = "yyyy-MM-dd"
+//
+//       // txtDateOfBirth.text = dateFormaterView.string(from: sender.date)
+//    }
+//
     @IBAction func btnChangePassword(_ sender: UIButton) {
         
         let next = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordVC") as! ChangePasswordVC
@@ -236,8 +306,8 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         
         lblEmailId.text = getData.object(forKey: "Email") as? String
         lblContactNumber.text = getData.object(forKey: "MobileNo") as? String
-        txtDateOfBirth.text = getData.object(forKey: "DOB") as? String
-        
+//        txtDateOfBirth.text = getData.object(forKey: "DOB") as? String
+//
         fullName = getData.object(forKey: "Fullname") as! String
   
         let fullNameArr = fullName.components(separatedBy: " ")
@@ -303,7 +373,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         dictData["Fullname"] = fullName as AnyObject
         dictData["Gender"] = gender as AnyObject
         dictData["Address"] = txtAddress.text as AnyObject
-        dictData["DOB"] = txtDateOfBirth.text as AnyObject
+//        dictData["DOB"] = txtDateOfBirth.text as AnyObject//binal
         
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)

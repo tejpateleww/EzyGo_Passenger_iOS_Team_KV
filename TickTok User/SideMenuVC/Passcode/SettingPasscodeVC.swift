@@ -14,7 +14,6 @@ protocol checkSwitchIsOnOrOff {
     
 }
 
-
 class SettingPasscodeVC: ParentViewController, checkSwitchIsOnOrOff {
 
     

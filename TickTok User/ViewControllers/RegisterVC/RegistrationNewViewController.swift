@@ -13,7 +13,7 @@ import TransitionButton
 class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate {
  
     
-    var aryage = [String:AnyObject]()
+    var aryage = [[String:AnyObject]]()
     var strDateOfBirth = String()
 
     var agePicker = UIPickerView()
@@ -65,7 +65,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
 //        txtLastName.text = "patel"
     
     
-    
+        aryage = [["name" : "18 to 25"],["name" : "26 to 35"],["name" : "35 to 55"],["name" : "55+"]] as [[String : AnyObject]]
     
         UtilityClass.setCornerRadiusTextField(textField: txtFirstName, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtInviteCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
@@ -196,7 +196,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == agePicker{
-            return 2
+            return 4
         }
         
         return aryage.count
@@ -221,6 +221,11 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
                 , width: 60, height: 60))
             //addsubview
             viewOfage.addSubview(lblOfCountryNum)
+              let dictCountry = aryage[row]
+            if let CountryCode:String = dictCountry["name"] as? String {
+               lblOfCountryNum.text = CountryCode
+            }
+            
             // return mainview
             return viewOfage
             
