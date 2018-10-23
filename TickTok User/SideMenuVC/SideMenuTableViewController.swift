@@ -192,8 +192,9 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
             }
         }
         else if arrMenuTitle[indexPath.row] == "Promo Credits" {
-            
-            
+            let BookStoryBoard = UIStoryboard(name: "Booking", bundle: nil)
+            let next = BookStoryBoard.instantiateViewController(withIdentifier: "PromoCreditViewController") as! PromoCreditViewController
+            self.navigationController?.pushViewController(next, animated: true)
         }
         else if arrMenuTitle[indexPath.row] == "My Receipts/Invoices" {
             let next = self.storyboard?.instantiateViewController(withIdentifier: "MyReceiptsViewController") as! MyReceiptsViewController
@@ -206,15 +207,15 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         else if arrMenuTitle[indexPath.row] == "Favourites" {
          
             let next = self.storyboard?.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
-            var homeVC : HomeViewController!
-            for controller in self.navigationController!.viewControllers as Array {
-                if controller.isKind(of: CustomSideMenuViewController.self) {
-                    homeVC = (controller.childViewControllers[0] as! UINavigationController).childViewControllers[0] as? HomeViewController//cresh
-                    self.navigationController!.popToViewController(controller, animated: true)
-                    break
-                }
-            }
-            next.delegateForFavourite = homeVC.self as? FavouriteLocationDelegate!
+//            var homeVC : HomeViewController!
+//            for controller in self.navigationController!.viewControllers as Array {
+//                if controller.isKind(of: CustomSideMenuViewController.self) {
+//                    homeVC = (controller.childViewControllers[0] as! UINavigationController).childViewControllers[0] as? HomeViewController//cresh
+//                    self.navigationController!.popToViewController(controller, animated: true)
+//                    break
+//                }
+//            }
+//            next.delegateForFavourite = homeVC.self as? FavouriteLocationDelegate!
             self.navigationController?.pushViewController(next, animated: true)
         }
         else if arrMenuTitle[indexPath.row] == "Invite Friends" {

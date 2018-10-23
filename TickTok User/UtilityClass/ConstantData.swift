@@ -38,6 +38,7 @@ struct WebserviceURLs {
     static let kDriver                                  = "Driver"
     static let kBookingHistory                          = "BookingHistory/"
     static let kGetEstimateFare                         = "GetEstimateFare"
+    static let kGetPromoCodeList                        = "PromoCodeList"
     static let kImageBaseURL                            = "http://13.237.0.107/web/" // "https://pickngolk.info/web/" "http://54.169.67.226/web/" //
     
     static let kCardsList                               = "Cards/"

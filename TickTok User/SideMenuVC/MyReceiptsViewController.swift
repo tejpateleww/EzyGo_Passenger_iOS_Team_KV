@@ -81,8 +81,6 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
-        
         return self.counts
     }
     
