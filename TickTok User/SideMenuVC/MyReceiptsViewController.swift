@@ -55,9 +55,6 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
         super.didReceiveMemoryWarning()
         
     }
-    
-    
-    
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
         
         webserviewOfMyReceipt()
@@ -148,8 +145,6 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
             tableView.endUpdates()
            
         }
-      
-        
     }
     
     //-------------------------------------------------------------
@@ -163,23 +158,39 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
     
     @objc func getReceipt(sender: UIButton) {
         
-        let emailTitle = ""
-        let messageBody = urlForMail
-        let toRecipents = [""]
-    
+         let messageBody = "\n Please download from below link \n \n \(urlForMail)"
         
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients(toRecipents)
-            mail.setMessageBody(messageBody, isHTML: true)
-            
-            present(mail, animated: true)
-        } else {
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please login into setting with emaild id") { (index, title) in
-            }
-        }
         
+        let activityViewController = UIActivityViewController(activityItems: [messageBody], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+
+        
+        
+        
+        //bianl
+//        let emailTitle = ""
+//        let messageBody = urlForMail
+//        let toRecipents = [""]
+//
+//
+//        if MFMailComposeViewController.canSendMail() {
+//            let mail = MFMailComposeViewController()
+//            mail.mailComposeDelegate = self
+//            mail.setToRecipients(toRecipents)
+//            mail.setMessageBody(messageBody, isHTML: true)
+//
+//            present(mail, animated: true)
+//        } else {
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Please login into setting with emaild id") { (index, title) in
+//            }
+//        }
+//
        
     }
     
@@ -241,7 +252,6 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
 //            UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
 //            }
             messages = "Something went wrong"
-//            
             break
         }
         controller.dismiss(animated: true) {
@@ -311,6 +321,22 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
         }
     }
     
+    @IBAction func btnViewReceiptInventory(_ sender: UIButton) {
+        
+        let messageBody = "\n Please download from below link \n \n \(urlForMail)"
+        
+        
+        let activityViewController = UIActivityViewController(activityItems: [messageBody], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+        
+        
+    }
     
     
 }

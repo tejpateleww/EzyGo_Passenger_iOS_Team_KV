@@ -236,7 +236,7 @@
                                             <constraint firstAttribute="height" constant="50" id="IRZ-O5-Pfz"/>
                                             <constraint firstAttribute="width" secondItem="8Sc-pd-4e0" secondAttribute="height" multiplier="1:1" id="g0K-RM-PLo"/>
                                         </constraints>
-                                        <state key="normal" image="iconFB"/>
+                                        <state key="normal" image="iconFb"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVu-Qk-oE3">
                                         <rect key="frame" x="213" y="457.5" width="50" height="50"/>
@@ -244,7 +244,7 @@
                                             <constraint firstAttribute="width" secondItem="WVu-Qk-oE3" secondAttribute="height" multiplier="1:1" id="K1I-m3-qTd"/>
                                             <constraint firstAttribute="height" constant="50" id="mn2-rO-rgy"/>
                                         </constraints>
-                                        <state key="normal" image="iconFB"/>
+                                        <state key="normal" image="iconGoogle"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyJ-I0-Tqe">
                                         <rect key="frame" x="176.5" y="522.5" width="23.5" height="20.5"/>
@@ -984,7 +984,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="txtAgeGroup:" destination="Q8U-wW-XvY" eventType="editingDidEnd" id="kcU-s3-hD4"/>
                                                     <outlet property="delegate" destination="Q8U-wW-XvY" id="YJ2-WU-T60"/>
                                                 </connections>
                                             </textField>
@@ -1266,7 +1265,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odx-3l-pbx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="352.80000000000001" y="152.02398800599701"/>
+            <point key="canvasLocation" x="510" y="153"/>
         </scene>
         <!--RegisterOTP Varification View Controller-->
         <scene sceneID="V9r-vT-YBd">
@@ -1369,7 +1368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S2p-aO-Des" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1096.8" y="-544.67766116941539"/>
+            <point key="canvasLocation" x="1084" y="-571"/>
         </scene>
         <!--CustomSideMenuViewController-->
         <scene sceneID="6XH-sG-xHV">
@@ -1408,7 +1407,8 @@
     <resources>
         <image name="iconArrow" width="40" height="40"/>
         <image name="iconBack" width="16" height="16"/>
-        <image name="iconFB" width="21" height="21"/>
+        <image name="iconFb" width="40" height="40"/>
+        <image name="iconGoogle" width="40" height="40"/>
         <image name="iconPlusBlack" width="14" height="14"/>
         <image name="imageView:3qi-ds-jJx:image" width="170" height="170">
             <mutableData key="keyedArchiveRepresentation">

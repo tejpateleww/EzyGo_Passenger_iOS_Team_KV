@@ -12,8 +12,8 @@ import M13Checkbox
 import NVActivityIndicatorView
 import ACFloatingTextfield_Swift
 
-class UpdateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,UIPickerViewDataSource,UIPickerViewDelegate {
-    
+class UpdateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,UIPickerViewDataSource,UIPickerViewDelegate
+{
     var aryContoryNum = [[String:Any]]()
     var firstName = String()
     var lastName = String()
@@ -335,11 +335,11 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     
     @IBAction func viewMale(_ sender: M13Checkbox) {
         
-//        viewMale.checkState = .checked
-//        viewMale.tintColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0)
-//        viewFemale.checkState = .unchecked
-//
-//        gender = "Male"
+        viewMale.checkState = .checked
+        viewMale.tintColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0)
+        viewFemale.checkState = .unchecked
+
+        gender = "Male"
         
     }
     
@@ -356,9 +356,6 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBAction func btnBack(_ sender: UIButton) {
          self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    
     
     //-------------------------------------------------------------
     // MARK: - Webservice Methods

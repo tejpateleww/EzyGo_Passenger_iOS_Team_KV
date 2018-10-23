@@ -544,6 +544,9 @@
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="_IBMarkType" value="radio"/>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="_IBBoxType" value="circle"/>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="viewMale:" destination="qwf-s2-kPF" eventType="valueChanged" id="PRH-U6-Hfl"/>
+                                                                        </connections>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Male" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7u-Xg-h5U">
                                                                         <rect key="frame" x="53" y="12" width="33" height="18"/>
@@ -569,6 +572,9 @@
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="_IBMarkType" value="radio"/>
                                                                             <userDefinedRuntimeAttribute type="string" keyPath="_IBBoxType" value="circle"/>
                                                                         </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="viewFemale:" destination="qwf-s2-kPF" eventType="valueChanged" id="Fl0-ki-GzL"/>
+                                                                        </connections>
                                                                     </view>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOT-Yd-uLN">
                                                                         <rect key="frame" x="222.5" y="11" width="49.5" height="18"/>
@@ -685,6 +691,8 @@
                         <outlet property="txtLastName" destination="eHm-GQ-jKo" id="aid-2a-Ie9"/>
                         <outlet property="txtMobileNum" destination="JCH-XR-SgD" id="dVX-sb-LXg"/>
                         <outlet property="viewChangePassword" destination="qtO-ku-hdA" id="trf-r5-Nui"/>
+                        <outlet property="viewFemale" destination="XJR-r6-8qf" id="vj4-Wd-qzq"/>
+                        <outlet property="viewMale" destination="Vwu-We-kQQ" id="tgA-Kx-a2F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NQu-ck-nmR" userLabel="First Responder" sceneMemberID="firstResponder"/>

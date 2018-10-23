@@ -26,6 +26,8 @@ class MyFavouriteTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblItemTitle: UILabel!
     
+    @IBOutlet weak var lblItemLocation: UILabel!
+    
     
 
 }

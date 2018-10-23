@@ -168,22 +168,22 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func txtAgeGroup(_ sender: ACFloatingTextfield) {
-        
-        let datePickerView:UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(self.pickupdateMethod(_:)), for: UIControlEvents.valueChanged)
-    }
-    
-    @objc func pickupdateMethod(_ sender: UIDatePicker)
-    {
-        let dateFormaterView = DateFormatter()
-        dateFormaterView.dateFormat = "yyyy-MM-dd"
-        txtAgeGroup.text = dateFormaterView.string(from: sender.date)
-        strDateOfBirth = txtAgeGroup.text!
-        
-    }
+//    @IBAction func txtAgeGroup(_ sender: ACFloatingTextfield) {
+//
+//        let datePickerView:UIDatePicker = UIDatePicker()
+//        datePickerView.datePickerMode = UIDatePickerMode.date
+//        sender.inputView = datePickerView
+//        datePickerView.addTarget(self, action: #selector(self.pickupdateMethod(_:)), for: UIControlEvents.valueChanged)
+//    }
+//
+//    @objc func pickupdateMethod(_ sender: UIDatePicker)
+//    {
+//        let dateFormaterView = DateFormatter()
+//        dateFormaterView.dateFormat = "yyyy-MM-dd"
+//        txtAgeGroup.text = dateFormaterView.string(from: sender.date)
+//        strDateOfBirth = txtAgeGroup.text!
+//
+//    }
 
     
     //-------------------------------------------------------------
@@ -231,11 +231,10 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             
         }
         
-      
         var strcountory = String()
         let viewContoryCode = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
 
-        let lblOfCountryNum = UILabel(frame: CGRect(x:60, y:0, width:pickerView.bounds.width - 90, height:60 ))
+        let lblOfCountryNum = UILabel(frame: CGRect(x:60, y:0, width: 220, height:60 ))
         viewContoryCode.addSubview(lblOfCountryNum)
        
         

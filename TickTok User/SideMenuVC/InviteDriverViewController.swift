@@ -46,37 +46,7 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
 
        
         
-        /*
-         {
-         profile =     {
-         ABN = 1234;
-         Address = "";
-         BSB = qwer;
-         BankAccountNo = 0978645312;
-         BankName = bob;
-         CompanyName = Isco;
-         CreatedDate = "2017-11-24 06:36:31";
-         Description = hi;
-         DeviceType = 1;
-         Email = "bhavesh@excellentwebworld.info";
-         Fullname = "Bhavesh Odedra";
-         Gender = male;
-         Id = 36;
-         Image = "http://54.206.55.185/web/images/passenger/Image13";
-         Lat = 6287346872364287;
-         LicenceImage = "images/passenger/image16.png";
-         Lng = 6287346872364287;
-         MobileNo = 0987456321;
-         Password = 25d55ad283aa400af464c76d713c07ad;
-         QRCode = "images/qrcode/mrXc1tDi1sijkWNjjKCXoKqilWI=.png";
-         ReferralCode = tktcps36Bha;
-         Status = 1;
-         Token = cc958ac268a826a7cf92f9eb655985d5b8de2517e0e5a8432f88801ddd367134;
-         Verify = 1;
-         };
-         status = 1;
-         }
-         */
+      
 
 //        headerView?.btnBack.addTarget(self, action: #selector(self.nevigateToBack), for: .touchUpInside)
         

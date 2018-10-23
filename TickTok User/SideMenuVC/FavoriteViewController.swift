@@ -78,10 +78,12 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyFavouriteTableViewCell") as! MyFavouriteTableViewCell
         cell.selectionStyle = .none
         if let address = dataDict["Address"] as? String {
-            cell.lblItemTitle.text = address
+            cell.lblItemLocation.text = address
         }
+        
         if let iconType = dataDict["Type"] as? String {
             cell.imgItem.image = UIImage(named: setIconType(str: iconType))
+            cell.lblItemTitle.text = iconType
         }
         
         return cell
@@ -104,10 +106,10 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
         }
         
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 90
+//    }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         

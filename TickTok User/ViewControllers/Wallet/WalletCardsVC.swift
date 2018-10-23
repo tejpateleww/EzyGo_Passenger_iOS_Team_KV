@@ -30,9 +30,6 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         return refreshControl
     }()
-    
-   
-    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -166,20 +163,20 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             else if type == "diners" {
                 // gray
             }
-            else {
-                //
-            }
-            
-            let colorTop =  UIColor(red: 78/255, green: 202/255, blue:237, alpha: 1.0).cgColor
-            let colorMiddle =  UIColor(red: 187/255, green: 241/255, blue: 239/255, alpha: 0.5).cgColor
-//            let colorBottom = UIColor(red: 64/255, green: 43/255, blue: 6/255, alpha: 0.8).cgColor
-            
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = [colorTop, colorMiddle]
-            gradientLayer.locations = [ 0.0, 0.5]
-            gradientLayer.frame = self.view.bounds
-            cell.viewCards.layer.insertSublayer(gradientLayer, at: 0)
-            
+//            else {
+//                //
+//            }
+//
+//            let colorTop =  UIColor(red: 78/255, green: 202/255, blue:237, alpha: 1.0).cgColor
+//            let colorMiddle =  UIColor(red: 187/255, green: 241/255, blue: 239/255, alpha: 0.5).cgColor
+////            let colorBottom = UIColor(red: 64/255, green: 43/255, blue: 6/255, alpha: 0.8).cgColor
+//
+//            let gradientLayer = CAGradientLayer()
+//            gradientLayer.colors = [colorTop, colorMiddle]
+//            gradientLayer.locations = [ 0.0, 0.5]
+//            gradientLayer.frame = self.view.bounds
+//            cell.viewCards.layer.insertSublayer(gradientLayer, at: 0)
+//
             
          /*
           //   visa , mastercard , amex , diners , discover , jcb , other
