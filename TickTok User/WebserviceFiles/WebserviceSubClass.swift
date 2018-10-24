@@ -17,6 +17,7 @@ let MakeBookingRequest = WebserviceURLs.kMakeBookingRequest
 let bookLater = WebserviceURLs.kAdvancedBooking
 let driverList = WebserviceURLs.kDriver
 let BookingHistory = WebserviceURLs.kBookingHistory
+let GetPromoCodeList = WebserviceURLs.kGetPromoCodeList
 let GetEstimateFare =  WebserviceURLs.kGetEstimateFare
 let ChangePassword = WebserviceURLs.kChangePassword
 let UpdateProfile = WebserviceURLs.kUpdateProfile
@@ -130,6 +131,16 @@ func webserviceForAllDriversList(completion: @escaping(_ result: AnyObject, _ su
 func webserviceForBookingHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = "\(BookingHistory)/\(dictParams)"
+    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Promocode List
+//-------------------------------------------------------------
+
+func webserviceForPromoCodeList(completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(GetPromoCodeList)"
     getData(dictParams as AnyObject, nsURL: url, completion: completion)
 }
 

@@ -192,8 +192,9 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
             }
         }
         else if arrMenuTitle[indexPath.row] == "Promo Credits" {
-            
-            
+            let BookStoryBoard = UIStoryboard(name: "Booking", bundle: nil)
+            let next = BookStoryBoard.instantiateViewController(withIdentifier: "PromoCreditViewController") as! PromoCreditViewController
+            self.navigationController?.pushViewController(next, animated: true)
         }
         else if arrMenuTitle[indexPath.row] == "My Receipts/Invoices" {
             let next = self.storyboard?.instantiateViewController(withIdentifier: "MyReceiptsViewController") as! MyReceiptsViewController
