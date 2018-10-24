@@ -2370,7 +2370,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if self.arrNumberOfOnlineCars.count == 0 {
-            return 5
+            return 3
         }
         
         return self.arrNumberOfOnlineCars.count
@@ -2556,8 +2556,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     strModelId = ""
                 }
                 
-                if available != 0 {
-                    
+//                if available != 0 {
+            
                     if self.aryEstimateFareData.count != 0 {
                         
                         if ((self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "duration") as? NSNull) != nil {
@@ -2578,7 +2578,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             
                         }
                     }
-                }
+//                }
             }
             collectionViewCars.reloadData()
 //        }

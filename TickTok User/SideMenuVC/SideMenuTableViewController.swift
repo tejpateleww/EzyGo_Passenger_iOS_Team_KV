@@ -201,7 +201,9 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
             self.navigationController?.pushViewController(next, animated: true)
         }
         else if arrMenuTitle[indexPath.row] == "My Ratings" {
-            
+            let BookStoryBoard = UIStoryboard(name: "Booking", bundle: nil)
+            let next = BookStoryBoard.instantiateViewController(withIdentifier: "MyRatingsViewController") as! MyRatingsViewController
+            self.navigationController?.pushViewController(next, animated: true)
             
         }
         else if arrMenuTitle[indexPath.row] == "Favourites" {

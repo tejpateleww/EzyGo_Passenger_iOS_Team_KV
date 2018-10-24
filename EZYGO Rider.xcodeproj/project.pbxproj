@@ -140,6 +140,7 @@
 		347C90C6217F4D7300BC80E8 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001151C21FA1E9B100753F55 /* SideMenuTableViewController.swift */; };
 		347C90C9217F584100BC80E8 /* PromoCreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3474B8F1217F33B300B575BA /* PromoCreditViewController.swift */; };
 		347C90CB217F5EB700BC80E8 /* MyRatingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347C90CA217F5EB700BC80E8 /* MyRatingsViewController.swift */; };
+		34869345218049D3008D7F72 /* MyRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34869344218049D3008D7F72 /* MyRatingTableViewCell.swift */; };
 		34DA90C421786B30008F3953 /* FavrouiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DA90C321786B30008F3953 /* FavrouiteTableViewCell.swift */; };
 		50854B122174AF95009E5991 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50854B112174AF95009E5991 /* SplashVC.swift */; };
 		545B30B7204C22DA0019012F /* PackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545B30B6204C22DA0019012F /* PackageViewController.swift */; };
@@ -289,6 +290,7 @@
 		3474B8ED217EFB9B00B575BA /* PromoCreditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCreditTableViewCell.swift; sourceTree = "<group>"; };
 		3474B8F1217F33B300B575BA /* PromoCreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCreditViewController.swift; sourceTree = "<group>"; };
 		347C90CA217F5EB700BC80E8 /* MyRatingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRatingsViewController.swift; sourceTree = "<group>"; };
+		34869344218049D3008D7F72 /* MyRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRatingTableViewCell.swift; sourceTree = "<group>"; };
 		34DA90C321786B30008F3953 /* FavrouiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavrouiteTableViewCell.swift; sourceTree = "<group>"; };
 		50854B112174AF95009E5991 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		545B30B6204C22DA0019012F /* PackageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageViewController.swift; sourceTree = "<group>"; };
@@ -734,6 +736,7 @@
 			children = (
 				34DA90C321786B30008F3953 /* FavrouiteTableViewCell.swift */,
 				3474B8ED217EFB9B00B575BA /* PromoCreditTableViewCell.swift */,
+				34869344218049D3008D7F72 /* MyRatingTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1039,6 +1042,7 @@
 				214152641FFF87B500547DFA /* SettingPasscodeVC.swift in Sources */,
 				004620AE1FB1B5C5002EB388 /* NSCalendar+Timepiece.swift in Sources */,
 				21AA8AEE1FE17AD400210E2D /* PayViewController.swift in Sources */,
+				34869345218049D3008D7F72 /* MyRatingTableViewCell.swift in Sources */,
 				005B64161FB4191E00029EA2 /* PastBooingTableViewCell.swift in Sources */,
 				006057181FF52197004CA5DE /* CustomViewForShadow.swift in Sources */,
 				00FFCDE01FA4A8AF00073621 /* ConstantData.swift in Sources */,
@@ -1282,7 +1286,7 @@
 				INFOPLIST_FILE = "TickTok User/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pickngo.passenger123;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eww.ezygo-Rider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1307,7 +1311,7 @@
 				INFOPLIST_FILE = "TickTok User/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.pickngo.passenger123;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eww.ezygo-Rider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

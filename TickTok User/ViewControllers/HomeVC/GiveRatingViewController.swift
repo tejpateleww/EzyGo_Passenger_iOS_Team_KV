@@ -12,9 +12,7 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
 
     
     var ProfileData = NSDictionary()
-    
    
-    
     var ratingToDriver = Float()
     var commentToDriver = String()
     var strBookingType = String()

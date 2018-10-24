@@ -102,16 +102,12 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - TableView Methods
     //-------------------------------------------------------------
     
-    let arrFavourites = ["Home","Office", "Airport","Others"]
-    let arrFavImages = ["iconHome", "iconOffice", "iconAirport", "iconOthers"]
-    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
-        //        arrFavLocations.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return arrFavLocations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -139,7 +135,7 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         if let ExpiryDateValue:String = dictData["EndDate"] as? String {
-            Promocodecell.lblPromoCode.text = "Expiry Date:-\(ExpiryDateValue)"
+            Promocodecell.lblExpiryDate.text = "Expiry Date:-\(ExpiryDateValue)"
         }
         
         if let DescriptionValue:String = dictData["Description"] as? String {
@@ -149,30 +145,17 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
         return Promocodecell
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
-    }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-
-
     func webserviewOfGetPromocodeList() {
-        
-        webserviewOfPromocodeList() { (result, status) in
-            
+    
+        webserviceForPromoCodeList { (result, status) in
             if (status) {
                 print(result)
-                
-                self.arrFavLocations = (result as! [[String:Any]])
-
+                self.arrFavLocations = (result as! [String:Any])["promocode_list"] as! [[String:Any]]
                 self.tableView.reloadData()
             }
             else {
                 print(result)
-                
-                
                 if let res = result as? String {
                     UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
                     }

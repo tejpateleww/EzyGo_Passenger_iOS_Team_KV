@@ -289,7 +289,6 @@ class MyReceiptsViewController: ParentViewController, UITableViewDataSource, UIT
                         
                         if dictData["Status"] as! String == "completed" {
                             self.counts += 1
-                            
                             self.newAryData.add(self.aryData.object(at: i) as! NSDictionary)
                         }
                     }
