@@ -18,8 +18,10 @@ import UserNotifications
 import Firebase
 
 
-let googlApiKey = "AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
-let googlPlacesApiKey = "AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
+let googlApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
+//"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
+let googlPlacesApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
+//"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 
 //AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 @UIApplicationMain

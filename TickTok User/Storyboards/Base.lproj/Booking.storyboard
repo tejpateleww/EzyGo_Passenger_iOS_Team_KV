@@ -751,8 +751,8 @@
                                     <outletCollection property="gestureRecognizers" destination="cTr-o4-GVX" appends="YES" id="njz-dY-kpA"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nem-pi-6cf">
-                                <rect key="frame" x="320" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nem-pi-6cf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6e-h8-20d">
                                         <rect key="frame" x="142" y="80" width="35" height="35"/>
@@ -830,7 +830,7 @@
                                                                             <color key="titleColor" red="0.89372241500000005" green="0.51922690869999999" blue="0.15725964310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="btnPayment:" destination="eKb-OP-gzz" eventType="touchUpInside" id="l2Q-rC-HMu"/>
+                                                                            <action selector="btnPayment:" destination="eKb-OP-gzz" eventType="touchUpInside" id="kVi-L9-8jx"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1563,6 +1563,7 @@
                         <outlet property="constantLeadingOfShareRideButton" destination="2fa-KQ-4Qf" id="jjA-Hj-D5W"/>
                         <outlet property="giveRating" destination="cTa-BF-hkJ" id="BjW-Ag-5W1"/>
                         <outlet property="imgIsShareRideON" destination="6Dz-jB-NlM" id="c9Z-Rd-Heu"/>
+                        <outlet property="lblCardTitle" destination="55M-pA-0qP" id="9m4-8f-ytb"/>
                         <outlet property="lblMinutes" destination="B1v-CQ-F2c" id="aZU-fc-zA1"/>
                         <outlet property="lblNumberOfPassengers" destination="ttT-YE-3do" id="zS2-NZ-f0T"/>
                         <outlet property="lblPrices" destination="y2q-v6-IC3" id="NCm-yU-fVG"/>

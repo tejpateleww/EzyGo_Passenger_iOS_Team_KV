@@ -54,9 +54,9 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 aryData = SingletonClass.sharedInstance.CardsVCHaveAryData
             }
             else {
-                let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
-                next.delegateAddCard = self
-                self.navigationController?.pushViewController(next, animated: true)
+//                let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
+//                next.delegateAddCard = self
+//                self.navigationController?.pushViewController(next, animated: true)
             }
         }
         
@@ -100,11 +100,45 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
     //-------------------------------------------------------------
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var btnAddCards: UIButton!
+   
     
+    @IBOutlet weak var btnAddCards: UIButton!
     //-------------------------------------------------------------
     // MARK: - TableView Methods
     //-------------------------------------------------------------
+    
+//    @IBAction func btnAddCards(_ sender: UIButton) {
+//        let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
+//        next.delegateAddCard = self
+//        self.navigationController?.pushViewController(next, animated: true)
+//
+//    }
+    
+    @IBAction func btnCallAction(_ sender: UIButton) {
+        
+        let contactNumber = helpLineNumber
+        
+        if contactNumber == "" {
+            
+            UtilityClass.setCustomAlert(title: "\(appName)", message: "Contact number is not available") { (index, title) in
+            }
+        }
+        else
+        {
+            callNumber(phoneNumber: contactNumber)
+        }
+    }
+    
+    private func callNumber(phoneNumber:String) {
+        
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+            
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -225,12 +259,12 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
             
         }
-        else if indexPath.section == 1 {
-            
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
-            next.delegateAddCard = self
-            self.navigationController?.pushViewController(next, animated: true)
-        }
+//        else if indexPath.section == 1 {
+//
+//            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
+//            next.delegateAddCard = self
+//            self.navigationController?.pushViewController(next, animated: true)
+//        }
         
     }
     
