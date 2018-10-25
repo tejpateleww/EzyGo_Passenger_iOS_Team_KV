@@ -336,7 +336,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBAction func viewMale(_ sender: M13Checkbox) {
         
         viewMale.checkState = .checked
-        viewMale.tintColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0)
+        viewMale.tintColor = UIColor.init(red: 237/255, green: 122/255, blue: 4/255, alpha: 1.0)
         viewFemale.checkState = .unchecked
 
         gender = "Male"

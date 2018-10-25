@@ -78,7 +78,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         if UIDevice.current.name == "Bhavesh iPhone" || UIDevice.current.name == "Excellent Web's iPhone 5s" || UIDevice.current.name == "Rahul's iPhone"
         {
             
-            txtEmail.text = "9904439228"
+            txtEmail.text = "1122334456"
             txtPassword.text = "12345678"
         }
         btnSignup.layer.borderWidth = 1.0

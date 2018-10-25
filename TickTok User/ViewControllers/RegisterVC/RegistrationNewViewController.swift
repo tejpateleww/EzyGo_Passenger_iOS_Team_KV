@@ -11,22 +11,25 @@ import ACFloatingTextfield_Swift
 import TransitionButton
 
 class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate {
- 
+  
     
-    var aryage = [[String:AnyObject]]()
+    var aryage = [String]()
     var strDateOfBirth = String()
 
     var agePicker = UIPickerView()
     var pickerView = UIPickerView()
+    
+    
+    var radioButtonsController: AKRadioButtonsController!
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
     
-    var radioButtonsController: AKRadioButtonsController!
     @IBOutlet var radioButtons: [AKRadioButton]!
     @IBOutlet weak var txtFirstName: ACFloatingTextfield!
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
     @IBOutlet weak var btnSignUp: TransitionButton!
+    @IBOutlet weak var lblAgeGroup: UILabel!
     
     @IBOutlet weak var txtInviteCode: ACFloatingTextfield!
     @IBOutlet weak var btnFemale: AKRadioButton!
@@ -55,17 +58,17 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         // Do any additional setup after loading the view.
         
         self.radioButtonsController = AKRadioButtonsController(radioButtons: self.radioButtons)
-        self.radioButtonsController.strokeColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1)
-        self.radioButtonsController.startGradColorForSelected = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1)
-        self.radioButtonsController.endGradColorForSelected = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1)
+        self.radioButtonsController.strokeColor = UIColor.init(red: 237/255, green: 122/255, blue: 4/255, alpha: 1.0)//init(red: 255/255, green: 163/255, blue: 0, alpha: 1)
+        self.radioButtonsController.startGradColorForSelected = UIColor.init(red: 237/255, green: 122/255, blue: 4/255, alpha: 1.0)
+        self.radioButtonsController.endGradColorForSelected = UIColor.init(red: 237/255, green: 122/255, blue: 4/255, alpha: 1.0)
         self.radioButtonsController.selectedIndex = 2
-        self.radioButtonsController.delegate = self //class should implement AKRadioButtonsControllerDelegate
-    
+        self.radioButtonsController.delegate = self
+        //class should implement AKRadioButtonsControllerDelegate
 //        txtFirstName.text = "rahul"
 //        txtLastName.text = "patel"
     
     
-        aryage = [["name" : "18 to 25"],["name" : "26 to 35"],["name" : "35 to 55"],["name" : "55+"]] as [[String : AnyObject]]
+        aryage = [ "18 to 25", "26 to 35", "35 to 55", "55+"]
     
         UtilityClass.setCornerRadiusTextField(textField: txtFirstName, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtInviteCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
@@ -102,7 +105,6 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         default:
             gender = "male"
         }
-        
     }
     
     // MARK: - Pick Image
@@ -182,7 +184,6 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
 //        dateFormaterView.dateFormat = "yyyy-MM-dd"
 //        txtAgeGroup.text = dateFormaterView.string(from: sender.date)
 //        strDateOfBirth = txtAgeGroup.text!
-//
 //    }
 
     
@@ -195,60 +196,22 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == agePicker{
-            return 4
-        }
         
         return aryage.count
     }
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        if pickerView == agePicker {
-            return 120
-        }
-        return 60
-    }
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
-        
-        if pickerView == agePicker
-        {
-            //mainview
-            let viewOfage = UIView(frame: CGRect(x: 10, y: 10, width: agePicker.frame.size.width , height: agePicker.frame.size.height ))
-            
-          
-            //labelNum
-            let lblOfCountryNum = UILabel(frame: CGRect(x: 10 , y: 10
-                , width: 60, height: 60))
-            //addsubview
-            viewOfage.addSubview(lblOfCountryNum)
-              let dictCountry = aryage[row]
-            if let CountryCode:String = dictCountry["name"] as? String {
-               lblOfCountryNum.text = CountryCode
-            }
-            
-            // return mainview
-            return viewOfage
-            
-        }
-        
-        var strcountory = String()
-        let viewContoryCode = UIView(frame: CGRect(x:0, y:0, width: pickerView.bounds.width - 30, height: 60))
-
-        let lblOfCountryNum = UILabel(frame: CGRect(x:60, y:0, width: 220, height:60 ))
-        viewContoryCode.addSubview(lblOfCountryNum)
-       
-        
-        return pickerView
-    }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return aryage[row]
+    }
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        
-      
+        lblAgeGroup.text = aryage[row]
+       
     }
     // MARK: - Navigation
     
-   
+  
     
     //MARK: - Validation
     
@@ -275,12 +238,12 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
 //            }
 //            return false
 //        }
-        else if strDateOfBirth == "" {
-           
-            UtilityClass.setCustomAlert(title: "", message: "Please choose Date of Birth") { (index, title) in
-            }
-            return false
-        }
+//        else if strDateOfBirth == "" {
+//
+//            UtilityClass.setCustomAlert(title: "", message: "Please choose Date of Birth") { (index, title) in
+//            }
+//            return false
+//        }
         else if gender == "" {
             
             UtilityClass.setCustomAlert(title: "", message: "Please choose Gender") { (index, title) in
@@ -332,10 +295,12 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         dictParams.setObject(gender, forKey: "Gender" as NSCopying)
         dictParams.setObject("12376152367", forKey: "Lat" as NSCopying)
         dictParams.setObject("2348273489", forKey: "Lng" as NSCopying)
-        dictParams.setObject(strDateOfBirth, forKey: "DOB" as NSCopying)
+        //dictParams.setObject(strDateOfBirth, forKey: "DOB" as NSCopying)//binal
         
-        
-        
+        if SingletonClass.sharedInstance.otpCode != nil {
+        dictParams.setObject(SingletonClass.sharedInstance.otpCode, forKey: "ZipCode" as NSCopying)
+        }
+   
         webserviceForRegistrationForUser(dictParams, image1: imgProfile.image!) { (result, status) in
             
             
@@ -344,21 +309,21 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             if ((result as! NSDictionary).object(forKey: "status") as! Int == 1)
             {
                 
-                DispatchQueue.main.async(execute: { () -> Void in
-                    
-                    self.btnSignUp.stopAnimation(animationStyle: .normal, completion: {
-                        
-                        SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: (result as! NSDictionary).object(forKey: "profile") as! NSDictionary)   
-                        SingletonClass.sharedInstance.isUserLoggedIN = true
-                        SingletonClass.sharedInstance.strPassengerID = String(describing: SingletonClass.sharedInstance.dictProfile.object(forKey: "Id")!)
-                        SingletonClass.sharedInstance.arrCarLists = NSMutableArray(array: (result as! NSDictionary).object(forKey: "car_class") as! NSArray)
-                        UserDefaults.standard.set(SingletonClass.sharedInstance.arrCarLists, forKey: "carLists")
-
-                        UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
-                        self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
-                    })
-                })
+                SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: (result as! NSDictionary).object(forKey: "profile") as! NSDictionary)
+                SingletonClass.sharedInstance.isUserLoggedIN = true
+                SingletonClass.sharedInstance.strPassengerID = String(describing: SingletonClass.sharedInstance.dictProfile.object(forKey: "Id")!)
+                SingletonClass.sharedInstance.arrCarLists = NSMutableArray(array: (result as! NSDictionary).object(forKey: "car_class") as! NSArray)
+                UserDefaults.standard.set(SingletonClass.sharedInstance.arrCarLists, forKey: "carLists")
                 
+                UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
+                self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
+//                DispatchQueue.main.async(execute: { () -> Void in
+//
+//                    self.btnSignUp.stopAnimation(animationStyle: .normal, completion: {
+//
+//                    })
+//                })
+//
             }
             else
             {
@@ -388,3 +353,14 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     */
 
 }
+//  DeviceType = 1;
+//Email = "binal.nasit@gmail.com";
+//Firstname = bin;
+//Gender = female;
+//Lastname = "nasse ";
+//Lat = 12376152367;
+//Lng = 2348273489;
+//MobileNo = 7877888888;
+//Password = qqqqqq;
+//ReferralCode = Vancouver;
+//Token = "e7-rLUwSC40:APA91bEdHaRUwImAzIOcWr84nHyzpUUfzAlNsu8ur_mc2DJWZZv-E2KsZY8PWjC8wjU9tfL4VKsn4sQzkdEo2WNzPkYVQGTwGckVNvfrti-bsS6OBvSYoGd72Qcsp5MrvaWg7ulD2XaH";

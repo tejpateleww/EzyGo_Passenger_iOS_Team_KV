@@ -458,7 +458,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fme-fO-mTr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3941" y="-44"/>
+            <point key="canvasLocation" x="3429" y="7875"/>
         </scene>
         <!--Package Detail View Controller-->
         <scene sceneID="lNx-bg-cyk">
@@ -957,7 +957,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0gY-Ah-OYo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4691" y="-49"/>
+            <point key="canvasLocation" x="4140" y="7874"/>
         </scene>
         <!--PackageHistoryViewController-->
         <scene sceneID="XZ6-uP-Bco">
@@ -1468,7 +1468,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GDn-Bd-HVp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5366" y="-49"/>
+            <point key="canvasLocation" x="4819" y="7875"/>
         </scene>
         <!--Favorite View Controller-->
         <scene sceneID="Wgk-hg-WBk">
@@ -2558,7 +2558,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iju-CA-ugZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6954.375" y="3070.7746478873241"/>
+            <point key="canvasLocation" x="1110" y="7875"/>
         </scene>
         <!--Shopping DetailsVC-->
         <scene sceneID="cwV-sU-Jkt">
@@ -2733,7 +2733,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMx-KU-Duh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7815" y="3067.605633802817"/>
+            <point key="canvasLocation" x="1971" y="7872"/>
         </scene>
         <!--Groceries View Controller-->
         <scene sceneID="3Xk-qJ-UCB">
@@ -2971,7 +2971,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbM-Za-9lQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8589.375" y="3069.7183098591549"/>
+            <point key="canvasLocation" x="2745" y="7874"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gaW-pn-2zG">
@@ -2990,21 +2990,6 @@ Hours</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IbA-br-xCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4478" y="230"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="9BX-H7-AY6">
-            <objects>
-                <viewController id="q57-CC-Mwo" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eD4-KI-wsB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Aer-qg-QUB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WW7-bb-FuP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3244" y="-285"/>
         </scene>
         <!--My Booking View Controller-->
         <scene sceneID="nyr-2d-RW6">
@@ -3401,7 +3386,7 @@ Hours</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k8g-jM-ihZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ttK-hJ-b7x" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1493" y="2275"/>
+            <point key="canvasLocation" x="-1493" y="2325"/>
         </scene>
         <!--Side Menu Table View Controller-->
         <scene sceneID="GKz-KD-GNq">
@@ -3494,7 +3479,7 @@ Hours</string>
                                             <outlet property="lblTitle" destination="4VE-xq-Q1G" id="1OB-9V-Wae"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutTblCell" rowHeight="80" id="ZuT-2E-cgJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LogoutTblCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutTblCell" rowHeight="80" id="ZuT-2E-cgJ" customClass="LogoutTblCell" customModule="EZYGO_Rider" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="88" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZuT-2E-cgJ" id="M1Z-oz-FXv">
@@ -3554,9 +3539,11 @@ Hours</string>
                         <outlet property="tableView" destination="N6d-1L-hoX" id="TZO-cE-cqK"/>
                         <segue destination="f8F-e0-Ob7" kind="show" identifier="pushToBlank" id="G3b-R1-jU2"/>
                         <segue destination="ICf-Sa-UAP" kind="show" identifier="segueMyBooking" id="gGJ-ai-0u6"/>
+                        <segue destination="MUM-yZ-gSG" kind="unwind" identifier="unwindToVC" unwindAction="unwindToVCWithSegue:" id="x9R-6y-mWG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpr-xy-nOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="MUM-yZ-gSG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1459" y="1552"/>
         </scene>
@@ -4857,21 +4844,6 @@ Hours</string>
             </objects>
             <point key="canvasLocation" x="-405" y="887"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="8em-pt-z6T">
-            <objects>
-                <viewController id="Q8Z-bD-7Pw" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QCd-Tw-n3Z">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="3tv-Kr-Lzb"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yPM-RY-beW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4089" y="-936"/>
-        </scene>
         <!--BpayVC-->
         <scene sceneID="XOO-bZ-VC1">
             <objects>
@@ -5014,7 +4986,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z4j-aJ-dbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4916" y="-936"/>
+            <point key="canvasLocation" x="780" y="8665"/>
         </scene>
         <!--TravelVC-->
         <scene sceneID="8SV-ET-OPn">
@@ -5301,7 +5273,7 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSF-aX-w51" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5732" y="-936"/>
+            <point key="canvasLocation" x="2123" y="8665"/>
         </scene>
         <!--EntertainmentVC-->
         <scene sceneID="mIC-El-KHM">
@@ -5584,12 +5556,12 @@ Hours</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2lc-pH-Gkp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6531" y="-935"/>
+            <point key="canvasLocation" x="2921" y="8666"/>
         </scene>
         <!--Invite Driver View Controller-->
         <scene sceneID="mNx-0J-UXW">
             <objects>
-                <viewController id="3lg-DH-NT4" customClass="InviteDriverViewController" customModule="EZYGO_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InviteDriverViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3lg-DH-NT4" customClass="InviteDriverViewController" customModule="EZYGO_Rider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jaD-Sa-AfD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -5656,8 +5628,8 @@ Hours</string>
                                         <rect key="frame" x="0.0" y="264" width="320" height="304"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-pic2" translatesAutoresizingMaskIntoConstraints="NO" id="ihu-IA-1uT">
-                                        <rect key="frame" x="135" y="299" width="50" height="50"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="profile-pic2" translatesAutoresizingMaskIntoConstraints="NO" id="ihu-IA-1uT">
+                                        <rect key="frame" x="135" y="321" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="9Bv-Af-ilJ"/>
                                             <constraint firstAttribute="height" constant="50" id="NSR-Nc-9at"/>
@@ -5702,6 +5674,9 @@ Hours</string>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H02-jQ-DZK">
                                                         <rect key="frame" x="0.0" y="0.0" width="210" height="30"/>
+                                                        <connections>
+                                                            <action selector="btnFacebook:" destination="3lg-DH-NT4" eventType="touchUpInside" id="xej-cu-Th9"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.3803921569" green="0.50980392159999999" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -5728,6 +5703,9 @@ Hours</string>
                                                 <state key="normal" title="More Option">
                                                     <color key="titleColor" red="0.92941176469999998" green="0.47843137250000001" blue="0.015686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="btnMoreOption:" destination="3lg-DH-NT4" eventType="touchUpInside" id="TJw-gE-2Bo"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5779,18 +5757,22 @@ Hours</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xqY-eF-1vC"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showsBackButton" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="imgProfilePick" destination="ihu-IA-1uT" id="hAO-9n-SUa"/>
+                        <outlet property="lblReferralCode" destination="dKT-1f-7IS" id="JLN-8u-l3h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRt-La-Wnk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="446" y="3123"/>
         </scene>
-        <!--Invite Driver View Controller-->
+        <!--View Controller-->
         <scene sceneID="szU-A8-T9d">
             <objects>
-                <viewController storyboardIdentifier="InviteDriverViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yuA-xa-Ujw" customClass="InviteDriverViewController" customModule="EZYGO_Rider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yuA-xa-Ujw" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g6e-RE-BN6"/>
                         <viewControllerLayoutGuide type="bottom" id="yNW-iT-rTr"/>
@@ -5943,9 +5925,6 @@ Hours</string>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSL-ox-ez3">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                                <connections>
-                                                                    <action selector="btnFacebook:" destination="yuA-xa-Ujw" eventType="touchUpInside" id="ku9-C1-vMz"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5983,9 +5962,6 @@ Hours</string>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHI-VN-aAR">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                                <connections>
-                                                                    <action selector="btnTwitter:" destination="yuA-xa-Ujw" eventType="touchUpInside" id="aUu-LI-g9s"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6023,9 +5999,6 @@ Hours</string>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN7-BD-sZd">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                                <connections>
-                                                                    <action selector="btnEmail:" destination="yuA-xa-Ujw" eventType="touchUpInside" id="qye-u4-hmQ"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6063,9 +6036,6 @@ Hours</string>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yam-Sf-Wix">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                                <connections>
-                                                                    <action selector="btnWhatsApp:" destination="yuA-xa-Ujw" eventType="touchUpInside" id="jFK-WU-eu5"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6103,9 +6073,6 @@ Hours</string>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pP-nu-Eo7">
                                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                                <connections>
-                                                                    <action selector="btnSMS:" destination="yuA-xa-Ujw" eventType="touchUpInside" id="KHO-aF-TyO"/>
-                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -6160,17 +6127,6 @@ Hours</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BbO-LF-qzX"/>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="showsBackButton" value="YES"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="showTitleLabelView" value="NO"/>
-                        <userDefinedRuntimeAttribute type="string" keyPath="strTitle" value="Invite Friends"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="hideSwitchButton" value="YES"/>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="showsCallButton" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="lblReferralCode" destination="Az6-Bj-ddx" id="6ta-ep-Xi7"/>
-                        <outlet property="lblReferralMoney" destination="dpk-qX-uLp" id="shQ-TU-OPn"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gq8-PE-6lG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -6571,7 +6527,7 @@ Hours</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are no data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU6-gJ-FPL">
-                                                    <rect key="frame" x="87.5" y="11.5" width="135" height="21"/>
+                                                    <rect key="frame" x="92.5" y="11.5" width="135" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -8054,7 +8010,7 @@ TXkgUmVjZWlwdHMvSW52b2ljZRBzA
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIy-EW-qz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jyD-97-nuw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-51" y="3926"/>
+            <point key="canvasLocation" x="81" y="7945"/>
         </scene>
         <!--Setting PasscodeVC-->
         <scene sceneID="Bwb-6n-x0g">
@@ -8238,7 +8194,7 @@ TXkgUmVjZWlwdHMvSW52b2ljZRBzA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M2m-XD-7Cv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1562" y="3926"/>
+            <point key="canvasLocation" x="-383" y="3123"/>
         </scene>
         <!--Set Passcode View Controller-->
         <scene sceneID="XP5-Py-8oy">
@@ -8554,7 +8510,7 @@ TXkgUmVjZWlwdHMvSW52b2ljZRBzA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ANS-Cu-kta" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-767" y="3926"/>
+            <point key="canvasLocation" x="-636" y="7945"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="3z7-0H-2Bw">

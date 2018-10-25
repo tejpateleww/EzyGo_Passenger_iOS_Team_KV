@@ -160,33 +160,33 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
 
     func webserviewOfGetPromocodeList() {
         
-        webserviewOfPromocodeList() { (result, status) in
-            
-            if (status) {
-                print(result)
-                
-                self.arrFavLocations = (result as! [[String:Any]])
-
-                self.tableView.reloadData()
-            }
-            else {
-                print(result)
-                
-                
-                if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
-                    }
-                }
-                else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
-                    }
-                }
-                else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-                    }
-                }
-            }
-        }
+//        webserviewOfPromocodeList() { (result, status) in
+//
+//            if (status) {
+//                print(result)
+//
+//                self.arrFavLocations = (result as! [[String:Any]])
+//
+//                self.tableView.reloadData()
+//            }
+//            else {
+//                print(result)
+//
+//
+//                if let res = result as? String {
+//                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+//                    }
+//                }
+//                else if let resDict = result as? NSDictionary {
+//                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+//                    }
+//                }
+//                else if let resAry = result as? NSArray {
+//                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+//                    }
+//                }
+//            }
+//        }
     }
     
     

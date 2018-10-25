@@ -3,7 +3,7 @@
 //  TickTok User
 //
 //  Created by Excellent Webworld on 25/10/17.
-//  Copyright © 2017 Excellent Webworld. All rigwwssrgegtrg bdtr                                              hts reserved.
+//  Copyright © 2017 Excellent Webworld. All rigwwssrgegtrg bdtrhts reserved.
 //
 
 import UIKit
@@ -18,6 +18,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     @IBOutlet weak var txtPassword: ACFloatingTextfield!
     @IBOutlet weak var txtConfirmPassword: ACFloatingTextfield!
     
+    @IBOutlet weak var lblFlageCode: UILabel!
+    @IBOutlet weak var imgflag: UIImageView!
     @IBOutlet weak var txtContoryNum: UITextField!
     let countoryz : Int = 0
     
@@ -27,9 +29,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        aryContoryNum = [["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"],["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"]] as [[String : AnyObject]]
+        aryContoryNum = [["countoryCode" : "+61", "countoryimage" : "iconActiveDriver"],["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"]] as [[String : AnyObject]]
         
-
         txtPhoneNumber.delegate = self
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -67,7 +68,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         if textField == txtPhoneNumber {
             let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
             
-            if resultText!.count >= 10 {
+            if resultText!.count >= 11 {
                 return false
             }
             else {
@@ -115,7 +116,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         viewOfContryCode.addSubview(imgOfCountry)
         viewOfContryCode.addSubview(lblOfCountryNum)
         let dictCountry = aryContoryNum[row]
-        3
+        
             if let CountryCode:String = dictCountry["countoryCode"] as? String {
                lblOfCountryNum.text = CountryCode
             }
@@ -135,24 +136,20 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     {
         
         if pickerView == countoryPicker {
-            
-         
+          let data = aryContoryNum[row]
+            self.txtContoryNum.text = data as? String
+            imgflag.image = UIImage(named:  data["countoryimage"] as? String ?? "")
+            lblFlageCode.text = data["countoryCode"] as? String ?? ""
+        }
     }
-    }
-    // MARK: - Navigation
     
-    
-    @IBAction func btnNext(_ sender: Any) {
-        
+    @IBAction func btnNext(_ sender: UIButton) {
         if (validateAllFields())
         {
-
             webserviceForGetOTPCode(email: txtEmail.text!, mobile: txtPhoneNumber.text!)
-
+            
         }
-        
     }
-    
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

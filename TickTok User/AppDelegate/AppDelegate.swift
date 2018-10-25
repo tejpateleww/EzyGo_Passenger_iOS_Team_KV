@@ -171,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         let isSwitchOn = UserDefaults.standard.object(forKey: "isPasscodeON") as? Bool
         let passCode = SingletonClass.sharedInstance.setPasscode
         
-        SingletonClass.sharedInstance.isPasscodeON = isSwitchOn!
+//        SingletonClass.sharedInstance.isPasscodeON = isSwitchOn!
         
         if (passCode != "" && SingletonClass.sharedInstance.isPasscodeON) {
             

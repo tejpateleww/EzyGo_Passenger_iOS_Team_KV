@@ -15,7 +15,7 @@ class AKRadioButton: UIButton {
         
         
         if _imageView == nil {
-            let frame = CGRect(x: 0 , y: self.frame.height / 2.0 - image.size.height / 2.0, width: image.size.width, height: image.size.height)
+            let frame = CGRect(x: 10, y: self.frame.height / 2.0 - image.size.height / 2.0, width: image.size.width, height: image.size.height)
             
             self._imageView = UIImageView(image: image)
             self._imageView?.frame = frame

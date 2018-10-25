@@ -17,6 +17,16 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     var strReferralCode = String()
     var strReferralMoney = String()
     
+    
+    
+    //-------------------------------------------------------------
+    // MARK: - Outlets
+    //-------------------------------------------------------------
+    
+    @IBOutlet var imgProfilePick: UIImageView!
+    @IBOutlet weak var lblReferralCode: UILabel!
+//  @IBOutlet weak var lblReferralMoney: UILabel!
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -34,7 +44,7 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         
         if let RefarMoney = profileData.object(forKey: "ReferralAmount") as? Double {
             strReferralMoney = String(RefarMoney)
-            self.lblReferralMoney.text = "\(currencySign) \(strReferralMoney)"
+//            self.lblReferralMoney.text = "\(currencySign) \(strReferralMoney)"
         }
 
         if let imgProfile = (profileData).object(forKey: "Image") as? String {
@@ -62,19 +72,6 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    
-   
-
-  
-    //-------------------------------------------------------------
-    // MARK: - Outlets
-    //-------------------------------------------------------------
-    
-    @IBOutlet var imgProfilePick: UIImageView!
-    @IBOutlet weak var lblReferralCode: UILabel!
-    @IBOutlet weak var lblReferralMoney: UILabel!
     
     //-------------------------------------------------------------
     // MARK: - Custom Methods
@@ -311,7 +308,20 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         controller.dismiss(animated: true, completion: nil)
     }
     
-    
+    @IBAction func btnMoreOption(_ sender: Any) {
+        
+        let messageBody = "\n Please download from below link \n \n"// \(urlForMail)\\url backend mle
+        
+        
+        let activityViewController = UIActivityViewController(activityItems: [messageBody], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+    }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         //... handle sms screen actions

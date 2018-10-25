@@ -31,6 +31,20 @@ class RegisterOTPVarificationViewController: UIViewController {
     //-------------------------------------------------------------
     // MARK: - Actions
     //-------------------------------------------------------------
+    @IBAction func btnResendVerificationCode(_ sender: UIButton) {
+        if SingletonClass.sharedInstance.otpCode == txtOTP.text{
+            
+            let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
+            registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
+            registrationContainerVC.pageControl.set(progress: 2, animated: true)
+        }
+        else
+        {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter the Verification code to finish setting up your Ezygo Account.", completionHandler: { (index, title) in
+            })
+        }
+    }
+
     
     @IBAction func btnNext(_ sender: UIButton) {
         if SingletonClass.sharedInstance.otpCode == txtOTP.text{
@@ -46,3 +60,4 @@ class RegisterOTPVarificationViewController: UIViewController {
         }
     }
 }
+

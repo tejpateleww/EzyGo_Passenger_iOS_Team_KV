@@ -141,7 +141,7 @@ func webserviceForBookingHistory(_ dictParams: AnyObject, completion: @escaping(
 func webserviceForPromoCodeList(completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = "\(GetPromoCodeList)"
-    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+//    getData(dictParams as AnyObject, nsURL: url, completion: completion)
 }
 
 //-------------------------------------------------------------

@@ -144,13 +144,9 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
             
             return cellMenu
         }
-        
-        
         // Configure the cell...
-        
         //        return cellHeader
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if arrMenuTitle[indexPath.row] == "My Profile" {
@@ -228,7 +224,7 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         }
         else if (arrMenuTitle[indexPath.row] == "Logout")
         {
-            self.performSegue(withIdentifier: "unwindToContainerVC", sender: self)
+            self.performSegue(withIdentifier: "unwindToVC", sender: self)
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             
             UserDefaults.standard.removeObject(forKey: "Passcode")
