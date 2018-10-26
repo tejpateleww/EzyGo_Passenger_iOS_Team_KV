@@ -133,18 +133,16 @@ struct SubmitBookingRequest {
     
     static let kShareRide               = "ShareRide"
     static let kNoOfPassenger           = "NoOfPassenger"
-    
+    static let kReceiptType             = "ReceiptType"
     
 }
 
 struct NotificationCenterName {
-    
     // Define identifier
     static let keyForOnGoing   = "keyForOnGoing"
     static let keyForUpComming = "keyForUpComming"
     static let keyForPastBooking = "keyForPastBooking"
-    
-
+  
 }
 
 struct PassengerDataKeys {
