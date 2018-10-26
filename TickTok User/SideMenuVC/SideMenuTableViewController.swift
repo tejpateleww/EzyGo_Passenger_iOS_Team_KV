@@ -84,19 +84,19 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
     
     @objc func setNewBookingOnArray() {
         
-        if SingletonClass.sharedInstance.bookingId == "" {
-            if (arrMenuTitle.contains("New Booking")) {
-                arrMenuIcons.removeFirst()
-                arrMenuTitle.removeFirst()
-            }
-        }
-        
-        if !(arrMenuTitle.contains("New Booking")) && SingletonClass.sharedInstance.bookingId != "" {
-            arrMenuIcons.insert("iconNewBooking", at: 0)
-            arrMenuTitle.insert("New Booking", at: 0)
-        }
-        
-        self.tableView.reloadData()
+//        if SingletonClass.sharedInstance.bookingId == "" {
+//            if (arrMenuTitle.contains("New Booking")) {
+//                arrMenuIcons.removeFirst()
+//                arrMenuTitle.removeFirst()
+//            }
+//        }
+//
+//        if !(arrMenuTitle.contains("New Booking")) && SingletonClass.sharedInstance.bookingId != "" {
+//            arrMenuIcons.insert("iconNewBooking", at: 0)
+//            arrMenuTitle.insert("New Booking", at: 0)
+//        }
+//        
+//        self.tableView.reloadData()
     }
     
     func giveGradientColor() {
