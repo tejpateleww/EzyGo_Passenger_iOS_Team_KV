@@ -29,7 +29,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        aryContoryNum = [["countoryCode" : "+61", "countoryimage" : "iconActiveDriver"],["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"]] as [[String : AnyObject]]
+        aryContoryNum = [["countoryCode" : "+61", "countoryimage" : "iconFlag"],["countoryCode" : "+64", "countoryimage" : "iconFlag"]] as [[String : AnyObject]]
         
         txtPhoneNumber.delegate = self
         pickerView.delegate = self

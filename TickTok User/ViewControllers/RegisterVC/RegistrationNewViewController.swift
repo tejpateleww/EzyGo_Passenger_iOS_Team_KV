@@ -35,10 +35,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     @IBOutlet weak var btnFemale: AKRadioButton!
     @IBOutlet weak var btnMale: AKRadioButton!
     @IBOutlet weak var txtAddress: ACFloatingTextfield!
-    @IBOutlet weak var txtAgeGroup: ACFloatingTextfield!
-    @IBOutlet weak var txtPostCode: ACFloatingTextfield!
-    
-  
+    @IBOutlet weak var txtAgeGroup: ACFloatingTextfield!//binal
     @IBOutlet weak var imgProfile: UIImageView!
 
     var strPhoneNumber = String()
@@ -74,9 +71,9 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         UtilityClass.setCornerRadiusTextField(textField: txtInviteCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtLastName, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtAgeGroup, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
-    
-        UtilityClass.setCornerRadiusTextField(textField: txtPostCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
-        
+//
+//        UtilityClass.setCornerRadiusTextField(textField: txtPostCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+//
         UtilityClass.setCornerRadiusTextField(textField: txtAddress, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         
         UtilityClass.setCornerRadiusButton(button: btnMale, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
@@ -267,7 +264,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         {
             let registerVC = (self.navigationController?.viewControllers.last as! RegistrationContainerViewController).childViewControllers[0] as! RegisterViewController
             
-            strPhoneNumber = (registerVC.txtPhoneNumber.text)!
+            strPhoneNumber = lblAgeGroup.text ?? "" + (registerVC.txtPhoneNumber.text)!   
             strEmail = (registerVC.txtEmail.text)!
             strPassword = (registerVC.txtPassword.text)!
             
@@ -286,7 +283,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         let dictParams = NSMutableDictionary()
         dictParams.setObject(txtFirstName.text!, forKey: "Firstname" as NSCopying)
         dictParams.setObject(txtLastName.text!, forKey: "Lastname" as NSCopying)
-        dictParams.setObject(txtPostCode.text!, forKey: "ReferralCode" as NSCopying)
+//        dictParams.setObject(txtPostCode.text!, forKey: "ReferralCode" as NSCopying)//binal
         dictParams.setObject(strPhoneNumber, forKey: "MobileNo" as NSCopying)
         dictParams.setObject(strEmail, forKey: "Email" as NSCopying)
         dictParams.setObject(strPassword, forKey: "Password" as NSCopying)
@@ -294,13 +291,16 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         dictParams.setObject("1", forKey: "DeviceType" as NSCopying)
         dictParams.setObject(gender, forKey: "Gender" as NSCopying)
         dictParams.setObject("12376152367", forKey: "Lat" as NSCopying)
+        dictParams.setObject(lblAgeGroup.text!, forKey: "AgeGroup" as NSCopying)
         dictParams.setObject("2348273489", forKey: "Lng" as NSCopying)
         //dictParams.setObject(strDateOfBirth, forKey: "DOB" as NSCopying)//binal
+        dictParams.setObject(txtAddress.text!, forKey: "Address" as NSCopying)
         
         if SingletonClass.sharedInstance.otpCode != nil {
         dictParams.setObject(SingletonClass.sharedInstance.otpCode, forKey: "ZipCode" as NSCopying)
         }
    
+        let imgtemp = imgProfile.image!
         webserviceForRegistrationForUser(dictParams, image1: imgProfile.image!) { (result, status) in
             
             
@@ -327,18 +327,34 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             }
             else
             {
-                self.btnSignUp.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
-                  
-                    UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-                    }
-                    
-                })
+                UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                }
+//                self.btnSignUp.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
+//
+//
+//
+//                })
             }
         }
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    @IBOutlet weak var btnPrivacypolicy: UIButton!
+    
+    @IBAction func btnPrivacyPolicy(_ sender: UIButton) {
+        
+        sender.isSelected = !sender.isSelected
+        btnPrivacypolicy.isSelected = sender.isSelected
+        if sender.isSelected == true
+        {
+            self.btnPrivacypolicy.setImage(UIImage(named: "iConStarSelected"), for: .normal)
+        
+        }
+        else
+        {
+            self.btnPrivacypolicy.setImage(UIImage(named: "iconMasterCardLogo"), for: .normal)
+        }
+
     }
     
 
@@ -353,14 +369,21 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     */
 
 }
-//  DeviceType = 1;
-//Email = "binal.nasit@gmail.com";
-//Firstname = bin;
-//Gender = female;
-//Lastname = "nasse ";
-//Lat = 12376152367;
-//Lng = 2348273489;
-//MobileNo = 7877888888;
-//Password = qqqqqq;
-//ReferralCode = Vancouver;
-//Token = "e7-rLUwSC40:APA91bEdHaRUwImAzIOcWr84nHyzpUUfzAlNsu8ur_mc2DJWZZv-E2KsZY8PWjC8wjU9tfL4VKsn4sQzkdEo2WNzPkYVQGTwGckVNvfrti-bsS6OBvSYoGd72Qcsp5MrvaWg7ulD2XaH";
+
+
+
+
+//{
+//    Address = "hello ";
+//    DeviceType = 1;
+//    Email = "jgygj@fug.kbb";
+//    Firstname = bin;
+//    Gender = female;
+//    Lastname = "jlk ";
+//    Lat = 12376152367;
+//    Lng = 2348273489;
+//    MobileNo = 8808884225;
+//    Password = rahull;
+//    Token = "czEpNzqLmVI:APA91bF19b8BLisU71lEAP9RILLiyvKXZyGGyunkhWXaPceu8-pMv9LXrLk3av4HqMeE03ozyWQKgNq7pJaHBV1z4pRfv6Tb3kQNLYiDy6AompN_M6Cc-e6hFjigpgWwDb_ET9xnlYHf";
+//    ZipCode = 866760;
+//}

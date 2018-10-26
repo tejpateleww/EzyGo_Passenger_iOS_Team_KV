@@ -14,12 +14,14 @@ import ACFloatingTextfield_Swift
 
 class UpdateProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate ,UIPickerViewDataSource,UIPickerViewDelegate
 {
-    var aryContoryNum = [[String:Any]]()
+    
+   var aryage = [String]()
     var firstName = String()
     var lastName = String()
     var fullName = String()
     var gender = String()
     
+    @IBOutlet weak var lblAge: UILabel!
     var countoryPicker = UIPickerView()
     var pickerView = UIPickerView()
     
@@ -54,8 +56,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
- aryContoryNum = [["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"],["countoryCode" : "+64", "countoryimage" : "iconActiveDriver"]] as [[String : AnyObject]]
-        setData()
+        aryage = [ "18 to 25", "26 to 35", "35 to 55", "55+"]
         
         btnSave.layer.cornerRadius = 5
         btnSave.layer.masksToBounds = true
@@ -85,64 +86,27 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
          
     }
     
-  
     //-------------------------------------------------------------
     // MARK: - PickerView Methods
     //-------------------------------------------------------------
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == countoryPicker{
-            return 2
-        }
-        
-        return aryContoryNum.count
+
+        return aryage.count
     }
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        if pickerView == countoryPicker {
-            return 120
-        }
-        return 60
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return aryage[row]
     }
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        
-        
-        if pickerView == countoryPicker
-        {
-            //mainview
-            let viewOfContryCode = UIView(frame: CGRect(x: 10, y: 10, width: countoryPicker.frame.size.width , height: 50))
-            
-            //image
-            
-            
-            //labelNum
-            let lblOfCountryNum = UILabel(frame: CGRect(x: 60 , y:  10, width: 50, height: 30))
-            //addsubview
-          
-            viewOfContryCode.addSubview(lblOfCountryNum)
-            let dictCountry = aryContoryNum[row]
-            
-            if let CountryCode:String = dictCountry["countoryCode"] as? String {
-                lblOfCountryNum.text = CountryCode
-            }
-            // return mainview
-            return viewOfContryCode
-            
-        }
-        
-        return pickerView
-    }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        
-        if pickerView == countoryPicker {
-            
-            
-        }
+        lblAge.text = aryage[row]
+
     }
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -361,6 +325,8 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     // MARK: - Webservice Methods
     //-------------------------------------------------------------
     
+    //PassengerId,Fullname,Gender,Address,AgeGroup,HomeNumber,Image
+
     func webserviceOfUpdateProfile()
     {
         fullName = txtFirstName.text! + " " + txtLastName.text!
@@ -370,6 +336,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         dictData["Fullname"] = fullName as AnyObject
         dictData["Gender"] = gender as AnyObject
         dictData["Address"] = txtAddress.text as AnyObject
+        //dictData["AgeGroup"] =
 //        dictData["DOB"] = txtDateOfBirth.text as AnyObject//binal
         
         let activityData = ActivityData()

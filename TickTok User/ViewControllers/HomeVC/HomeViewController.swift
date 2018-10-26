@@ -4992,7 +4992,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     DispatchQueue.main.async( execute: { () -> Void in
                         let directionsData = NSData(contentsOf: directionsURL! as URL)
                         do{
-                            let dictionary: Dictionary<String, AnyObject> = try JSONSerialization.jsonObject(with: directionsData! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
+                            let dictionary: Dictionary<String, AnyObject> = try JSONSerialization.jsonObject(with: directionsData! as Data, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>//cresh
                             
                             let status = dictionary["status"] as! String
                             
