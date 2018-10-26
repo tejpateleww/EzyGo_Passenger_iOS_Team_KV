@@ -15,6 +15,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
     var aryage = [String]()
     var strDateOfBirth = String()
+    var isProfileSelected = false
 
     var agePicker = UIPickerView()
     var pickerView = UIPickerView()
@@ -158,6 +159,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imgProfile.contentMode = .scaleToFill
             imgProfile.image = pickedImage
+            isProfileSelected = true
         }
         
         dismiss(animated: true, completion: nil)
@@ -228,7 +230,16 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             }
             return false
         }
-//        else if imgProfile.image == UIImage(named: "iconProfilePicBlank")
+            
+            else if (isProfileSelected == false)//binal
+        {
+            
+            UtilityClass.setCustomAlert(title: "", message: "Please choose profile picture") { (index, title) in
+            }
+            return false
+        }
+            
+//        else if imgProfile.image == UIImage(named: "profile-pic2")
 //        {
 //
 //            UtilityClass.setCustomAlert(title: "", message: "Please choose profile picture") { (index, title) in
@@ -247,6 +258,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             }
             return false
         }
+        
         return true
     }
     

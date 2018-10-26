@@ -215,7 +215,7 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     msg = (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String
                 }
                 
-                let alert = UIAlertController(title: "Pick N Go", message: msg, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Ezygo", message: msg, preferredStyle: .alert)
                 let OK = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(OK)
                 self.present(alert, animated: true, completion: nil)

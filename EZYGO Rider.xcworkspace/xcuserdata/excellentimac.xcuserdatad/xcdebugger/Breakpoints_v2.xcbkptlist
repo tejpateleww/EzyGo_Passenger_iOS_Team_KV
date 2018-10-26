@@ -13,5 +13,69 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TickTok User/ViewControllers/UpdateProfileVC/UpdateProfileViewController.swift"
+            timestampString = "562252667.2652479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
+            landmarkName = "webserviceOfUpdateProfile()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EZYGO_Rider.UpdateProfileViewController.webserviceOfUpdateProfile() -&gt; ()"
+                  moduleName = "EZYGO Rider"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/excellentimac/Documents/binal%20project/PROJECT%20/EZYGo%20Rider/TickTok%20User/ViewControllers/UpdateProfileVC/UpdateProfileViewController.swift"
+                  timestampString = "562227360.163185"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "345"
+                  endingLineNumber = "345"
+                  offsetFromSymbolStart = "2968">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.AnyObject, Swift.Bool) -&gt; () in EZYGO_Rider.UpdateProfileViewController.webserviceOfUpdateProfile() -&gt; ()"
+                  moduleName = "EZYGO Rider"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/excellentimac/Documents/binal%20project/PROJECT%20/EZYGo%20Rider/TickTok%20User/ViewControllers/UpdateProfileVC/UpdateProfileViewController.swift"
+                  timestampString = "562227360.166857"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "347"
+                  endingLineNumber = "347"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TickTok User/ViewControllers/RegisterVC/RegisterOTPVarificationViewController.swift"
+            timestampString = "562252667.265331"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "btnNext(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

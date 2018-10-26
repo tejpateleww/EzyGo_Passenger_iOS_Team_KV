@@ -30,23 +30,23 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     //-------------------------------------------------------------
     
     @IBOutlet weak var imgProfile: UIImageView!
-    @IBOutlet weak var lblEmailId: UILabel!
+    @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblContactNumber: UILabel!
     
+    @IBOutlet weak var lblEmailId: UILabel!
     @IBOutlet weak var txtAge: UITextField!
     @IBOutlet weak var txtMobileNum: UITextField!
     @IBOutlet weak var txtFirstName: ACFloatingTextfield!
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
     @IBOutlet weak var txtAddress: ACFloatingTextfield!
-    @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!
-    
+//    @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!//binal
     @IBOutlet weak var txtHomeNumber: ACFloatingTextfield!
     @IBOutlet weak var viewMale: M13Checkbox!
     @IBOutlet weak var viewFemale: M13Checkbox!
     
     @IBOutlet weak var btnSave: UIButton!
     
-    @IBOutlet var viewChangePassword: UIView!
+//    @IBOutlet var viewChangePassword: UIView!//binal
     @IBOutlet var btnChangePassword: UIButton!
     @IBOutlet var btnProfile: UIButton!
     
@@ -65,6 +65,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         countoryPicker.delegate = self
         countoryPicker.dataSource = self
         txtAge.inputView = pickerView
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -184,7 +185,14 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBAction func btnSubmit(_ sender: UIButton) {
 
         if txtAddress.text == "" || txtFirstName.text == "" || gender == "" {
-            
+          
+//            if(imgProfile.image  "profile-pic2")
+//            {
+//                
+//                
+//                UtilityClass.setCustomAlert(title: "Misssing", message: "Please ") { (index, title) in
+//                }
+//            }
             
             UtilityClass.setCustomAlert(title: "Misssing", message: "Please fill all details") { (index, title) in
             }
@@ -268,7 +276,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         imgProfile.sd_setIndicatorStyle(.gray)
         imgProfile.sd_setImage(with: URL(string: getData.object(forKey: "Image") as! String), completed: nil)
         
-        lblEmailId.text = getData.object(forKey: "Email") as? String
+        lblName.text = getData.object(forKey: "Email") as? String
         lblContactNumber.text = getData.object(forKey: "MobileNo") as? String
 //        txtDateOfBirth.text = getData.object(forKey: "DOB") as? String
 //
@@ -336,7 +344,9 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         dictData["Fullname"] = fullName as AnyObject
         dictData["Gender"] = gender as AnyObject
         dictData["Address"] = txtAddress.text as AnyObject
-        //dictData["AgeGroup"] =
+        dictData["AgeGroup"] = lblAge.text as AnyObject
+        dictData["HomeNumber"] = txtHomeNumber.text as AnyObject
+        
 //        dictData["DOB"] = txtDateOfBirth.text as AnyObject//binal
         
         let activityData = ActivityData()
@@ -357,8 +367,6 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
                
                 UtilityClass.setCustomAlert(title: "Done", message: "Update Profile Successfully") { (index, title) in
                 }
-                
-                
             }
             else {
                 print(result)

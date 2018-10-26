@@ -78,6 +78,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         
         return true
     }
+   
     //-------------------------------------------------------------
     // MARK: - PickerView Methods
     //-------------------------------------------------------------
@@ -111,7 +112,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         let imgOfCountry = UIImageView(frame: CGRect(x: 20 , y: 10 , width: 50, height: 30))
         
         //labelNum
-        let lblOfCountryNum = UILabel(frame: CGRect(x: 60 , y: imgOfCountry.center.y - 10, width: 50, height: 30))
+        let lblOfCountryNum = UILabel(frame: CGRect(x: 70, y: imgOfCountry.center.y - 10, width: 50, height: 30))
         //addsubview
         viewOfContryCode.addSubview(imgOfCountry)
         viewOfContryCode.addSubview(lblOfCountryNum)
@@ -174,8 +175,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         
         if (txtPhoneNumber.text?.count == 0)
         {
-
-            UtilityClass.setCustomAlert(title: "", message: "Enter Phone Number") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter Phone number.") { (index, title) in
             }
 
             return false
@@ -190,21 +190,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         }
         else if (txtEmail.text?.count == 0)
         {
-            UtilityClass.setCustomAlert(title: "", message: "Enter Email Address") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter email.") { (index, title) in
             }
 
             return false
         }
         else if (!isEmailAddressValid)
         {
-            UtilityClass.setCustomAlert(title: "", message: "Please Enter Valid Email ID") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter email.") { (index, title) in
             }
 
             return false
         }
         else if (txtPassword.text?.count == 0)
         {
-            UtilityClass.setCustomAlert(title: "", message: "Enter Password") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter password") { (index, title) in
             }
 
             return false
@@ -219,7 +219,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         }
         else if (txtPassword.text != txtConfirmPassword.text)
         {
-            UtilityClass.setCustomAlert(title: "", message: "Password and Confirm Password does not match") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter Confirm Password.") { (index, title) in
             }
 
             return false

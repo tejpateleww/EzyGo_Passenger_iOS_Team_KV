@@ -40,24 +40,28 @@ class RegisterOTPVarificationViewController: UIViewController {
         }
         else
         {
-            UtilityClass.setCustomAlert(title: "", message: "Please enter the Verification code to finish setting up your Ezygo Account.", completionHandler: { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter correct Verification code.", completionHandler: { (index, title) in
             })
         }
     }
-
     
     @IBAction func btnNext(_ sender: UIButton) {
+        
         if SingletonClass.sharedInstance.otpCode == txtOTP.text{
+            
+            UtilityClass.setCustomAlert(title: "", message:   "Your email address is successfully verified.") { (index, title) in
 
-            let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
-            registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
-            registrationContainerVC.pageControl.set(progress: 2, animated: true)
+                let registrationContainerVC = self.parent as! RegistrationContainerViewController
+                
+                registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
+                registrationContainerVC.pageControl.set(progress: 2, animated: true)
+            }
         }
-        else
-        {
-            UtilityClass.setCustomAlert(title: "", message: "Please enter the Verification code to finish setting up your Ezygo Account.", completionHandler: { (index, title) in
-            })
-        }
+            else
+            {
+                UtilityClass.setCustomAlert(title: "", message: "Please enter the Verification code to finish setting up your Ezygo Account.", completionHandler: { (index, title) in
+                })
+            }
     }
 }
 
