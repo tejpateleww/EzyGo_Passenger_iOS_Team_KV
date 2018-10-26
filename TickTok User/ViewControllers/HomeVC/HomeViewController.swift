@@ -45,7 +45,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var moveMent: ARCarMovement!
     var driverMarker: GMSMarker!
     
-    var timer = Timer()
+    var timerToUpdatePassengerlocation:Timer!
     var timerToGetDriverLocation : Timer!
     var aryCards = [[String:AnyObject]]()
     var aryCompleterTripData = [Any]()
@@ -1261,6 +1261,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         dictParams.setObject(txtNote.text!, forKey: SubmitBookingRequest.kNotes as NSCopying)
         dictParams.setObject(strSpecialRequest, forKey: SubmitBookingRequest.kSpecial as NSCopying)
+        dictParams.setObject(intNumberOfPassengerOnShareRiding, forKey: SubmitBookingRequest.kNoOfPassenger as NSCopying)
+        
         
         if paymentType == "" {
         }
@@ -1451,7 +1453,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     
     @IBAction func IncreasePassengerCount(_ sender: UIButton) {
-        if intNumberOfPassengerOnShareRiding < 6 {
+        if intNumberOfPassengerOnShareRiding < 4 {
             intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding + 1
         }
         self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
@@ -1469,6 +1471,38 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     
+    @IBOutlet weak var tripCheck: M13Checkbox!
+    @IBAction func tripCheck(_ sender: M13Checkbox) {
+        
+        self.SelectReceiptType(index: 0)
+    }
+    
+    
+    @IBOutlet weak var taxCheck: M13Checkbox!
+    @IBAction func taxCheck(_ sender: M13Checkbox) {
+   
+        self.SelectReceiptType(index: 1)
+    
+    }
+    
+    func SelectReceiptType(index:Int) {
+        self.tripCheck.checkState = .unchecked
+        self.tripCheck.stateChangeAnimation = .fill
+        self.taxCheck.checkState = .unchecked
+        self.taxCheck.stateChangeAnimation = .fill
+        
+        switch index {
+        case 0:
+            self.tripCheck.checkState = .unchecked
+            self.tripCheck.stateChangeAnimation = .fill
+        case 1:
+            self.taxCheck.checkState = .unchecked
+            self.taxCheck.stateChangeAnimation = .fill
+        default:
+            break
+        }
+        
+    }
     
     
     @IBAction func btnPromocode(_ sender: UIButton) {
@@ -1485,13 +1519,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             viewHavePromocode.checkState = .unchecked
             viewHavePromocode.stateChangeAnimation = .fill
         }
-        
     }
     
     
     
     
     @IBAction func viewHavePromocode(_ sender: M13Checkbox) {
+        
     }
     @IBAction func tapToDismissBookNowView(_ sender: UITapGestureRecognizer) {
         viewBookNow.isHidden = true
@@ -1507,6 +1541,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         txtInvoiceType.inputView = pickerViewForInvoiceType
         
     }
+    
+    @IBOutlet weak var RequestStep1: UIView!
+    
+    @IBOutlet weak var RequestStep2: UIView!
+    
+    
+    @IBAction func btnContinue(_ sender: Any) {
+        RequestStep1.isHidden = true
+        RequestStep2.isHidden = false
+    }
+    
+    
     
     @IBAction func btnRequestNow(_ sender: UIButton) {
         self.webserviceCallForBookingCar()
@@ -2126,15 +2172,17 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if paymentType == "card" {
             CardID = data["Id"] as! String
         }
-        
+        self.SetPaymentOption(SelectionIndex: 1)
+        RequestStep1.isHidden = false
+        RequestStep2.isHidden = true
         viewBookNow.isHidden = false
-        self.txtInvoiceType.text = InvoiceTypes[0]
+        
     }
     
     func didAddCardFromHomeVC() {
-        
         paymentOptions()
     }
+    
     
     
     @IBOutlet weak var btnBookLater: UIButton!
@@ -2776,8 +2824,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func SortIdOfCarsType() {
         
-        
-        
         //        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
         
         let sortedArray = (self.aryTempOnlineCars as NSArray).sortedArray(using: [NSSortDescriptor(key: "Sort", ascending: true)]) as! [[String:AnyObject]]
@@ -2802,19 +2848,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     if SingletonClass.sharedInstance.isFirstTimeReloadCarList == true {
                         SingletonClass.sharedInstance.isFirstTimeReloadCarList = false
                         
-                        if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0 && self.aryOfOnlineCarsIds.count != 0 {
+//                        if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0 && self.aryOfOnlineCarsIds.count != 0 {
                             self.postPickupAndDropLocationForEstimateFare()
-                        }
+//                        }
                         self.collectionViewCars.reloadData()
-                        
                     }
                 }
                 else {
                     self.checkTempData = self.aryTempOnlineCars as NSArray
                     
-                    if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0 && self.aryOfOnlineCarsIds.count != 0 {
+//                    if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0 && self.aryOfOnlineCarsIds.count != 0 {
                         self.postPickupAndDropLocationForEstimateFare()
-                    }
+//                    }
                     self.collectionViewCars.reloadData()
                     
                 }
@@ -2986,9 +3031,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK: - Socket Methods
     func socketMethods()
     {
-        
         var isSocketConnected = Bool()
-        
         socket.on(clientEvent: .disconnect) { (data, ack) in
             print ("socket is disconnected please reconnect")
         }
@@ -3007,8 +3050,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 print("socket.status != .connected")
             }
             
-            if (isSocketConnected == false) {
-                isSocketConnected = true
+            if (isSocketConnected == false) {                 isSocketConnected = true
                 
                 self.socketMethodForGettingBookingAcceptNotification()  // Accept Now Req
                 self.socketMethodForGettingBookingRejectNotification()  // Reject Now Req
@@ -3031,11 +3073,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.socket.on(SocketData.kNearByDriverList, callback: { (data, ack) in
                 //                print("data is \(data)")
                 
-                var lat : Double!
-                var long : Double!
+//                var lat : Double!
+//                var long : Double!
                 
                 self.arrNumberOfAvailableCars = NSMutableArray(array: ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray)
-                self.setData()
+               
                 
                 if (((data as NSArray).object(at: 0) as! NSDictionary).count != 0)
                 {
@@ -3043,19 +3085,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     {
                         
                         let arrayOfCoordinte = ((((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray).object(at: i) as! NSDictionary).object(forKey: "Location") as! NSArray
-                        lat = arrayOfCoordinte.object(at: 0) as! Double
-                        long = arrayOfCoordinte.object(at: 1) as! Double
+//                        lat = arrayOfCoordinte.object(at: 0) as! Double
+//                        long = arrayOfCoordinte.object(at: 1) as! Double
                         
                         let DriverId = ((((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray).object(at: i) as! NSDictionary).object(forKey: "DriverId") as! String
                         
                         self.aryOfTempOnlineCarsIds.append(DriverId)
                         self.aryOfOnlineCarsIds = self.uniq(source: self.aryOfTempOnlineCarsIds)
-                        
-                        
                     }
                 }
                 self.postPickupAndDropLocationForEstimateFare()
-                
+                 if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0 && self.aryOfOnlineCarsIds.count != 0 {
+                    self.setData()
+                }
             })
             
         }
@@ -3072,16 +3114,24 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func scheduledTimerWithTimeInterval(){
+        DispatchQueue.global(qos: .background).sync {
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
-        
+        timerToUpdatePassengerlocation = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+        }
     }
     
+    func stopTimerforUpdatePassengerLatlong(){
+        if timerToUpdatePassengerlocation != nil {
+            timerToUpdatePassengerlocation.invalidate()
+            timerToUpdatePassengerlocation = nil
+        }
+    }
     
     @objc func updateCounting(){
         let myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID, "Lat": doublePickupLat, "Long": doublePickupLng, "Token" : SingletonClass.sharedInstance.deviceToken, "ShareRide": SingletonClass.sharedInstance.isShareRide] as [String : Any]
         socket.emit(SocketData.kUpdatePassengerLatLong , with: [myJSON])
     }
+    
     
     func methodsAfterConnectingToSocket()
     {
@@ -3096,7 +3146,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             print("AcceptBooking data is \(data)")
             
             self.locationManager.startUpdatingLocation()
-            
             
             if let getInfoFromData = data as? [[String:AnyObject]] {
                 
@@ -4047,15 +4096,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func postPickupAndDropLocationForEstimateFare()
     {
-        let driverID = aryOfOnlineCarsIds.compactMap{ $0 }.joined(separator: ",")
-        
-        var myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID,  "PickupLocation" : strPickupLocation ,"PickupLat" :  self.doublePickupLat , "PickupLong" :  self.doublePickupLng, "DropoffLocation" : strDropoffLocation,"DropoffLat" : self.doubleDropOffLat, "DropoffLon" : self.doubleDropOffLng,"Ids" : driverID, "ShareRiding": intShareRide ] as [String : Any]
+        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
+            let driverID = aryOfOnlineCarsIds.compactMap{ $0 }.joined(separator: ",")
+            let myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID,  "PickupLocation" : strPickupLocation ,"PickupLat" :  self.doublePickupLat , "PickupLong" :  self.doublePickupLng, "DropoffLocation" : strDropoffLocation,"DropoffLat" : self.doubleDropOffLat, "DropoffLon" : self.doubleDropOffLng,"Ids" : driverID, "ShareRiding": intShareRide ] as [String : Any]
         
 //        if(strDropoffLocation.count == 0)
 //        {
 //            myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID,  "PickupLocation" : strPickupLocation ,"PickupLat" :  self.doublePickupLat , "PickupLong" :  self.doublePickupLng, "DropoffLocation" : strPickupLocation,"DropoffLat" : self.doubleDropOffLng, "DropoffLon" : self.doubleDropOffLng,"Ids" : driverID, "ShareRiding": intShareRide] as [String : Any]
 //        }
-        socket.emit(SocketData.kSendRequestForGetEstimateFare , with: [myJSON])
+            socket.emit(SocketData.kSendRequestForGetEstimateFare , with: [myJSON])
+        }
     }
     
     func onBookingDetailsAfterCompletedTrip() {
@@ -4280,9 +4330,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
         }
         
-        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
+//        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
             postPickupAndDropLocationForEstimateFare()
-        }
+//        }
         
         dismiss(animated: true, completion: nil)
     }
@@ -5823,15 +5873,15 @@ extension HomeViewController: CLLocationManagerDelegate {
         case .denied:
             print("User denied access to location.")
             // Display the map using the default location.
-            mapView.isHidden = true
+//            mapView.isHidden = true
         case .notDetermined:
             print("Location status not determined.")
         case .authorizedAlways:
-            mapView.isHidden = false
+//            mapView.isHidden = false
             locationManager.startUpdatingLocation()
             
         case .authorizedWhenInUse:
-            mapView.isHidden = false
+//            mapView.isHidden = false
             locationManager.startUpdatingLocation()
             
             print("Location status is OK.")
