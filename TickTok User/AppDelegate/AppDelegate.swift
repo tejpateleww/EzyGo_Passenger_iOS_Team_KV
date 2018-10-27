@@ -27,7 +27,8 @@ let googlPlacesApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
 //"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 
 //AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
-@UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     var window: UIWindow?
 
@@ -57,7 +58,8 @@ let googlPlacesApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
         
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "menu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
-        SideMenuController.preferences.drawing.sidePanelWidth = (((window?.frame.width)! / 2) + ((window?.frame.width)! / 4))//CRESH
+//        SideMenuController.preferences.drawing.sidePanelWidth = (((window?.frame.width)! / 2) + ((window?.frame.width)! / 4))
+          SideMenuController.preferences.drawing.sidePanelWidth = ((UIScreen.main.bounds.size.width/2) + (UIScreen.main.bounds.size.width / 4))
         SideMenuController.preferences.drawing.centerPanelShadow = true
         SideMenuController.preferences.animating.statusBarBehaviour = .showUnderlay
         
@@ -94,8 +96,6 @@ let googlPlacesApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
             SingletonClass.sharedInstance.isPasscodeON = false
             UserDefaults.standard.set(SingletonClass.sharedInstance.isPasscodeON, forKey: "isPasscodeON")
         }
-
-        
         
         
         // Push Notification Code

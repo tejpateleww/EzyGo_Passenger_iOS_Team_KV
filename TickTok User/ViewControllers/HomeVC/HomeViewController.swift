@@ -39,7 +39,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     let apikey = googlPlacesApiKey //"AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"
     
     let socket = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
-    
+    var isRequestedToConnectSocket:Bool = false
     //    let socket = (UIApplication.shared.delegate as! AppDelegate).SocketManager
     
     var moveMent: ARCarMovement!
@@ -220,6 +220,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //PassengerId,ModelId,PickupLocation,DropoffLocation,PickupLat,PickupLng,DropOffLat,DropOffLon
     
     var strModelId = String()
+    var ReceiptType = String()
     var strPickupLocation = String()
     var strDropoffLocation = String()
     var doublePickupLat = Double()
@@ -335,6 +336,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         viewHavePromocode.tintColor = themeYellowColor
         viewHavePromocode.stateChangeAnimation = .fill
         viewHavePromocode.boxType = .square
+        
+        tripCheck.tintColor = themeYellowColor
+        tripCheck.stateChangeAnimation = .fill
+        tripCheck.boxType = .square
+        
+        taxCheck.tintColor = themeYellowColor
+        taxCheck.stateChangeAnimation = .fill
+        taxCheck.boxType = .square
         
         viewTripActions.isHidden = true
         
@@ -1263,24 +1272,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         dictParams.setObject(strSpecialRequest, forKey: SubmitBookingRequest.kSpecial as NSCopying)
         dictParams.setObject(intNumberOfPassengerOnShareRiding, forKey: SubmitBookingRequest.kNoOfPassenger as NSCopying)
         
-        
-        if paymentType == "" {
-        }
-        else {
+        if paymentType != "" {
             dictParams.setObject(paymentType, forKey: SubmitBookingRequest.kPaymentType as NSCopying)
         }
         
-        if txtHavePromocode.text == "" {
-            
+        if ReceiptType != "" {
+            dictParams.setObject(ReceiptType, forKey: SubmitBookingRequest.kReceiptType as NSCopying)
         }
-        else {
+        
+        if txtHavePromocode.text != "" {
             dictParams.setObject(txtHavePromocode.text!, forKey: SubmitBookingRequest.kPromoCode as NSCopying)
         }
         
-        if CardID == "" {
-            
-        }
-        else {
+        if CardID != "" {
             dictParams.setObject(CardID, forKey: SubmitBookingRequest.kCardId as NSCopying)
         }
         
@@ -1493,11 +1497,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         switch index {
         case 0:
-            self.tripCheck.checkState = .unchecked
+            self.tripCheck.checkState = .checked
             self.tripCheck.stateChangeAnimation = .fill
+            self.ReceiptType = "Trip Receipt"
         case 1:
-            self.taxCheck.checkState = .unchecked
+            self.taxCheck.checkState = .checked
             self.taxCheck.stateChangeAnimation = .fill
+            self.ReceiptType = "Tax Receipt"
         default:
             break
         }
@@ -2173,6 +2179,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             CardID = data["Id"] as! String
         }
         self.SetPaymentOption(SelectionIndex: 1)
+        self.SelectReceiptType(index: 0)
         RequestStep1.isHidden = false
         RequestStep2.isHidden = true
         viewBookNow.isHidden = false
@@ -3050,8 +3057,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 print("socket.status != .connected")
             }
             
-            if (isSocketConnected == false) {                 isSocketConnected = true
-                
+            if (isSocketConnected == false) {
+                isSocketConnected = true
                 self.socketMethodForGettingBookingAcceptNotification()  // Accept Now Req
                 self.socketMethodForGettingBookingRejectNotification()  // Reject Now Req
                 self.socketMethodForGettingPickUpNotification()         // Start Now Req
@@ -3102,7 +3109,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
         }
         
-        socket.connect()
+        if self.isRequestedToConnectSocket == false {
+            self.isRequestedToConnectSocket = true
+            socket.connect()
+        }
     }
     
     var timesOfAccept = Int()
@@ -3117,6 +3127,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         DispatchQueue.global(qos: .background).sync {
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timerToUpdatePassengerlocation = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+            
         }
     }
     
@@ -3754,6 +3765,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.strModelId = ""
         self.strPickupLocation = ""
         self.strDropoffLocation = ""
+        self.ReceiptType = ""
+        self.intNumberOfPassengerOnShareRiding = 0
         self.doublePickupLat = 0
         self.doublePickupLng = 0
         self.doubleDropOffLat = 0
@@ -3818,7 +3831,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
                 if SingletonClass.sharedInstance.bookingId != "" {
                     if SingletonClass.sharedInstance.bookingId == bookingId {
-                        
+                        print("Request Accepted")
                         UtilityClass.setCustomAlert(title: "\(appName)", message: "Your request has been Accepted.") { (index, title) in
                             //               self.stopSound(fileName: "RequestConfirm", extensionType: "mp3")
                         }
@@ -3827,6 +3840,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     }
                 }
                 else {
+                    print("Request has Accepted2")
                     UtilityClass.setCustomAlert(title: "\(appName)", message: "Your request has been Accepted.") { (index, title) in
                         //               self.stopSound(fileName: "RequestConfirm", extensionType: "mp3")
                     }
@@ -4790,7 +4804,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             if let originLocation = origin {
                 if let destinationLocation = destination {
-                    var directionsURLString = self.baseURLDirections + "origin=" + originLocation + "&destination=" + destinationLocation
+                    var directionsURLString = self.baseURLDirections + "origin=" + originLocation + "&destination=" + destinationLocation + "&key=" + googlApiKey
                     if let routeWaypoints = waypoints {
                         directionsURLString += "&waypoints=optimize:true"
                         

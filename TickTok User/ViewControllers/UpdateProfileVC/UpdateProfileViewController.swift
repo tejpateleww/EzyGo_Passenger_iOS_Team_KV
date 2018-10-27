@@ -20,6 +20,8 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     var lastName = String()
     var fullName = String()
     var gender = String()
+    var isprofile = false
+
     
     @IBOutlet weak var lblAge: UILabel!
     var countoryPicker = UIPickerView()
@@ -39,14 +41,14 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var txtFirstName: ACFloatingTextfield!
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
     @IBOutlet weak var txtAddress: ACFloatingTextfield!
-//    @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!//binal
+//  @IBOutlet weak var txtDateOfBirth: ACFloatingTextfield!//binal
     @IBOutlet weak var txtHomeNumber: ACFloatingTextfield!
     @IBOutlet weak var viewMale: M13Checkbox!
     @IBOutlet weak var viewFemale: M13Checkbox!
     
     @IBOutlet weak var btnSave: UIButton!
     
-//    @IBOutlet var viewChangePassword: UIView!//binal
+//  @IBOutlet var viewChangePassword: UIView!//binal
     @IBOutlet var btnChangePassword: UIButton!
     @IBOutlet var btnProfile: UIButton!
     
@@ -57,7 +59,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         aryage = [ "18 to 25", "26 to 35", "35 to 55", "55+"]
-        
+        setData()
         btnSave.layer.cornerRadius = 5
         btnSave.layer.masksToBounds = true
         pickerView.delegate = self
@@ -109,6 +111,29 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         lblAge.text = aryage[row]
 
     }
+    
+    //-------------------------------------------------------------
+    // MARK: - TextField Delegate Method
+    //-------------------------------------------------------------
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == txtHomeNumber {
+            if txtMobileNum == txtMobileNum {
+            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+            
+            if resultText!.count >= 11 {
+                return false
+            }
+            else {
+                return true
+            }
+        }
+    }
+           return true
+
+    }
+  
     //-------------------------------------------------------------
     // MARK: - Actions
     //-------------------------------------------------------------
@@ -184,7 +209,14 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     
     @IBAction func btnSubmit(_ sender: UIButton) {
 
-        if txtAddress.text == "" || txtFirstName.text == "" || gender == "" {
+        if txtAddress.text == "" || txtFirstName.text == "" || gender == ""  {
+            
+            if isprofile == false
+            {
+                UtilityClass.setCustomAlert(title: "Misssing", message: "Please select from galary") { (index, title) in
+                }
+            }
+            
           
 //            if(imgProfile.image  "profile-pic2")
 //            {
@@ -258,6 +290,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imgProfile.contentMode = .scaleToFill
             imgProfile.image = pickedImage
+            isprofile = true
         }
         
         dismiss(animated: true, completion: nil)
@@ -275,20 +308,36 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         imgProfile.sd_setShowActivityIndicatorView(true)
         imgProfile.sd_setIndicatorStyle(.gray)
         imgProfile.sd_setImage(with: URL(string: getData.object(forKey: "Image") as! String), completed: nil)
-        
-        lblName.text = getData.object(forKey: "Email") as? String
+        lblName.text = getData.object(forKey: "Fullname") as? String
+        lblEmailId.text = getData.object(forKey: "Email") as? String
         lblContactNumber.text = getData.object(forKey: "MobileNo") as? String
 //        txtDateOfBirth.text = getData.object(forKey: "DOB") as? String
-//
+//                lblAge.text = getData.object(forKey: "AgeGroup") as? String
+
         fullName = getData.object(forKey: "Fullname") as! String
   
         let fullNameArr = fullName.components(separatedBy: " ")
-        
         firstName = fullNameArr[0]
         lastName = fullNameArr[1]
+        
+//        let name = (getData["Fullname"] as! String).components(separatedBy: " ")
+//        if(name.count == 1)
+//        {
+//            txtFirstName.text = (getData["Fullname"] as! String).components(separatedBy: " ").first
+//            txtLastName.text = (getData["Fullname"] as! String)
+//
+//        }
+//        else if(name.count == 2)
+//        {
+//            txtFirstName.text = (getData["Fullname"] as! String).components(separatedBy: " ").first
+//            txtLastName.text = (getData["Fullname"] as! String).components(separatedBy: " ").last
+//
+//        }
 
-        txtFirstName.text = fullName
+//        txtFirstName.text = fullName
 //        txtLastName.text = lastName
+        txtHomeNumber.text =  getData.object(forKey: "HomeNumber") as? String
+      
         txtAddress.text = getData.object(forKey: "Address") as? String
         
         gender = getData.object(forKey: "Gender") as! String
@@ -373,6 +422,38 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
             }
         }
     }
-    
-    
 }
+
+////respons
+//profile =     {
+//    ABN = "";
+//    Address = "Ahmedabad ";
+//    AgeGroup = "18 to 25";
+//    BSB = "";
+//    BankAccountNo = "";
+//    BankName = "";
+//    CompanyName = "";
+//    CreatedDate = "2018-10-12 14:45:13";
+//    DOB = "0000-00-00";
+//    Description = "";
+//    DeviceType = 1;
+//    Email = "bhautik@exellentwebworld.in";
+//    Fullname = "nasit  medium ";
+//    Gender = Female;
+//    HomeNumber = 7878616495;
+//    Id = 12;
+//    Image = "http://13.237.0.107/web/images/passenger/9dd2cc216ba8896069e035fbc70c445c.png";
+//    Lat = 6287346872364287;
+//    LicenceImage = "";
+//    Lng = 6287346872364287;
+//    MobileNo = 641122334456;
+//    PassportImage = "";
+//    Password = 25d55ad283aa400af464c76d713c07ad;
+//    QRCode = "http://13.237.0.107/web/images/qrcode/cGFzc2VuZ2VyXzY0MTEyMjMzNDQ1Ng==.png";
+//    ReferralCode = ezgops12bha;
+//    Status = 1;
+//    Token = "";
+//    Trash = 0;
+//    Verify = 0;
+//    ZipCode = 380054;
+//};

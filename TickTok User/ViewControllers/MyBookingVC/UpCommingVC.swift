@@ -150,8 +150,9 @@ class UpCommingVC: UIViewController, UITableViewDataSource, UITableViewDelegate 
         
         let bookingID = sender.tag
         
-        let socketData = ((self.navigationController?.childViewControllers[1] as! CustomSideMenuViewController).childViewControllers[0].childViewControllers[0] as! HomeViewController).socket
+//        let socketData = ((self.navigationController?.childViewControllers[1] as! CustomSideMenuViewController).childViewControllers[0].childViewControllers[0] as! HomeViewController).socket
         let showTopView = ((self.navigationController?.childViewControllers[1] as! CustomSideMenuViewController).childViewControllers[0].childViewControllers[0] as! HomeViewController)
+        let socketData = showTopView.socket
         
         if (SingletonClass.sharedInstance.isTripContinue) {
             
