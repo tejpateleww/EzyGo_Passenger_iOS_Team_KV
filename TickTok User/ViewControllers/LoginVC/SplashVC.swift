@@ -40,10 +40,11 @@ class SplashVC: UIViewController {
             { (status) in
                 self.iconLogo.alpha = 1
                 self.imgBackGround.alpha = 1
+                self.perform(#selector(self.moveToLogin), with: nil, afterDelay: 2.0)
+
             }
         }
         
-        self.perform(#selector(moveToLogin), with: nil, afterDelay: 6.0)
         
     }
     override func didReceiveMemoryWarning() {
@@ -54,10 +55,10 @@ class SplashVC: UIViewController {
     @objc func moveToLogin()
     {
         let StroyBordLogin = UIStoryboard(name: "Login", bundle: nil)
-        
-        let SplaceScreenVc: UIViewController = StroyBordLogin.instantiateViewController(withIdentifier: "SplashVC")
+//
+//        let SplaceScreenVc: UIViewController = StroyBordLogin.instantiateViewController(withIdentifier: "SplashVC")
         let LoginVc: UIViewController = StroyBordLogin.instantiateViewController(withIdentifier: "LoginViewController")
-        self.navigationController?.pushViewController(SplaceScreenVc, animated: false)
+//        self.navigationController?.pushViewController(SplaceScreenVc, animated: false)
         self.navigationController?.pushViewController(LoginVc, animated: false)
         
         

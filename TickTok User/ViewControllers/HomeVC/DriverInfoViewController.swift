@@ -32,7 +32,7 @@ class DriverInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.clear
         fillAllFields()
 //        btnOk.layer.cornerRadius = 5
 //        btnOk.layer.masksToBounds = true

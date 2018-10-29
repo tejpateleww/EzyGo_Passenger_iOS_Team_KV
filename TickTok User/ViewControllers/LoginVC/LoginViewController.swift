@@ -148,11 +148,9 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                         SingletonClass.sharedInstance.strPassengerID = String(describing: SingletonClass.sharedInstance.dictProfile.object(forKey: "Id")!)//as! String
                         SingletonClass.sharedInstance.isUserLoggedIN = true
                         
-                        
                         UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
                         UserDefaults.standard.set(SingletonClass.sharedInstance.arrCarLists, forKey: "carLists")
 
-                        
                         self.webserviceForAllDrivers()
                         
 //                        self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
@@ -179,9 +177,9 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "segueToHomeVC") {
-       
-        }
+//        if (segue.identifier == "segueToHomeVC") {
+//
+//        }
     }
 
     
@@ -290,7 +288,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                 else {
                     
                     if(SingletonClass.sharedInstance.isUserLoggedIN) {
-
                         self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
                     }
                 }

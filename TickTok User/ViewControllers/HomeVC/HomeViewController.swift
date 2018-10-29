@@ -79,7 +79,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var currentLocationMarkerText = String()
     var destinationLocationMarkerText = String()
     
-    
+    var arrDemoCarList:[[String:Any]] = []
     
     //-------------------------------------------------------------
     // MARK: - Final Rating View
@@ -428,7 +428,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 next.strMobileNumber = profileData.object(forKey: "MobileNo") as! String
                 
                 
-                
                 next.strDropoffLocation = strDestinationLocationForBookLater
                 next.doubleDropOffLat = dropOffLatForBookLater
                 next.doubleDropOffLng = dropOffLngForBookLater
@@ -484,7 +483,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setHeaderForIphoneX()
         
         self.arrTotalNumberOfCars = NSMutableArray(array: SingletonClass.sharedInstance.arrCarLists)
-        
+        self.arrDemoCarList = SingletonClass.sharedInstance.arrCarLists as! [[String:Any]]
         
         //        self.setupGoogleMap()
         
@@ -1414,8 +1413,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         default:
             break
         }
-        
-        
     }
     
     func SetPaymentOption(SelectionIndex:Int) {
@@ -1426,16 +1423,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.PayCashView.backgroundColor = UIColor.white
         
         if SelectionIndex == 0 {
-            self.PayCardView.backgroundColor = UIColor.lightGray
+            self.PayCardView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
             
         } else if SelectionIndex == 1 {
-            self.PayCashView.backgroundColor = UIColor.lightGray
+            self.PayCashView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
             paymentType = "cash"
             self.lblCardTitle.text = "Credit Card"
             
             CardID = ""
         } else if SelectionIndex == 2 {
-            self.PayWalletView.backgroundColor = UIColor.lightGray
+            self.PayWalletView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.4)
             paymentType = "wallet"
             self.lblCardTitle.text = "Credit Card"
             CardID = ""
@@ -1792,31 +1789,32 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     }
                     
                     // To Display Estimate Fare of Online Car
-                    if (self.strModelId != "") && (self.strModelId == (dictOnlineCarData.object(forKey: "Id") as? String)) {
-                        
-                        if (count != 0) {
-                            if self.aryEstimateFareData.count != 0 {
-                                if ((self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "duration") as? NSNull) != nil {
+                    if (self.selectedIndexPath != nil) && (i ==  Int(self.selectedIndexPath!.row)) {
+                        if (self.strModelId != "") && (self.strModelId == (dictOnlineCarData.object(forKey: "Id") as? String)) {
+                            if (count != 0) {
+                                if self.aryEstimateFareData.count != 0 {
+                                    if ((self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "duration") as? NSNull) != nil {
+                                        self.lblMinutes.text = "Approximate arrival time \(0) minutes"
+                                    }
+                                    else if let minute = (self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "duration") as? Double {
+                                        self.lblMinutes.text = "Approximate arrival time \(Int(minute)) minutes"
+                                    }
+                                    if ((self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "total") as? NSNull) != nil {
+                                        self.lblPrices.text = "\(currencySign) \(0)"
+                                    }
+                                    else if let price = (self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "total") as? Double {
+                                        self.lblPrices.text = "\(currencySign) \(price)"
+                                    }
+                                }
+                                else {
                                     self.lblMinutes.text = "Approximate arrival time \(0) minutes"
-                                }
-                                else if let minute = (self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "duration") as? Double {
-                                    self.lblMinutes.text = "Approximate arrival time \(Int(minute)) minutes"
-                                }
-                                if ((self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "total") as? NSNull) != nil {
                                     self.lblPrices.text = "\(currencySign) \(0)"
-                                }
-                                else if let price = (self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "total") as? Double {
-                                    self.lblPrices.text = "\(currencySign) \(price)"
                                 }
                             }
                             else {
                                 self.lblMinutes.text = "Approximate arrival time \(0) minutes"
                                 self.lblPrices.text = "\(currencySign) \(0)"
                             }
-                        }
-                        else {
-                            self.lblMinutes.text = "Approximate arrival time \(0) minutes"
-                            self.lblPrices.text = "\(currencySign) \(0)"
                         }
                     }
                 }
@@ -2012,6 +2010,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         self.btnBookLater.setTitleColor(themeYellowColor, for: .normal)
         self.btnBookLater.backgroundColor = UIColor.black
+        
+        var Count:Int = 0
+        
+        if self.arrNumberOfOnlineCars.count > 0 && self.selectedIndexPath != nil {
+            let selectedCarData = (self.arrNumberOfOnlineCars.object(at: Int(self.selectedIndexPath!.row)) as! NSDictionary)
+            Count = (selectedCarData["carCount"] as! Int)
+        }
+        if Count == 0 {
+            UtilityClass.setCustomAlert(title: "Info Message", message: "There is no car Available") { (index, title) in
+            }
+            return
+        }
         
         if Connectivity.isConnectedToInternet()
         {
@@ -2463,9 +2473,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //MARK:- Collectionview Delegate and Datasource methods
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-//        if self.arrNumberOfOnlineCars.count == 0 {
-//            return 3
-//        }
+        if self.arrNumberOfOnlineCars.count == 0 {
+            return arrDemoCarList.count
+        }
 //
         return self.arrNumberOfOnlineCars.count
     }
@@ -2484,21 +2494,27 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cell.lblCarType.textColor = UIColor.white
         }
         
+        var dictOnlineCarData:[String:AnyObject] = [:]
         if (self.arrNumberOfOnlineCars.count > 0)
         {
-            let dictOnlineCarData = (arrNumberOfOnlineCars.object(at: indexPath.row) as! [String : AnyObject])
-            let imageURL = dictOnlineCarData["Image"] as! String
-            
-            cell.imgCars.sd_setIndicatorStyle(.gray)
-            cell.imgCars.sd_setShowActivityIndicatorView(true)
-            cell.lblCarType.text = dictOnlineCarData["Name"] as! String
-            
-            cell.imgCars.sd_setImage(with: URL(string: imageURL), completed: { (image, error, cacheType, url) in
-                cell.imgCars.sd_setShowActivityIndicatorView(false)
-            })
-            
+            dictOnlineCarData = (arrNumberOfOnlineCars.object(at: indexPath.row) as! [String : AnyObject])
+        }
+        else {
+            dictOnlineCarData = (arrDemoCarList[indexPath.row]  as! [String : AnyObject])
         }
         
+        let imageURL = dictOnlineCarData["Image"] as! String
+        
+        cell.imgCars.sd_setIndicatorStyle(.gray)
+        cell.imgCars.sd_setShowActivityIndicatorView(true)
+        
+        if let CarName = dictOnlineCarData["Name"] as? String {
+            cell.lblCarType.text = CarName
+        }
+        
+        cell.imgCars.sd_setImage(with: URL(string: imageURL), completed: { (image, error, cacheType, url) in
+            cell.imgCars.sd_setShowActivityIndicatorView(false)
+        })
         
         return cell
         
@@ -2519,7 +2535,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //        }
         //        else if (arrNumberOfOnlineCars.count != 0 && indexPath.row < self.arrNumberOfOnlineCars.count)
         //        {
-        
+        if self.arrNumberOfOnlineCars.count > 0  {
+            
         let dictOnlineCarData = (arrNumberOfOnlineCars.object(at: indexPath.row) as! NSDictionary)
         strSpecialRequestFareCharge = dictOnlineCarData.object(forKey: "SpecialExtraCharge") as? String ?? ""
         
@@ -2717,7 +2734,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             
         }
-        collectionViewCars.reloadData()
+            collectionViewCars.reloadData()
+        }
+        else {
+            selectedIndexPath = indexPath
+            collectionViewCars.reloadData()
+        }
+        
         //        }
         //        else
         //        {
@@ -3084,7 +3107,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 //                var long : Double!
                 
                 self.arrNumberOfAvailableCars = NSMutableArray(array: ((data as NSArray).object(at: 0) as! NSDictionary).object(forKey: "driver") as! NSArray)
-               
                 
                 if (((data as NSArray).object(at: 0) as! NSDictionary).count != 0)
                 {
@@ -3449,7 +3471,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //        }
         //        else {
         next.strPassengerMobileNumber = DriverInfo.object(forKey: "MobileNo") as! String
+        
         //        }
+//        self.present(next, animated: true, completion: nil)
         (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(next, animated: true, completion: nil)
     }
     
