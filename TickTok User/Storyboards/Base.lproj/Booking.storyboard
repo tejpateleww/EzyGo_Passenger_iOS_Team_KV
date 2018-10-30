@@ -749,8 +749,8 @@
                                     <outletCollection property="gestureRecognizers" destination="cTr-o4-GVX" appends="YES" id="njz-dY-kpA"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nem-pi-6cf">
-                                <rect key="frame" x="-320" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nem-pi-6cf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6e-h8-20d">
                                         <rect key="frame" x="142.5" y="41.5" width="35" height="35"/>
@@ -1677,6 +1677,7 @@
                         <outlet property="lblCardTitle" destination="55M-pA-0qP" id="9m4-8f-ytb"/>
                         <outlet property="lblMinutes" destination="B1v-CQ-F2c" id="aZU-fc-zA1"/>
                         <outlet property="lblNumberOfPassengers" destination="ttT-YE-3do" id="zS2-NZ-f0T"/>
+                        <outlet property="lblPassengers" destination="oDH-mc-nBG" id="9jV-DV-Upn"/>
                         <outlet property="lblPrices" destination="y2q-v6-IC3" id="NCm-yU-fVG"/>
                         <outlet property="openSideMenu" destination="GVI-vE-kv4" id="Etg-aW-pXu"/>
                         <outlet property="stackViewOfPromocode" destination="Vrf-LR-4d2" id="8qP-ry-hR5"/>
@@ -2520,7 +2521,7 @@
                                                             <constraint firstAttribute="height" constant="40" id="DFu-Q1-Dk4"/>
                                                         </constraints>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FBN-5e-kTb">
@@ -2536,7 +2537,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mobile Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yKl-OM-T8u" customClass="FormTextField" customModule="FormTextField">
                                                         <rect key="frame" x="160" y="5" width="140" height="40"/>
                                                         <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JL-6I-dxS">
@@ -2571,9 +2572,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PGf-OJ-ZDI">
                                                 <rect key="frame" x="10" y="70" width="300" height="40"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Car Model: First" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DS-ph-ZhY">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vehical Type: Premium" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DS-ph-ZhY">
                                                         <rect key="frame" x="0.0" y="0.0" width="240" height="40"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -2924,7 +2925,7 @@
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="_IBStateChangeAnimation" value="Fill"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
-                                                                    <action selector="viewFlightNumber:" destination="OYL-Im-NYx" eventType="valueChanged" id="Z9T-gq-Cqa"/>
+                                                                    <action selector="ViewArrivalTimeAction:" destination="OYL-Im-NYx" eventType="valueChanged" id="nty-kK-KBd"/>
                                                                 </connections>
                                                             </view>
                                                         </subviews>
@@ -2939,36 +2940,38 @@
                                                             <constraint firstAttribute="trailing" secondItem="xeq-rk-zrx" secondAttribute="trailing" constant="5.5" id="tQu-W6-4Nu"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOI-2P-gyO">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hz1-O1-26s">
                                                         <rect key="frame" x="0.0" y="40" width="300" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Please select time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iP5-A1-LGH">
-                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="38"/>
+                                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please select time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0BA-7C-M2Z">
+                                                                <rect key="frame" x="0.0" y="0.0" width="240" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="Rtt-re-3Sy"/>
+                                                                </constraints>
                                                                 <nil key="textColor"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JtJ-I3-aGG">
-                                                                <rect key="frame" x="0.0" y="38" width="300" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTX-z5-aDE">
+                                                                <rect key="frame" x="250" y="0.0" width="40" height="40"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="oEK-oN-wLW"/>
+                                                                    <constraint firstAttribute="height" constant="40" id="WKQ-3Z-Yhh"/>
+                                                                    <constraint firstAttribute="width" constant="40" id="jDh-WR-pCP"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                                <state key="normal" image="iconCalendar"/>
+                                                                <connections>
+                                                                    <action selector="btnTimeCalendar:" destination="OYL-Im-NYx" eventType="touchUpInside" id="VRa-IE-kA1"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="JtJ-I3-aGG" firstAttribute="trailing" secondItem="iP5-A1-LGH" secondAttribute="trailing" id="3IH-kX-kga"/>
-                                                            <constraint firstAttribute="height" constant="40" id="7i8-zL-vA8"/>
-                                                            <constraint firstAttribute="trailing" secondItem="iP5-A1-LGH" secondAttribute="trailing" id="EGo-IW-jve"/>
-                                                            <constraint firstItem="iP5-A1-LGH" firstAttribute="top" secondItem="tOI-2P-gyO" secondAttribute="top" id="Enf-C2-dN2"/>
-                                                            <constraint firstAttribute="bottom" secondItem="JtJ-I3-aGG" secondAttribute="bottom" constant="1" id="KkT-4b-l9y"/>
-                                                            <constraint firstItem="iP5-A1-LGH" firstAttribute="leading" secondItem="tOI-2P-gyO" secondAttribute="leading" id="asD-4y-lVp"/>
-                                                            <constraint firstItem="JtJ-I3-aGG" firstAttribute="top" secondItem="iP5-A1-LGH" secondAttribute="bottom" id="wF9-bx-bCy"/>
-                                                            <constraint firstItem="JtJ-I3-aGG" firstAttribute="leading" secondItem="iP5-A1-LGH" secondAttribute="leading" id="ytI-LL-kp0"/>
+                                                            <constraint firstItem="tTX-z5-aDE" firstAttribute="leading" secondItem="0BA-7C-M2Z" secondAttribute="trailing" constant="10" id="4UI-To-VbW"/>
+                                                            <constraint firstItem="0BA-7C-M2Z" firstAttribute="leading" secondItem="Hz1-O1-26s" secondAttribute="leading" id="Atj-wS-0ht"/>
+                                                            <constraint firstAttribute="height" constant="40" id="cuq-Ac-5Vn"/>
+                                                            <constraint firstItem="tTX-z5-aDE" firstAttribute="top" secondItem="Hz1-O1-26s" secondAttribute="top" id="g50-Tc-qWj"/>
+                                                            <constraint firstItem="0BA-7C-M2Z" firstAttribute="top" secondItem="Hz1-O1-26s" secondAttribute="top" id="j6H-Os-fJ3"/>
+                                                            <constraint firstAttribute="trailing" secondItem="tTX-z5-aDE" secondAttribute="trailing" constant="10" id="lBW-0c-RTM"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -3041,7 +3044,13 @@
                                                                     <constraint firstAttribute="width" constant="20" id="ITz-uZ-ylO"/>
                                                                     <constraint firstAttribute="height" constant="20" id="Vfa-eq-adJ"/>
                                                                 </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="_IBStateChangeAnimation" value="Fill"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="_IBMarkType" value="checkmark"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="_IBBoxType" value="square"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
+                                                                    <action selector="TripReceiptType:" destination="OYL-Im-NYx" eventType="valueChanged" id="7qS-CZ-U1x"/>
                                                                     <action selector="tripCheck:" destination="eKb-OP-gzz" eventType="valueChanged" id="32P-Xk-AAl"/>
                                                                 </connections>
                                                             </view>
@@ -3073,7 +3082,13 @@
                                                                     <constraint firstAttribute="width" constant="20" id="g2q-Aw-hl1"/>
                                                                     <constraint firstAttribute="height" constant="20" id="qcP-jH-MJd"/>
                                                                 </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="_IBStateChangeAnimation" value="Fill"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="_IBMarkType" value="checkmark"/>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="_IBBoxType" value="square"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
+                                                                    <action selector="TripReceiptType:" destination="OYL-Im-NYx" eventType="valueChanged" id="BFX-G1-L7C"/>
                                                                     <action selector="taxCheck:" destination="eKb-OP-gzz" eventType="valueChanged" id="jDC-Kl-tui"/>
                                                                 </connections>
                                                             </view>
@@ -3359,18 +3374,26 @@
                         <viewLayoutGuide key="safeArea" id="FjF-f1-JTl"/>
                     </view>
                     <connections>
+                        <outlet property="CheckArrivalTime" destination="xeq-rk-zrx" id="Oro-nE-Zgn"/>
+                        <outlet property="ViewArrivalTime" destination="cby-Zx-ReK" id="sfd-yl-s44"/>
+                        <outlet property="ViewFlightArrivalTime" destination="Hz1-O1-26s" id="2d6-ro-RcT"/>
                         <outlet property="View_FlightNumber" destination="IT5-Wd-Kyh" id="qzV-dd-CDS"/>
                         <outlet property="alertView" destination="o7a-P4-YEl" id="CdZ-jz-xgS"/>
                         <outlet property="btnCalendar" destination="aaq-w6-sHQ" id="glw-M5-Uks"/>
                         <outlet property="btnSubmit" destination="rGN-rZ-UlR" id="G9l-xo-tFh"/>
+                        <outlet property="btnTimeCalender" destination="tTX-z5-aDE" id="IMe-kj-cib"/>
                         <outlet property="imgCareModel" destination="Vt1-By-RJo" id="cY9-dK-V0F"/>
                         <outlet property="imgPaymentOption" destination="Eby-4E-vg3" id="7CR-sh-Bx9"/>
                         <outlet property="lblCareModelClass" destination="8DS-ph-ZhY" id="KiQ-Zx-gy7"/>
                         <outlet property="lblNumberOfPassengers" destination="tKN-GG-9Zg" id="CxJ-vN-oUf"/>
+                        <outlet property="lblPassenger" destination="ii2-Pc-JNq" id="R28-WP-Y1d"/>
                         <outlet property="lblPromoCode" destination="WHw-dA-lGS" id="A2g-kI-epY"/>
+                        <outlet property="taxCheck" destination="wC5-l4-d1e" id="YKf-Nd-Umy"/>
+                        <outlet property="tripCheck" destination="YDU-Y5-PgH" id="nZS-eA-jkI"/>
                         <outlet property="txtDataAndTimeFromCalendar" destination="guv-yj-9kF" id="nyM-vM-83N"/>
                         <outlet property="txtDescription" destination="BlT-BB-MMA" id="Pm2-CO-4UV"/>
                         <outlet property="txtDropOffLocation" destination="h0f-Fz-IP5" id="qdj-LG-kcS"/>
+                        <outlet property="txtFlightArrivalTime" destination="0BA-7C-M2Z" id="pQB-6V-XxF"/>
                         <outlet property="txtFlightNumber" destination="EzO-Sn-Han" id="NkH-zv-0qL"/>
                         <outlet property="txtFullName" destination="IuM-Cx-Ogc" id="6Vc-o0-yRY"/>
                         <outlet property="txtMobileNumber" destination="yKl-OM-T8u" id="vxV-RV-65K"/>

@@ -36,15 +36,17 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     var pickerViewForInvoiceType = UIPickerView()
     var strModelId = String()
     var BoolCurrentLocation = Bool()
+    var isCalenderFordateTime = Bool()
     var strCarModelURL = String()
     var strPassengerType = String()
     var convertDateToString = String()
     var boolIsSelected = Bool()
     var boolIsSelectedNotes = Bool()
     var strCarName = String()
-    
+    var ReceiptType = String()
     var strFullname = String()
     var strMobileNumber = String()
+    var PasangerDefinedLimit:Int = 0
     
     var placesClient = GMSPlacesClient()
     var locationManager = CLLocationManager()
@@ -57,15 +59,10 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     var intNumberOfPassengerOnShareRiding:Int = 1
     
-    var InvoiceTypes:[String] = ["Trip Receipt", "Tax Invoice"]
-    
     var selector = WWCalendarTimeSelector.instantiate()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         txtDropOffLocation.delegate = self
         
 //        UIApplication.shared.statusBarView?.backgroundColor = UIColor.black
@@ -112,11 +109,10 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         locationManager.delegate = self
 
         setViewDidLoad()
-        
         txtDataAndTimeFromCalendar.isUserInteractionEnabled = false
         imgCareModel.sd_setImage(with: URL(string: strCarModelURL), completed: nil)
-        lblCareModelClass.text = "Car Model: \(strCarName)"
-        
+        lblCareModelClass.text = "Vehicle Type: \(strCarName)"
+        lblPassenger.text = "(maximum \(self.PasangerDefinedLimit) passengers)"
         txtFullName.text = strFullname
         txtMobileNumber.text = strMobileNumber
 
@@ -179,30 +175,36 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     func setViewDidLoad() {
         
 //        let themeColor: UIColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0)
-        
 //        viewMySelf.tintColor = themeYellowColor
 //        viewOthers.tintColor = themeYellowColor
         viewFlightNumber.tintColor = themeYellowColor
+        CheckArrivalTime.tintColor = themeYellowColor
+        tripCheck.tintColor = themeYellowColor
+        taxCheck.tintColor = themeYellowColor
 //        btnNotes.tintColor = themeYellowColor
         
         
 //        viewMySelf.stateChangeAnimation = .fill
 //        viewOthers.stateChangeAnimation = .fill
         viewFlightNumber.stateChangeAnimation = .fill
+        CheckArrivalTime.stateChangeAnimation = .fill
+        tripCheck.stateChangeAnimation = .fill
+        taxCheck.stateChangeAnimation = .fill
 //        btnNotes.stateChangeAnimation = .fill
 //
 //        viewMySelf.boxType = .square
-        
 //        viewMySelf.checkState = .checked
 //        viewOthers.boxType = .square
 //        btnNotes.boxType = .square
+
         strPassengerType = "myself"
         viewFlightNumber.boxType = .square
-        
+        CheckArrivalTime.boxType = .square
+        tripCheck.boxType = .square
+        taxCheck.boxType = .square
 //        constraintsHeightOFtxtFlightNumber.constant = 0 // 30 Height
 //        constaintsOfTxtFlightNumber.constant = 0
 //        imgViewLineForFlightNumberHeight.constant = 0
-//
 //        constantHavePromoCodeTop.constant = 0
 //        constantNoteHeight.constant = 0
 //        imgViewLineForFlightNumberHeight.constant = 0
@@ -210,9 +212,10 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         
 //        txtFlightNumber.isHidden = true
         View_FlightNumber.isHidden = true
+        ViewFlightArrivalTime.isHidden = true
+        
         txtFlightNumber.isEnabled = false
         txtDescription.isEnabled = false
-        
         
         alertView.layer.cornerRadius = 10
         alertView.layer.masksToBounds = true
@@ -221,7 +224,11 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         txtDataAndTimeFromCalendar.layer.cornerRadius = 5
         txtDataAndTimeFromCalendar.layer.borderColor = UIColor.black.cgColor
         txtDataAndTimeFromCalendar.layer.masksToBounds = true
-        
+
+        txtFlightArrivalTime.layer.borderWidth = 1
+        txtFlightArrivalTime.layer.cornerRadius = 5
+        txtFlightArrivalTime.layer.borderColor = UIColor.black.cgColor
+        txtFlightArrivalTime.layer.masksToBounds = true
         
         viewPaymentMethod.layer.borderWidth = 1
         viewPaymentMethod.layer.cornerRadius = 5
@@ -269,6 +276,10 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     @IBOutlet weak var txtFlightNumber: UITextField!
     @IBOutlet weak var View_FlightNumber: UIView!
     
+    @IBOutlet weak var txtFlightArrivalTime: UITextField!
+    
+    @IBOutlet weak var lblPassenger: UILabel!
+    
 //    @IBOutlet weak var constraintsHeightOFtxtFlightNumber: NSLayoutConstraint!
 //    @IBOutlet weak var constaintsOfTxtFlightNumber: NSLayoutConstraint! // 10
     
@@ -288,15 +299,19 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     @IBOutlet weak var viewPaymentMethod: UIView!
     
     @IBOutlet weak var lblPromoCode: UILabel!
+    
+    @IBOutlet weak var ViewArrivalTime: UIView!
+    
+    @IBOutlet weak var ViewFlightArrivalTime: UIView!
+    
+    @IBOutlet weak var CheckArrivalTime: M13Checkbox!
+    
     var BackView = UIView()
     
 //    @IBOutlet weak var btnForMySelfAction: UIButton!
 //    @IBOutlet weak var btnForOthersAction: UIButton!
 //    @IBOutlet weak var imgViewLineForFlightNumberHeight: NSLayoutConstraint!
 //    @IBOutlet weak var imgViewLineForNotesHeight: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var txtInvoiceType: UITextField!
     
     @IBOutlet weak var lblNumberOfPassengers: UILabel!
     
@@ -306,7 +321,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     //-------------------------------------------------------------
     
     @IBAction func IncreasePassengerCount(_ sender: UIButton) {
-        if intNumberOfPassengerOnShareRiding < 6 {
+        if intNumberOfPassengerOnShareRiding < self.PasangerDefinedLimit {
             intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding + 1
         }
         self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
@@ -326,18 +341,8 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     
     
-    @IBAction func txtInvoiceType(_ sender: UITextField) {
-        
-        pickerViewForInvoiceType.delegate = self
-        pickerViewForInvoiceType.dataSource = self
-        
-        txtInvoiceType.inputView = pickerViewForInvoiceType
-        
-    }
     
     @IBAction func btnApply(_ sender: UIButton) {
-        
-        
         
        lblPromoCode.text = txtPromoCode.text
         
@@ -366,6 +371,43 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         
 //        UIApplication.shared.keyWindow!.bringSubview(toFront: alertView)
     }
+    
+    @IBOutlet weak var tripCheck: M13Checkbox!
+    
+    @IBOutlet weak var taxCheck: M13Checkbox!
+    
+    
+    @IBAction func TripReceiptType(_ sender: M13Checkbox) {
+        if sender == tripCheck {
+            SelectReceiptType(index: 0)
+        } else if sender == tripCheck {
+            SelectReceiptType(index: 1)
+        }
+    }
+    
+    
+    func SelectReceiptType(index:Int) {
+        
+        self.tripCheck.checkState = .unchecked
+        self.tripCheck.stateChangeAnimation = .fill
+        self.taxCheck.checkState = .unchecked
+        self.taxCheck.stateChangeAnimation = .fill
+        
+        switch index {
+        case 0:
+            self.tripCheck.checkState = .checked
+            self.tripCheck.stateChangeAnimation = .fill
+            self.ReceiptType = "Trip Receipt"
+        case 1:
+            self.taxCheck.checkState = .checked
+            self.taxCheck.stateChangeAnimation = .fill
+            self.ReceiptType = "Tax Receipt"
+        default:
+            break
+        }
+        
+    }
+    
     
     @IBAction func btnNotes(_ sender: M13Checkbox) {
         
@@ -396,7 +438,6 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     }
     
     @IBAction func btnBack(_ sender: UIButton) {
-        
     self.navigationController?.popViewController(animated: true)
         
     }
@@ -447,6 +488,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 //            constaintsOfTxtFlightNumber.constant = 10
 //            imgViewLineForFlightNumberHeight.constant = 1
             self.View_FlightNumber.isHidden = false
+            self.ViewArrivalTime.isHidden = false
 //            txtFlightNumber.isHidden = false
             txtFlightNumber.isEnabled = true
         }
@@ -456,11 +498,21 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 //            constaintsOfTxtFlightNumber.constant = 0
 //            imgViewLineForFlightNumberHeight.constant = 0
             self.View_FlightNumber.isHidden = true
+            self.ViewArrivalTime.isHidden = true
+            if self.ViewFlightArrivalTime.isHidden == false {
+                self.ViewFlightArrivalTime.isHidden = true
+            }
 //            txtFlightNumber.isHidden = true
             txtFlightNumber.isEnabled = false
            
         }
     }
+    
+    @IBAction func ViewArrivalTimeAction(_ sender: M13Checkbox) {
+    
+        self.ViewFlightArrivalTime.isHidden = !self.ViewFlightArrivalTime.isHidden
+    }
+    
     
     @IBAction func txtPickupLocation(_ sender: UITextField) {
 
@@ -484,9 +536,9 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     }
     
     @IBAction func btnCalendar(_ sender: UIButton) {
+        self.isCalenderFordateTime = true
         
         selector.optionCalendarFontColorPastDates = UIColor.gray
-
         selector.optionButtonFontColorDone = themeYellowColor
         selector.optionSelectorPanelBackgroundColor = themeYellowColor
         selector.optionCalendarBackgroundColorTodayHighlight = themeYellowColor
@@ -497,7 +549,6 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         selector.optionCalendarBackgroundColorPastDatesHighlight = themeYellowColor
         selector.optionCalendarBackgroundColorFutureDatesHighlight = themeYellowColor
         selector.optionClockBackgroundColorMinuteHighlight = themeYellowColor
-        
         
         
 //        selector.optionStyles.showDateMonth(true)
@@ -522,6 +573,35 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
    
     }
     
+    
+    @IBOutlet weak var btnTimeCalender: UIButton!
+    
+    @IBAction func btnTimeCalendar(_ sender: Any) {
+        if self.txtDataAndTimeFromCalendar.text?.count != 0 {
+            self.isCalenderFordateTime = false
+            selector.optionCalendarFontColorPastDates = UIColor.gray
+            selector.optionButtonFontColorDone = themeYellowColor
+            selector.optionSelectorPanelBackgroundColor = themeYellowColor
+            selector.optionCalendarBackgroundColorTodayHighlight = themeYellowColor
+            selector.optionTopPanelBackgroundColor = themeYellowColor
+            selector.optionClockBackgroundColorMinuteHighlightNeedle = themeYellowColor
+            selector.optionClockBackgroundColorHourHighlight = themeYellowColor
+            selector.optionClockBackgroundColorAMPMHighlight = themeYellowColor
+            selector.optionCalendarBackgroundColorPastDatesHighlight = themeYellowColor
+            selector.optionCalendarBackgroundColorFutureDatesHighlight = themeYellowColor
+            selector.optionClockBackgroundColorMinuteHighlight = themeYellowColor
+            selector.optionStyles.showYear(false)
+            selector.optionStyles.showTime(true)
+            selector.optionTopPanelTitle = "Please choose Time"
+            selector.optionIdentifier = "Time" as AnyObject
+            let dateCurrent = Date()
+            selector.optionCurrentDate = dateCurrent.addingTimeInterval(30 * 60)
+            self.present(selector, animated: true, completion: nil)
+        
+        } else {
+            UtilityClass.setCustomAlert(title: "", message: "Please select date first!", completionHandler: nil)
+        }
+    }
     
     
     @IBAction func btnSubmit(_ sender: UIButton) {
@@ -715,9 +795,9 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == pickerViewForInvoiceType {
-            return InvoiceTypes.count
-        }
+//        if pickerView == pickerViewForInvoiceType {
+//            return InvoiceTypes.count
+//        }
         return aryCards.count
     }
     
@@ -731,19 +811,18 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
-        if pickerView == pickerViewForInvoiceType {
-            
-            let myView = UIView(frame: CGRect(x:0, y:0, width: UIScreen.main.bounds.width, height: 60))
-            
-            let myLabel = UILabel(frame: CGRect(x:10, y: 5, width:UIScreen.main.bounds.width - 20, height:50 ))
-            myLabel.font = UIFont.systemFont(ofSize: 30)
-            myLabel.text = self.InvoiceTypes[row]
-            myLabel.textAlignment = .center
-            myView.addSubview(myLabel)
-            
-            return myView
-        }
-        
+//        if pickerView == pickerViewForInvoiceType {
+//
+//            let myView = UIView(frame: CGRect(x:0, y:0, width: UIScreen.main.bounds.width, height: 60))
+//            let myLabel = UILabel(frame: CGRect(x:10, y: 5, width:UIScreen.main.bounds.width - 20, height:50 ))
+//            myLabel.font = UIFont.systemFont(ofSize: 30)
+//            myLabel.text = self.InvoiceTypes[row]
+//            myLabel.textAlignment = .center
+//            myView.addSubview(myLabel)
+//
+//            return myView
+//        }
+//
         
         let data = aryCards[row]
         
@@ -867,48 +946,55 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     
     func WWCalendarTimeSelectorDone(_ selector: WWCalendarTimeSelector, date: Date)
     {
-       
-        if currentDate < date {
-            
-//            let calendarDate = Calendar.current
-//            let hour = calendarDate.component(.hour, from: date)
-//            let minutes = calendarDate.component(.minute, from: date)
+        
+        let myDateFormatter: DateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+        
+        let TimeFormatter: DateFormatter = DateFormatter()
+        TimeFormatter.dateFormat = "hh:mm a"
+        
+        let dateOfPostToApi: DateFormatter = DateFormatter()
+        dateOfPostToApi.dateFormat = "yyyy-MM-dd HH:mm:ss"
    
+        let Date_Time = (String(self.txtDataAndTimeFromCalendar.text!).components(separatedBy: " ") )[0]
+        
+        let TimeString = TimeFormatter.string(from: date)
+        let FlightTimeDate = myDateFormatter.date(from: "\(Date_Time) \(TimeString)")
+        
+        var SelectedDate = Date()
+        
+        if self.isCalenderFordateTime == true {
+            SelectedDate = date
+        } else {
+            SelectedDate = FlightTimeDate!
+        }
+        
+        if currentDate < SelectedDate {
+
             let currentTimeInterval = currentDate.addingTimeInterval(30 * 60)
-            
-            if  date > currentTimeInterval {
+            if  SelectedDate > currentTimeInterval {
+                convertDateToString = dateOfPostToApi.string(from: SelectedDate)
                 
-                let myDateFormatter: DateFormatter = DateFormatter()
-                myDateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
-                
-                let dateOfPostToApi: DateFormatter = DateFormatter()
-                dateOfPostToApi.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            
-                convertDateToString = dateOfPostToApi.string(from: date)
-                
-                let finalDate = myDateFormatter.string(from: date)
-                
-                // get the date string applied date format
-                let mySelectedDate = String(describing: finalDate)
-                
-                txtDataAndTimeFromCalendar.text = mySelectedDate
+                if self.isCalenderFordateTime == true {
+                    let finalDate = myDateFormatter.string(from: SelectedDate)
+                    // get the date string applied date format
+                    let mySelectedDate = String(describing: finalDate)
+                    txtDataAndTimeFromCalendar.text = mySelectedDate
+                }
+                else {
+                    txtFlightArrivalTime.text = TimeString
+                }
             }
             else {
-                
                 txtDataAndTimeFromCalendar.text = ""
-                
                 UtilityClass.setCustomAlert(title: "Time should be", message: "Please select 30 minutes greater time from current time!") { (index, title) in
                 }
-
             }
-            
         }
 
     }
     
     func WWCalendarTimeSelectorWillDismiss(_ selector: WWCalendarTimeSelector) {
-        
-        
         
     }
     
@@ -924,8 +1010,6 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
             let currentTimeInterval = currentDate.addingTimeInterval(30 * 60)
             
             if  date > currentTimeInterval {
-            
-                
                 return true
             }
             

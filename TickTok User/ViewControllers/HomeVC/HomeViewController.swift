@@ -269,10 +269,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var viewMap: UIView!
     @IBOutlet weak var collectionViewCars: UICollectionView!
     
-    
+    @IBOutlet weak var lblPassengers: UILabel!
     
     var dropoffLat = Double()
     var dropoffLng = Double()
+    var PasangerDefinedLimit:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -427,6 +428,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 next.strFullname = profileData.object(forKey: "Fullname") as! String
                 next.strMobileNumber = profileData.object(forKey: "MobileNo") as! String
                 
+                if strCarModelClass == "Premium" {
+                    next.PasangerDefinedLimit = 4
+                } else {
+                    next.PasangerDefinedLimit = 6
+                }
                 
                 next.strDropoffLocation = strDestinationLocationForBookLater
                 next.doubleDropOffLat = dropOffLatForBookLater
@@ -1454,7 +1460,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     
     @IBAction func IncreasePassengerCount(_ sender: UIButton) {
-        if intNumberOfPassengerOnShareRiding < 4 {
+        if intNumberOfPassengerOnShareRiding < self.PasangerDefinedLimit {
             intNumberOfPassengerOnShareRiding = intNumberOfPassengerOnShareRiding + 1
         }
         self.lblNumberOfPassengers.text = "\(intNumberOfPassengerOnShareRiding)"
@@ -2190,9 +2196,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         self.SetPaymentOption(SelectionIndex: 1)
         self.SelectReceiptType(index: 0)
+        if strCarModelClass == "Premium" {
+            self.PasangerDefinedLimit = 4
+            self.lblPassengers.text = "(maximum \(self.PasangerDefinedLimit) passengers)"
+        } else {
+            self.PasangerDefinedLimit = 6
+            self.lblPassengers.text = "(maximum \(self.PasangerDefinedLimit) passengers)"
+        }
+        
         RequestStep1.isHidden = false
         RequestStep2.isHidden = true
         viewBookNow.isHidden = false
+        
         
     }
     
@@ -2239,6 +2254,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     next.doublePickupLat = doublePickupLat
                     next.doublePickupLng = doublePickupLng
                     
+                    if strCarModelClass == "Premium" {
+                        next.PasangerDefinedLimit = 4
+                    } else {
+                        next.PasangerDefinedLimit = 6
+                    }
+                    
                     next.strDropoffLocation = strDropoffLocation
                     next.doubleDropOffLat = doubleDropOffLat
                     next.doubleDropOffLng = doubleDropOffLng
@@ -2258,11 +2279,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     
                     next.strModelId = strCarModelID
                     next.strCarModelURL = strNavigateCarModel
+                    
                     next.strCarName = strCarModelClass
                     
                     next.strPickupLocation = strPickupLocation
                     next.doublePickupLat = doublePickupLat
                     next.doublePickupLng = doublePickupLng
+                    
+                    if strCarModelClass == "Premium" {
+                        next.PasangerDefinedLimit = 4
+                    } else {
+                        next.PasangerDefinedLimit = 6
+                    }
                     
                     next.strDropoffLocation = strDropoffLocation
                     next.doubleDropOffLat = doubleDropOffLat
