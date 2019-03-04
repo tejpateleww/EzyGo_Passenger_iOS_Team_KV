@@ -8,8 +8,16 @@
 
 import UIKit
 
+protocol ReceiptInvoiceDelegate {
+    func didGetReceipt(customCell:UITableViewCell)
+    func didViewReceipt(customCell:UITableViewCell)
+    
+}
+
 class MyRecepitTableViewCell: UITableViewCell {
 
+    var Delegate:ReceiptInvoiceDelegate!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,5 +51,23 @@ class MyRecepitTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDiscountApplied: UILabel!
     @IBOutlet weak var lblChargedCard: UILabel!
 
+    @IBOutlet weak var StackDistance: UIStackView!
+    @IBOutlet weak var StackDiscount: UIStackView!
+    
+    @IBOutlet weak var StackVehicleType: UIStackView!
+    
+    @IBOutlet weak var StackTollFee: UIStackView!
+    
+    @IBOutlet weak var StackFareTotal: UIStackView!
+    
+    
+    @IBAction func btnGetReceiptAction(_ sender: Any) {
+        self.Delegate.didGetReceipt(customCell: self)
+    }
+    
+    @IBAction func btnViewReceiptAction(_ sender: Any) {
+        self.Delegate.didViewReceipt(customCell: self)
+    }
+    
     
 }

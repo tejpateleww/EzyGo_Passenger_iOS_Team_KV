@@ -8,19 +8,22 @@
 
 import UIKit
 import SDWebImage
+import MessageUI
 
-class DriverInfoViewController: UIViewController {
+class DriverInfoViewController: UIViewController, MFMessageComposeViewControllerDelegate {
     
     
     var strCarImage = String()
     var strCareName = String()
     var strCarClass = String()
+    var strCarInfo = String()
     var strPickupLocation = String()
     var strDropoffLocation = String()
     
     var strDriverImage = String()
     var strDriverName = String()
     
+    var DriverRate = String()
     var strCarPlateNumber = String()
     
     var strPassengerMobileNumber = String()
@@ -47,8 +50,8 @@ class DriverInfoViewController: UIViewController {
 //        imgCar.layer.cornerRadius = imgCar.frame.size.width / 2
 //        imgCar.layer.masksToBounds = true
 //
-//        imgDriver.layer.cornerRadius = imgDriver.frame.size.width / 2
-//        imgDriver.layer.masksToBounds = true
+        imgDriver.layer.cornerRadius = imgDriver.frame.size.width / 2
+        imgDriver.layer.masksToBounds = true
         
     }
 
@@ -67,22 +70,19 @@ class DriverInfoViewController: UIViewController {
 //    @IBOutlet weak var lblCarClassModel: UILabel!
 
 
-    @IBOutlet weak var lblPickupLocation: UILabel!
-    @IBOutlet weak var lblDropoffLocation: UILabel!
+//    @IBOutlet weak var lblPickupLocation: UILabel!
+//    @IBOutlet weak var lblDropoffLocation: UILabel!
     @IBOutlet weak var lblCarDetail: UILabel!
-    
-    
-    
-    
     
 //    @IBOutlet weak var lblCarPlateNumber: UILabel!
     
     @IBOutlet weak var imgDriver: UIImageView!
     @IBOutlet weak var lblDriverName: UILabel!
+    @IBOutlet weak var DriverRating: FloatRatingView!
     
-    @IBOutlet weak var viewCarAndDriverInfo: UIView!
-    
-    @IBOutlet weak var btnOk: UIButton!
+//    @IBOutlet weak var viewCarAndDriverInfo: UIView!
+//
+//    @IBOutlet weak var btnOk: UIButton!
     
     //-------------------------------------------------------------
     // MARK: - Actions
@@ -107,6 +107,34 @@ class DriverInfoViewController: UIViewController {
     }
     
     
+    @IBAction func btnSMS(_ sender: Any) {
+        
+        let contactNumber = strPassengerMobileNumber
+        
+        if contactNumber == "" {
+            
+            UtilityClass.setCustomAlert(title: "\(appName)", message: "Contact number is not available") { (index, title) in
+            }
+        }
+        else {
+            if (MFMessageComposeViewController.canSendText()) {
+                let controller = MFMessageComposeViewController()
+                controller.body = ""
+                controller.recipients = [contactNumber]
+                controller.messageComposeDelegate = self
+                self.present(controller, animated: true, completion: nil)
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        //... handle sms screen actions
+        self.dismiss(animated: true, completion: nil)
+    }
     
     
     //-------------------------------------------------------------
@@ -124,16 +152,22 @@ class DriverInfoViewController: UIViewController {
         if let driverImg = strDriverImage as? String {
             imgDriver.sd_setShowActivityIndicatorView(true)
             imgDriver.sd_setIndicatorStyle(.gray)
-            imgDriver.sd_setImage(with: URL(string: driverImg), completed: nil)
+            imgDriver.sd_setImage(with:  URL(string: driverImg), placeholderImage: UIImage(named: "iconPlaceholderUser")!, options: [], completed: nil)
+            
+//            imgDriver.sd_setImage(with: URL(string: driverImg), completed: nil)
         }
+        
+        print("driver rate \(#function) \(DriverRate)")
+        self.DriverRating.rating = (DriverRate as NSString).floatValue
         
 //        lblCareName.text = strCareName
 //        lblCarPlateNumber.text = strCarPlateNumber
        
-        lblPickupLocation.text = strPickupLocation
-        lblDropoffLocation.text = strDropoffLocation
+//        lblPickupLocation.text = strPickupLocation
+//        lblDropoffLocation.text = strDropoffLocation
         lblDriverName.text = strDriverName
-        lblCarDetail.text = "\(strCareName) - \(strCarPlateNumber) - \(strCarClass)"
+        lblCarDetail.text = strCarInfo
+//        "\(strCareName) - \(strCarPlateNumber) - \(strCarClass)"
        
 //        if strCarClass.count == 1 {
 //            lblCarClassModel.text = carClass(strClass: strCarClass)

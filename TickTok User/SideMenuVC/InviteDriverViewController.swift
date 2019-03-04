@@ -10,13 +10,19 @@ import UIKit
 import MessageUI
 import Social
 import SDWebImage
+import FBSDKCoreKit
+import FBSDKShareKit
 
-class InviteDriverViewController: ParentViewController, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
+
+
+class InviteDriverViewController: ParentViewController, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, FBSDKSharingDelegate {
 
     
     var strReferralCode = String()
     var strReferralMoney = String()
     
+    @IBOutlet weak var FBView: UIView!
+    @IBOutlet weak var lblGreeting: UILabel!
     
     
     //-------------------------------------------------------------
@@ -33,8 +39,9 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
 
+        self.lblGreeting.text = "Invite your friends to ride with your code.\nThanks for your support."
+        
         let profileData = SingletonClass.sharedInstance.dictProfile
 
         if let ReferralCode = profileData.object(forKey: "ReferralCode") as? String {
@@ -51,7 +58,8 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
             
             imgProfilePick.sd_setShowActivityIndicatorView(true)
             imgProfilePick.sd_setIndicatorStyle(.gray)
-            imgProfilePick.sd_setImage(with: URL(string: imgProfile), completed: nil)
+            imgProfilePick.sd_setImage(with: URL(string: imgProfile.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") , placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
+//            sd_setImage(with: URL(string: imgProfile), completed: nil)
         }
 
        
@@ -62,7 +70,6 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         
         imgProfilePick.layer.cornerRadius = imgProfilePick.frame.width / 2
         imgProfilePick.layer.masksToBounds = true
-        
         
         
         // Do any additional setup after loading the view.
@@ -94,10 +101,31 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     @IBAction func btnFacebook(_ sender: UIButton) {
         
         let text = codeToSend()
-        let textShare = [ text ]
-        let activityViewController = UIActivityViewController(activityItems: textShare , applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+//
+        
+//        fbsdkshare
+//        let ContentForFacebook:FBSDKShareLinkContent = FBSDKShareLinkContent()
+//        ContentForFacebook. = URL(string: text)
+
+        let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
+        
+        content.contentURL = URL(string: "https://www.google.com")
+//        content.con  = "Content Title"
+//        content.contentDescription = "This is the description"
+        
+        FBSDKShareDialog.show(from: self, with: content, delegate: self)
+//        let FbDialog:FBSDKShareDialog = FBSDKShareDialog()
+//        FbDialog()
+        
+//        self.present(ContentForFacebook, animated: true, completion: nil)
+        
+        
+        
+        //        let textShare = [ text ]
+//
+        //        let activityViewController = UIActivityViewController(activityItems: textShare , applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = self.view
+//        self.present(activityViewController, animated: true, completion: nil)
 
 //        var fbController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
 //
@@ -113,7 +141,7 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
 //                    print("Cancelled.")
 //                }
 //            }
-////            fbController?.add(UIImage(named: "1.jpg") ?? UIImage())
+//            fbController?.add(UIImage(named: "1.jpg") ?? UIImage())
 //            fbController?.setInitialText(codeToSend())
 ////            fbController.add(URL(string: "URLString")!)
 //            fbController?.completionHandler = completionHandler
@@ -281,7 +309,7 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         switch result {
         case MFMailComposeResult.cancelled:
             print("Mail cancelled")
-            UtilityClass.setCustomAlert(title: "Error", message: "Mail cancelled") { (index, title) in
+            UtilityClass.setCustomAlert(title: alertTitle, message: "Mail cancelled") { (index, title) in
             }
 
         case MFMailComposeResult.saved:
@@ -297,11 +325,11 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         case MFMailComposeResult.failed:
             print("Mail sent failure: \(String(describing: error?.localizedDescription))")
       
-            UtilityClass.setCustomAlert(title: "Error", message: "Mail sent failure: \(String(describing: error?.localizedDescription))") { (index, title) in
+            UtilityClass.setCustomAlert(title: alertTitle, message: "Mail sent failure: \(String(describing: error?.localizedDescription))") { (index, title) in
             }
         default:
             
-             UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
+             UtilityClass.setCustomAlert(title: alertTitle, message: "Something went wrong") { (index, title) in
              }
             break
         }
@@ -310,9 +338,8 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     
     @IBAction func btnMoreOption(_ sender: Any) {
         
-        let messageBody = "\n Please download from below link \n \n"// \(urlForMail)\\url backend mle
-        
-        
+        let messageBody = codeToSend()
+//        "\n Please download from below link \n \n"// \(urlForMail)\\url backend mle
         let activityViewController = UIActivityViewController(activityItems: [messageBody], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         
@@ -329,7 +356,7 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         case MessageComposeResult.cancelled:
             print("Mail cancelled")
 
-            UtilityClass.setCustomAlert(title: "Error", message: "Mail cancelled") { (index, title) in
+            UtilityClass.setCustomAlert(title: alertTitle, message: "Mail cancelled") { (index, title) in
             }
         case MessageComposeResult.sent:
             print("Mail sent")
@@ -339,11 +366,11 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         case MessageComposeResult.failed:
             print("Mail sent failure")
 
-            UtilityClass.setCustomAlert(title: "Error", message: "Mail sent failure") { (index, title) in
+            UtilityClass.setCustomAlert(title: alertTitle, message: "Mail sent failure") { (index, title) in
             }
         default:
 
-             UtilityClass.setCustomAlert(title: "Error", message: "Something went wrong") { (index, title) in
+             UtilityClass.setCustomAlert(title: alertTitle, message: "Something went wrong") { (index, title) in
              }
             break
         }
@@ -358,18 +385,32 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     
     func codeToSend() -> String
     {
-        let profile = SingletonClass.sharedInstance.dictProfile
-        let driverFullName = profile.object(forKey: "Fullname") as! String
-        let messageBody = "\(driverFullName) has invited you to become a \(appName) user"
-        let androidLink = "Android click \("")"
- 
-        let iosLink = "iOS click \("https://goo.gl/L6XLqx")"
+//        let profile = SingletonClass.sharedInstance.dictProfile
+//        let driverFullName = profile.object(forKey: "Fullname") as! String
+//        let messageBody = "\(driverFullName) has invited you to become a \(appName) user"
+//        let androidLink = "Android click \("")"
+//
+//        let iosLink = "iOS click \("https://goo.gl/L6XLqx")"
+//
+//        let yourInviteCode = "Your invite code is: \(strReferralCode)"
+//        let urlOfTick = "http://www.pickngo.lk/ https://www.facebook.com/PickNGoSrilanka/"
         
-        let yourInviteCode = "Your invite code is: \(strReferralCode)"
-        let urlOfTick = "http://www.pickngo.lk/ https://www.facebook.com/PickNGoSrilanka/"
-        
-        let urlString = "\(messageBody) \n \(androidLink) \n \(iosLink) \n \(yourInviteCode) \n \(urlOfTick)" as String
+        let urlString = "EZYGO \n Invite Code: \n \(strReferralCode)"
+//            "\(messageBody) \n \(androidLink) \n \(iosLink) \n \(yourInviteCode) \n \(urlOfTick)" as String
         return urlString
+    }
+    
+    
+    func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
+        print("FailwithError")
+    }
+    
+    func sharerDidCancel(_ sharer: FBSDKSharing!) {
+        print("did Cancel")
+    }
+    
+    func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
+        print(results)
     }
     
 }

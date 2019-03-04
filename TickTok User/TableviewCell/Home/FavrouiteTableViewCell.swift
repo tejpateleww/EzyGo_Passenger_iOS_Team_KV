@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol AddFavouriteLocationDelegate {
+    func AddFavouriteLocation(CustomCell:UITableViewCell)
+}
+
 class FavrouiteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var imgLogo: UIImageView!
     
     @IBOutlet weak var lblFavName: UILabel!
     
+    var Delegate:AddFavouriteLocationDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,5 +30,12 @@ class FavrouiteTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    
+    @IBAction func btnFavourite(_ sender: Any) {
+        
+        self.Delegate.AddFavouriteLocation(CustomCell: self)
+        
+    }
+    
 }

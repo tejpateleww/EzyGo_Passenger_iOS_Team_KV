@@ -16,17 +16,32 @@ import SideMenuController
 import SocketIO
 import UserNotifications
 import Firebase
+import FBSDKLoginKit
+import FacebookLogin
+import GoogleSignIn
 
 
+let googlApiKey = "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w"
 
-let googlApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
+//"AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
+
+//"AIzaSyCrTmm5JjgEWuauH42rGCVmJotYfes2Q-0"
 //"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
-let googlPlacesApiKey = "AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
+let googlPlacesApiKey = "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w" // AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg
+//"AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
 //"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
+
+let Google_Client_ID = "373665281960-g0j2euvsqe4b130bjt7o10631orq71h3.apps.googleusercontent.com"
 
 //AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSignInDelegate {
+    
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        
+    }
+    
 
     var window: UIWindow?
 
@@ -34,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // this is used only to stop all socket setup again while socket reconnect 
+        UserDefaults.standard.set(false, forKey: kIsSocketEmited)
+        UserDefaults.standard.synchronize()
+
         
         // Firebase
         FirebaseApp.configure()
@@ -43,8 +63,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         
         GMSServices.provideAPIKey(googlApiKey)
         GMSPlacesClient.provideAPIKey(googlApiKey)
-        
-        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        GIDSignIn.sharedInstance().clientID = Google_Client_ID
+        GIDSignIn.sharedInstance().delegate = self
         Fabric.with([Crashlytics.self])
         
         googleAnalyticsTracking()
@@ -122,11 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
          //            (window?.rootViewController as? UITabBarController)?.selectedIndex = 0
          }
          */
-        
-        
-        
-        
-        return true
+       return true
     }
     
     func googleAnalyticsTracking() {
@@ -190,6 +207,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let isFBOpenUrl = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation]) as! Bool
+//            FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
+        
+        let isGoogleOpenUrl = GIDSignIn.sharedInstance().handle(url as URL?,
+                                                                sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                                annotation: options[UIApplicationOpenURLOptionsKey.annotation]) as! Bool
+
+        if isFBOpenUrl
+        {
+            return true
+            
+        }
+        
+        if isGoogleOpenUrl
+        {
+            return true
+        }
+        
+        return false
+    }
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
@@ -331,6 +370,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate {
         print("FCM token: \(token ?? "")")
         
     }
+    
+    //-------------------------------------------------------------
+    // MARK: - Play Sound
+    //-------------------------------------------------------------
+    
+    var audioPlayer:AVAudioPlayer!
+    
+    func playSound(fileName: String, extensionType: String) {
+        
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: extensionType) else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            audioPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+            
+            audioPlayer.numberOfLoops = 1
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+            
+        }
+        catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    // MARK:- Login & Logout Methods
+    
+    func GoToHome() {
+        let storyborad = UIStoryboard(name: "Main", bundle: nil)
+        let CustomSideMenu = storyborad.instantiateViewController(withIdentifier: "CustomSideMenuViewController") as! CustomSideMenuViewController
+        let NavHomeVC = UINavigationController(rootViewController: CustomSideMenu)
+        NavHomeVC.isNavigationBarHidden = true
+        UIApplication.shared.keyWindow?.rootViewController = NavHomeVC
+    }
+    
+    func GoToLogin() {
+        
+        let storyborad = UIStoryboard(name: "Login", bundle: nil)
+        let Login = storyborad.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        //        let customNavigation = UINavigationController(rootViewController: Login)
+        let NavHomeVC = UINavigationController(rootViewController: Login)
+        NavHomeVC.isNavigationBarHidden = true
+        UIApplication.shared.keyWindow?.rootViewController = NavHomeVC
+        
+    }
+    
+    func GoToLogout() {
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.removeObject(forKey: "Passcode")
+        SingletonClass.sharedInstance.setPasscode = ""
+        SingletonClass.sharedInstance.isUserLoggedIN = false
+        UserDefaults.standard.removeObject(forKey: "isPasscodeON")
+        UserDefaults.standard.removeObject(forKey: "profileData")
+        UserDefaults.standard.set(false, forKey: kIsSocketEmited)
+        UserDefaults.standard.synchronize()
+        
+        NotificationCenter.default.post(name: NotificationSocketOff, object: nil)
+        
+        SingletonClass.sharedInstance.isPasscodeON = false
+        self.GoToLogin()
+    }
+    
     
     //-------------------------------------------------------------
     // MARK: - Actions On Push Notifications

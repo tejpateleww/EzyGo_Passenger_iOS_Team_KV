@@ -9,6 +9,7 @@
 import UIKit
 import ACFloatingTextfield_Swift
 import TransitionButton
+import M13Checkbox
 
 class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate {
   
@@ -16,12 +17,10 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     var aryage = [String]()
     var strDateOfBirth = String()
     var isProfileSelected = false
-
     var agePicker = UIPickerView()
     var pickerView = UIPickerView()
-    
-    
     var radioButtonsController: AKRadioButtonsController!
+   
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -39,10 +38,20 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     @IBOutlet weak var txtAgeGroup: ACFloatingTextfield!//binal
     @IBOutlet weak var imgProfile: UIImageView!
 
+    @IBOutlet weak var viewCheck: M13Checkbox!
+    
+    @IBOutlet weak var txtPostcode: UITextField!
+    
+    
     var strPhoneNumber = String()
     var strEmail = String()
     var strPassword = String()
+    var isSocialLogin:Bool = false
+    var SocialId = String()
+    var SocialType = String()
     var gender = String()
+    
+    var iscameFromCamera:Bool = false
     
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -52,7 +61,11 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         super.viewDidLoad()
         agePicker.delegate = self
         agePicker.dataSource = self
-          txtAgeGroup.inputView = agePicker
+        txtAgeGroup.inputView = agePicker
+        self.viewCheck.tintColor = themeYellowColor
+        self.viewCheck.checkState = .unchecked
+        self.viewCheck.stateChangeAnimation = .fill
+        self.viewCheck.boxType = .square
         // Do any additional setup after loading the view.
         
         self.radioButtonsController = AKRadioButtonsController(radioButtons: self.radioButtons)
@@ -64,7 +77,9 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         //class should implement AKRadioButtonsControllerDelegate
 //        txtFirstName.text = "rahul"
 //        txtLastName.text = "patel"
-    
+      
+        
+        
     
         aryage = [ "18 to 25", "26 to 35", "35 to 55", "55+"]
     
@@ -72,8 +87,8 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         UtilityClass.setCornerRadiusTextField(textField: txtInviteCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtLastName, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtAgeGroup, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
-//
-//        UtilityClass.setCornerRadiusTextField(textField: txtPostCode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+
+        UtilityClass.setCornerRadiusTextField(textField: txtPostcode, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
 //
         UtilityClass.setCornerRadiusTextField(textField: txtAddress, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         
@@ -82,6 +97,24 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
           UtilityClass.setCornerRadiusButton(button: btnFemale, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.navigationController?.viewControllers.last != nil && self.iscameFromCamera == false {
+            let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
+            if registrationContainerVC.isFromSocialLogin {
+                self.txtFirstName.text = registrationContainerVC.strFirstName
+                self.txtLastName.text = registrationContainerVC.strLastName
+                self.isSocialLogin = registrationContainerVC.isFromSocialLogin
+                self.SocialId = registrationContainerVC.strSocialID
+                self.SocialType = registrationContainerVC.SocialType
+            }
+        }
+        if self.iscameFromCamera == true {
+            self.iscameFromCamera = false
+        }
+        
+    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -135,6 +168,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         
         // picker.stopVideoCapture()
         picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        self.iscameFromCamera = true
         present(picker, animated: true, completion: nil)
     }
     
@@ -147,7 +181,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         picker.allowsEditing = false
         picker.sourceType = .camera
         picker.cameraCaptureMode = .photo
-        
+        self.iscameFromCamera = true
         present(picker, animated: true, completion: nil)
     }
     
@@ -216,25 +250,42 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
     func checkValidation() -> Bool
     {
-        if (txtFirstName.text?.count == 0)
+        if (isProfileSelected == false)//binal
+        {
+            
+            UtilityClass.setCustomAlert(title: "", message: "Please choose profile picture") { (index, title) in
+            }
+            return false
+        } else if (txtFirstName.text?.count == 0)
         {
 
-            UtilityClass.setCustomAlert(title: "", message: "Enter First Name") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter first name.") { (index, title) in
             }
             return false
         }
         else if (txtLastName.text?.count == 0)
         {
             
-            UtilityClass.setCustomAlert(title: "", message: "Enter Last Name") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter last name.") { (index, title) in
             }
             return false
         }
-            
-            else if (isProfileSelected == false)//binal
+        else if (txtAddress.text?.count == 0)
         {
             
-            UtilityClass.setCustomAlert(title: "", message: "Please choose profile picture") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter address.") { (index, title) in
+            }
+            return false
+        }
+        else if (txtPostcode.text?.count == 0)
+        {
+            
+            UtilityClass.setCustomAlert(title: "", message: "Please enter post code.") { (index, title) in
+            }
+            return false
+        }
+        else if (self.lblAgeGroup.text == "Select Age Group") {
+            UtilityClass.setCustomAlert(title: "", message: "Please choose age group") { (index, title) in
             }
             return false
         }
@@ -258,6 +309,11 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             }
             return false
         }
+        else if self.viewCheck.checkState == .unchecked {
+            UtilityClass.setCustomAlert(title: "", message: "Please check Privacy Policy.") { (index, title) in
+            }
+            return false
+        }
         
         return true
     }
@@ -265,10 +321,37 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
     //MARK: - IBActions
     
+    @IBAction func viewCheck(_ sender: M13Checkbox) {
+        
+        
+    }
+    
+    
     @IBAction func btnChooseImage(_ sender: Any) {
         
         self.TapToProfilePicture()
     }
+    
+    @IBAction func btnTermsOfUser(_ sender: Any) {
+        let MainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let next = MainStoryboard.instantiateViewController(withIdentifier: "WebPageViewController") as! WebPageViewController
+        next.HeaderTitle = "Terms Of Use"
+        next.URLString = WebserviceURLs.kTermOfUse_PrivacyPolicyURL
+        self.navigationController?.pushViewController(next, animated: true)
+        
+        
+    }
+    
+    @IBAction func btnPrivacyPolicy(_ sender: Any) {
+        let MainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let next = MainStoryboard.instantiateViewController(withIdentifier: "WebPageViewController") as! WebPageViewController
+        next.HeaderTitle = "Privacy Policy"
+        next.URLString = WebserviceURLs.kTermOfUse_PrivacyPolicyURL
+        self.navigationController?.pushViewController(next, animated: true)
+        
+        
+    }
+    
     
     @IBAction func btnSignUp(_ sender: Any) {
         
@@ -276,7 +359,16 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         {
             let registerVC = (self.navigationController?.viewControllers.last as! RegistrationContainerViewController).childViewControllers[0] as! RegisterViewController
             
-            strPhoneNumber = lblAgeGroup.text ?? "" + (registerVC.txtPhoneNumber.text)!   
+            var MobileNumber:String = ""
+            
+            if let CountryCode:String = registerVC.txtContoryNum.text, let Phone:String = registerVC.txtPhoneNumber.text{
+                if CountryCode != "AU +61" {
+                    MobileNumber = "61\(Phone)"
+                } else if CountryCode != "NZ +64" {
+                    MobileNumber = "64\(Phone)"
+                }
+            }
+            strPhoneNumber = MobileNumber
             strEmail = (registerVC.txtEmail.text)!
             strPassword = (registerVC.txtPassword.text)!
             
@@ -291,7 +383,12 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     
     func webServiceCallForRegister()
     {
-
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         let dictParams = NSMutableDictionary()
         dictParams.setObject(txtFirstName.text!, forKey: "Firstname" as NSCopying)
         dictParams.setObject(txtLastName.text!, forKey: "Lastname" as NSCopying)
@@ -305,19 +402,23 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         dictParams.setObject("12376152367", forKey: "Lat" as NSCopying)
         dictParams.setObject(lblAgeGroup.text!, forKey: "AgeGroup" as NSCopying)
         dictParams.setObject("2348273489", forKey: "Lng" as NSCopying)
+        
+        if self.isSocialLogin == true {
+            dictParams.setObject(SocialId, forKey: "SocialId" as NSCopying)
+            dictParams.setObject(SocialType, forKey: "SocialType" as NSCopying)
+        }
+       
         //dictParams.setObject(strDateOfBirth, forKey: "DOB" as NSCopying)//binal
         dictParams.setObject(txtAddress.text!, forKey: "Address" as NSCopying)
         
-        if SingletonClass.sharedInstance.otpCode != nil {
-        dictParams.setObject(SingletonClass.sharedInstance.otpCode, forKey: "ZipCode" as NSCopying)
-        }
+//        if SingletonClass.sharedInstance.otpCode != nil {
+        dictParams.setObject(txtPostcode.text!, forKey: "ZipCode" as NSCopying)
+//        }
    
         let imgtemp = imgProfile.image!
-        webserviceForRegistrationForUser(dictParams, image1: imgProfile.image!) { (result, status) in
-            
+        webserviceForRegistrationForUser(dictParams, image1: imgtemp) { (result, status) in
             
             print(result)
-            
             if ((result as! NSDictionary).object(forKey: "status") as! Int == 1)
             {
                 
@@ -328,7 +429,14 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
                 UserDefaults.standard.set(SingletonClass.sharedInstance.arrCarLists, forKey: "carLists")
                 
                 UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
-                self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
+                // Bhautik
+                UtilityClass.getAppDelegate().GoToHome()
+//                self.performSegue(withIdentifier: "segueToHomeVC", sender: nil)
+//                let MainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+//                let CustomSideMenu = MainStoryBoard.instantiateViewController(withIdentifier: "CustomSideMenuViewController") as! CustomSideMenuViewController
+//                self.navigationController?.pushViewController(CustomSideMenu, animated: true)
+
+                
 //                DispatchQueue.main.async(execute: { () -> Void in
 //
 //                    self.btnSignUp.stopAnimation(animationStyle: .normal, completion: {
@@ -339,7 +447,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
             }
             else
             {
-                UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                UtilityClass.setCustomAlert(title: alertTitle, message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                 }
 //                self.btnSignUp.stopAnimation(animationStyle: .shake, revertAfterDelay: 0, completion: {
 //
@@ -351,23 +459,23 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
     }
     
     
-    @IBOutlet weak var btnPrivacypolicy: UIButton!
-    
-    @IBAction func btnPrivacyPolicy(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
-        btnPrivacypolicy.isSelected = sender.isSelected
-        if sender.isSelected == true
-        {
-            self.btnPrivacypolicy.setImage(UIImage(named: "iConStarSelected"), for: .normal)
-        
-        }
-        else
-        {
-            self.btnPrivacypolicy.setImage(UIImage(named: "iconMasterCardLogo"), for: .normal)
-        }
-
-    }
+//    @IBOutlet weak var btnPrivacypolicy: UIButton!
+//
+//    @IBAction func btnPrivacyPolicy(_ sender: UIButton) {
+//
+//        sender.isSelected = !sender.isSelected
+//        btnPrivacypolicy.isSelected = sender.isSelected
+//        if sender.isSelected == true
+//        {
+//            self.btnPrivacypolicy.setImage(UIImage(named: "iConStarSelected"), for: .normal)
+//
+//        }
+//        else
+//        {
+//            self.btnPrivacypolicy.setImage(UIImage(named: "iconMasterCardLogo"), for: .normal)
+//        }
+//
+//    }
     
 
     /*

@@ -9,9 +9,10 @@
 import UIKit
 import SDWebImage
 
-class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate, ActionDelegate {
 
-    var aryData = NSArray()
+    @IBOutlet weak var lblNoData: UILabel!
+    var aryData:[[String:Any]] = []
     
     var strPickupLat = String()
     var strPickupLng = String()
@@ -21,6 +22,7 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var PickupAddress = String()
     var DropoffAddress = String()
+    
     
     var expandedCellPaths = Set<IndexPath>()
     
@@ -42,8 +44,14 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.tableView.addSubview(self.refreshControl)
         
         // Register to receive notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadDataOfTableView), name: NSNotification.Name(rawValue: NotificationCenterName.keyForOnGoing), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationCenterName.keyForOnGoing), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.webserviceOfBookingHistory), name: NSNotification.Name(rawValue: NotificationCenterName.keyForOnGoing), object: nil)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,17 +59,20 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func reloadDataOfTableView() {
+    func reloadDataOfTableView() {
         
-        self.aryData = SingletonClass.sharedInstance.aryOnGoing
+//        self.aryData = SingletonClass.sharedInstance.aryOnGoing
+        if self.aryData.count > 0 {
+            self.lblNoData.isHidden = true
+        } else {
+            self.lblNoData.isHidden = false
+        }
+        
         self.tableView.reloadData()
-        
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        
-        tableView.reloadData()
-        refreshControl.endRefreshing()
+       self.webserviceOfBookingHistory()
     }
     
     //-------------------------------------------------------------
@@ -82,82 +93,168 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OnGoingTableViewCell") as! OnGoingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PastBooingTableViewCell") as! PastBooingTableViewCell
         
         if aryData.count > 0 {
             
             cell.selectionStyle = .none
-            if let name = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DriverName") as? String {
+            
+            let currentData = aryData[indexPath.row]
+            if let name = currentData["DriverName"] as? String {
                 
                 if name == "" {
-                    cell.lblDriverName.text = "NULL"
+                    cell.lblDriverName.text = "Driver Name:- no driver"
                 }
                 else {
-                    cell.lblDriverName.text = name
+                    cell.lblDriverName.text = "Driver Name:- \(name)"
+                }
+            }
+            
+            if let BookingID:String = currentData["Id"] as? String {
+                cell.lblBookingID.text = "Booking ID - \(BookingID)"
+            }
+            
+            if let DateandTime:String = currentData[ "CreatedDate"] as? String {
+                let createdDate = DateandTime.components(separatedBy: " ")
+                cell.lblTripDate.text = createdDate[0]
+            }
+            
+            if let PickupLocation:String = currentData[ "PickupLocation"] as? String {
+                cell.lblPickUpLocation.text = PickupLocation
+            }
+            
+            if let DropOffLocation:String = currentData[ "DropoffLocation"] as? String {
+                cell.lblDropLocation.text = DropOffLocation
+            }
+            
+            if let PickupTime:String = currentData[ "PickupTime"] as? String {
+                cell.lblPickUpTime.text = (PickupTime != "") ? UtilityClass.setTimeStampToDate(timeStamp: PickupTime, timeFormate: "dd-MM-yyyy HH:mm:ss") : "-"
+            }
+            
+            if let DropOffTime:String = currentData[ "DropTime"] as? String {
+                cell.lblDropOffTime.text = (DropOffTime != "") ? UtilityClass.setTimeStampToDate(timeStamp: DropOffTime, timeFormate: "dd-MM-yyyy HH:mm:ss") : "-"
+            }
+            
+            if let BookingCharge:String = currentData[ "BookingCharge"] as? String {
+                cell.lblBookingFee.text = BookingCharge != "" ? "$ \(String(format: "%.2f", Double(BookingCharge)!))" : "$ 0.00"
+            } else {
+                cell.lblBookingFee.text = "$ 0.00"
+            }
+            
+            if let imgMap = currentData[ "MapUrl"] as? String {
+                cell.MapImage.sd_setShowActivityIndicatorView(true)
+                cell.MapImage.sd_setIndicatorStyle(.gray)
+                cell.MapImage.sd_setImage(with: URL(string: imgMap.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), completed: nil)
+            }
+            
+            if let TripFare:String = currentData[ "TripFare"] as? String {
+                cell.lblBaseFare.text = TripFare != "" ? "$ \(String(format: "%.2f", Double(TripFare)!))" : "$ 0.00"
+            } else {
+                cell.lblBaseFare.text = "$ 0.00"
+            }
+            
+            if let DistanceFare:String = currentData[ "DistanceFare"] as? String {
+                cell.lblMileageCost.text = DistanceFare != "" ? "$ \(String(format: "%.2f", Double(DistanceFare)!))" : "$ 0.00"
+            } else {
+                cell.lblMileageCost.text = "$ 0.00"
+            }
+            
+            if let WaitingTimeCost:String = currentData[ "WaitingTimeCost"] as? String {
+                cell.lblTimeCost.text = WaitingTimeCost != "" ? "$ \(String(format: "%.2f", Double(WaitingTimeCost)!))" : "$ 0.00"
+            } else {
+                cell.lblTimeCost.text = "$ 0.00"
+            }
+            
+            if let SubTotal:String = currentData[ "SubTotal"] as? String {
+                cell.lblSubTotal.text = SubTotal != "" ? "$ \(String(format: "%.2f", Double(SubTotal)!))" : "$ 0.00"
+            } else {
+                cell.lblSubTotal.text = "$ 0.00"
+            }
+            
+            if let AirportPickup:String = currentData[ "AirportPickUpCharge"] as? String {
+                cell.lblAirportPickUpTime.text = AirportPickup != "" ? "$ \(String(format: "%.2f", Double(AirportPickup)!))" : "$ 0.00"
+            } else {
+                cell.lblAirportPickUpTime.text = "$ 0.00"
+            }
+            
+            if let AirportDropOff:String = currentData[ "AirportDropOffCharge"] as? String {
+                cell.lblAirportDropOffTime.text = AirportDropOff != "" ? "$ \(String(format: "%.2f", Double(AirportDropOff)!))" : "$ 0.00"
+            } else {
+                cell.lblAirportDropOffTime.text = "$ 0.00"
+            }
+            
+            if let SoilDamageCharge:String = currentData[ "SoilDamageCharge"] as? String {
+                cell.lblSoiling_Damage.text = SoilDamageCharge != "" ? "$ \(String(format: "%.2f", Double(SoilDamageCharge)!))" : "$ 0.00"
+            } else {
+                cell.lblSoiling_Damage.text = ""
+            }
+            
+            if let Discount:String = currentData[ "Discount"] as? String {
+                cell.lblPromoCreditUsed.text = Discount != "" ? "$ \(String(format: "%.2f", Double(Discount)!))" : "$ 0.00"
+            } else {
+                cell.lblPromoCreditUsed.text = "$ 0.00"
+            }
+            
+            if let TotalPaid:String = currentData[ "GrandTotal"] as? String {
+                cell.lblGrandTotal.text = TotalPaid != "" ? "$ \(String(format: "%.2f", Double(TotalPaid)!))" : "$ 0.00"
+            } else {
+                cell.lblGrandTotal.text = "$ 0.00"
+            }
+            
+            if let PaymentType:String = currentData[ "PaymentType"] as? String {
+                cell.lblPaymentDetail.text = "Payment By \(PaymentType) Received With Thanks"
+            }
+            
+            if let PickupDateTime:String = currentData[ "PickupDateTime"] as? String {
+                if PickupDateTime != "" {
+                    //                    cell.stackViewPickupTime.isHidden = false
+                    cell.lblPickUpTime.text = PickupDateTime
+                } else {
+                    //                    cell.stackViewPickupTime.isHidden = true
+                }
+            } else {
+                //                cell.stackViewPickupTime.isHidden = true
+            }
+            //
+            if let Note:String = currentData[ "Notes"] as? String {
+                if Note != "" {
+                    cell.stackViewNote.isHidden = false
+                    cell.lblNote.text = Note
+                } else {
+                    cell.stackViewNote.isHidden = true
+                }
+            } else {
+                cell.stackViewNote.isHidden = true
+            }
+
+            
+            if let tripDuration:String = currentData[ "TripDuration"] as? String {
+                if tripDuration != "" {
+                    let time = UtilityClass.secondsToHoursMinutesSeconds(seconds: Int(tripDuration)!)
+                    cell.lblTripDuration.text =  String(format: "%02d:%02d:%02d", time.0,time.1,time.2)
+                } else {
+                    cell.lblTripDuration.text = "-"
                 }
                 
             }
-            else {
-                cell.lblDriverName.text = "NULL"
+            
+            if let tripDistance:String = currentData[ "TripDistance"] as? String {
+                cell.lblDistance.text = "\(tripDistance)km"
             }
             
-            let formattedString = NSMutableAttributedString()
-            formattedString
-                .normal("Booking Id: ")
-                .bold("\(String(describing: (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Id")!))", 14)
+            cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)
             
-           
-            cell.lblBookingID.attributedText = formattedString
-            cell.lblDateAndTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "CreatedDate") as? String
-            
-            cell.lblPickupAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String // PickupLocation
-            cell.lblDropoffAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String  // DropoffLocation
-            
-            if let pickupTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String {
-                if pickupTime == "" {
-                    cell.lblPickupTime.text = "Date and Time not available"
-                }
-                else {
-                    cell.lblPickupTime.text = setTimeStampToDate(timeStamp: pickupTime)
-                }
-            }
-            
-            if let DropoffTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String {
-                if DropoffTime == "" {
-                    cell.lblDropoffTime.text = "Date and Time not available"
-                }
-                else {
-                    cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
-                }
-            }
-            
-//            cell.lblPickupTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String
-//            cell.lblDropoffTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String
-            cell.lblVehicleType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Model") as? String
-            cell.lblDistanceTravelled.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String
-            cell.lblTripFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String
-            cell.lblNightFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String
-            cell.lblTollFee.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
-            cell.lblWaitingCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
-            cell.lblBookingCharge.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
-            cell.lblTax.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
-            cell.lblDiscount.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
-            cell.lblPaymentType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PaymentType") as? String
-            cell.lblTotalCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "GrandTotal") as? String
-            
-            cell.btnTrackYourTrip.tag = indexPath.row
-            cell.btnTrackYourTrip.addTarget(self, action: #selector(self.trackYourTrip(sender:)), for: .touchUpInside)
-            
-             cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)
-        
+            cell.Delegate = self
         }
+        
+
  
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let cell = tableView.cellForRow(at: indexPath) as? OnGoingTableViewCell {
+        if let cell = tableView.cellForRow(at: indexPath) as? PastBooingTableViewCell {
             cell.viewDetails.isHidden = !cell.viewDetails.isHidden
             if cell.viewDetails.isHidden {
                 expandedCellPaths.remove(indexPath)
@@ -177,9 +274,9 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
     @objc func trackYourTrip(sender: UIButton) {
         
-        let currentData = aryData.object(at: sender.tag)
+        let currentData = aryData[sender.tag]
         
-        let id:String = (currentData as! NSDictionary).object(forKey: "Id")! as! String
+        let id:String = currentData["Id"] as! String
         
         RunningTripTrack(param: id)
         
@@ -187,7 +284,12 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     func RunningTripTrack(param: String) {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            self.refreshControl.endRefreshing()
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         webserviceForTrackRunningTrip(param as AnyObject) { (result, status) in
             
@@ -222,6 +324,58 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
+    func DelegateWithCell(CustomCell: UITableViewCell) {
+        let SingleIndexPath = self.tableView.indexPath(for: CustomCell)
+        let currentData = aryData[SingleIndexPath!.row]
+        
+        let id:String = currentData ["Id"] as! String
+        
+        RunningTripTrack(param: id)
+        
+    }
+    
+    @objc func webserviceOfBookingHistory()
+    {
+        //        let activityData = ActivityData()
+        //        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        //
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        webserviceForOngoingBookingHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
+            
+            if (status) {
+                self.aryData = (result as! [String:Any])["history"] as! [[String:Any]]
+                print(self.aryData)
+              
+                self.reloadDataOfTableView()
+                self.refreshControl.endRefreshing()
+                
+            }
+            else {
+                
+                print(result)
+                
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+    }
+    
     
     //-------------------------------------------------------------
     // MARK: - Custom Methods

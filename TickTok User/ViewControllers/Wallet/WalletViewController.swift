@@ -49,8 +49,12 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         
 //         bPaySelected()
-        
-        self.lblCurrentBalance.text = "Balance: \(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
+        var BalanceString = String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance)
+        if (SingletonClass.sharedInstance.strCurrentBalance < 0) {
+            BalanceString.remove(at: BalanceString.startIndex)
+        }
+        self.lblCurrentBalance.text =  (SingletonClass.sharedInstance.strCurrentBalance < 0) ? "-\(currencySign)\(BalanceString)" : "\(currencySign)\(BalanceString)"
+//        "\(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
         
     }
     
@@ -136,14 +140,15 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func btnCards(_ sender: UIButton) {
         
-        if SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0 {
-            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
-            self.navigationController?.pushViewController(next, animated: true)
-        }
-        else {
+//        if SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0 {
+//            let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletAddCardsViewController") as! WalletAddCardsViewController
+//            self.navigationController?.pushViewController(next, animated: true)
+//        }
+//        else {
             let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletCardsVC") as! WalletCardsVC
+            next.isNextPageAddCard = true
             self.navigationController?.pushViewController(next, animated: true)
-        }
+//        }
     }
     
     @IBAction func btnBpay(_ sender: UIButton) {
@@ -212,17 +217,33 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
     //-------------------------------------------------------------
     
     func webserviceOfTransactionHistory() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForTransactionHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             
             if (status) {
                 print(result)
                 
                 SingletonClass.sharedInstance.strCurrentBalance = ((result as! NSDictionary).object(forKey: "walletBalance") as AnyObject).doubleValue
-                self.lblCurrentBalance.text = "Balance: \(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
+//                self.lblCurrentBalance.text = "\(currencySign)\(String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance))"
+                var BalanceString = String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance)
+                if (SingletonClass.sharedInstance.strCurrentBalance < 0) {
+                    BalanceString.remove(at: BalanceString.startIndex)
+                }
+                self.lblCurrentBalance.text =  (SingletonClass.sharedInstance.strCurrentBalance < 0) ? "-\(currencySign)\(BalanceString)" : "\(currencySign)\(BalanceString)"
+//                "\(currencySign)\(SingletonClass.sharedInstance.strCurrentBalance)"
 
                 
-                SingletonClass.sharedInstance.walletHistoryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+//                SingletonClass.sharedInstance.walletHistoryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+                
+                if let history = result["history"] as? [[String:AnyObject]]
+                {
+                    SingletonClass.sharedInstance.walletHistoryData = history
+                }
                 
                 self.webserviceOFGetAllCards()
                 
@@ -231,15 +252,15 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 
@@ -252,7 +273,12 @@ class WalletViewController: UIViewController, UIScrollViewDelegate {
     var aryCards = [[String:AnyObject]]()
     
     func webserviceOFGetAllCards() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForCardList(SingletonClass.sharedInstance.strPassengerID as AnyObject){ (result, status) in
 
             if (status) {

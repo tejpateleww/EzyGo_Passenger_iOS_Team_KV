@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 let DriverLogin = WebserviceURLs.kDriverLogin
+let SocialLogin = WebserviceURLs.kSocialLogin
 let Registration =  WebserviceURLs.kDriverRegister
 let ForgotPassword =  WebserviceURLs.kForgotPassword
 let CarLists =  WebserviceURLs.kGetCarList
@@ -17,11 +18,16 @@ let MakeBookingRequest = WebserviceURLs.kMakeBookingRequest
 let bookLater = WebserviceURLs.kAdvancedBooking
 let driverList = WebserviceURLs.kDriver
 let BookingHistory = WebserviceURLs.kBookingHistory
+let TripHistory = WebserviceURLs.kTripHistory
+let PastBooking = WebserviceURLs.kPastBooking
+let UpcomingBooking = WebserviceURLs.kUpcomingBooking
+let OngoingBooking  = WebserviceURLs.kOngoingBooking
 let GetPromoCodeList = WebserviceURLs.kGetPromoCodeList
 let GetFeedbackList = WebserviceURLs.kGetFeedbackList
 let GetEstimateFare =  WebserviceURLs.kGetEstimateFare
 let ChangePassword = WebserviceURLs.kChangePassword
 let UpdateProfile = WebserviceURLs.kUpdateProfile
+let CheckPromocode = WebserviceURLs.kCheckPromocode
 
 let cardsList = WebserviceURLs.kCardsList
 let bookPackage = WebserviceURLs.kBookPackage
@@ -51,8 +57,9 @@ let TransferToBank = WebserviceURLs.kTransferToBank
 let UpdateBankAccountDetails = WebserviceURLs.kUpdateBankAccountDetails
 
 let OTPVerify = WebserviceURLs.kOtpForRegister
-
+let ContactUs = WebserviceURLs.kContactUs
 let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
+let Logout = WebserviceURLs.kLogout
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
@@ -75,8 +82,14 @@ func webserviceForDriverLogin(_ dictParams: AnyObject, completion: @escaping(_ r
     postData(dictParams, nsURL: url, completion: completion)
 }
 
+func webserviceForSocialLogin(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = SocialLogin
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
 //-------------------------------------------------------------
-// MARK: - Webservice For Driver Login
+// MARK: - Webservice For Forgot Password
 //-------------------------------------------------------------
 
 func webserviceForForgotPassword(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
@@ -131,8 +144,51 @@ func webserviceForAllDriversList(completion: @escaping(_ result: AnyObject, _ su
 
 func webserviceForBookingHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = "\(BookingHistory)/\(dictParams)"
+//    let url = "\(BookingHistory)/\(dictParams)"
+    let url = TripHistory
+    postData(dictParams as AnyObject, nsURL: url, completion: completion)
+//    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Past Booking History
+//-------------------------------------------------------------
+
+func webserviceForPastBookingHistory(_ dictParams: AnyObject,Page: Int, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(PastBooking)/\(dictParams)/\(Page)"
     getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Upcoming Booking History
+//-------------------------------------------------------------
+
+func webserviceForUpcomingBookingHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(UpcomingBooking)/\(dictParams)"
+    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Ongoing Booking History
+//-------------------------------------------------------------
+
+func webserviceForOngoingBookingHistory(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(OngoingBooking)/\(dictParams)"
+    getData(dictParams as AnyObject, nsURL: url, completion: completion)
+}
+
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Change Password
+//-------------------------------------------------------------
+
+func webserviceForChangePassword(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = ChangePassword
+    postData(dictParams, nsURL: url, completion: completion)
 }
 
 //-------------------------------------------------------------
@@ -141,7 +197,7 @@ func webserviceForBookingHistory(_ dictParams: AnyObject, completion: @escaping(
 
 func webserviceForPromoCodeList(completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = "\(GetPromoCodeList)"
+    let url = "\(GetPromoCodeList)/\(SingletonClass.sharedInstance.strPassengerID)"
     getData([String : AnyObject].self as AnyObject, nsURL: url, completion: completion)
 }
 
@@ -167,12 +223,12 @@ func webserviceForGetEstimateFare(_ dictParams: AnyObject, completion: @escaping
 }
 
 //-------------------------------------------------------------
-// MARK: - Webservice For Change Password
+// MARK: - Webservice For Check Promocode
 //-------------------------------------------------------------
 
-func webserviceForChangePassword(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+func webserviceForCheckPromocode(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = ChangePassword
+    let url = CheckPromocode
     postData(dictParams, nsURL: url, completion: completion)
 }
 
@@ -364,8 +420,18 @@ func webserviceForGetTickPayRate(_ dictParams: AnyObject, completion: @escaping(
 func webserviceForAppSetting(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = "\(Init)/\(dictParams)"
-    getData("" as AnyObject, nsURL: url, completion: completion)
+    getDataWithoutLoader("" as AnyObject, nsURL: url, completion: completion)
 }
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Get Address From Latitude & Longitude Methods
+//-------------------------------------------------------------
+
+//func webserviceForAddressFromLatLong(_ dictParams: AnyObject, Location: String, Type: String, completion: @escaping(_ result: NSDictionary, _ success: Bool) -> Void)
+//{
+//    GetAddressFromLatLong(dictParams, Location: Location, completion: completion)
+//}
+
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Bars And Taxis Methods
@@ -373,7 +439,6 @@ func webserviceForAppSetting(_ dictParams: AnyObject, completion: @escaping(_ re
 
 func webserviceForBarsAndTaxis(_ dictParams: AnyObject, Location: String, Type: String, completion: @escaping(_ result: NSDictionary, _ success: Bool) -> Void)
 {
-    
     BarsAndClubs(dictParams, Location: Location, Type: Type, completion: completion)
 }
 
@@ -476,4 +541,25 @@ func webserviceForTrackRunningTrip(_ dictParams: AnyObject, completion: @escapin
     getData("" as AnyObject, nsURL: url, completion: completion)
 }
 
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Contact Us
+//-------------------------------------------------------------
+
+func webserviceForContactUs(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = ContactUs
+    postData(dictParams, nsURL: url, completion: completion)
+}
+
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Logout
+//-------------------------------------------------------------
+
+func webserviceForLogout(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = Logout + "\(dictParams)"
+    getData("" as AnyObject, nsURL: url, completion: completion)
+}
 

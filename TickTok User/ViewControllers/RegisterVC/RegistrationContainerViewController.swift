@@ -7,12 +7,25 @@
 //
 
 import UIKit
-import CHIPageControl
 
 class RegistrationContainerViewController: UIViewController,UIScrollViewDelegate {
 
-    @IBOutlet weak var pageControl: CHIPageControlJaloro!
+    @IBOutlet weak var firstStep: UIImageView!
+    
+    @IBOutlet weak var secondStep: UIImageView!
+    
+    @IBOutlet weak var ThirdStep: UIImageView!
+    
+    
     @IBOutlet weak var scrollObject: UIScrollView!
+    
+    var strEmail:String = ""
+    var strFirstName:String = ""
+    var strLastName:String = ""
+    var isFromSocialLogin:Bool = false
+    var strSocialID:String = ""
+    var SocialType:String = ""
+
     
     
     override func viewDidLoad() {
@@ -38,6 +51,21 @@ class RegistrationContainerViewController: UIViewController,UIScrollViewDelegate
         
     }
     
+    func selectPageControlIndex(Index:Int) {
+        self.firstStep.image = UIImage(named: "Unselected_Circle")
+        self.secondStep.image = UIImage(named: "Unselected_Circle")
+        self.ThirdStep.image = UIImage(named: "Unselected_Circle")
+        
+        if Index == 0 {
+            self.firstStep.image = UIImage(named: "Selected_Circle")
+        } else if Index == 1 {
+            self.secondStep.image = UIImage(named: "Selected_Circle")
+        } else if Index == 2 {
+            self.ThirdStep.image = UIImage(named: "Selected_Circle")
+        }
+        
+    }
+    
     @IBAction func btnBack(_ sender: Any) {
 //        self.navigationController?.popViewController(animated: true)
 //        let currentPage = scrollView.contentOffset.x / scrollView.frame.size.width
@@ -46,24 +74,26 @@ class RegistrationContainerViewController: UIViewController,UIScrollViewDelegate
 
         if (currentPage == 0)
         {
-              self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
         else if (currentPage == 1){
             self.scrollObject.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-            self.pageControl.set(progress: 0, animated: true)
+            self.selectPageControlIndex(Index: 0)
+//            self.pageControl.set(progress: 0, animated: true)
         }
         else
         {
+            self.selectPageControlIndex(Index: 0)
             self.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width, y: 0), animated: true)
-            self.pageControl.set(progress: 0, animated: true)
+//            self.pageControl.set(progress: 0, animated: true)
         }
 
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView)
     {
         let currentPage = scrollView.contentOffset.x / scrollView.frame.size.width
-        self.pageControl.set(progress: Int(currentPage), animated: true)
-
+//        self.pageControl.set(progress: Int(currentPage), animated: true)
+            self.selectPageControlIndex(Index: 0)
     }
     /*
     // MARK: - Navigation

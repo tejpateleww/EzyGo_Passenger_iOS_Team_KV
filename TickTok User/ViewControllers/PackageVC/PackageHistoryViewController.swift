@@ -42,7 +42,12 @@ class PackageHistoryViewController: ParentViewController, UITableViewDataSource,
     }
     */
     func webserviceOfPackageBookingHistory() {
-    
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         webserviceForPackageHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             if (status)
@@ -62,15 +67,15 @@ class PackageHistoryViewController: ParentViewController, UITableViewDataSource,
             {
                     print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
@@ -111,7 +116,7 @@ class PackageHistoryViewController: ParentViewController, UITableViewDataSource,
         cell.lblPaymentType.text! = (dictData["PaymentType"] as? String)!
         cell.lblPaymentStatus.text! = (dictData["PaymentStatus"] as? String)!
         cell.lblDistance.text! = "\(dictData["details"]!["KM"] as! String) Km"
-        cell.lblAmount.text! = "$ \(dictData["details"]!["Amount"] as! String)"
+        cell.lblAmount.text! = "$ \(String(format: "%.2f", Double(dictData["details"]!["Amount"] as! String)!))"
         cell.lblDescription.text! = (dictData["details"]!["Description"] as? String)!
         
 

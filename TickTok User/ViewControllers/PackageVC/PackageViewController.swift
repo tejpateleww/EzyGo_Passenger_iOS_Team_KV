@@ -148,7 +148,12 @@ class PackageViewController: UIViewController,UICollectionViewDelegate, UICollec
         }
     }
     func webserviceOFGetPackagesList() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForGetPackages("" as AnyObject) { (result, status) in
              if (status)
              {
@@ -203,15 +208,15 @@ class PackageViewController: UIViewController,UICollectionViewDelegate, UICollec
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 
@@ -405,7 +410,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate, UICollec
                cell.lblHours.text = "\(dictData.object(forKey: "Time") as! String) Days"
             }
             
-            cell.lblAmount.text = "$ \(dictData.object(forKey: "Amount") as! String)"
+            cell.lblAmount.text = "$ \(String(format: "%.2f", Double(dictData.object(forKey: "Amount") as! String)!) )"
             cell.lblAdditional.text = dictData.object(forKey: "Notes") as? String
         }
         else
@@ -421,7 +426,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate, UICollec
             {
                 cell.lblHours.text = "\(dictData.object(forKey: "Time") as! String) Days"
             }
-            cell.lblAmount.text = "$ \(dictData.object(forKey: "Amount") as! String)"
+            cell.lblAmount.text = "$ \(String(format: "%.2f", Double(dictData.object(forKey: "Amount") as! String)!))"
             cell.lblAdditional.text = dictData.object(forKey: "Notes") as? String
         }
         

@@ -22,13 +22,12 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.lblNoDataFound.text = "No Favourite Location Found."
+        self.lblNoDataFound.isHidden = true
         webserviceOfGetAddress()
         
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
-        
-         
          
         
     }
@@ -44,7 +43,10 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
     
     @IBOutlet weak var tableView: UITableView!
     
-
+    @IBOutlet weak var lblNoDataFound: UILabel!
+    
+    @IBOutlet weak var lblSwipeRightToLeft: UILabel!
+    
     //-------------------------------------------------------------
     // MARK: - Custom Methods
     //-------------------------------------------------------------
@@ -126,10 +128,13 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
                 tableView.endUpdates()
                 
                 if aryAddress.count == 0 {
-                    let dict = [String:AnyObject]()
-                    delegateForFavourite?.didEnterFavouriteDestination(Source: dict)
-                    self.navigationController?.popViewController(animated: true)
+                    self.lblNoDataFound.isHidden = false
+                    
+//                    let dict = [String:AnyObject]()
+//                    delegateForFavourite?.didEnterFavouriteDestination(Source: dict)
+//                    self.navigationController?.popViewController(animated: true)
                 }
+                self.lblSwipeRightToLeft.isHidden = !self.lblNoDataFound.isHidden
             }
         }
         
@@ -168,6 +173,13 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
     //-------------------------------------------------------------
     
     func webserviceOfGetAddress() {
+        if Connectivity.isConnectedToInternet() == false {
+            self.lblNoDataFound.isHidden = false
+        self.lblSwipeRightToLeft.isHidden = !self.lblNoDataFound.isHidden
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         webserviceForGetAddress(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             
@@ -183,21 +195,24 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
                 }
                 
                 if self.aryAddress.count == 0 {
-                    self.setData()
+                    self.lblNoDataFound.isHidden = false
+//                    self.setData()
                 }
+                self.lblSwipeRightToLeft.isHidden = !self.lblNoDataFound.isHidden
+                
             }
             else {
                 print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
@@ -208,6 +223,12 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
     
     func webserviceOfDeleteAddress(addressID: String) {
         
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
 //        PassengerId,AddressId
         
         var params = String()
@@ -234,15 +255,15 @@ class FavoriteViewController: ParentViewController, UITableViewDataSource, UITab
             else {
                 print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 

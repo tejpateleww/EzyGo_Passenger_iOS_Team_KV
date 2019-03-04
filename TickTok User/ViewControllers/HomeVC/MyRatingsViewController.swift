@@ -14,13 +14,22 @@ class MyRatingsViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var btnCall: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var lblRating: UILabel!
+    
+    @IBOutlet weak var RatingView: FloatRatingView!
+    
     var arrFeedbacks:[[String:Any]] = []
+    
+    @IBOutlet weak var lblNodatafound: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lblNodatafound.isHidden = true
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
+        self.RatingView.rating = SingletonClass.sharedInstance.passengerRating
+        
         webserviewOfGetFeedbackList()
         
         
@@ -90,6 +99,24 @@ class MyRatingsViewController: UIViewController, UITableViewDelegate, UITableVie
         if let DriverName:String = dictData["DriverName"] as? String {
             Feedbackcell.lblDriverName.text = DriverName
         }
+        
+        if let BookingID:String = dictData["Id"] as? String {
+            Feedbackcell.lblBookingID.text = "Booking ID : \(BookingID)"
+        }
+        
+        if let Comments:String = dictData["Comment"] as? String {
+            if Comments != "" {
+                Feedbackcell.lblCommentDetail.text = Comments
+                Feedbackcell.lblCommentTitle.isHidden = false
+                Feedbackcell.lblCommentDetail.isHidden = false
+            } else {
+                Feedbackcell.lblCommentTitle.isHidden = true
+                Feedbackcell.lblCommentDetail.isHidden = true
+            }
+        } else {
+            Feedbackcell.lblCommentTitle.isHidden = true
+            Feedbackcell.lblCommentDetail.isHidden = true
+        }
      
         if let DriverRate:Double = Double(dictData["Rating"] as! String) {
             Feedbackcell.RatingView.rating = Float(DriverRate)
@@ -111,7 +138,8 @@ class MyRatingsViewController: UIViewController, UITableViewDelegate, UITableVie
         if let imgDriver = dictData["DriverImage"] as? String {
             Feedbackcell.imgProfile.sd_setShowActivityIndicatorView(true)
             Feedbackcell.imgProfile.sd_setIndicatorStyle(.gray)
-            Feedbackcell.imgProfile.sd_setImage(with: URL(string:"\(WebserviceURLs.kImageBaseURL)/\(imgDriver)"), completed: nil)
+            Feedbackcell.imgProfile.sd_setImage(with: URL(string:"\(WebserviceURLs.kImageBaseURL)/\(imgDriver)"), placeholderImage: UIImage(named: "iconProfilePicBlank"), options: [], completed: nil)
+//            sd_setImage(with: URL(string:"\(WebserviceURLs.kImageBaseURL)/\(imgDriver)"), completed: nil)
         }
         
         return Feedbackcell
@@ -119,24 +147,37 @@ class MyRatingsViewController: UIViewController, UITableViewDelegate, UITableVie
     
     
     func webserviewOfGetFeedbackList() {
+        if Connectivity.isConnectedToInternet() == false {
+            self.lblNodatafound.isHidden = false
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForFeedbackList(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             if (status) {
                 print(result)
                 self.arrFeedbacks = (result as! [String:Any])["feedback"] as! [[String:Any]]
+                
+                if self.arrFeedbacks.count != 0 {
+                    self.lblNodatafound.isHidden = true
+                } else {
+                    self.lblNodatafound.isHidden = false
+                }
+                
                 self.tableView.reloadData()
             }
             else {
                 print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }

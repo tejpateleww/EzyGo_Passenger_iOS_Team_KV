@@ -36,7 +36,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     @IBOutlet weak var lblContactNumber: UILabel!
     
     @IBOutlet weak var lblEmailId: UILabel!
-    @IBOutlet weak var txtAge: UITextField!
+    @IBOutlet weak var txtAge: ACFloatingTextfield!
     @IBOutlet weak var txtMobileNum: UITextField!
     @IBOutlet weak var txtFirstName: ACFloatingTextfield!
     @IBOutlet weak var txtLastName: ACFloatingTextfield!
@@ -60,8 +60,6 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         super.viewDidLoad()
         aryage = [ "18 to 25", "26 to 35", "35 to 55", "55+"]
         setData()
-        btnSave.layer.cornerRadius = 5
-        btnSave.layer.masksToBounds = true
         pickerView.delegate = self
         pickerView.dataSource = self
         countoryPicker.delegate = self
@@ -69,6 +67,8 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         txtAge.inputView = pickerView
 
     }
+    
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -108,7 +108,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        lblAge.text = aryage[row]
+        txtAge.text = aryage[row]
 
     }
     
@@ -208,7 +208,17 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
     }
     
     @IBAction func btnSubmit(_ sender: UIButton) {
+        
+        let validationError = self.isValidateRequest()
+        
+        if validationError.1 == true {
+            webserviceOfUpdateProfile()
+        } else {
+            UtilityClass.showAlert("", message: validationError.0, vc: self)
+        }
+        
 
+/*
         if txtAddress.text == "" || txtFirstName.text == "" || gender == ""  {
             
             if isprofile == false
@@ -230,10 +240,41 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
             }
         }
         else {
-            webserviceOfUpdateProfile()
+            
         }
+ */
         
     }
+    
+    
+    func isValidateRequest() -> (String,Bool) {
+        
+        var ValidationStatus:Bool = true
+        var ValidationMessage:String = ""
+        
+        if txtFirstName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 && txtLastName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 && txtAddress.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 && txtHomeNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 && txtAge.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0  {
+            ValidationStatus = false
+            ValidationMessage = "Please fill all details."
+        } else if txtFirstName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please enter first name."
+        } else if txtLastName.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please enter last name."
+        } else if txtAddress.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please enter address."
+        } else if txtHomeNumber.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please enter post code."
+        } else if txtAge.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please select age group."
+        }
+        
+        return (ValidationMessage,ValidationStatus)
+    }
+    
     
     @IBAction func btnUploadImage(_ sender: UIButton) {
         
@@ -305,41 +346,44 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         
         let getData = SingletonClass.sharedInstance.dictProfile
         
-        imgProfile.sd_setShowActivityIndicatorView(true)
-        imgProfile.sd_setIndicatorStyle(.gray)
-        imgProfile.sd_setImage(with: URL(string: getData.object(forKey: "Image") as! String), completed: nil)
-        lblName.text = getData.object(forKey: "Fullname") as? String
+//        imgProfile.sd_setShowActivityIndicatorView(true)
+//        imgProfile.sd_setIndicatorStyle(.white)
+//        imgProfile.sd_setImage(with: URL(string: getData.object(forKey: "Image") as! String), completed: nil)
+        if let Profileimg = getData.object(forKey: "Image") as? String {
+            imgProfile.sd_setShowActivityIndicatorView(true)
+            imgProfile.sd_setIndicatorStyle(.gray)
+            imgProfile.sd_setImage(with: URL(string: Profileimg.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), completed: nil)
+        }
+        
+        lblName.text = (getData.object(forKey: "Fullname") as? String)?.uppercased()
         lblEmailId.text = getData.object(forKey: "Email") as? String
         lblContactNumber.text = getData.object(forKey: "MobileNo") as? String
 //        txtDateOfBirth.text = getData.object(forKey: "DOB") as? String
 //                lblAge.text = getData.object(forKey: "AgeGroup") as? String
-
+        
         fullName = getData.object(forKey: "Fullname") as! String
   
         let fullNameArr = fullName.components(separatedBy: " ")
         firstName = fullNameArr[0]
         lastName = fullNameArr[1]
         
-//        let name = (getData["Fullname"] as! String).components(separatedBy: " ")
-//        if(name.count == 1)
-//        {
-//            txtFirstName.text = (getData["Fullname"] as! String).components(separatedBy: " ").first
-//            txtLastName.text = (getData["Fullname"] as! String)
-//
-//        }
-//        else if(name.count == 2)
-//        {
-//            txtFirstName.text = (getData["Fullname"] as! String).components(separatedBy: " ").first
-//            txtLastName.text = (getData["Fullname"] as! String).components(separatedBy: " ").last
-//
-//        }
+        let name = (getData["Fullname"] as! String).components(separatedBy: " ")
+        if(name.count == 1)
+        {
+            txtFirstName.text = (getData["Fullname"] as! String).components(separatedBy: " ").first
+            txtLastName.text = (getData["Fullname"] as! String)
 
-//        txtFirstName.text = fullName
-//        txtLastName.text = lastName
+        }
+        else if(name.count == 2)
+        {
+            txtFirstName.text = (getData["Fullname"] as! String).components(separatedBy: " ").first
+            txtLastName.text = (getData["Fullname"] as! String).components(separatedBy: " ").last
+
+        }
         txtHomeNumber.text =  getData.object(forKey: "HomeNumber") as? String
       
         txtAddress.text = getData.object(forKey: "Address") as? String
-        
+        txtAge.text = getData.object(forKey: "AgeGroup") as? String
         gender = getData.object(forKey: "Gender") as! String
         
         if gender == "male" || gender == "Male" {
@@ -386,6 +430,13 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
 
     func webserviceOfUpdateProfile()
     {
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        
         fullName = txtFirstName.text! + " " + txtLastName.text!
         
         var dictData = [String:AnyObject]()
@@ -393,14 +444,13 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         dictData["Fullname"] = fullName as AnyObject
         dictData["Gender"] = gender as AnyObject
         dictData["Address"] = txtAddress.text as AnyObject
-        dictData["AgeGroup"] = lblAge.text as AnyObject
+        dictData["AgeGroup"] = txtAge.text as AnyObject
         dictData["HomeNumber"] = txtHomeNumber.text as AnyObject
         
-//        dictData["DOB"] = txtDateOfBirth.text as AnyObject//binal
+//      dictData["DOB"] = txtDateOfBirth.text as AnyObject//binal
         
         let activityData = ActivityData()
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
-        
         
         webserviceForUpdateProfile(dictData as AnyObject, image1: imgProfile.image!) { (result, status) in
             
@@ -412,15 +462,32 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
                 SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: (result as! NSDictionary).object(forKey: "profile") as! NSDictionary)
                 
                 UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
+                NotificationCenter.default.post(name: NotificationKeyforUpdateProfileDetail, object: nil)
                 
-               
-                UtilityClass.setCustomAlert(title: "Done", message: "Update Profile Successfully") { (index, title) in
+                UtilityClass.setCustomAlert(title: "Success Message", message: "Your Profile has been updated.") { (index, title) in
+                    self.perform(#selector(self.goBack), with: nil, afterDelay: 1.0)
                 }
             }
             else {
                 print(result)
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
             }
         }
+    }
+    
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

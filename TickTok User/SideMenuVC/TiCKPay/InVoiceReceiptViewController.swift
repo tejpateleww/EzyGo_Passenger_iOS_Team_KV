@@ -12,7 +12,7 @@ import GooglePlaces
 import M13Checkbox
 
 class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, UINavigationControllerDelegate {
-
+    
     let pickerView = UIPickerView()
     
     var pickerData: [String] = [String]()
@@ -20,7 +20,7 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
     var strPaymentInputMethod =
         String()
     
-     var BoolCurrentLocation = Bool()
+    var BoolCurrentLocation = Bool()
     
     var strInvoiceType = String()
     var strCustomerName = String()
@@ -46,19 +46,19 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
         
         txtTotalAmount.text = SingletonClass.sharedInstance.strAmoutOFTickPay
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
     
     
-//    @IBOutlet weak var txtSendVia: UITextField!
+    //    @IBOutlet weak var txtSendVia: UITextField!
     @IBOutlet weak var txtPhoneNumber: UITextField!
     @IBOutlet weak var txtEmailId: UITextField!
     @IBOutlet weak var txtCustomerName: UITextField!
@@ -117,7 +117,7 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
     
     func setTextFields() {
         
-//        txtSendVia.text = strPaymentInputMethod
+        //        txtSendVia.text = strPaymentInputMethod
         
     }
     
@@ -179,10 +179,10 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
     
     @IBAction func txtSendVia(_ sender: UITextField) {
         
-//        txtSendVia.inputView = pickerView
+        //        txtSendVia.inputView = pickerView
     }
     @IBAction func btnSend(_ sender: UIButton) {
-   
+        
         if (validations()) {
             webserviceOFSendInvoice()
         }
@@ -195,14 +195,14 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
             destinationOfCarAndTaxi.strBtnNo = "OK"
             destinationOfCarAndTaxi.strMessage = "Payment Receipt send successfully!"
             destinationOfCarAndTaxi.isBtnYesVisible = true
-
+            
         }
         
     }
     
     func validations() -> Bool
     {
-        let isEmailAddressValid = isValidEmailAddress(emailID: txtEmailId.text!)
+        let isEmailAddressValid = (txtEmailId.text!).isValidEmailAddress()
         //        let providePassword = txtPassword.text
         
         //        let isPasswordValid = isPwdLenth(password: providePassword!)
@@ -217,7 +217,7 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
             }
             else if (!isEmailAddressValid)
             {
-
+                
                 UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Valid Email ID") { (index, title) in
                 }
                 
@@ -228,7 +228,7 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
         {
             if txtPhoneNumber.text!.count == 0
             {
-  
+                
                 UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Phone number") { (index, title) in
                 }
                 
@@ -239,13 +239,13 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
         
         
         if txtCustomerName.text!.count == 0 {
-
+            
             UtilityClass.setCustomAlert(title: "Missing", message: "Please enter customer name") { (index, title) in
             }
             return false
         }
         else if txtDescription.text!.count == 0 {
-
+            
             UtilityClass.setCustomAlert(title: "Missing", message: "Please enter description") { (index, title) in
             }
             return false
@@ -281,8 +281,13 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
     
     func webserviceOFSendInvoice() {
         
-//        TickpayId,InvoiceType,CustomerName,Notes,Amount,Email,MobileNo(InvoiceType : SMS/Email)
-        
+        //        TickpayId,InvoiceType,CustomerName,Notes,Amount,Email,MobileNo(InvoiceType : SMS/Email)
+        if Connectivity.isConnectedToInternet() == false {
+            
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var param = [String:AnyObject]()
         
         strTiCKPayId = SingletonClass.sharedInstance.strTickPayId
@@ -324,20 +329,20 @@ class InVoiceReceiptViewController: ParentViewController, UIPickerViewDelegate, 
             else{
                 print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
         }
     }
     
-
+    
 }

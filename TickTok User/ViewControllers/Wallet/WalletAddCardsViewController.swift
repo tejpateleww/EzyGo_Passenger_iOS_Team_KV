@@ -76,22 +76,18 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-         
-         
-        
         cardNum()
         cardExpiry()
         cardCVV()
     }
     
     func setDesignView() {
-        
-        btnAddPaymentMethods.layer.cornerRadius = 5
-        btnAddPaymentMethods.layer.masksToBounds = true
+        self.lblCardDetail.text = "Credit card details are processed via eway. our third party secure payment gateway provider, certified tier-one PCI DSS complaint.\nThere is a $0.10 fee when you register your card. This will be refunded within 7 working days."
+//        btnAddPaymentMethods.layer.cornerRadius = 5
+//        btnAddPaymentMethods.layer.masksToBounds = true
         
      
-        viewScanCard.layer.cornerRadius = 5
+//        viewScanCard.layer.cornerRadius = 5
         viewScanCard.layer.borderColor = UIColor.darkGray.cgColor
         viewScanCard.layer.borderWidth = 1.0
         viewScanCard.layer.shadowColor = UIColor.darkGray.cgColor
@@ -122,7 +118,10 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
     @IBOutlet weak var imgCard: UIImageView!
     @IBOutlet weak var txtAlies: UITextField!
     
+    @IBOutlet weak var lblCardDetail: UILabel!
     @IBOutlet weak var viewScanCard: UIView!
+    
+    
     //-------------------------------------------------------------
     // MARK: - PicketView Methods
     //-------------------------------------------------------------
@@ -174,8 +173,15 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
         
         if component == 0 {
             strSelectMonth = aryMonth[row]
+            if strSelectYear == "" {
+                strSelectYear = aryYear[0]
+                strSelectYear.removeFirst(2)
+            }
         }
         else {
+            if strSelectMonth == "" {
+                strSelectMonth = aryMonth[0]
+            }
             strSelectYear = aryYear[row]
             strSelectYear.removeFirst(2)
         }
@@ -225,10 +231,7 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
         let characterSet = NSMutableCharacterSet.decimalDigit()
         characterSet.addCharacters(in: " ")
         validation.characterSet = characterSet as CharacterSet
-        
         inputValidator = InputValidator(validation: validation)
-        
-        
         txtCardNumber.inputValidator = inputValidator
     }
     
@@ -292,8 +295,9 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
         if let number = sender.text {
             if number.isEmpty {
                 isCreditCardValid = false
+                self.txtCardNumber.textColor = themeYellowColor
+//                imgCard.image = UIImage(named: "iconDummyCard")
                 
-                imgCard.image = UIImage(named: "iconDummyCard")
 //                self.cardValidationLabel.text = "Enter card number"
 //                self.cardValidationLabel.textColor = UIColor.black
 //
@@ -327,8 +331,8 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
         } else {
             
             isCreditCardValid = false
-            
-            imgCard.image = UIImage(named: "iconDummyCard")
+            self.txtCardNumber.textColor = themeYellowColor
+//            imgCard.image = UIImage(named: "iconDummyCard")
 //            self.cardValidationLabel.text = "Card number is invalid"
 //            self.cardValidationLabel.textColor = UIColor.red
         }
@@ -342,8 +346,8 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
             self.cardTypeLabel = type.name
             
             print(type.name)
-            
-            imgCard.image = UIImage(named: type.name)
+            self.txtCardNumber.textColor = UIColor.green
+//            imgCard.image = UIImage(named: type.name)
             
             self.cardCVV()
             
@@ -351,7 +355,8 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
 //            self.cardTypeLabel.textColor = UIColor.green
         } else {
             
-            imgCard.image = UIImage(named: "iconDummyCard")
+//            imgCard.image = UIImage(named: "iconDummyCard")
+            self.txtCardNumber.textColor = themeYellowColor
             
             isCreditCardValid = false
             
@@ -363,21 +368,23 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
     func ValidationForAddPaymentMethod() -> Bool {
         
         if (txtCardNumber.text!.count == 0) {
-
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Card Number") { (index, title) in
-            }
+            UtilityClass.showAlert("", message: "Please enter card number.", vc: self)
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Card Number") { (index, title) in
+//            }
             return false
         }
         else if (txtValidThrough.text!.count == 0) {
-
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Expiry Date") { (index, title) in
-            }
+            UtilityClass.showAlert("", message: "Please enter expiry date.", vc: self)
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Expiry Date") { (index, title) in
+//            }
             return false
         }
         else if (txtCVVNumber.text!.count == 0) {
-
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter CVV Number") { (index, title) in
-            }
+            UtilityClass.showAlert("", message: "Please enter cvv number.", vc: self)
+            
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Enter CVV Number") { (index, title) in
+//            }
+         
             return false
         }
 //        else if (txtAlies.text!.count == 0) {
@@ -390,6 +397,8 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
         return true
     }
  
+  
+    
     
     //-------------------------------------------------------------
     // MARK: - Webservice Methods
@@ -398,6 +407,13 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
     
     func webserviceOfAddCard() {
         // PassengerId,CardNo,Cvv,Expiry,Alias (CarNo : 4444555511115555,Expiry:09/20)
+        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         txtCardNumber.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -459,15 +475,15 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 

@@ -78,12 +78,22 @@ class BookTableViewController: ParentViewController, UICollectionViewDataSource,
     
     func webserviceOfBookTable(str: String) {
         
+        
         if SingletonClass.sharedInstance.currentLatitude == "" || SingletonClass.sharedInstance.currentLongitude == "" {
            
             UtilityClass.setCustomAlert(title: "Location Not Found", message: "Your Current Location Not Found") { (index, title) in
             }
         }
         else {
+            
+            if Connectivity.isConnectedToInternet() == false {
+                
+                UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+                    
+                }
+                return
+            }
+            
             let creentLocation = "\(SingletonClass.sharedInstance.currentLatitude),\(SingletonClass.sharedInstance.currentLongitude)"
             let type = "restaurant"
             
@@ -94,6 +104,18 @@ class BookTableViewController: ParentViewController, UICollectionViewDataSource,
                     print(result)
                 }
                 else {
+                    if let res = result as? String {
+                        UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                        }
+                    }
+                    else if let resDict = result as? NSDictionary {
+                        UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                        }
+                    }
+                    else if let resAry = result as? NSArray {
+                        UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                        }
+                    }
                     print(result)
                 }
             })

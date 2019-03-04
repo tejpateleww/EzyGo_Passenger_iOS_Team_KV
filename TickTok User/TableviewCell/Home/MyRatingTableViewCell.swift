@@ -16,6 +16,10 @@ class MyRatingTableViewCell: UITableViewCell {
     @IBOutlet weak var RatingView: FloatRatingView!
     @IBOutlet weak var lblFromLocation: UILabel!
     @IBOutlet weak var lblToLocation: UILabel!
+    @IBOutlet weak var lblCommentTitle: UILabel!
+    @IBOutlet weak var lblCommentDetail: UILabel!
+    @IBOutlet weak var lblBookingID: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

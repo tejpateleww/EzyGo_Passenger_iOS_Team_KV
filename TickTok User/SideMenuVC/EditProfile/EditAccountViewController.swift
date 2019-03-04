@@ -10,17 +10,17 @@ import UIKit
 import ACFloatingTextfield_Swift
 
 class EditAccountViewController: UIViewController {
-
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -28,7 +28,7 @@ class EditAccountViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-   
+        
     }
     
     //-------------------------------------------------------------
@@ -56,7 +56,7 @@ class EditAccountViewController: UIViewController {
         if (validationForUpdateBankAccountDetails()) {
             webserviceOFUpdateBankAccountDetails()
         }
-       
+        
     }
     @IBOutlet weak var btnCall: UIButton!
     @IBAction func btCallClicked(_ sender: UIButton)
@@ -97,11 +97,11 @@ class EditAccountViewController: UIViewController {
             }
             return false
         }
-//        else if (txtABN.text!.count == 0) {
-//            UtilityClass.setCustomAlert(title: "Missing", message: "Enter ABN Number") { (index, title) in
-//            }
-//            return false
-//        }
+            //        else if (txtABN.text!.count == 0) {
+            //            UtilityClass.setCustomAlert(title: "Missing", message: "Enter ABN Number") { (index, title) in
+            //            }
+            //            return false
+            //        }
         else if (txtBankName.text!.count == 0) {
             UtilityClass.setCustomAlert(title: "Missing", message: "Enter Bank Name") { (index, title) in
             }
@@ -117,18 +117,18 @@ class EditAccountViewController: UIViewController {
             }
             return false
         }
-//        else if (txtNote.text!.count == 0) {
-//            UtilityClass.showAlert("", message: "Enter Note", vc: self)
-//            return false
-//        }
+        //        else if (txtNote.text!.count == 0) {
+        //            UtilityClass.showAlert("", message: "Enter Note", vc: self)
+        //            return false
+        //        }
         
         return true
     }
     
     func setData() {
         let profileData = SingletonClass.sharedInstance.dictProfile
-//        txtNote.text = profileData.object(forKey: "Description") as? String
-//        txtABN.text = profileData.object(forKey: "ABN") as? String
+        //        txtNote.text = profileData.object(forKey: "Description") as? String
+        //        txtABN.text = profileData.object(forKey: "ABN") as? String
         txtBSB.text = profileData.object(forKey: "BSB") as? String
         txtBankName.text = profileData.object(forKey: "BankName") as? String
         txtBankAccount.text = profileData.object(forKey: "BankAccountNo") as? String
@@ -142,15 +142,24 @@ class EditAccountViewController: UIViewController {
     //-------------------------------------------------------------
     
     func webserviceOFUpdateBankAccountDetails() {
-//        PassengerId,AccountHolderName,ABN,BankName,BSB,BankAccountNo,Description
+        
+        if Connectivity.isConnectedToInternet() == false {
+            
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        
+        
+        //        PassengerId,AccountHolderName,ABN,BankName,BSB,BankAccountNo,Description
         var param = [String:AnyObject]()
         param["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
         param["AccountHolderName"] = txtAccountHolderName.text as AnyObject
-//        param["ABN"] = txtABN.text as AnyObject
+        //        param["ABN"] = txtABN.text as AnyObject
         param["BankName"] = txtBankName.text as AnyObject
         param["BSB"] = txtBSB.text as AnyObject
         param["BankAccountNo"] = txtBankAccount.text as AnyObject
-//        param["Description"] = txtNote.text as AnyObject
+        //        param["Description"] = txtNote.text as AnyObject
         
         
         webserviceForUpdateBankAccountDetails(param as AnyObject) { (result, status) in
@@ -158,69 +167,69 @@ class EditAccountViewController: UIViewController {
             if (status) {
                 print(result)
                 
-//                UtilityClass.showAlert("", message: "Update Successfully.", vc: self)
+                //                UtilityClass.showAlert("", message: "Update Successfully.", vc: self)
                 
                 UtilityClass.setCustomAlert(title: "Profile", message: "Update Successfully.") { (index, title) in
-            }
+                }
                 
                 SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: (result as! NSDictionary).object(forKey: "profile") as! NSDictionary)
                 
-                 UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
-                    
-//                    (result as! NSDictionary).object(forKey: "profile") as! NSMutableDictionary
-          
-/*
-                    {
-                        profile =     {
-                            ABN = 1234;
-                            Address = "";
-                            BSB = qwer;
-                            BankAccountNo = 0978645312;
-                            BankName = bob;
-                            CompanyName = Isco;
-                            CreatedDate = "2017-11-24 06:36:31";
-                            Description = hi;
-                            DeviceType = 1;
-                            Email = "bhavesh@excellentwebworld.info";
-                            Fullname = "Bhavesh Odedra";
-                            Gender = male;
-                            Id = 36;
-                            Image = "http://54.206.55.185/web/images/passenger/Image13";
-                            Lat = 6287346872364287;
-                            LicenceImage = "images/passenger/image16.png";
-                            Lng = 6287346872364287;
-                            MobileNo = 0987456321;
-                            Password = 25d55ad283aa400af464c76d713c07ad;
-                            QRCode = "images/qrcode/mrXc1tDi1sijkWNjjKCXoKqilWI=.png";
-                            ReferralCode = tktcps36Bha;
-                            Status = 1;
-                            Token = cc958ac268a826a7cf92f9eb655985d5b8de2517e0e5a8432f88801ddd367134;
-                            Verify = 1;
-                        };
-                        status = 1;
-                }
- */
+                UserDefaults.standard.set(SingletonClass.sharedInstance.dictProfile, forKey: "profileData")
+                
+                //                    (result as! NSDictionary).object(forKey: "profile") as! NSMutableDictionary
+                
+                /*
+                 {
+                 profile =     {
+                 ABN = 1234;
+                 Address = "";
+                 BSB = qwer;
+                 BankAccountNo = 0978645312;
+                 BankName = bob;
+                 CompanyName = Isco;
+                 CreatedDate = "2017-11-24 06:36:31";
+                 Description = hi;
+                 DeviceType = 1;
+                 Email = "bhavesh@excellentwebworld.info";
+                 Fullname = "Bhavesh Odedra";
+                 Gender = male;
+                 Id = 36;
+                 Image = "http://54.206.55.185/web/images/passenger/Image13";
+                 Lat = 6287346872364287;
+                 LicenceImage = "images/passenger/image16.png";
+                 Lng = 6287346872364287;
+                 MobileNo = 0987456321;
+                 Password = 25d55ad283aa400af464c76d713c07ad;
+                 QRCode = "images/qrcode/mrXc1tDi1sijkWNjjKCXoKqilWI=.png";
+                 ReferralCode = tktcps36Bha;
+                 Status = 1;
+                 Token = cc958ac268a826a7cf92f9eb655985d5b8de2517e0e5a8432f88801ddd367134;
+                 Verify = 1;
+                 };
+                 status = 1;
+                 }
+                 */
                 
             }
             else {
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
-            }
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
                 }
                 else if let resDict = result as? NSDictionary {
                     
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
-            }
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
                 }
                 else if let resAry = result as? NSArray {
                     
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-            }
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
                 }
             }
         }
     }
-
+    
 }

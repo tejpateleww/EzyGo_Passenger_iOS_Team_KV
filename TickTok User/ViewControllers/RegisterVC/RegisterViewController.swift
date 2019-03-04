@@ -19,22 +19,44 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     @IBOutlet weak var txtConfirmPassword: ACFloatingTextfield!
     
     @IBOutlet weak var lblFlageCode: UILabel!
-    @IBOutlet weak var imgflag: UIImageView!
+    
+    
+    
+    
+    var imgflag = UIImageView()
     @IBOutlet weak var txtContoryNum: UITextField!
     let countoryz : Int = 0
     
     var countoryPicker = UIPickerView()
-    var pickerView = UIPickerView()
-  
+    
+//    var strEmail:String = ""
+//    var strFirstName:String = ""
+//    var strLastName:String = ""
+//    var isFromSocialLogin:Bool = false
+//    var strSocialID:String = ""
+//    var SocialType:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        aryContoryNum = [["countoryCode" : "+61", "countoryimage" : "iconFlag"],["countoryCode" : "+64", "countoryimage" : "iconFlag"]] as [[String : AnyObject]]
+        aryContoryNum = [["countoryCode" : "+64","countoryName" : "New Zealand","countoryID" : "NZ", "countoryimage" : "NZ_Flag"],["countoryCode" : "+61","countoryName" : "Australia","countoryID" : "AU", "countoryimage" : "AU_Flag"]] as [[String : AnyObject]]
         
         txtPhoneNumber.delegate = self
-        pickerView.delegate = self
-        pickerView.dataSource = self
-       
+        
+        let data = aryContoryNum[0]
+        if let CountryCode:String = data["countoryCode"] as? String, let CountryId:String = data["countoryID"] as? String {
+            self.txtContoryNum.text = "\(CountryId) \(CountryCode)"
+        }
+        //            self.txtContoryNum.text = data as? String
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 40))
+        leftView.backgroundColor = UIColor.clear
+        
+        imgflag = UIImageView(frame: CGRect(x: 10, y: 10, width: 25, height: 17))
+        imgflag.image = UIImage(named:  data["countoryimage"] as? String ?? "")
+        leftView.addSubview(imgflag)
+        self.txtContoryNum.leftView = leftView
+        self.txtContoryNum.leftViewMode = .always
+        
         //        txtPhoneNumber.text = "1234567890"
         //        txtEmail.text = "rahul.bbit@gmail.com"
         //        txtPassword.text = "12345678"
@@ -44,7 +66,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         UtilityClass.setCornerRadiusTextField(textField: txtEmail, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         UtilityClass.setCornerRadiusTextField(textField: txtConfirmPassword, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
-         UtilityClass.setCornerRadiusTextField(textField: txtContoryNum, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        UtilityClass.setCornerRadiusTextField(textField: txtContoryNum, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         
         countoryPicker.delegate = self
         countoryPicker.dataSource = self
@@ -55,9 +77,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        pickerView.reloadAllComponents()
+        if self.navigationController?.viewControllers.last != nil {
+            let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
+            if registrationContainerVC.isFromSocialLogin == true {
+                self.txtEmail.text = registrationContainerVC.strEmail
+            }
+        }
+        self.countoryPicker.reloadAllComponents()
     }
+    
+    
+    
+    
   
     //-------------------------------------------------------------
     // MARK: - TextField Delegate Method
@@ -65,20 +96,38 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if textField == txtPhoneNumber {
-            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+        if textField == txtPhoneNumber && range.location == 0 {
             
-            if resultText!.count >= 11 {
+            if string == "0" {
                 return false
             }
-            else {
-                return true
-            }
+            
+//            let resultText: String? = (textField.text as NSString?)?.replacingCharacters(in: range, with: string)
+//            if resultText!.count >= 11 {
+//                return false
+//            }
+//            else {
+//                return true
+//            }
         }
         
         return true
     }
    
+    func removeZeros(from anyString: String?) -> String? {
+        if anyString?.hasPrefix("0") ?? false && (anyString?.count ?? 0) > 1 {
+            return removeZeros(from: (anyString as NSString?)?.substring(from: 1))
+        } else {
+            return anyString
+        }
+    }
+    
+    @IBAction func textDidChange(_ sender: UITextField) {
+        if !sender.text!.isEmpty {
+            txtPhoneNumber.text = removeZeros(from: sender.text!)
+        }
+    }
+    
     //-------------------------------------------------------------
     // MARK: - PickerView Methods
     //-------------------------------------------------------------
@@ -88,34 +137,31 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == countoryPicker{
-            return 2
-        }
-        
         return aryContoryNum.count
     }
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        if pickerView == countoryPicker {
-            return 120
-        }
         return 60
     }
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
         
-        if pickerView == countoryPicker
-        {
+//        if pickerView == countoryPicker
+//        {
         //mainview
-         let viewOfContryCode = UIView(frame: CGRect(x: 10, y: 10, width: countoryPicker.frame.size.width , height: 50))
+         let viewOfContryCode = UIView(frame: CGRect(x: 10, y: 5, width: countoryPicker.frame.size.width , height: 50))
         
         //image
         let imgOfCountry = UIImageView(frame: CGRect(x: 20 , y: 10 , width: 50, height: 30))
         
+        //country Name
+        let lblCountryName = UILabel(frame: CGRect(x: 80, y: 10, width: UIScreen.main.bounds.size.width - 160, height: 30))
+        
         //labelNum
-        let lblOfCountryNum = UILabel(frame: CGRect(x: 70, y: imgOfCountry.center.y - 10, width: 50, height: 30))
+        let lblOfCountryNum = UILabel(frame: CGRect(x: UIScreen.main.bounds.size.width - 80, y: 10, width: 50, height: 30))
         //addsubview
         viewOfContryCode.addSubview(imgOfCountry)
         viewOfContryCode.addSubview(lblOfCountryNum)
+        viewOfContryCode.addSubview(lblCountryName)
         let dictCountry = aryContoryNum[row]
         
             if let CountryCode:String = dictCountry["countoryCode"] as? String {
@@ -124,30 +170,45 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
             if let CountryImg:String = dictCountry["countoryimage"] as? String {
                imgOfCountry.image = UIImage(named: CountryImg)
             }
+        
+        if let CountryName:String = dictCountry["countoryName"] as? String, let CountryId:String = dictCountry["countoryID"] as? String {
+                lblCountryName.text = "\(CountryName) \(CountryId)"
+            }
+        
             
        // return mainview
-        return viewOfContryCode
-           
-        }
+//        return viewOfContryCode
+        
+//        }
     
-     return pickerView
+     return viewOfContryCode
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         
-        if pickerView == countoryPicker {
-          let data = aryContoryNum[row]
-            self.txtContoryNum.text = data as? String
-            imgflag.image = UIImage(named:  data["countoryimage"] as? String ?? "")
-            lblFlageCode.text = data["countoryCode"] as? String ?? ""
+            let data = aryContoryNum[row]
+        if let CountryCode:String = data["countoryCode"] as? String, let CountryId:String = data["countoryID"] as? String {
+            self.txtContoryNum.text = "\(CountryId) \(CountryCode)"
         }
+//            self.txtContoryNum.text = data as? String
+            imgflag.image = UIImage(named:  data["countoryimage"] as? String ?? "")
+//            lblFlageCode.text = data["countoryCode"] as? String ?? ""
     }
     
     @IBAction func btnNext(_ sender: UIButton) {
         if (validateAllFields())
         {
-            webserviceForGetOTPCode(email: txtEmail.text!, mobile: txtPhoneNumber.text!)
+            var MobileNumber:String = ""
+            
+            if let CountryCode:String = self.txtContoryNum.text, let Phone:String = self.txtPhoneNumber.text{
+                if CountryCode == "AU +61" {
+                    MobileNumber = "61\(Phone)"
+                } else if CountryCode == "NZ +64" {
+                    MobileNumber = "64\(Phone)"
+                }
+            }
+            webserviceForGetOTPCode(email: txtEmail.text!, mobile: MobileNumber)
             
         }
     }
@@ -164,6 +225,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+    
     //-------------------------------------------------------------
     // MARK: - validation Email Methods
     //-------------------------------------------------------------
@@ -171,7 +235,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     func validateAllFields() -> Bool
     {
      
-        let isEmailAddressValid = isValidEmailAddress(emailID: txtEmail.text!)
+        let isEmailAddressValid = (txtEmail.text!).isValidEmailAddress()
         
         if (txtPhoneNumber.text?.count == 0)
         {
@@ -182,8 +246,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         }
         else if ((txtPhoneNumber.text?.count)! < 8)
         {
-
-            UtilityClass.setCustomAlert(title: "", message: "Phone Number should 8 digits") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter valid Phone number") { (index, title) in
             }
 
             return false
@@ -197,7 +260,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         }
         else if (!isEmailAddressValid)
         {
-            UtilityClass.setCustomAlert(title: "", message: "Please enter email.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Please enter valid email.") { (index, title) in
             }
 
             return false
@@ -217,15 +280,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
 
             return false
         }
+        else if (txtConfirmPassword.text?.count == 0)
+        {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter confirm password") { (index, title) in
+            }
+            
+            return false
+        }
         else if (txtPassword.text != txtConfirmPassword.text)
         {
-            UtilityClass.setCustomAlert(title: "", message: "Please enter Confirm Password.") { (index, title) in
+            UtilityClass.setCustomAlert(title: "", message: "Password and confirm password must be same.") { (index, title) in
             }
 
             return false
         }
        
-        
         return true
     }
     
@@ -263,7 +332,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         
 //        Param : MobileNo,Email
 
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var param = [String:AnyObject]()
         param["MobileNo"] = mobile as AnyObject
         param["Email"] = email as AnyObject
@@ -286,11 +360,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
                     else if let otp = datas["otp"] as? Int {
                         SingletonClass.sharedInstance.otpCode = "\(otp)"
                     }
-                    
-                    
+                   
                     let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
+//                    registrationContainerVC.isfromSocialLogin = true
+                    
                     registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width, y: 0), animated: true)
-                    registrationContainerVC.pageControl.set(progress: 1, animated: true)
+                    registrationContainerVC.selectPageControlIndex(Index: 1)
+//                    pageControl.set(progress: 1, animated: true)
                     
                 })
                 
@@ -319,15 +395,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
                  print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 

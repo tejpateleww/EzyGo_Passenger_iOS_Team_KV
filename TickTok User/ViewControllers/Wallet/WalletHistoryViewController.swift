@@ -8,9 +8,10 @@
 
 import UIKit
 
+
 class WalletHistoryViewController: ParentViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
+   
     var aryData = [[String:AnyObject]]()
     
     lazy var refreshControl: UIRefreshControl = {
@@ -93,23 +94,27 @@ class WalletHistoryViewController: ParentViewController, UITableViewDataSource, 
         let dictData = aryData[indexPath.row]
         
         cell.lblTransferTitle.text = dictData["Description"] as? String
+//        "\(dictData["TransactionType"] as! String) ID#\(dictData["ReferenceId"] as! String)"
+        
+//            dictData["Description"] as? String
         cell.lblDateOfTransfer.text = dictData["UpdatedDate"] as? String
         
         if dictData["Status"] as! String == "failed" {
             
-            cell.lblAmount.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+            cell.lblAmount.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
+            
             cell.lblAmount.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
             
-            cell.lblTransferStatusHeight.constant = 17
+//            cell.lblTransferStatusHeight.constant = 17
             cell.lblTransferStatus.isHidden = false
             cell.lblTransferStatus.text = "Transaction Failed"
             cell.lblTransferStatus.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
         }
         else if dictData["Status"] as! String == "pending" {
-            cell.lblAmount.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+            cell.lblAmount.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
             cell.lblAmount.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
             
-            cell.lblTransferStatusHeight.constant = 17
+//            cell.lblTransferStatusHeight.constant = 17
             cell.lblTransferStatus.isHidden = false
             cell.lblTransferStatus.text = "Transaction Pending"
             cell.lblTransferStatus.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
@@ -117,17 +122,17 @@ class WalletHistoryViewController: ParentViewController, UITableViewDataSource, 
         else {
             
             if dictData["Type"] as! String == "-" {
-                cell.lblTransferStatusHeight.constant = 0
+//                cell.lblTransferStatusHeight.constant = 0
                 cell.lblTransferStatus.isHidden = true
                 
-                cell.lblAmount.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+                cell.lblAmount.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
                 cell.lblAmount.textColor = UIColor.black
             }
             else {
-                cell.lblTransferStatusHeight.constant = 0
+//                cell.lblTransferStatusHeight.constant = 0
                 cell.lblTransferStatus.isHidden = true
                 
-                cell.lblAmount.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+                cell.lblAmount.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
                 cell.lblAmount.textColor = UIColor.init(red: 0, green: 144/255, blue: 81/255, alpha: 1.0)
             }
             
@@ -151,14 +156,25 @@ class WalletHistoryViewController: ParentViewController, UITableViewDataSource, 
     
     
     func webserviceOfTransactionHistory() {
-
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        
         webserviceForTransactionHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
         
         
             if (status) {
 //                print(result)
+                if let history = result["history"] as? [[String:AnyObject]]
+                {
+                    SingletonClass.sharedInstance.walletHistoryData = history
+                }
                 
-                self.aryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+                self.aryData = SingletonClass.sharedInstance.walletHistoryData
+//                    (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
                 
                 SingletonClass.sharedInstance.strCurrentBalance = ((result as! NSDictionary).object(forKey: "walletBalance") as AnyObject).doubleValue
                 
@@ -180,15 +196,15 @@ class WalletHistoryViewController: ParentViewController, UITableViewDataSource, 
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }

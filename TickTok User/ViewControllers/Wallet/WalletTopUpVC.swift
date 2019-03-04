@@ -21,6 +21,9 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
     var strCardId = String()
     var strAmt = String()
     
+    @IBOutlet weak var lblAmountRef: UILabel!
+    
+    
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -31,10 +34,16 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
         viewMain.layer.cornerRadius = 5
         viewMain.layer.masksToBounds = true
         
-        btnAddFunds.layer.cornerRadius = 5
-        btnAddFunds.layer.masksToBounds = true
-        
+//        btnAddFunds.layer.cornerRadius = 5
+//        btnAddFunds.layer.masksToBounds = true
         txtAmount.becomeFirstResponder()
+        
+        txtAmount.setCurrencyLeftView()
+      
+        
+       
+        
+        
         // Do any additional setup after loading the view.
     }
 
@@ -65,6 +74,12 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
     // MARK: - Actions
     //-------------------------------------------------------------
     
+    
+    @IBAction func txtEditChange(_ sender: Any) {
+        self.lblAmountRef.text = self.txtAmount.text
+    }
+    
+    
     @IBAction func btnCardTitle(_ sender: UIButton) {
         
         let next = self.storyboard?.instantiateViewController(withIdentifier: "WalletCardsVC") as! WalletCardsVC
@@ -76,14 +91,14 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
     @IBAction func btnAddFunds(_ sender: UIButton) {
         
         if strCardId == "" {
- 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please reselect card") { (index, title) in
-            }
+            UtilityClass.showAlert("", message: "Please select card.", vc: self)
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Please select card") { (index, title) in
+//            }
         }
         else if txtAmount.text == "" {
-     
-            UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Amount") { (index, title) in
-            }
+            UtilityClass.showAlert("", message: "Please enter amount.", vc: self)
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Amount") { (index, title) in
+//            }
         }
         else {
             webserviceOFTopUp()
@@ -183,6 +198,12 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
         
 //        PassengerId,Amount,CardId
         
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var dictParam = [String:AnyObject]()
  
         strAmt = strAmt.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -193,14 +214,17 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
         
         webserviceForAddMoney(dictParam as AnyObject) { (result, status) in
         
-        
             if (status) {
                 print(result)
                 
                 self.txtAmount.text = ""
+                UtilityClass.showAlertWithCompletion("Done", message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self, completionHandler: { (Status) in
+                     self.perform(#selector(self.goBack), with: nil, afterDelay: 1.0)
+                })
                 
-                UtilityClass.setCustomAlert(title: "Done", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-                }
+//                UtilityClass.setCustomAlert(title: "Done", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+//
+//                }
                 
                 
                 SingletonClass.sharedInstance.strCurrentBalance = ((result as! NSDictionary).object(forKey: "walletBalance") as AnyObject).doubleValue
@@ -212,22 +236,29 @@ class WalletTopUpVC: ParentViewController, SelectCardDelegate {
                 self.txtAmount.text = ""
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
-                    }
+                    UtilityClass.showAlert(alertTitle, message: res, vc: self)
+//                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+//                    }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
-                    }
+                    UtilityClass.showAlert(alertTitle, message: resDict.object(forKey: "message") as! String, vc: self)
+//                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+//                    }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
-                    }
+                    UtilityClass.showAlert(alertTitle, message:  (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String, vc: self)
+//                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+//                    }
                 }
                
             }
         }
        
         
+    }
+    
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
     }
 
 }

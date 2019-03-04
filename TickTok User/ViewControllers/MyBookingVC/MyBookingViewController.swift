@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 //import NVActivityIndicatorView
 
 class MyBookingViewController: UIViewController, UIScrollViewDelegate {
@@ -26,8 +27,14 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
     
     var selectedBackgroundColor = UIColor.init(red: 204/255, green: 204/255, blue: 204/255, alpha: 1.0)
     var unselectedBackgroundColor = UIColor.white
-    var selectedTextColor = UIColor.init(red: 48/255, green: 48/255, blue: 48/255, alpha: 1.0)
+    var selectedTextColor = themeYellowColor
+//        UIColor.init(red: 48/255, green: 48/255, blue: 48/255, alpha: 1.0)
     var unselectedTextColor = UIColor.init(red: 167/255, green: 167/255, blue: 167/255, alpha: 1.0)
+    
+    @IBOutlet weak var OnGoingLine: UILabel!
+    @IBOutlet weak var UpCommingLine: UILabel!
+    @IBOutlet weak var PastBookingLine: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,31 +42,30 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
         heightOfLayer = 2.0
         heighMinusFromY = 2.0
         
-        webserviceOfBookingHistory()
+//        webserviceOfBookingHistory()
         
         scrollObject.isUserInteractionEnabled = true
-        
         scrollObject.delegate = self
         scrollObject.layoutIfNeeded()
         scrollObject.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
         if (isFromPushNotification) {
-            
             if bookingType == "accept" {
                 Upcomming()
             }
             else if bookingType == "reject" {
                 PastBooking()
             }
-            
         }
         else {
-            PastBooking()
+            Upcomming()
+//            PastBooking()
         }
         
         // Do any additional setup after loading the view.
     }
 
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -67,8 +73,7 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         
-         
+    
     }
     
     
@@ -151,8 +156,7 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func OnGoing() {
-        
-
+      
 //        bottomBorderOnGoing.frame = CGRect(x: 0.0, y: lblOnGoing.frame.size.height - heighMinusFromY, width: lblOnGoing.frame.size.width, height: heightOfLayer)
 //        bottomBorderOnGoing.backgroundColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0).cgColor
 //        lblOnGoing.layer.addSublayer(bottomBorderOnGoing)
@@ -160,28 +164,49 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
         //        bottomBorderPastBooking.removeFromSuperlayer()
         
         
-        btnUpComming.backgroundColor = unselectedBackgroundColor
-        btnPastBooking.backgroundColor = unselectedBackgroundColor
+//        btnUpComming.backgroundColor = unselectedBackgroundColor
+//        btnPastBooking.backgroundColor = unselectedBackgroundColor
         btnUpComming.setTitleColor(unselectedTextColor, for: .normal)
         btnPastBooking.setTitleColor(unselectedTextColor, for: .normal)
-        
-        lblOnGoing.backgroundColor = selectedBackgroundColor
         lblOnGoing.setTitleColor(selectedTextColor, for: .normal)
         
-        scrollObject.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        self.OnGoingLine.backgroundColor = selectedTextColor
+        self.UpCommingLine.backgroundColor = unselectedTextColor
+        self.PastBookingLine.backgroundColor = unselectedTextColor
+        if let OnGoingScreen = self.childViewControllers[0] as? OnGoingVC {
+            OnGoingScreen.webserviceOfBookingHistory()
+        }
+//        lblOnGoing.backgroundColor = selectedBackgroundColor
+//         NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationCenterName.keyForOnGoing), object: nil)
+        self.scrollObject.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    
     }
     
     func Upcomming() {
        
-        
-        btnUpComming.backgroundColor = selectedBackgroundColor
-        btnPastBooking.backgroundColor = unselectedBackgroundColor
-        lblOnGoing.backgroundColor = unselectedBackgroundColor
-        
         btnUpComming.setTitleColor(selectedTextColor, for: .normal)
-        lblOnGoing.setTitleColor(unselectedTextColor, for: .normal)
         btnPastBooking.setTitleColor(unselectedTextColor, for: .normal)
-       
+        lblOnGoing.setTitleColor(unselectedTextColor, for: .normal)
+        
+        self.OnGoingLine.backgroundColor = unselectedTextColor
+        self.UpCommingLine.backgroundColor = selectedTextColor
+        self.PastBookingLine.backgroundColor = unselectedTextColor
+        
+//        btnUpComming.backgroundColor = selectedBackgroundColor
+//        btnPastBooking.backgroundColor = unselectedBackgroundColor
+//        lblOnGoing.backgroundColor = unselectedBackgroundColor
+//
+//        btnUpComming.setTitleColor(selectedTextColor, for: .normal)
+//        lblOnGoing.setTitleColor(unselectedTextColor, for: .normal)
+//        btnPastBooking.setTitleColor(unselectedTextColor, for: .normal)
+     
+        if let UpcomingScreen = self.childViewControllers[1] as? UpCommingVC {
+            UpcomingScreen.webserviceOfBookingHistory()
+        }
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationCenterName.keyForUpComming), object: nil)
+        
+        self.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width, y: 0), animated: true)
+        
 //        bottomBorderUpComming.frame = CGRect(x: 0.0, y: btnUpComming.frame.size.height - heighMinusFromY, width: btnUpComming.frame.size.width, height: heightOfLayer)
 //        bottomBorderUpComming.backgroundColor = UIColor.init(red: 255/255, green: 163/255, blue: 0, alpha: 1.0).cgColor
 //        btnUpComming.layer.addSublayer(bottomBorderUpComming)
@@ -202,7 +227,7 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
 //        btnPastBooking.setTitleColor(UIColor.black, for: .normal)
         
       
-        scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width, y: 0), animated: true)
+        
     }
     
     func PastBooking() {
@@ -225,23 +250,32 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
 //        btnUpComming.setTitleColor(UIColor.black, for: .normal)
 //        btnPastBooking.setTitleColor(UIColor.black, for: .normal)
         
-        btnUpComming.backgroundColor = unselectedBackgroundColor
-        btnPastBooking.backgroundColor = selectedBackgroundColor
-        lblOnGoing.backgroundColor = unselectedBackgroundColor
-        
-        btnUpComming.setTitleColor(unselectedTextColor, for: .normal)
-        lblOnGoing.setTitleColor(unselectedTextColor, for: .normal)
-        btnPastBooking.setTitleColor(selectedTextColor, for: .normal)
+//        btnUpComming.backgroundColor = unselectedBackgroundColor
+//        btnPastBooking.backgroundColor = selectedBackgroundColor
+//        lblOnGoing.backgroundColor = unselectedBackgroundColor
+//
+//        btnUpComming.setTitleColor(unselectedTextColor, for: .normal)
+//        lblOnGoing.setTitleColor(unselectedTextColor, for: .normal)
+//        btnPastBooking.setTitleColor(selectedTextColor, for: .normal)
 
+        btnUpComming.setTitleColor(unselectedTextColor, for: .normal)
+        btnPastBooking.setTitleColor(selectedTextColor, for: .normal)
+        lblOnGoing.setTitleColor(unselectedTextColor, for: .normal)
         
+        self.OnGoingLine.backgroundColor = unselectedTextColor
+        self.UpCommingLine.backgroundColor = unselectedTextColor
+        self.PastBookingLine.backgroundColor = selectedTextColor
+        if let PastBookingScreen = self.childViewControllers[2] as? PastBookingVC {
+            PastBookingScreen.getPastBookingHistory()
+        }
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationCenterName.keyForPastBooking), object: nil)
         scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
     }
     
     @IBAction func btnPastBooking(_ sender: UIButton) {
-       
         PastBooking()
-        
     }
+    
     
     //-------------------------------------------------------------
     // MARK: - Scroll Methods
@@ -261,6 +295,7 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
     //-------------------------------------------------------------
     // MARK: - Webservice Methods
     //-------------------------------------------------------------
+   /*
     
     func webserviceOfBookingHistory()
     {
@@ -270,21 +305,22 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
         webserviceForBookingHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             
             if (status) {
-                
                 self.aryHistory = (result as! NSDictionary).object(forKey: "history") as! NSArray
-                
                 print(self.aryHistory)
-                
                 SingletonClass.sharedInstance.aryHistory = self.aryHistory
-                
                 // ------------------------------------------------------------
                 // OnGoing
                 var aryOnGoing = [NSDictionary]()
+                var aryUpComming = [NSDictionary]()
+                var aryPastBooking = [NSDictionary]()
                 for i in 0..<self.aryHistory.count
                 {
                     if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "onGoing" {
-                      
                         aryOnGoing.append((self.aryHistory.object(at: i) as! NSDictionary))
+                    } else if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "Upcoming" {
+                        aryUpComming.append((self.aryHistory.object(at: i) as! NSDictionary))
+                    } else if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "Past" {
+                        aryPastBooking.append((self.aryHistory.object(at: i) as! NSDictionary))
                     }
                 }
                 SingletonClass.sharedInstance.aryOnGoing = aryOnGoing as NSArray
@@ -293,28 +329,28 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
                 // ------------------------------------------------------------
                 
                 // UpComming
-                var aryUpComming = [NSDictionary]()
-                for i in 0..<self.aryHistory.count
-                {
-                    if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "Upcoming" {
-                        
-                        aryUpComming.append((self.aryHistory.object(at: i) as! NSDictionary))
-                    }
-                }
+                
+//                for i in 0..<self.aryHistory.count
+//                {
+////                    if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "Upcoming" {
+////
+////                        aryUpComming.append((self.aryHistory.object(at: i) as! NSDictionary))
+////                    }
+//                }
                 SingletonClass.sharedInstance.aryUpComming = aryUpComming as NSArray
                 // Post notification
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationCenterName.keyForUpComming), object: nil)
                 // ------------------------------------------------------------
             
                 // UpComming
-                var aryPastBooking = [NSDictionary]()
-                for i in 0..<self.aryHistory.count
-                {
-                    if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "Past" {
-                        
-                        aryPastBooking.append((self.aryHistory.object(at: i) as! NSDictionary))
-                    }
-                }
+                
+//                for i in 0..<self.aryHistory.count
+//                {
+//                    if (self.aryHistory.object(at: i) as! NSDictionary).object(forKey: "HistoryType") as? String == "Past" {
+//
+//                        aryPastBooking.append((self.aryHistory.object(at: i) as! NSDictionary))
+//                    }
+//                }
                 SingletonClass.sharedInstance.aryPastBooking = aryPastBooking as NSArray
                 // Post notification
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationCenterName.keyForPastBooking), object: nil)
@@ -325,8 +361,22 @@ class MyBookingViewController: UIViewController, UIScrollViewDelegate {
             else {
                 
                 print(result)
+                
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
             }
         }
     }
+ */
 
 }

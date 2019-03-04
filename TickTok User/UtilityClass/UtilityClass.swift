@@ -9,12 +9,33 @@ import UIKit
 import NVActivityIndicatorView
 import Alamofire
 
+
 typealias CompletionHandler = (_ success:Bool) -> Void
 
 class UtilityClass: NSObject, alertViewMethodsDelegates {
     
     var delegateOfAlert : alertViewMethodsDelegates!
+    
+    class func getAppDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
+
+
+
+    class func showAlertOnWindow(_ title:String, message:String, vc:UIViewController) -> Void {
+        
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: UIAlertControllerStyle.alert)
+        
+        let cancelAction = UIAlertAction(title: "OK",
+                                         style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
+    }
+    
     class func showAlert(_ title: String, message: String, vc: UIViewController) -> Void
     {
         let alert = UIAlertController(title: title,
@@ -23,12 +44,12 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         
         let cancelAction = UIAlertAction(title: "OK",
                                          style: .cancel, handler: nil)
-                alert.addAction(cancelAction)
+        alert.addAction(cancelAction)
         
         if((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.presentedViewController != nil)
         {
             (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.dismiss(animated: true, completion: {
-//                vc.present(alert, animated: true, completion: nil)
+                //                vc.present(alert, animated: true, completion: nil)
                 (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
             })
         }
@@ -82,10 +103,10 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         
         if((UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.presentedViewController != nil)
         {
-//            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.dismiss(animated: true, completion: {
-//                //                vc.present(alert, animated: true, completion: nil)
-//                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
-//            })
+            //            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.dismiss(animated: true, completion: {
+            //                //                vc.present(alert, animated: true, completion: nil)
+            //                (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
+            //            })
         }
         else {
             (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
@@ -95,10 +116,10 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
     
     
     class func CustomAlertViewMethod(_ title: String, message: String, vc: UIViewController, completionHandler: @escaping CompletionHandler) -> Void {
+        let BookingStoryboard = UIStoryboard(name: "Booking", bundle: nil)
+        let next = BookingStoryboard.instantiateViewController(withIdentifier: "CustomAlertsViewController") as! CustomAlertsViewController
         
-        let next = vc.storyboard?.instantiateViewController(withIdentifier: "CustomAlertsViewController") as! CustomAlertsViewController
-        
-//        next.delegateOfAlertView = vc as! alertViewMethodsDelegates
+        //        next.delegateOfAlertView = vc as! alertViewMethodsDelegates
         next.strTitle = title
         next.strMessage = message
         
@@ -106,10 +127,30 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         
     }
     
+    class func setTimeStampToDate(timeStamp:String, timeFormate: String) -> String {
+        var strDate: String = ""
+        if timeStamp != "" {
+            let unixTimestamp = Double(timeStamp)
+            let date = Date(timeIntervalSince1970: unixTimestamp!)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+            dateFormatter.locale = NSLocale.current
+            dateFormatter.dateFormat = timeFormate //Specify your format that you want
+            strDate = dateFormatter.string(from: date)
+        } else if timeStamp == "" {
+            strDate = "-"
+        }
+        return strDate
+    }
+    
+    class func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
     typealias alertCompletionBlockAJ = ((Int, String) -> Void)?
     
     class func setCustomAlert(title: String, message: String,completionHandler: alertCompletionBlockAJ) -> Void {
-       
+
         AJAlertController.initialization().showAlertWithOkButton(aStrTitle: title, aStrMessage: message) { (index,title) in
             
             if index == 0 {
@@ -126,17 +167,17 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
     }
     
     
-//    convenience init(title: String, message: String, buttons buttonArray: [Any], completion block: @escaping (_ buttonIndex: Int) -> Void) {
-//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        for buttonTitle: String in buttonArray {
-//            let action = UIAlertAction(title: buttonTitle, style: .default, handler: {(_ action: UIAlertAction) -> Void in
-//                let index: Int = (buttonArray as NSArray).index(of: action.title ?? "")
-//                block(index)
-//            })
-//            alertController.addAction(action)
-//        }
-//        self.topMostController().present(alertController, animated: true) {() -> Void in }
-//    }
+    //    convenience init(title: String, message: String, buttons buttonArray: [Any], completion block: @escaping (_ buttonIndex: Int) -> Void) {
+    //        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    //        for buttonTitle: String in buttonArray {
+    //            let action = UIAlertAction(title: buttonTitle, style: .default, handler: {(_ action: UIAlertAction) -> Void in
+    //                let index: Int = (buttonArray as NSArray).index(of: action.title ?? "")
+    //                block(index)
+    //            })
+    //            alertController.addAction(action)
+    //        }
+    //        self.topMostController().present(alertController, animated: true) {() -> Void in }
+    //    }
     
     class func showHUD()
     {
@@ -153,19 +194,19 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
     }
     class func showACProgressHUD() {
         
-//        let progressView = ACProgressHUD.shared
-//        /*
-//         ACProgressHUD.shared.configureStyle(withProgressText: "", progressTextColor: .black, progressTextFont: <#T##UIFont#>, shadowColor: UIColor.black, shadowRadius: 3, cornerRadius: 5, indicatorColor: UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0), hudBackgroundColor: .white, enableBackground: false, backgroundColor: UIColor.black, backgroundColorAlpha: 0.3, enableBlurBackground: false, showHudAnimation: .growIn, dismissHudAnimation: .growOut)
-//         */
-//        progressView.progressText = ""
-//
-//        progressView.hudBackgroundColor = .black
-//
-//        progressView.indicatorColor = themeYellowColor
-//        //        progressView.shadowRadius = 0.5
-//
-//
-//        progressView.showHUD()
+        //        let progressView = ACProgressHUD.shared
+        //        /*
+        //         ACProgressHUD.shared.configureStyle(withProgressText: "", progressTextColor: .black, progressTextFont: <#T##UIFont#>, shadowColor: UIColor.black, shadowRadius: 3, cornerRadius: 5, indicatorColor: UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0), hudBackgroundColor: .white, enableBackground: false, backgroundColor: UIColor.black, backgroundColorAlpha: 0.3, enableBlurBackground: false, showHudAnimation: .growIn, dismissHudAnimation: .growOut)
+        //         */
+        //        progressView.progressText = ""
+        //
+        //        progressView.hudBackgroundColor = .black
+        //
+        //        progressView.indicatorColor = themeYellowColor
+        //        //        progressView.shadowRadius = 0.5
+        //
+        //
+        //        progressView.showHUD()
         
         let activityData = ActivityData()
         NVActivityIndicatorView.DEFAULT_BLOCKER_MINIMUM_DISPLAY_TIME = 55
@@ -178,7 +219,7 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
     
     class func hideACProgressHUD() {
         
-//        ACProgressHUD.shared.hideHUD()
+        //        ACProgressHUD.shared.hideHUD()
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
     }
@@ -254,3 +295,12 @@ extension UIViewController {
         return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
     }
 }
+
+
+
+func getGoogleApiKey(functionName : String , URL : String , LineNumber : String) -> String
+{
+    print("The function name is \(functionName) The URL is \(URL) The line number is \(LineNumber)")
+    return googlApiKey
+}
+

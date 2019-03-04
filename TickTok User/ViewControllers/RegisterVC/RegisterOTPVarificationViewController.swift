@@ -22,6 +22,7 @@ class RegisterOTPVarificationViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
@@ -36,7 +37,8 @@ class RegisterOTPVarificationViewController: UIViewController {
             
             let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
             registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
-            registrationContainerVC.pageControl.set(progress: 2, animated: true)
+            registrationContainerVC.selectPageControlIndex(Index: 2)
+//                .pageControl.set(progress: 2, animated: true)
         }
         else
         {
@@ -54,7 +56,8 @@ class RegisterOTPVarificationViewController: UIViewController {
                 let registrationContainerVC = self.parent as! RegistrationContainerViewController
                 
                 registrationContainerVC.scrollObject.setContentOffset(CGPoint(x: self.view.frame.size.width * 2, y: 0), animated: true)
-                registrationContainerVC.pageControl.set(progress: 2, animated: true)
+                registrationContainerVC.selectPageControlIndex(Index: 2)
+//                    .pageControl.set(progress: 2, animated: true)
             }
         }
             else

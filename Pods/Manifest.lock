@@ -1,6 +1,13 @@
 PODS:
   - ACFloatingTextfield-Swift (1.5)
+  - ActionSheetPicker-3.0 (2.3.0)
   - Alamofire (4.5.1)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - CardIO (5.4.1)
   - CHIPageControl (0.1.4):
     - CHIPageControl/Aji (= 0.1.4)
@@ -24,6 +31,25 @@ PODS:
   - CreditCardForm (0.1.5)
   - DOAlertController (2.0)
   - Fabric (1.7.2)
+  - FacebookCore (0.3.3):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit (~> 4.36)
+  - FacebookLogin (0.3.3):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.3.3)
+    - FBSDKCoreKit (~> 4.36)
+    - FBSDKLoginKit (~> 4.36)
+  - FacebookShare (0.3.3):
+    - Bolts (~> 1.9)
+    - FacebookCore (~> 0.3.3)
+    - FBSDKCoreKit (~> 4.36)
+    - FBSDKShareKit (~> 4.36)
+  - FBSDKCoreKit (4.36.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.36.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.36.0):
+    - FBSDKCoreKit (~> 4.36.0)
   - Firebase/Core (4.7.0):
     - FirebaseAnalytics (= 4.0.5)
     - FirebaseCore (= 4.0.12)
@@ -53,11 +79,30 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (2.5.0):
     - GoogleMaps/Base (= 2.5.0)
+  - GoogleSignIn (4.2.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.3):
+    - GoogleToolboxForMac/Defines (= 2.1.3)
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3)":
+    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
+    - GoogleToolboxForMac/Defines (= 2.1.3)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
+  - GTMOAuth2 (1.1.6):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.2.0):
+    - GTMSessionFetcher/Full (= 1.2.0)
+  - GTMSessionFetcher/Core (1.2.0)
+  - GTMSessionFetcher/Full (1.2.0):
+    - GTMSessionFetcher/Core (= 1.2.0)
   - IQKeyboardManagerSwift (5.0.6)
   - M13Checkbox (3.2.1)
   - nanopb (0.3.8):
@@ -81,6 +126,7 @@ PODS:
 
 DEPENDENCIES:
   - ACFloatingTextfield-Swift
+  - ActionSheetPicker-3.0
   - Alamofire
   - CardIO
   - CHIPageControl
@@ -88,12 +134,16 @@ DEPENDENCIES:
   - CreditCardForm
   - DOAlertController (from `https://github.com/okmr-d/DOAlertController.git`, branch `master`)
   - Fabric
+  - FacebookCore
+  - FacebookLogin
+  - FacebookShare
   - Firebase/Core
   - Firebase/Messaging
   - FormTextField
   - GoogleAnalytics
   - GoogleMaps
   - GooglePlaces
+  - GoogleSignIn
   - IQKeyboardManagerSwift
   - M13Checkbox
   - NVActivityIndicatorView
@@ -104,14 +154,22 @@ DEPENDENCIES:
   - TransitionButton
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - ACFloatingTextfield-Swift
+    - ActionSheetPicker-3.0
     - Alamofire
+    - Bolts
     - CardIO
     - CHIPageControl
     - Crashlytics
     - CreditCardForm
     - Fabric
+    - FacebookCore
+    - FacebookLogin
+    - FacebookShare
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -121,7 +179,10 @@ SPEC REPOS:
     - GoogleAnalytics
     - GoogleMaps
     - GooglePlaces
+    - GoogleSignIn
     - GoogleToolboxForMac
+    - GTMOAuth2
+    - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - M13Checkbox
     - nanopb
@@ -146,13 +207,21 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: ebcfb892acbce8545576dd224df7b1b7473a4bbd
+  ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   CHIPageControl: 032b5ab68506c00711d5a61bd83e9fdf2a7ecb22
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   CreditCardForm: 9ae830341997229abb0e284e66f301f834afe942
   DOAlertController: 4d4ee33bbf1656271895da4a3cac4fbaa1d3217e
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
+  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
+  FacebookLogin: bdaea5789e9b364fa8a1990ba3bbba4fd2197415
+  FacebookShare: 14e88f2dcc3a03376304d2a1e10254296076ce88
+  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
+  FBSDKLoginKit: 8bccb6064708ab2f4251a7fc4e3b6d8d00ad91ba
+  FBSDKShareKit: 7090fdd55c39b03941efddb64c83a64ff6b3949f
   Firebase: dbfb98ccec2dcfcd21ab9cc1b4981a3f3c8c5e26
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseCore: 6cf108b63997bc08c04a1ffa55a3ac0d71a59ffc
@@ -162,7 +231,10 @@ SPEC CHECKSUMS:
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
   GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
+  GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   M13Checkbox: 12376f5b128189432508c240e4a36dc945ab7e4e
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
@@ -175,6 +247,6 @@ SPEC CHECKSUMS:
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
   TransitionButton: 0bf7e5ffe80030f9d10d57983a04acf2f511998a
 
-PODFILE CHECKSUM: 49eaa67cfcfce30b7aaf63b901b72cf224d441c8
+PODFILE CHECKSUM: 79a03411fc791b8ad95d43f963adde395ce88632
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

@@ -135,12 +135,18 @@
 		21EA251B217B09D10080D1CC /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EA251A217B09D10080D1CC /* ForgotViewController.swift */; };
 		21F74B12203421F4000F8769 /* AJAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F74B10203421F3000F8769 /* AJAlertController.swift */; };
 		21F74B13203421F4000F8769 /* AJAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21F74B11203421F3000F8769 /* AJAlertController.xib */; };
+		341AA75121AE61A200ECFEB4 /* WebPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341AA75021AE61A200ECFEB4 /* WebPageViewController.swift */; };
+		341AA75321AE678900ECFEB4 /* ContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341AA75221AE678900ECFEB4 /* ContactUsViewController.swift */; };
+		343BBF4121AFE28600303646 /* new_sms.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 343BBF4021AFE28600303646 /* new_sms.mp3 */; };
+		3444F8DB21A2CA1D007EE5C6 /* ReceiptFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3444F8DA21A2CA1D007EE5C6 /* ReceiptFilterViewController.swift */; };
 		346449432175FCC500BF617E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 346449422175FCC400BF617E /* Assets.xcassets */; };
 		3474B8EE217EFB9B00B575BA /* PromoCreditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3474B8ED217EFB9B00B575BA /* PromoCreditTableViewCell.swift */; };
 		347C90C6217F4D7300BC80E8 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001151C21FA1E9B100753F55 /* SideMenuTableViewController.swift */; };
 		347C90C9217F584100BC80E8 /* PromoCreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3474B8F1217F33B300B575BA /* PromoCreditViewController.swift */; };
 		347C90CB217F5EB700BC80E8 /* MyRatingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347C90CA217F5EB700BC80E8 /* MyRatingsViewController.swift */; };
+		34834452219C06810051B7FB /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34834451219C06810051B7FB /* Extention.swift */; };
 		34869345218049D3008D7F72 /* MyRatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34869344218049D3008D7F72 /* MyRatingTableViewCell.swift */; };
+		34B4C9C821B16296005F0EAE /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B4C9C721B16296005F0EAE /* credentials.plist */; };
 		34DA90C421786B30008F3953 /* FavrouiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DA90C321786B30008F3953 /* FavrouiteTableViewCell.swift */; };
 		50854B122174AF95009E5991 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50854B112174AF95009E5991 /* SplashVC.swift */; };
 		545B30B7204C22DA0019012F /* PackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545B30B6204C22DA0019012F /* PackageViewController.swift */; };
@@ -286,11 +292,17 @@
 		21F74B10203421F3000F8769 /* AJAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AJAlertController.swift; sourceTree = "<group>"; };
 		21F74B11203421F3000F8769 /* AJAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJAlertController.xib; sourceTree = "<group>"; };
 		3412C5072170BD79000D6583 /* EZYGO Rider-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EZYGO Rider-Bridging-Header.h"; sourceTree = "<group>"; };
+		341AA75021AE61A200ECFEB4 /* WebPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPageViewController.swift; sourceTree = "<group>"; };
+		341AA75221AE678900ECFEB4 /* ContactUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUsViewController.swift; sourceTree = "<group>"; };
+		343BBF4021AFE28600303646 /* new_sms.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = new_sms.mp3; sourceTree = "<group>"; };
+		3444F8DA21A2CA1D007EE5C6 /* ReceiptFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptFilterViewController.swift; sourceTree = "<group>"; };
 		346449422175FCC400BF617E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3474B8ED217EFB9B00B575BA /* PromoCreditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCreditTableViewCell.swift; sourceTree = "<group>"; };
 		3474B8F1217F33B300B575BA /* PromoCreditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromoCreditViewController.swift; sourceTree = "<group>"; };
 		347C90CA217F5EB700BC80E8 /* MyRatingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRatingsViewController.swift; sourceTree = "<group>"; };
+		34834451219C06810051B7FB /* Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
 		34869344218049D3008D7F72 /* MyRatingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRatingTableViewCell.swift; sourceTree = "<group>"; };
+		34B4C9C721B16296005F0EAE /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		34DA90C321786B30008F3953 /* FavrouiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavrouiteTableViewCell.swift; sourceTree = "<group>"; };
 		50854B112174AF95009E5991 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		545B30B6204C22DA0019012F /* PackageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageViewController.swift; sourceTree = "<group>"; };
@@ -349,6 +361,7 @@
 				2127EE4D1FE14F14004E27C3 /* HotelReservationViewController.swift */,
 				21AA8AE81FE175F200210E2D /* BookTableSelectedDataViewController.swift */,
 				217F25531FE3A5480084F6C8 /* ShoppingDetailsVC.swift */,
+				3444F8DA21A2CA1D007EE5C6 /* ReceiptFilterViewController.swift */,
 			);
 			path = SideMenuVC;
 			sourceTree = "<group>";
@@ -426,7 +439,7 @@
 		0079BF9D1FA35E0400EFB38D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				2147D461203303530067806F /* CustomAlertsViewController.swift */,
+				341AA74C21AE60D100ECFEB4 /* Customer support */,
 				2174B6111FDFFE5B00462E91 /* Wallet */,
 				004B7D451FB9641B00369EDF /* UpdateProfileVC */,
 				005B64081FB417F600029EA2 /* MyBookingVC */,
@@ -474,6 +487,7 @@
 				00FFCDE11FA4AA4D00073621 /* SingletonClass.swift */,
 				006057171FF52197004CA5DE /* CustomViewForShadow.swift */,
 				219675F5210F33D4001289FB /* Extention+UIViewController.swift */,
+				34834451219C06810051B7FB /* Extention.swift */,
 			);
 			path = UtilityClass;
 			sourceTree = "<group>";
@@ -501,9 +515,11 @@
 			isa = PBXGroup;
 			children = (
 				215CDF112031C3EE00B1F65F /* PickNGo User.entitlements */,
+				34B4C9C721B16296005F0EAE /* credentials.plist */,
 				21714E5E200F616700457465 /* RequestConfirm.mp3 */,
 				2169EE482034686A003ACBBD /* GoogleService-Info.plist */,
 				2158C7F91FFE7168002C6E50 /* ringTone.mp3 */,
+				343BBF4021AFE28600303646 /* new_sms.mp3 */,
 				EED6F28920385CF900C7B2E9 /* PickNGo.mp3 */,
 				2127EE551FE15B25004E27C3 /* CollectionCell */,
 				2174B62E1FE003B500462E91 /* TableviewCell */,
@@ -627,13 +643,14 @@
 		2174B6111FDFFE5B00462E91 /* Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				2147D461203303530067806F /* CustomAlertsViewController.swift */,
 				2174B6121FDFFE5B00462E91 /* WalletAddCardsViewController.swift */,
 				2174B6131FDFFE5B00462E91 /* WalletBalanceMainVC.swift */,
 				2174B6141FDFFE5B00462E91 /* WalletCardsVC.swift */,
 				2174B6151FDFFE5B00462E91 /* WalletCollectionViewCell.swift */,
 				2174B6161FDFFE5B00462E91 /* WalletHistoryViewController.swift */,
-				2174B6171FDFFE5B00462E91 /* WalletTopUpVC.swift */,
 				2174B6181FDFFE5B00462E91 /* WalletTransferToBankVC.swift */,
+				2174B6171FDFFE5B00462E91 /* WalletTopUpVC.swift */,
 				2174B6191FDFFE5B00462E91 /* WalletTransferViewController.swift */,
 				2174B61A1FDFFE5B00462E91 /* WalletViewController.swift */,
 				2174B61B1FDFFE5B00462E91 /* webViewVC.swift */,
@@ -729,6 +746,15 @@
 				21F74B11203421F3000F8769 /* AJAlertController.xib */,
 			);
 			path = AlertCustom;
+			sourceTree = "<group>";
+		};
+		341AA74C21AE60D100ECFEB4 /* Customer support */ = {
+			isa = PBXGroup;
+			children = (
+				341AA75021AE61A200ECFEB4 /* WebPageViewController.swift */,
+				341AA75221AE678900ECFEB4 /* ContactUsViewController.swift */,
+			);
+			path = "Customer support";
 			sourceTree = "<group>";
 		};
 		34DA90C221786A5D008F3953 /* Home */ = {
@@ -855,6 +881,7 @@
 				004620B21FB1B5C5002EB388 /* WWCalendarTimeSelector.storyboard in Resources */,
 				008D223B1FA08DCF001223DF /* LaunchScreen.storyboard in Resources */,
 				218B90441FDA9A0400422DC1 /* circle2.png in Resources */,
+				343BBF4121AFE28600303646 /* new_sms.mp3 in Resources */,
 				2127EE3F1FE100A1004E27C3 /* ACProgressView.xib in Resources */,
 				2174B62C1FE002D300462E91 /* HeaderView.xib in Resources */,
 				2169EE492034686C003ACBBD /* GoogleService-Info.plist in Resources */,
@@ -865,6 +892,7 @@
 				EE3D4CC721709C6700B67991 /* Profile.storyboard in Resources */,
 				21690C8B1FEE1D8000F89B40 /* coordinates.json in Resources */,
 				218B90491FDAADF200422DC1 /* startHere.png in Resources */,
+				34B4C9C821B16296005F0EAE /* credentials.plist in Resources */,
 				EE3D4CCB21709D0600B67991 /* Wallet.storyboard in Resources */,
 				218B90431FDA9A0400422DC1 /* circle1.png in Resources */,
 				EE3D4CC021709B7100B67991 /* Login.storyboard in Resources */,
@@ -909,11 +937,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-EZYGO Rider/Pods-EZYGO Rider-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -946,11 +976,21 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EZYGO Rider/Pods-EZYGO Rider-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ACFloatingTextfield-Swift/ACFloatingTextfield_Swift.framework",
+				"${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CHIPageControl/CHIPageControl.framework",
 				"${BUILT_PRODUCTS_DIR}/CreditCardForm/CreditCardForm.framework",
 				"${BUILT_PRODUCTS_DIR}/DOAlertController/DOAlertController.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/FormTextField/FormTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/M13Checkbox/M13Checkbox.framework",
@@ -967,11 +1007,21 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ACFloatingTextfield_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ActionSheetPicker_3_0.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHIPageControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CreditCardForm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DOAlertController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FormTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13Checkbox.framework",
@@ -1009,6 +1059,7 @@
 				217F254E1FE390030084F6C8 /* MyFavouriteTableViewCell.swift in Sources */,
 				2174B61D1FDFFE5C00462E91 /* WalletBalanceMainVC.swift in Sources */,
 				2174B62B1FE002D300462E91 /* HeaderView.swift in Sources */,
+				341AA75321AE678900ECFEB4 /* ContactUsViewController.swift in Sources */,
 				004620AC1FB1B5C5002EB388 /* Duration.swift in Sources */,
 				211D535B1FDAB49B0039A801 /* DriverInfoViewController.swift in Sources */,
 				2174B6341FE003D200462E91 /* WalletCardsTableViewCell.swift in Sources */,
@@ -1032,6 +1083,7 @@
 				2127EE501FE14F30004E27C3 /* HotelReservationTableViewCell.swift in Sources */,
 				2127EE471FE12F71004E27C3 /* FavoriteViewController.swift in Sources */,
 				0051AAA31FB0501C00C187F1 /* TripDetailsTableViewCell.swift in Sources */,
+				3444F8DB21A2CA1D007EE5C6 /* ReceiptFilterViewController.swift in Sources */,
 				1149E11D204D2971008CDFAB /* PackageCarListCollectionViewCell.swift in Sources */,
 				214706631FF36F510009E39A /* ARCarMovement.swift in Sources */,
 				2174B61C1FDFFE5C00462E91 /* WalletAddCardsViewController.swift in Sources */,
@@ -1056,6 +1108,7 @@
 				217F255E1FE3CC0C0084F6C8 /* GroceriesViewController.swift in Sources */,
 				217F25541FE3A5480084F6C8 /* ShoppingDetailsVC.swift in Sources */,
 				219C35732033322B00707F44 /* CommingSoonViewController.swift in Sources */,
+				341AA75121AE61A200ECFEB4 /* WebPageViewController.swift in Sources */,
 				213C8C331FEB7F5E002C59AA /* TickPayRegistrationViewController.swift in Sources */,
 				21AA8AF21FE17C1200210E2D /* TickPayAlertViewController.swift in Sources */,
 				00A462ED1FB3072C005BF6D3 /* AllDriversOnMapViewController.swift in Sources */,
@@ -1101,6 +1154,7 @@
 				0025D0AF1FA1AE6000167FCD /* HomeViewController.swift in Sources */,
 				3474B8EE217EFB9B00B575BA /* PromoCreditTableViewCell.swift in Sources */,
 				2174B6241FDFFE5C00462E91 /* WalletViewController.swift in Sources */,
+				34834452219C06810051B7FB /* Extention.swift in Sources */,
 				21AA8AEB1FE175FF00210E2D /* BookTableSelectedDataTableViewCell.swift in Sources */,
 				219675F6210F33D4001289FB /* Extention+UIViewController.swift in Sources */,
 				0076BF951FAD8AD400718F72 /* BookLaterViewController.swift in Sources */,
@@ -1216,6 +1270,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-Objc";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1266,6 +1321,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-Objc";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -1278,10 +1334,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "TickTok User/PickNGo User.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: PICK AND GO PRIVATE LIMITED (HS8349WC4W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LNR2265795;
+				DEVELOPMENT_TEAM = R9NMM839AT;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = "TickTok User/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1303,10 +1359,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "TickTok User/PickNGo User.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: PICK AND GO PRIVATE LIMITED (HS8349WC4W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LNR2265795;
+				DEVELOPMENT_TEAM = R9NMM839AT;
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = "TickTok User/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

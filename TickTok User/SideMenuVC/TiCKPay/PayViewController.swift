@@ -10,8 +10,8 @@ import UIKit
 import FormTextField
 
 class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CardIOPaymentViewControllerDelegate, UITextFieldDelegate {
-
-   
+    
+    
     let pickerView = UIPickerView()
     let datePicker = UIDatePicker()
     
@@ -57,19 +57,19 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         super.viewDidLoad()
         webserviceOFGetTickpayRate()
         
-//        txtCardNumber.delegate = self
-
+        //        txtCardNumber.delegate = self
+        
         
         SingletonClass.sharedInstance.strIsFirstTimeTickPay = "first"
         
         btnPayNow.layer.cornerRadius = 5
         btnPayNow.layer.masksToBounds = true
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-       
+        
     }
     
     func setTextFieldCornerRadious() {
@@ -91,14 +91,14 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
             
         }
         else if SingletonClass.sharedInstance.strIsFirstTimeTickPay == "FormAlertYes" {
-//            self.performSegue(withIdentifier: "segueForInVoice", sender: nil)
+            //            self.performSegue(withIdentifier: "segueForInVoice", sender: nil)
             let next = self.storyboard?.instantiateViewController(withIdentifier: "InVoiceReceiptViewController") as! InVoiceReceiptViewController
             SingletonClass.sharedInstance.strIsFirstTimeTickPay = ""
             self.navigationController?.pushViewController(next, animated: true)
         }
         else if SingletonClass.sharedInstance.strIsFirstTimeTickPay == "FromInVoice" {
             
-        
+            
             let next = self.storyboard?.instantiateViewController(withIdentifier: "TickPayAlertViewController") as! TickPayAlertViewController
             next.modalPresentationStyle = .formSheet
             
@@ -121,14 +121,13 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         pickerView.delegate = self
         
         
-//        viewTickPay.layer.borderWidth = 1
+        //        viewTickPay.layer.borderWidth = 1
         viewTickPay.layer.borderColor = UIColor.darkGray.cgColor
         
         viewTickPay.layer.shadowOpacity = 0.3
         viewTickPay.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
         
         findCurrentMonthAndYear()
-        
         cardNum()
         cardExpiry()
         cardCVV()
@@ -141,7 +140,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtCVV.isHidden = true
         
     }
- 
+    
     func cardNum() {
         txtCardNumber.inputType = .integer
         txtCardNumber.formatter = CardNumberFormatter()
@@ -162,7 +161,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         validation.characterSet = characterSet as CharacterSet
         
         inputValidator = InputValidator(validation: validation)
-
+        
         txtCardNumber.inputValidator = inputValidator
         
         let cardNumber = FormTextField()
@@ -176,7 +175,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         
         let changeToX = maskNumber(strCardNumber)
         
-         print("changeToX : \(changeToX)")
+        print("changeToX : \(changeToX)")
         
     }
     
@@ -193,17 +192,17 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtExpiryDate.invalidBackgroundColor = UIColor.white
         txtExpiryDate.disabledBackgroundColor = UIColor.white
         txtExpiryDate.inactiveBackgroundColor = UIColor.white
- 
-//        var validation = Validation()
+        
+        //        var validation = Validation()
         validation.minimumLength = 1
         let inputValidator = CardExpirationDateInputValidator(validation: validation)
         txtExpiryDate.inputValidator = inputValidator
-   
+        
         
     }
     
     func cardCVV() {
- 
+        
         txtCVV.inputType = .integer
         txtCVV.placeholder = "CVC"
         
@@ -216,7 +215,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtCVV.disabledBackgroundColor = UIColor.white
         txtCVV.inactiveBackgroundColor = UIColor.white
         
-//        var validation = Validation()
+        //        var validation = Validation()
         validation.maximumLength = 3
         validation.minimumLength = 3
         validation.characterSet = NSCharacterSet.decimalDigits
@@ -226,16 +225,16 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         print("txtCVV.text : \(txtCVV.text)")
     }
     
-
+    
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
-  
+    
     @IBOutlet weak var txtCompanyName: UITextField!
     @IBOutlet weak var txtABNNumber: UITextField!
     @IBOutlet weak var txtAmount: UITextField!
     @IBOutlet weak var txtPaymentInputMethod: UITextField!
-
+    
     @IBOutlet weak var txtCardNumber: FormTextField!
     @IBOutlet weak var txtExpiryDate: FormTextField!
     @IBOutlet weak var txtCVV: FormTextField!
@@ -304,7 +303,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     }
     
     @IBAction func txtPaymentInputMethod(_ sender: UITextField) {
-
+        
         txtPaymentInputMethod.inputView = pickerView
         
     }
@@ -312,51 +311,51 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     
     
     @IBAction func btnPayNow(_ sender: UIButton) {
-
-//        let next = self.storyboard?.instantiateViewController(withIdentifier: "TickPayAlertViewController") as! TickPayAlertViewController
-//        next.modalPresentationStyle = .formSheet
-//        self.present(next, animated: true, completion: nil)
-
-
+        
+        //        let next = self.storyboard?.instantiateViewController(withIdentifier: "TickPayAlertViewController") as! TickPayAlertViewController
+        //        next.modalPresentationStyle = .formSheet
+        //        self.present(next, animated: true, completion: nil)
+        
+        
         if txtCardNumber.text == "" {
-//            UtilityClass.showAlert("Missing", message: "Please Enter Card Number", vc: self)
+            //            UtilityClass.showAlert("Missing", message: "Please Enter Card Number", vc: self)
             UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Card Number") { (index, title) in
             }
         }
-//        else if isCreditCardValid == false {
-//            UtilityClass.showAlert("Sorry", message: "Card Number is invalid", vc: self)
-//        }
-//        else if txtCardNumber.text!.count < 14 || txtCardNumber.text!.count >= 19 {
-//            UtilityClass.showAlert("Sorry", message: "Card Number is invalid", vc: self)
-//        }
-//        else if strSelectedMonth == "" || strSelectedYear == "" {
-//            UtilityClass.showAlert("Missing", message: "Please select Expiry Date", vc: self)
-//        }
+            //        else if isCreditCardValid == false {
+            //            UtilityClass.showAlert("Sorry", message: "Card Number is invalid", vc: self)
+            //        }
+            //        else if txtCardNumber.text!.count < 14 || txtCardNumber.text!.count >= 19 {
+            //            UtilityClass.showAlert("Sorry", message: "Card Number is invalid", vc: self)
+            //        }
+            //        else if strSelectedMonth == "" || strSelectedYear == "" {
+            //            UtilityClass.showAlert("Missing", message: "Please select Expiry Date", vc: self)
+            //        }
         else if txtCompanyName.text == ""
         {
-//            UtilityClass.showAlert("Missing", message: "Please Enter Company Name / Name", vc: self)
+            //            UtilityClass.showAlert("Missing", message: "Please Enter Company Name / Name", vc: self)
             UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Company Name / Name") { (index, title) in
             }
         }
         else if txtAmount.text == "" {
-//            UtilityClass.showAlert("Missing", message: "Please Enter Amount", vc: self)
+            //            UtilityClass.showAlert("Missing", message: "Please Enter Amount", vc: self)
             UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Amount") { (index, title) in
             }
         }
         else if txtExpiryDate.text == "" {
-//            UtilityClass.showAlert("Missing", message: "Please Enter Expiry Date", vc: self)
+            //            UtilityClass.showAlert("Missing", message: "Please Enter Expiry Date", vc: self)
             UtilityClass.setCustomAlert(title: "Missing", message: "Please Enter Expiry Date") { (index, title) in
             }
         }
         else if txtCVV.isHidden == false {
             
             if txtCVV.text == "" {
-//                UtilityClass.showAlert("Missing", message: "Please enter CVV Number", vc: self)
+                //                UtilityClass.showAlert("Missing", message: "Please enter CVV Number", vc: self)
                 UtilityClass.setCustomAlert(title: "Missing", message: "Please enter CVV Number") { (index, title) in
                 }
             }
             else if txtCVV.text!.count != 3 {
-//                UtilityClass.showAlert("", message: "Please enter valid CVV Number", vc: self)
+                //                UtilityClass.showAlert("", message: "Please enter valid CVV Number", vc: self)
                 UtilityClass.setCustomAlert(title: "Missing", message: "Please enter valid CVV Number") { (index, title) in
                 }
             }
@@ -365,7 +364,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
             
             webserviceofTiCKPay()
         }
- 
+        
         
         
     }
@@ -404,7 +403,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if component == 1 {
-//            currentYear = "2019"
+            //            currentYear = "2019"
             
             let year = aryYears[row]
             if Int(currentYear)! == Int(year)! {
@@ -437,10 +436,10 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         txtExpiryDate.text = "\(strSelectedMonth)/\(strSelectedYear)"
     }
     
-
+    
     func setTextFields() {
         
-//        txtPaymentInputMethod.text = strPaymentInputMethod
+        //        txtPaymentInputMethod.text = strPaymentInputMethod
         
     }
     
@@ -450,20 +449,20 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     
     @IBAction func txtExpiryDate(_ sender: UITextField) {
         
-
-//        txtExpiryDate.text = pickerView.selectRow(0, inComponent: 1, animated: true)
-    
-            strSelectedMonth = aryMonths[0]
-            strSelectedYear = aryYears[0]
-//        txtExpiryDate.text = "\(strSelectedMonth)/\(strSelectedYear)"
-//        txtExpiryDate.inputView = pickerView
+        
+        //        txtExpiryDate.text = pickerView.selectRow(0, inComponent: 1, animated: true)
+        
+        strSelectedMonth = aryMonths[0]
+        strSelectedYear = aryYears[0]
+        //        txtExpiryDate.text = "\(strSelectedMonth)/\(strSelectedYear)"
+        //        txtExpiryDate.inputView = pickerView
     }
     
     @IBAction func txtEnterAmount(_ sender: UITextField) {
         
         if let amountString = txtAmount.text?.currencyInputFormatting() {
             txtAmount.text = amountString
- 
+            
             let unfiltered = amountString   //  "!   !! yuahl! !"
             
             // Array of Characters to remove
@@ -485,7 +484,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
             
             strAmount = String(unfiltered.characters.filter { !removal.contains($0) })
             print("amount : \(strAmount)")
-
+            
             var amt = strAmount.trimmingCharacters(in: .whitespacesAndNewlines)
             
             var doubleAmt = (amt as NSString).doubleValue
@@ -533,7 +532,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
             
             isCreditCardValid = true
             print(type.name)
-
+            
         } else {
             isCreditCardValid = false
         }
@@ -591,7 +590,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
             
             var years = String(info.expiryYear)
             years.removeFirst(2)
-//            customStringFormatting(of: info.redactedCardNumber)
+            //            customStringFormatting(of: info.redactedCardNumber)
             
             print("Removed Year : \(years)")
             
@@ -610,14 +609,14 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     }
     
     func userDidCancelPaymentViewController(paymentViewController: CardIOPaymentViewController!) {
-//        resultLabel.text = "user canceled"
+        //        resultLabel.text = "user canceled"
         paymentViewController?.dismiss(animated: true, completion: nil)
     }
     
     func userDidProvideCreditCardInfo(cardInfo: CardIOCreditCardInfo!, inPaymentViewController paymentViewController: CardIOPaymentViewController!) {
         if let info = cardInfo {
             let str = NSString(format: "Received card info.\n Number: %@\n expiry: %02lu/%lu\n cvv: %@.", info.redactedCardNumber, info.expiryMonth, info.expiryYear, info.cvv)
-//            resultLabel.text = str as String
+            //            resultLabel.text = str as String
             txtCardNumber.text = info.redactedCardNumber
             txtExpiryDate.text = "\(info.expiryMonth)/\(info.expiryYear)"
         }
@@ -627,7 +626,7 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     func customStringFormatting(of str: String) -> String {
         return str.characters.chunk(n: 4)
             .map{ String($0) }.joined(separator: " ")
-
+        
     }
     
     //-------------------------------------------------------------
@@ -643,10 +642,10 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
             return twelveX + (((num as? NSString)?.substring(from: (twelveX.count ?? 0))) ?? "")
         }
     }
-  
+    
     var cardNumStr = String()
     
-
+    
     
     
     //-------------------------------------------------------------
@@ -654,10 +653,17 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
     //-------------------------------------------------------------
     
     func webserviceofTiCKPay() {
-//        PassengerId,Name,ABN,Amount,CardNo,CVV,Expiry,Passport
+        
+        if Connectivity.isConnectedToInternet() == false {
+            
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        //        PassengerId,Name,ABN,Amount,CardNo,CVV,Expiry,Passport
         
         print("strAmount : \(strAmount)")
-//        strAmount.removeFirst()
+        //        strAmount.removeFirst()
         print("finalAmount : \(strAmount)")
         
         var param = [String:AnyObject]()
@@ -666,11 +672,11 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         param["Amount"] = strAmount.trimmingCharacters(in: .whitespacesAndNewlines) as AnyObject
         
         if CardNumber.count != 0 {
-           
+            
             param["CardNo"] = CardNumber as AnyObject
         }
         else {
-//            (txtCardNumber.text!).replacingOccurrences(of: " ", with: "")
+            //            (txtCardNumber.text!).replacingOccurrences(of: " ", with: "")
             
             param["CardNo"] = (txtCardNumber.text!).replacingOccurrences(of: " ", with: "") as AnyObject
         }
@@ -690,19 +696,19 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         
         
         
-//        param["Expiry"] = "\(strMonth)/\(strYear)" as AnyObject
-
+        //        param["Expiry"] = "\(strMonth)/\(strYear)" as AnyObject
+        
         if strMonth.count != 0 && strYear.count != 0 {
             param["Expiry"] = "\(strMonth)/\(strYear)" as AnyObject
         }
         else {
-             param["Expiry"] = txtExpiryDate.text as AnyObject
+            param["Expiry"] = txtExpiryDate.text as AnyObject
         }
         
         SingletonClass.sharedInstance.strAmoutOFTickPay = strAmountOfTotal.trimmingCharacters(in: .whitespacesAndNewlines)
         
         SingletonClass.sharedInstance.strAmoutOFTickPayOriginal = strAmount.trimmingCharacters(in: .whitespacesAndNewlines)
-       
+        
         
         webserviceForTickPay(param as AnyObject) { (result, status) in
             
@@ -719,21 +725,21 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
                     
                     self.present(next, animated: true, completion: nil)
                     
-//                    if let res = result as? String {
-//                        UtilityClass.showAlert("", message: res, vc: self)
-//                    }
-//                    else {
-//                        UtilityClass.showAlert("", message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self)
-//                    }
+                    //                    if let res = result as? String {
+                    //                        UtilityClass.showAlert("", message: res, vc: self)
+                    //                    }
+                    //                    else {
+                    //                        UtilityClass.showAlert("", message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self)
+                    //                    }
                 }
                 
                 
                 self.txtCVV.text = ""
                 self.txtAmount.text = ""
-//                self.txtABNNumber.text = ""
+                //                self.txtABNNumber.text = ""
                 self.txtCardNumber.text = ""
                 self.txtExpiryDate.text = ""
-//                self.txtCompanyName.text = ""
+                //                self.txtCompanyName.text = ""
             }
             else {
                 print(result)
@@ -741,14 +747,14 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
                 DispatchQueue.main.async {
                     
                     if let res = result as? String {
-                      
-                        UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                        
+                        UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                         }
                         
                     }
                     else {
                         
-                        UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                        UtilityClass.setCustomAlert(title: alertTitle, message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                         }
                     }
                     
@@ -758,9 +764,14 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
         }
     }
     
-   
+    
     func webserviceOFGetTickpayRate() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         webserviceForGetTickpayRate("" as AnyObject) { (result, status) in
             
@@ -769,24 +780,24 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
                 if let res = result as? NSDictionary {
                     self.steGetTickPayRate = res.object(forKey: "rate") as! String
                     self.strTransactionFee = res.object(forKey: "TransactionFee") as! String
-                    self.lblCredirAndDebitRate.text = "\(self.steGetTickPayRate)% Service fee \n$\(self.strTransactionFee) Transaction fee"
-  
+                    self.lblCredirAndDebitRate.text = "\(self.steGetTickPayRate)% Service fee \n$\(String(format: "%.2f", Double(self.strTransactionFee)!)) Transaction fee"
+                    
                 }
-
+                
             }
             else {
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 
@@ -818,10 +829,10 @@ class PayViewController: UIViewController, UIPickerViewDataSource, UIPickerViewD
 
 
 /*
-{
-    message = "Received money from tickpay";
-    status = 1;
-    "tickpay_id" = 92;
-    walletBalance = "-446.4200308025";
-}
+ {
+ message = "Received money from tickpay";
+ status = 1;
+ "tickpay_id" = 92;
+ walletBalance = "-446.4200308025";
+ }
  */

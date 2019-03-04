@@ -17,9 +17,12 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblCurrentBalance: UILabel!
     
-    var arrFavLocations:[[String:Any]] = []
+    var arrPromoCodes:[[String:Any]] = []
     var counts = Int()
     var messages = String()
+    @IBOutlet weak var lblOfferTitle: UILabel!
+    
+    @IBOutlet weak var lblNoDataFound: UILabel!
     
     
     lazy var refreshControl: UIRefreshControl = {
@@ -35,6 +38,11 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.lblOfferTitle.isHidden = true
+        self.lblNoDataFound.isHidden = true
+        
+//        self.lblCurrentBalance.text = "\(currencySign)\(String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance))"
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -107,7 +115,7 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrFavLocations.count
+        return arrPromoCodes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,7 +123,7 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
         let Promocodecell = tableView.dequeueReusableCell(withIdentifier: "PromoCreditTableViewCell") as! PromoCreditTableViewCell
         
         Promocodecell.selectionStyle = .none
-        let dictData = self.arrFavLocations[indexPath.row] as [String:Any]
+        let dictData = self.arrPromoCodes[indexPath.row] as [String:Any]
         let type = dictData["DiscountType"] as! String
         switch type {
         case "flat":
@@ -147,25 +155,41 @@ class PromoCreditViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     func webserviewOfGetPromocodeList() {
-    
+        if Connectivity.isConnectedToInternet() == false {
+            self.lblNoDataFound.isHidden = false
+            self.lblOfferTitle.isHidden = true
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForPromoCodeList { (result, status) in
             if (status) {
                 print(result)
-                self.arrFavLocations = (result as! [String:Any])["promocode_list"] as! [[String:Any]]
+                if let promocode = (result as! [String:Any])["promocode_list"] as? [[String:Any]] {
+                self.arrPromoCodes = promocode
+                }
+               
+                if self.arrPromoCodes.count == 0 {
+                    self.lblNoDataFound.isHidden = false
+                    self.lblOfferTitle.isHidden = true
+                } else {
+                    self.lblNoDataFound.isHidden = true
+                    self.lblOfferTitle.isHidden = false
+                }
                 self.tableView.reloadData()
             }
             else {
                 print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }

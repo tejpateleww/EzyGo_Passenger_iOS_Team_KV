@@ -24,3 +24,42 @@ class ContentTableViewCell: UITableViewCell {
     }
 
 }
+
+
+
+
+
+protocol ContactSupportDelegate {
+    func OpenTermsOfUse()
+    func OpenPrivacyPolicy()
+    func OpenContactUs()
+}
+
+
+class ContactTblCell: UITableViewCell {
+    
+    @IBOutlet weak var imgDetail: UIImageView!
+    @IBOutlet weak var lblTitle: UILabel!
+    
+    @IBOutlet weak var SubMenu: UIView!
+    
+    
+    var Delegate:ContactSupportDelegate!
+    
+    @IBAction func btnTermAction(_ sender: Any) {
+        self.Delegate.OpenTermsOfUse()
+        
+    }
+    
+    @IBAction func btnPrivacyPolicyAction(_ sender: Any) {
+        self.Delegate.OpenPrivacyPolicy()
+        
+    }
+    
+    @IBAction func btnContactUsAction(_ sender: Any) {
+        self.Delegate.OpenContactUs()
+        
+    }
+    
+    
+}

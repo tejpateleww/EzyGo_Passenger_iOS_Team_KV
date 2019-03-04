@@ -10,7 +10,7 @@ import UIKit
 import FormTextField
 
 class TickPayRegistrationViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, CardIOPaymentViewControllerDelegate, UITextFieldDelegate {
-
+    
     
     var creditCardValidator: CreditCardValidator!
     var validation = Validation()
@@ -25,7 +25,7 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
     
     var isCardDetailsAvailable = Bool()
     
-   
+    
     
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -55,13 +55,13 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
             }
         }
         
-       
+        
         if SingletonClass.sharedInstance.CardsVCHaveAryData.count != 0 {
             
             cardViewStack.isHidden = true
             constraintsHeightOFcardViewStack.constant = 0
         }
-
+        
         
         giveCornerRadiousToAll()
         
@@ -70,7 +70,7 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
         cardExpiry()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -89,11 +89,11 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
         
         UploadLicenceStackView.layer.cornerRadius = 5
         UploadLicenceStackView.layer.masksToBounds = true
-//        btnImgCameras.layer.cornerRadius = 5
-//        btnImgCameras.layer.masksToBounds = true
+        //        btnImgCameras.layer.cornerRadius = 5
+        //        btnImgCameras.layer.masksToBounds = true
         btnLicence.layer.cornerRadius = 5
         btnLicence.layer.masksToBounds = true
-  
+        
         txtCompanysName.layer.cornerRadius = 5
         txtABN.layer.cornerRadius = 5
         txtCardNumbers.layer.cornerRadius = 5
@@ -134,7 +134,7 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
     
     @IBOutlet var textFieldsAry: [UITextField]!
     
-
+    
     
     //MARK:- IBActions
     
@@ -151,7 +151,7 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
     
     
     @IBAction func btnSignUPs(_ sender: UIButton) {
- 
+        
         if SingletonClass.sharedInstance.CardsVCHaveAryData.count != 0 {
             if(validations())
             {
@@ -163,7 +163,7 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
                 webserviceOfVarifyPassenger()
             }
         }
- 
+        
     }
     
     @IBAction func btnScanCards(_ sender: UIButton) {
@@ -211,16 +211,16 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
     
     func validations() -> Bool {
         
-//        CardNo,Cvv,Expiry,Alias,CompanyName,ABN(optional),Image
+        //        CardNo,Cvv,Expiry,Alias,CompanyName,ABN(optional),Image
         
         if(txtCompanysName.text?.count == 0)
         {
-
+            
             UtilityClass.setCustomAlert(title: "Missing", message: "Please Insert Company Name") { (index, title) in
             }
             return false
         }
-        //iconCamera
+            //iconCamera
         else if(btnImgCameras.imageView?.image == nil && btnImgCameras.imageView?.image == UIImage(named: "iconCamera"))
         {
             UtilityClass.setCustomAlert(title: "Missing", message: "Please Upload Driving Licence Image") { (index, title) in
@@ -315,8 +315,8 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
             }
             
             
-//            imgVehicle.contentMode = .scaleToFill
-//            imgVehicle.image = pickedImage
+            //            imgVehicle.contentMode = .scaleToFill
+            //            imgVehicle.image = pickedImage
         }
         
         dismiss(animated: true, completion: nil)
@@ -399,7 +399,7 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
         txtCardNumbers.disabledBackgroundColor = UIColor.white
         txtCardNumbers.placeholder = "Card Number"
         txtCardNumbers.backgroundColor = UIColor.white
-
+        
         validation.maximumLength = 19
         validation.minimumLength = 14
         let characterSet = NSMutableCharacterSet.decimalDigit()
@@ -455,16 +455,23 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
     //-------------------------------------------------------------
     
     func webserviceOfVarifyPassenger() {
-//        PassengerId,CardNo,Cvv,Expiry,Alias,CompanyName,ABN(optional),Image
+        if Connectivity.isConnectedToInternet() == false {
+            
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        
+        //        PassengerId,CardNo,Cvv,Expiry,Alias,CompanyName,ABN(optional),Image
         
         var param = Dictionary<String,AnyObject>()
         param["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
-       
+        
         param["CompanyName"] = txtCompanysName.text as AnyObject
         param["ABN"] = txtABN.text as AnyObject
         
         if SingletonClass.sharedInstance.CardsVCHaveAryData.count == 0 {
-      
+            
             if CardNumber.count != 0 {
                 param["CardNo"] = CardNumber as AnyObject
             }
@@ -477,26 +484,26 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
             else {
                 param["Cvv"] = txtCvv.text! as AnyObject
             }
-          
+            
             if strMonth.count != 0 && strYear.count != 0 {
                 param["Expiry"] = "\(strMonth)/\(strYear)" as AnyObject
             }
             else {
                 param["Expiry"] = txtExpireyDate.text as AnyObject
             }
-        
+            
             param["Alias"] = txtAliasbank.text as AnyObject
         }
         
         webserviceForVarifyPassenger(param, image1: (btnImgCameras.imageView?.image)!, image2: (btnimgCameraForPassport.imageView?.image)!) { (result, status) in
-//        webserviceForVarifyPassenger(param, image1: (btnImgCameras.imageView?.image)!) { (result, status) in
+            //        webserviceForVarifyPassenger(param, image1: (btnImgCameras.imageView?.image)!) { (result, status) in
             
             if (status) {
                 print(result)
                 if let res = result as? NSDictionary {
                     
                     self.delegateForVerifyStatus?.didRegisterCompleted()
-                
+                    
                     let alert = UIAlertController(title: nil, message: "\(appName) register successfully.", preferredStyle: .alert)
                     let OK = UIAlertAction(title: "OK", style: .default, handler: { ACTION in
                         
@@ -513,23 +520,23 @@ class TickPayRegistrationViewController: UIViewController,UIImagePickerControlle
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
         }
     }
     
-  
-
+    
+    
 }

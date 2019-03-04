@@ -13,7 +13,7 @@ import NVActivityIndicatorView
 
 class ForgotViewController: UIViewController {
 
-    @IBOutlet weak var txtEmail: ACFloatingTextfield!
+    @IBOutlet weak var txtEmail: UITextField!
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,12 @@ class ForgotViewController: UIViewController {
     
     @IBAction func btnResetPassword(_ sender: UIButton)
     {
+        self.view.endEditing(true)
+        if self.checkValidation(){
+            self.webserviceCallForForgotPassword(strEmail: (txtEmail?.text)!)
+        }
+        
+        
         
 //                //1. Create the alert controller.
 //                let alert = UIAlertController(title: "Forgot Password?", message: "Enter Mobile Number", preferredStyle: .alert)
@@ -44,7 +50,7 @@ class ForgotViewController: UIViewController {
         
 //                    if (textField?.text?.count != 0)
 //                    {
-                        self.webserviceCallForForgotPassword(strEmail: (txtEmail?.text)!)
+//                        self.webserviceCallForForgotPassword(strEmail: (txtEmail?.text)!)
 //                    }
 //                }))
 //
@@ -59,8 +65,15 @@ class ForgotViewController: UIViewController {
     
         func webserviceCallForForgotPassword(strEmail : String)
         {
+            if Connectivity.isConnectedToInternet() == false {
+                
+                UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+                    
+                }
+                return
+            }
             let dictparam = NSMutableDictionary()
-            dictparam.setObject(strEmail, forKey: "MobileNo" as NSCopying)
+            dictparam.setObject(strEmail, forKey: "Email" as NSCopying)
             let activityData = ActivityData()
             NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
             webserviceForForgotPassword(dictparam) { (result, status) in
@@ -69,13 +82,39 @@ class ForgotViewController: UIViewController {
                 if ((result as! NSDictionary).object(forKey: "status") as! Int == 1) {
     
                      UtilityClass.setCustomAlert(title: "Success", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                        self.perform(#selector(self.GoBack), with: nil, afterDelay: 1.0)
                     }
                 }
                 else {
     
-                     UtilityClass.setCustomAlert(title: "Error", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                     UtilityClass.setCustomAlert(title: alertTitle, message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
         }
+    
+    @objc func GoBack() {
+        self.navigationController?.popViewController(animated:true)
+    }
+    
+    func checkValidation() -> Bool
+    {
+        if (txtEmail.text?.count == 0)
+        {
+            
+            UtilityClass.setCustomAlert(title: "", message: " Please enter email.") { (index, title) in
+            }
+            
+            // txtEmail.showErrorWithText(errorText: "Enter Email")
+            return false
+        } else if (txtEmail.text!).isValidEmailAddress() == false {
+          
+            UtilityClass.setCustomAlert(title: "", message: " Please enter valid email.") { (index, title) in
+            }
+            return false
+            
+        }
+        
+        return true
+    }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,7 +61,7 @@
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHI-vn-2qP">
                                     <rect key="frame" x="0.0" y="56" width="374" height="1"/>
-                                    <color key="backgroundColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="dZw-Jo-GX5"/>
                                     </constraints>
@@ -79,7 +79,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.0039215686269999999" green="0.0078431372550000003" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="lJd-oV-gib" secondAttribute="trailing" constant="19" id="64b-H5-t1Y"/>
                                 <constraint firstItem="s1E-eJ-hFL" firstAttribute="top" secondItem="oom-Cw-b6m" secondAttribute="top" constant="5" id="9Y4-gC-Szg"/>
@@ -125,6 +125,7 @@
                             <viewLayoutGuide key="safeArea" id="Na1-Qm-sc7"/>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="qig-aM-aPK" secondAttribute="trailing" id="1ih-IY-Oly"/>
                         <constraint firstItem="qig-aM-aPK" firstAttribute="leading" secondItem="dfC-RT-f77" secondAttribute="leading" id="KXV-66-GtY"/>
@@ -132,7 +133,7 @@
                     </constraints>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" red="0.0039215686274509803" green="0.0039215686274509803" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dfC-RT-f77" firstAttribute="trailing" secondItem="PWX-Ie-XfJ" secondAttribute="trailing" id="2zZ-sB-ENh"/>
                 <constraint firstItem="dfC-RT-f77" firstAttribute="top" secondItem="PWX-Ie-XfJ" secondAttribute="top" id="4hg-2V-xKA"/>
@@ -157,7 +158,7 @@
     <resources>
         <image name="HeaderLogo" width="274" height="68"/>
         <image name="iconArrow" width="40" height="40"/>
-        <image name="iconCallSmall" width="85" height="85"/>
+        <image name="iconCallSmall" width="25" height="25"/>
         <image name="menu" width="40" height="40"/>
     </resources>
 </document>

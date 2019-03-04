@@ -16,7 +16,9 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
     var ratingToDriver = Float()
     var commentToDriver = String()
     var strBookingType = String()
-//    var delegate: CompleterTripInfoDelegate!
+    var strBookingID = String()
+    
+    var Delegate: CompleteRatingDelegate!
     
     //-------------------------------------------------------------
     // MARK: - Base Methods
@@ -25,12 +27,15 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        txtFeedbackFinal.text = "Write a comment (Optional)"
+        txtFeedbackFinal.textColor = UIColor.lightGray
+        
         giveRating.delegate = self
         
         ProfileData = SingletonClass.sharedInstance.dictDriverProfile
 //        ProfileData.object(forKey: "Fullname") as? String
 
-        lblMessageToShow.text = "How was your experience with \(ProfileData.object(forKey: "Fullname")!)"
+//        lblMessageToShow.text = "How was your experience with \(ProfileData.object(forKey: "Fullname")!)"
         
         viewSubFinalRating.layer.cornerRadius = 5
         viewSubFinalRating.layer.masksToBounds = true
@@ -51,7 +56,8 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
     
     @IBOutlet weak var viewMainFinalRating: UIView!
     @IBOutlet weak var viewSubFinalRating: UIView!
-    @IBOutlet weak var txtFeedbackFinal: UITextField!
+//    @IBOutlet weak var txtFeedbackFinal: UITextField!
+    @IBOutlet weak var txtFeedbackFinal: UITextView!
     
     @IBOutlet weak var giveRating: FloatRatingView!
     @IBOutlet weak var btnSubmit: UIButton!
@@ -84,11 +90,21 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
     
     func webserviceOfRating() {
         //        BookingId,Rating,Comment,BookingType(BookNow,BookLater)
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var param = [String:AnyObject]()
         param["BookingId"] = SingletonClass.sharedInstance.bookingId as AnyObject
         param["Rating"] = ratingToDriver as AnyObject
-        param["Comment"] = txtFeedbackFinal.text as AnyObject
+        if self.txtFeedbackFinal.textColor != UIColor.lightGray {
+            param["Comment"] = txtFeedbackFinal.text as AnyObject
+        } else {
+            param["Comment"] = "" as AnyObject
+        }
+        
         param["BookingType"] = strBookingType as AnyObject
         
         webserviceForRatingAndComment(param as AnyObject) { (result, status) in
@@ -102,26 +118,27 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
                 //                self.completeTripInfo()
                 
 //                self.delegate.didRatingCompleted()
-                
-                
                 NotificationCenter.default.removeObserver("CallToRating")
                 
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: {
+                    self.Delegate.DidCompletedRating()
+                })
+//                self.dismiss(animated: true, completion: nil)
                 
             }
             else {
                 print(result)
               
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
@@ -133,4 +150,21 @@ class GiveRatingViewController: UIViewController, FloatRatingViewDelegate {
     
     
 
+}
+
+
+extension GiveRatingViewController: UITextViewDelegate {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if textView.text == "Write a comment (Optional)" {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+        return true
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = "Write a comment (Optional)"
+            textView.textColor = UIColor.lightGray
+        }
+    }
 }

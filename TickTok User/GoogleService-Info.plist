@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>681702825424-qt99n9d47sn8ig60fmg9a3nk417s88cb.apps.googleusercontent.com</string>
+	<string>373665281960-c4h0q4o57giuaqdpq10tgpf699hpmsud.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.681702825424-qt99n9d47sn8ig60fmg9a3nk417s88cb</string>
+	<string>com.googleusercontent.apps.373665281960-c4h0q4o57giuaqdpq10tgpf699hpmsud</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg</string>
+	<string>AIzaSyBBzGQSKs7iUsNV2UpDSPEJjTqw1PR2kDg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>681702825424</string>
+	<string>373665281960</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.eww.ezygo-Rider</string>
 	<key>PROJECT_ID</key>
-	<string>pickngo-194413</string>
+	<string>infinite-line-135923</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pickngo-194413.appspot.com</string>
+	<string>infinite-line-135923.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:681702825424:ios:4857a64226ff8467</string>
+	<string>1:373665281960:ios:89c6aada979784b9</string>
 	<key>DATABASE_URL</key>
-	<string>https://pickngo-194413.firebaseio.com</string>
+	<string>https://infinite-line-135923.firebaseio.com</string>
 </dict>
 </plist>

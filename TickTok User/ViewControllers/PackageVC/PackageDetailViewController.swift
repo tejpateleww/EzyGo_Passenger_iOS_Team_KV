@@ -49,7 +49,7 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
         lblPackageType.text = dictCarModelData["Type"] as? String
         lblDistance.text = "\(dictCarModelData["KM"] as! String) KMs"
         
-        lblAmount.text = "$ \(dictCarModelData["Amount"] as! String)"
+        lblAmount.text = "$ \(String(format: "%.2f", Double(dictCarModelData["Amount"] as! String)!))"
         lblVehicleType.text = strVehicleType
         
         if dictCarModelData["Type"] as? String == "hours"
@@ -157,7 +157,12 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
     var aryCards = [[String:AnyObject]]()
     
     func webserviceOfCardList() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForCardList(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             
             if (status) {
@@ -243,15 +248,15 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
             else {
                 print(result)
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
@@ -259,7 +264,12 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
     }
     
     func webserviceOfBookPackage() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var dictPara = [String:AnyObject]()
 //        PassengerId , PackageId , PickupLocation , PickupDate , PickupTime , PaymentType(cash,card) , CardId(If Select PaymentType is card then it is mandatory field)
         dictPara["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
@@ -402,15 +412,15 @@ class PackageDetailViewController: UIViewController,UIPickerViewDelegate, UIPick
                 alert.addAction(OK)
                 self.present(alert, animated: true, completion: nil)
                 //                if let res = result as? String {
-                //                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                //                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                 //                    }
                 //                }
                 //                else if let resDict = result as? NSDictionary {
-                //                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                //                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                 //                    }
                 //                }
                 //                else if let resAry = result as? NSArray {
-                //                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                //                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                 //                    }
                 //                }
                             }

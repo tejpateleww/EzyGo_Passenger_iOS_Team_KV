@@ -74,7 +74,7 @@ class SingletonClass: NSObject {
     var setPasscode = String()
     var passwordFirstTime = Bool()
     
-    var passengerRating = String()
+    var passengerRating = Float()
     
     var isPasscodeON = Bool()
     

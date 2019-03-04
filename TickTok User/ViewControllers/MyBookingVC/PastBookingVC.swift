@@ -8,18 +8,27 @@
 
 import UIKit
 
-class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegate, ActionDelegate {
     
-    var aryData = NSArray()
+    
+    var aryData:[[String:Any]] = []
     
     var strPickupLat = String()
     var strPickupLng = String()
     
     var strDropoffLat = String()
     var strDropoffLng = String()
+    var PageLimit:Int = 10
+    var NeedToReload:Bool = false
+    var PageNumber:Int = 1
     
     var strNotAvailable: String = "N/A"
+    
+    @IBOutlet weak var ActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var LoaderBackView: UIView!
+    
+    
+    @IBOutlet weak var lblNoData: UILabel!
     
     var expandedCellPaths = Set<IndexPath>()
     
@@ -32,42 +41,65 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         return refreshControl
     }()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.LoaderBackView.isHidden = true
         
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         self.tableView.addSubview(self.refreshControl)
         
-
         // Register to receive notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableView), name: NSNotification.Name(rawValue: NotificationCenterName.keyForPastBooking), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotificationCenterName.keyForPastBooking), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ReloadNewData), name: NSNotification.Name(rawValue: NotificationCenterName.keyForPastBooking), object: nil)
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func reloadTableView()
+    func reloadTableView()
     {
-        self.aryData = SingletonClass.sharedInstance.aryPastBooking
+//        self.aryData = SingletonClass.sharedInstance.aryPastBooking
+        if self.aryData.count > 0 {
+            self.lblNoData.isHidden = true
+        } else {
+            self.lblNoData.isHidden = false
+        }
         self.tableView.reloadData()
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        
-        tableView.reloadData()
-        refreshControl.endRefreshing()
+        self.ReloadNewData()
     }
     
+    @objc func ReloadNewData(){
+        self.PageNumber = 1
+        self.NeedToReload = false
+        self.aryData.removeAll()
+        self.tableView.reloadData()
+        self.getPastBookingHistory()
+    }
+    
+    func reloadMoreHistory() {
+        self.PageNumber += 1
+        self.LoaderBackView.isHidden = false
+        self.ActivityIndicator.startAnimating()
+        self.getPastBookingHistory()
+    }
     
     //-------------------------------------------------------------
     // MARK: - Outlets
     //-------------------------------------------------------------
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -86,251 +118,331 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         if aryData.count > 0 {
             
-            
             cell.selectionStyle = .none
-            
-            let currentData = (aryData.object(at: indexPath.row) as! NSDictionary)
-            
-            
-            if let name = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DriverName") as? String {
+            let currentData = aryData[indexPath.row]
+//                (aryData.object(at: indexPath.row) as! NSDictionary)
+            if let name = currentData["DriverName"] as? String {
                 
                 if name == "" {
-                    cell.lblDriverName.isHidden = true
+                    cell.lblDriverName.text = "Driver Name:- no driver"
                 }
                 else {
-                    let attributedString = NSAttributedString(string: name)
-                    let textRange = NSMakeRange(0, attributedString.length)
-                    let underlinedMessage = NSMutableAttributedString(attributedString: attributedString)
-                    underlinedMessage.addAttribute(NSAttributedStringKey.underlineStyle,
-                                                   value:NSUnderlineStyle.styleSingle.rawValue,
-                                                   range: textRange)
-                    cell.lblDriverName.attributedText = underlinedMessage
-//                    cell.lblDriverName.text = name
+                    cell.lblDriverName.text = "Driver Name:- \(name)"
                 }
             }
-           
-            let formattedString = NSMutableAttributedString()
-            formattedString
-                .normal("Booking Id: ")
-                .bold("\(String(describing: (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Id")!))", 14)
             
-            let lbl = UILabel()
-            lbl.attributedText = formattedString
+            if let BookingId:String = currentData["Id"] as? String {
+                cell.lblBookingID.text = "Booking ID - \(BookingId)"
+            }
             
-            cell.lblBookingID.attributedText = formattedString
+            if let DateandTime:String = currentData[ "CreatedDate"] as? String {
+                let createdDate = DateandTime.components(separatedBy: " ")
+                cell.lblTripDate.text = createdDate[0]
+            }
             
-//            cell.lblBookingID.text = "Booking Id: \(String(describing: (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Id")!))"
+            if let PickupLocation:String = currentData[ "PickupLocation"] as? String {
+                cell.lblPickUpLocation.text = PickupLocation
+            }
             
-            if let dateAndTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "CreatedDate") as? String {
-                
-                if dateAndTime == "" {
-                    cell.lblDateAndTime.isHidden = true
-                }
-                else {
-                    cell.lblDateAndTime.text = dateAndTime
-                }
+            if let DropOffLocation:String = currentData[ "DropoffLocation"] as? String {
+                cell.lblDropLocation.text = DropOffLocation
+            }
+            
+            if let PickupTime:String = currentData[ "PickupTime"] as? String {
+                cell.lblPickUpTime.text = (PickupTime != "") ? UtilityClass.setTimeStampToDate(timeStamp: PickupTime, timeFormate: "dd-MM-yyyy HH:mm:ss") : "-"
+            }
+            
+            if let DropOffTime:String = currentData[ "DropTime"] as? String {
+                cell.lblDropOffTime.text = (DropOffTime != "") ? UtilityClass.setTimeStampToDate(timeStamp: DropOffTime, timeFormate: "dd-MM-yyyy HH:mm:ss") : "-"
+            }
+            
+            if let imgMap = currentData[ "MapUrl"] as? String {
+                cell.MapImage.sd_setShowActivityIndicatorView(true)
+                cell.MapImage.sd_setIndicatorStyle(.white)
+                cell.MapImage.sd_setImage(with: URL(string: imgMap.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), placeholderImage: UIImage(named: "ezy_staticmap"), options: [] , completed: nil)
+//                sd_setImage(with: URL(string: imgMap.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), completed: nil)
+            }
+            
+            if let BookingCharge:String = currentData[ "BookingCharge"] as? String {
+                cell.lblBookingFee.text = BookingCharge != "" ? "$ \(String(format: "%.2f", Double(BookingCharge)!))" : "$ 0.00"
+            } else {
+                cell.lblBookingFee.text = "$ 0.00"
+            }
+            cell.BookingFareStack.isHidden = ((cell.lblBookingFee.text == "0") || (cell.lblBookingFee.text == "$ 0.00")) ? true : false
+            
+            if let TripFare:String = currentData[ "TripFare"] as? String {
+                cell.lblBaseFare.text = TripFare != "" ? "$ \(String(format: "%.2f", Double(TripFare)!))" : "$ 0.00"
+            } else {
+                cell.lblBaseFare.text = "$ 0.00"
+            }
+            cell.BaseFareStack.isHidden = ((cell.lblBaseFare.text == "0") || (cell.lblBaseFare.text == "$ 0.00")) ? true : false
+            
+            if let DistanceFare:String = currentData[ "DistanceFare"] as? String {
+                cell.lblMileageCost.text = DistanceFare != "" ? "$ \(String(format: "%.2f", Double(DistanceFare)!))" : "$ 0.00"
+            } else {
+                cell.lblMileageCost.text = "$ 0.00"
+            }
+            cell.MileageFareStack.isHidden = ((cell.lblMileageCost.text == "0") || (cell.lblMileageCost.text == "$ 0.00")) ? true : false
+            
+            if let WaitingTimeCost:String = currentData[ "WaitingTimeCost"] as? String {
+                cell.lblTimeCost.text = WaitingTimeCost != "" ? "$ \(String(format: "%.2f", Double(WaitingTimeCost)!))" : "$ 0.00"
+            } else {
+                cell.lblTimeCost.text = "$ 0.00"
+            }
+            cell.TimeFareStack.isHidden = ((cell.lblTimeCost.text == "0") || (cell.lblTimeCost.text == "$ 0.00")) ? true : false
+            
+            if let SubTotal:String = currentData[ "SubTotal"] as? String {
+                cell.lblSubTotal.text = SubTotal != "" ? "$ \(String(format: "%.2f", Double(SubTotal)!))" : "$ 0.00"
+                //                cell.lblExtraSubTotal.text = SubTotal != "" ? "$ \(SubTotal)" : "$ 0.00"
+            } else {
+                cell.lblSubTotal.text = "$ 0.00"
+                //                 cell.lblExtraSubTotal.text = "$ 0.00"
                 
             }
-//            cell.lblDateAndTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "CreatedDate") as? String
+            cell.SubTotalFareStack.isHidden = ((cell.lblSubTotal.text == "0") || (cell.lblSubTotal.text == "$ 0.00")) ? true : false
             
-            // DropOff Address is PickupAddress
-            // Pickup Address is DropOffAddress
+            if let AirportPickup:String = currentData[ "AirportPickUpCharge"] as? String {
+                cell.lblAirportPickUpTime.text = AirportPickup != "" ? "$ \(String(format: "%.2f", Double(AirportPickup)!))" : "$ 0.00"
+            } else {
+                cell.lblAirportPickUpTime.text = "$ 0.00"
+            }
+            cell.AirportPickupStack.isHidden = ((cell.lblAirportPickUpTime.text == "0") || (cell.lblAirportPickUpTime.text == "$ 0.00")) ? true : false
             
-            let pickupLocation = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "DropoffLocation", isNotHave: strNotAvailable)
-            let dropoffLocation = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "PickupLocation", isNotHave: strNotAvailable)
-            let pickupTime = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "PickupTime", isNotHave: strNotAvailable)
-            let DropoffTime = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "DropTime", isNotHave: strNotAvailable)
-            let strModel = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable)
-            let strTripDistance = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripDistance", isNotHave: strNotAvailable)
-            let strTripFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripFare", isNotHave: strNotAvailable)
-            let strNightFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "NightFare", isNotHave: strNotAvailable)
+            if let AirportDropOff:String = currentData[ "AirportDropOffCharge"] as? String {
+                cell.lblAirportDropOffTime.text = AirportDropOff != "" ? "$ \(String(format: "%.2f", Double(AirportDropOff)!))" : "$ 0.00"
+            } else {
+                cell.lblAirportDropOffTime.text = "$ 0.00"
+            }
+            cell.AirportDropOffStack.isHidden = ((cell.lblAirportDropOffTime.text == "0") || (cell.lblAirportDropOffTime.text == "$ 0.00")) ? true : false
             
-            let strTollFee = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TollFee", isNotHave: strNotAvailable)
-            let strWaitingTimeCost = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "WaitingTimeCost", isNotHave: strNotAvailable)
-//            let strModel = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Model", isNotHave: strNotAvailable)
-//            let strTripDistance = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripDistance", isNotHave: strNotAvailable)
-//            let strTripFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "TripFare", isNotHave: strNotAvailable)
-//            let strNightFare = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "NightFare", isNotHave: strNotAvailable)
+            if let SoilDamageCharge:String = currentData[ "SoilDamageCharge"] as? String {
+                cell.lblSoiling_Damage.text = SoilDamageCharge != "" ? "$ \(String(format: "%.2f", Double(SoilDamageCharge)!))" : "$ 0.00"
+            } else {
+                cell.lblSoiling_Damage.text = "$ 0.00"
+            }
+            cell.DamageChargeStack.isHidden = ((cell.lblSoiling_Damage.text == "0") || (cell.lblSoiling_Damage.text == "$ 0.00")) ? true : false
+            
+            cell.PlusChargesStack.isHidden = ((cell.AirportPickupStack.isHidden == true) && (cell.AirportDropOffStack.isHidden == true) && (cell.DamageChargeStack.isHidden == true)) ? true : false
+            
+            if let Discount:String = currentData[ "Discount"] as? String {
+                cell.lblPromoCreditUsed.text = Discount != "" ? "$ \(String(format: "%.2f", Double(Discount)!))" : "$ 0.00"
+            } else {
+                cell.lblPromoCreditUsed.text = "$ 0.00"
+            }
+            cell.PromoUsedStack.isHidden = ((cell.lblPromoCreditUsed.text == "0") || (cell.lblPromoCreditUsed.text == "$ 0.00")) ? true : false
+            cell.LessStack.isHidden = cell.PromoUsedStack.isHidden
+            
+            if let TotalPaid:String = currentData[ "GrandTotal"] as? String {
+                cell.lblGrandTotal.text = TotalPaid != "" ? "$ \(String(format: "%.2f", Double(TotalPaid)!))" : "$ 0.00"
+            } else {
+                cell.lblGrandTotal.text = "$ 0.00"
+            }
             
             
+            if let PaymentType:String = currentData[ "PaymentType"] as? String {
+                cell.lblPaymentDetail.text = (PaymentType == "card") ? "Payment By Credit Card" : "Payment By \(PaymentType)"
+            }
             
-            let waitingTime = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "WaitingTime", isNotHave: strNotAvailable)
-            
-            var strWaitingTime: String = "00:00:00"
-      
-            if waitingTime != strNotAvailable {
-                let intWaitingTime = Int(waitingTime)
-                let WaitingTimeIs = ConvertSecondsToHoursMinutesSeconds(seconds: intWaitingTime!)
-                if WaitingTimeIs.0 == 0 {
-                    if WaitingTimeIs.1 == 0 {
-                        strWaitingTime = "00:00:\(WaitingTimeIs.2)"
-                    } else {
-                        strWaitingTime = "00:\(WaitingTimeIs.1):\(WaitingTimeIs.2)"
-                    }
+            if let tripDuration:String = currentData[ "TripDuration"] as? String {
+                if tripDuration != "" {
+                    let time = UtilityClass.secondsToHoursMinutesSeconds(seconds: Int(tripDuration)!)
+                    cell.lblTripDuration.text =  String(format: "%02d:%02d:%02d", time.0,time.1,time.2)
                 } else {
-                    strWaitingTime = "\(WaitingTimeIs.0):\(WaitingTimeIs.1):\(WaitingTimeIs.2)"
+                    cell.lblTripDuration.text = "-"
                 }
             }
-            else {
-                strWaitingTime = waitingTime
+            
+            if let tripDistance:String = currentData[ "TripDistance"] as? String {
+                cell.lblDistance.text = "\(tripDistance)km"
             }
             
-            cell.lblWaitingTime.text = strWaitingTime
             
-            cell.lblPickupAddress.text = pickupLocation
-            cell.lblDropoffAddress.text = dropoffLocation
-            
-            if pickupTime == strNotAvailable {
-                 cell.lblPickupTime.text = pickupTime
-            } else {
-                 cell.lblPickupTime.text = setTimeStampToDate(timeStamp: pickupTime)
-            }
-            
-            if DropoffTime == strNotAvailable {
-                 cell.lblDropoffTime.text = DropoffTime
-            } else {
-                cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
-            }
-            
-            cell.lblVehicleType.text = strModel
-            cell.lblDistanceTravelled.text = strTripDistance
-            cell.lblTripFare.text = strTripFare
-            cell.lblNightFare.text = strNightFare
-            
-            
-            cell.lblTollFee.text = strTollFee // (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
-            cell.lblWaitingCost.text = strWaitingTimeCost // (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
-            cell.lblBookingCharge.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "BookingCharge", isNotHave: strNotAvailable) //(aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
-            cell.lblTax.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Tax", isNotHave: strNotAvailable) // (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
-            cell.lblDiscount.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "Discount", isNotHave: strNotAvailable)// (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
-            cell.lblPaymentType.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "PaymentType", isNotHave: strNotAvailable)//(aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PaymentType") as? String
-            cell.lblTotalCost.text = checkDictionaryHaveValue(dictData: currentData as! [String : AnyObject], didHaveValue: "GrandTotal", isNotHave: strNotAvailable)
-    
-            
-            
-//            if let pickupAddress = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String {
-////                DropoffLocation
-//                if pickupAddress == "" {
-//                     cell.lblPickupAddress.isHidden = true
-//                }
-//                else {
-//                    cell.lblPickupAddress.text = pickupAddress
-//                }
-//            }
-           
-//            if let dropoffAddress = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String {
-////                PickupLocation
-//                if dropoffAddress == "" {
-//                    cell.lblDropoffAddress.isHidden = true
-//                }
-//                else {
-//                    cell.lblDropoffAddress.text = dropoffAddress
-//                }
-//            }
-            
-//            cell.lblPickupAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupLocation") as? String
-//            cell.lblDropoffAddress.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropoffLocation") as? String
-            
-//            if let pickupTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String {
-//                if pickupTime == "" {
-//                    cell.lblPickupTime.isHidden = true
-//                    cell.stackViewPickupTime.isHidden = true
-//                }
-//                else {
-//                    cell.lblPickupTime.text = setTimeStampToDate(timeStamp: pickupTime)
-//                }
-//            }
-            
-//            if let DropoffTime = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String {
-//                if DropoffTime == "" {
-//                    cell.lblDropoffTime.isHidden = true
-//                    cell.stackViewDropoffTime.isHidden = true
-//                }
-//                else {
-//                    cell.lblDropoffTime.text = setTimeStampToDate(timeStamp: DropoffTime)
-//                }
-//            }
-            
-//            cell.lblPickupTime.text = setTimeStampToDate(timeStamp: ((aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PickupTime") as? String)!)
-//            cell.lblDropoffTime.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "DropTime") as? String
-            
-//            if let strModel = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Model") as? String {
-//                if strModel == "" {
-//                    cell.lblVehicleType.isHidden = true
-//                    cell.stackViewVehicleType.isHidden = true
-//                }
-//                else {
-//                    cell.lblVehicleType.text = strModel
-//                }
-//            }
-//            cell.lblVehicleType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Model") as? String
-//            if let strTripDistance = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String {
-//                if strTripDistance == "" {
-//                    cell.lblDistanceTravelled.isHidden = true
-//                    cell.stackViewDistanceTravelled.isHidden = true
-//                }
-//                else {
-//                    cell.lblDistanceTravelled.text = strTripDistance
-//                }
-//            }
-//            cell.lblDistanceTravelled.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripDistance") as? String
-            
-            
-//            if let strTripFare = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String {
-//                if strTripFare == "" {
-//                    cell.lblTripFare.text = strNotAvailable
-//                }
-//                else {
-//                    cell.lblTripFare.text = strTripFare
-//                }
-//            }
+            if expandedCellPaths.contains(indexPath) == true {
+                
+                if let TripStatus:String = currentData[ "Status"] as? String {
+                    
+                    if TripStatus == "completed" {
+                        cell.stackViewNoteInCancel.isHidden = true
+                        cell.stackViewTotal.isHidden = true
+                        cell.stackViewPayment.isHidden = true
+                        cell.stackViewCancellation.isHidden = true
+                        
+                        cell.viewDetails.isHidden = false
+                        if let Note:String = currentData[ "Notes"] as? String {
+                            if Note != "" {
+                            cell.lblNote.text = Note
+                            cell.stackViewNoteInCancel.isHidden = false
+                            }
+                        }
+                        
+                        cell.btnReceipt.isHidden = false
+                        cell.lblPaymentDetail.isHidden = false
+                        cell.buttonViewHeight.constant = 50.0
+                        
+                    } else {
+                        cell.viewDetails.isHidden = true
+                        
+                        cell.stackViewNoteInCancel.isHidden = false
+                        cell.stackViewTotal.isHidden = false
+                        cell.stackViewPayment.isHidden = false
+                        cell.stackViewCancellation.isHidden = false
+   
+                        if let Note:String = currentData[ "Notes"] as? String {
+                            cell.lblNote.text = Note
+                        }
+                        cell.stackViewNoteInCancel.isHidden = (cell.lblNote.text == "") ? true : false
 
-//            if let strNightFare = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String {
-//                if strNightFare == "" {
-//                    cell.lblNightFare.isHidden = true
-//                    cell.stackViewNightFare.isHidden = true
-//                }
-//                else {
-//                    cell.lblNightFare.text = strNightFare
-//                }
-//            }
+                        if let CancelCharge:String = currentData[ "CancellationFee"] as? String {
+                            cell.lblChargeinCancel.text = CancelCharge != "" ? "$ \(String(format: "%.2f", Double(CancelCharge)!))" : "$ 0.00"
+                        } else {
+                            cell.lblChargeinCancel.text = "$ 0.00"
+                        }
+                        cell.stackViewCancellation.isHidden = ((cell.lblChargeinCancel.text == "0") || (cell.lblChargeinCancel.text == "$ 0.00")) ? true : false
+                        
+                        if let TotalPaid:String = currentData[ "GrandTotal"] as? String {
+                            cell.lblTotalinCancel.text = TotalPaid != "" ? "$ \(String(format: "%.2f", Double(TotalPaid)!))" : "$ 0.00"
+                        } else {
+                            cell.lblTotalinCancel.text = "$ 0.00"
+                        }
+                        cell.stackViewTotal.isHidden = ((cell.lblTotalinCancel.text == "0") || (cell.lblTotalinCancel.text == "$ 0.00")) ? true : false
+//                        cell.stackViewPayment.isHidden = cell.PromoUsedStack.isHidden
+                        
+//                        if let PaymentType:String = currentData[ "PaymentType"] as? String {
+//                            cell.lblPaymentinCancel.text = "Payment By \(PaymentType) Received With Thanks"
+//                        }
+                        
+                        if let CancelBy:String = currentData[ "CancelBy"] as? String {
+                            cell.lblPaymentinCancel.text = "Trip Cancelled By \(CancelBy)"
+                        }
+                        
+                         cell.stackViewPayment.isHidden = (cell.lblPaymentinCancel.text == "Trip Cancelled By ") ? true : false
+                        
+                        cell.btnReceipt.isHidden = true
+                        cell.lblPaymentDetail.isHidden = true
+                        cell.buttonViewHeight.constant = 15.0
+                    }
+                }
+                
+            } else {
+                cell.viewDetails.isHidden = true
+                cell.stackViewNoteInCancel.isHidden = true
+                cell.stackViewTotal.isHidden = true
+                cell.stackViewPayment.isHidden = true
+                cell.stackViewCancellation.isHidden = true
+                
+                if let TripStatus:String = currentData[ "Status"] as? String {
+                    
+                    if TripStatus == "completed" {
+                        cell.btnReceipt.isHidden = false
+                        cell.lblPaymentDetail.isHidden = false
+                        cell.buttonViewHeight.constant = 50.0
+                    } else {
+                        cell.btnReceipt.isHidden = true
+                        cell.lblPaymentDetail.isHidden = true
+                        cell.buttonViewHeight.constant = 15.0
+                    }
+                }
+            }
             
-            
-//            cell.lblTripFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TripFare") as? String
-//            cell.lblNightFare.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "NightFare") as? String
-            
-            
-//            cell.lblTollFee.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "TollFee") as? String
-//            cell.lblWaitingCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "WaitingTimeCost") as? String
-//            cell.lblBookingCharge.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "BookingCharge") as? String
-//            cell.lblTax.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Tax") as? String
-//            cell.lblDiscount.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "Discount") as? String
-//            cell.lblPaymentType.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "PaymentType") as? String
-//            cell.lblTotalCost.text = (aryData.object(at: indexPath.row) as! NSDictionary).object(forKey: "GrandTotal") as? String
-            
-            
-            cell.viewDetails.isHidden = !expandedCellPaths.contains(indexPath)
-            
-            
+            cell.Delegate = self
             
         }
         
+        if self.NeedToReload == true && indexPath.row == self.aryData.count - 1  {
+                self.reloadMoreHistory()
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let cell = tableView.cellForRow(at: indexPath) as? PastBooingTableViewCell {
-            cell.viewDetails.isHidden = !cell.viewDetails.isHidden
-            if cell.viewDetails.isHidden {
-                expandedCellPaths.remove(indexPath)
-            } else {
-                expandedCellPaths.insert(indexPath)
-            }
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            
+        if expandedCellPaths.contains(indexPath) {
+            expandedCellPaths.remove(indexPath)
+        } else {
+            expandedCellPaths.insert(indexPath)
         }
+        tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+        //        if let cell = tableView.cellForRow(at: indexPath) as? PastBooingTableViewCell {
+        
+        
+        //            tableView.reloadData()
+        
+        //            let currentData = (aryData.object(at: indexPath.row) as! NSDictionary)
+        //            if let TripStatus:String = currentData[ "Status") as? String {
+        //                if TripStatus == "completed" {
+        //                    cell.viewDetails.isHidden = !cell.viewDetails.isHidden
+        //                    if cell.viewDetails.isHidden {
+        //                        expandedCellPaths.remove(indexPath)
+        //                    } else {
+        //                        expandedCellPaths.insert(indexPath)
+        //                    }
+        //                } else {
+        //
+        //                }
+        //            }
+        //            tableView.beginUpdates()
+        //            tableView.endUpdates()
+        //
+        //        }
+    }
+    
+    //-------------------------------------------------------------
+    // MARK: - WebService Call
+    //-------------------------------------------------------------
+    
+    @objc func getPastBookingHistory(){
+        if Connectivity.isConnectedToInternet() == false {
+                  self.refreshControl.endRefreshing()
+            UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        
+        webserviceForPastBookingHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject, Page: PageNumber) { (result, status) in
+            
+            if (status) {
+                let arrHistory = (result as! [String:Any])["history"] as! [[String:Any]]
+               
+                if arrHistory.count == 10 {
+                    self.NeedToReload = true
+                } else {
+                    self.NeedToReload = false
+                }
+                
+                if self.aryData.count == 0 {
+                    self.aryData = arrHistory
+                } else {
+                    self.aryData.append(contentsOf: arrHistory)
+                }
+                
+                self.reloadTableView()
+                
+                if self.LoaderBackView.isHidden == false {
+                    self.ActivityIndicator.stopAnimating()
+                    self.LoaderBackView.isHidden = true
+                }
+                
+                self.refreshControl.endRefreshing()
+                
+            }
+            else {
+                
+                print(result)
+                
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+        
     }
     
     //-------------------------------------------------------------
@@ -351,7 +463,21 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         
         return strDate
     }
-
+    
+    func DelegateWithCell(CustomCell: UITableViewCell) {
+        
+        let SingleIndexPath = self.tableView.indexPath(for: CustomCell)
+        let currentData = (aryData[SingleIndexPath!.row] as NSDictionary)
+        
+        if let ShareURL:String = currentData[ "ShareUrl"] as? String {
+            
+            let items = ["\n Please download Receipt/Invoice from link below\n \n \(ShareURL) "]
+            
+            let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+            present(ac, animated: true)
+        }
+        
+    }
 }
 
 

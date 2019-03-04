@@ -43,16 +43,20 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
         
         self.tableView.addSubview(self.refreshControl)
         
-        if SingletonClass.sharedInstance.walletHistoryData.count == 0 {
-             webserviceOfTransactionHistory()
-        }
-        else {
-            aryData = SingletonClass.sharedInstance.walletHistoryData
-            self.lblAvailableFundsDesc.text = "\(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
-        }
-    
-       
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+            webserviceOfTransactionHistory()
+//        if SingletonClass.sharedInstance.walletHistoryData.count == 0 {
+//            webserviceOfTransactionHistory()
+//        }
+//        else {
+//            aryData = SingletonClass.sharedInstance.walletHistoryData
+//            self.lblAvailableFundsDesc.text = "\(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
+//        }
+    }
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -121,6 +125,7 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
         let dictData = aryData[indexPath.row]
         
         cell.lblTransferTitle.text = dictData["Description"] as? String
+//        "\(dictData["TransactionType"] as! String) ID#\(dictData["ReferenceId"] as! String)"
         cell.lblTransferDateAndTime.text = dictData["UpdatedDate"] as? String
         
 //        if dictData["Status"] as! String == "failed" {
@@ -138,19 +143,19 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
         
         if dictData["Status"] as! String == "failed" {
             
-            cell.lblPrice.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+            cell.lblPrice.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
             cell.lblPrice.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
             
-            cell.statusHeight.constant = 20.5
+//            cell.statusHeight.constant = 20.5
             cell.lblStatus.isHidden = false
             cell.lblStatus.text = "Transaction Failed"
             cell.lblStatus.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
         }
         else if dictData["Status"] as! String == "pending" {
-            cell.lblPrice.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+            cell.lblPrice.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
             cell.lblPrice.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
             
-            cell.statusHeight.constant = 17
+//            cell.statusHeight.constant = 17
             cell.lblStatus.isHidden = false
             cell.lblStatus.text = "Transaction Pending"
             cell.lblStatus.textColor = UIColor.init(red: 204/255, green: 3/255, blue: 0, alpha: 1.0)
@@ -161,23 +166,18 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
 //                cell.statusHeight.constant = 0
                 cell.lblStatus.isHidden = true
                 
-                cell.lblPrice.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+                cell.lblPrice.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
                 cell.lblPrice.textColor = UIColor.black
             }
             else {
 //                cell.statusHeight.constant = 0
                 cell.lblStatus.isHidden = true
                 
-                cell.lblPrice.text = "\(dictData["Type"] as! String) \(dictData["Amount"] as! String)"
+                cell.lblPrice.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
                 cell.lblPrice.textColor = UIColor.init(red: 0, green: 144/255, blue: 81/255, alpha: 1.0)
             }
             
         }
-        
-        
-        
-        
-        
         // ----------------------------------------------------------------------
         // ----------------------------------------------------------------------
         return cell
@@ -216,7 +216,12 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
     //-------------------------------------------------------------
     
     func webserviceOfTransactionHistory() {
-
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         webserviceForTransactionHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             
@@ -224,12 +229,20 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
                 print(result)
                 
                 SingletonClass.sharedInstance.strCurrentBalance = ((result as! NSDictionary).object(forKey: "walletBalance") as AnyObject).doubleValue
-                self.lblAvailableFundsDesc.text = "\(currencySign) \(SingletonClass.sharedInstance.strCurrentBalance)"
                 
+                var BalanceString = String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance)
+                if (SingletonClass.sharedInstance.strCurrentBalance < 0) {
+                    BalanceString.remove(at: BalanceString.startIndex)
+                }
+                self.lblAvailableFundsDesc.text =  (SingletonClass.sharedInstance.strCurrentBalance < 0) ? "-\(currencySign)\(BalanceString)" : "\(currencySign)\(BalanceString)"
                 
-                SingletonClass.sharedInstance.walletHistoryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+//                SingletonClass.sharedInstance.walletHistoryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+                if let history = result["history"] as? [[String:AnyObject]]
+                {
+                    SingletonClass.sharedInstance.walletHistoryData = history
+                }
                 
-                self.aryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+                self.aryData = SingletonClass.sharedInstance.walletHistoryData
                 
                 self.tableView.reloadData()
                 
@@ -254,15 +267,15 @@ class WalletBalanceMainVC: ParentViewController, UITableViewDataSource, UITableV
                 
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 

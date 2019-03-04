@@ -14,13 +14,19 @@ import ACFloatingTextfield_Swift
     func didSelectBankCard(dictData: [String: AnyObject])
 }
 
+
+protocol WalletTransferDelegate {
+    func GotoHistory()
+}
+
+
 class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
 
     
     
     var strCardId = String()
     var strAmt = String()
-    
+    var Delegate:WalletTransferDelegate!
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
@@ -36,11 +42,19 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
         viewMain.layer.cornerRadius = 5
         viewMain.layer.masksToBounds = true
         
-        btnWithdrawFunds.layer.cornerRadius = 5
-        btnWithdrawFunds.layer.masksToBounds = true
-        
+//        btnWithdrawFunds.layer.cornerRadius = 5
+//        btnWithdrawFunds.layer.masksToBounds = true
       
-        lblCurrentBalanceTitle.text = "\(SingletonClass.sharedInstance.strCurrentBalance)"
+//        lblCurrentBalanceTitle.text = "\(currencySign)\(String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance))"
+        
+        var BalanceString = String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance)
+        if (SingletonClass.sharedInstance.strCurrentBalance < 0) {
+            BalanceString.remove(at: BalanceString.startIndex)
+        }
+        self.lblCurrentBalanceTitle.text =  (SingletonClass.sharedInstance.strCurrentBalance < 0) ? "-\(currencySign)\(BalanceString)" : "\(currencySign)\(BalanceString)"
+        
+//        "\(currencySign)\(SingletonClass.sharedInstance.strCurrentBalance)"
+        
         
         txtAmount.becomeFirstResponder()
         
@@ -59,12 +73,12 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        txtAccountHolderName.lineColor = .black
+        self.txtAmount.setCurrencyLeftView()
+//        txtAccountHolderName.lineColor = .black
 //        txtABN.lineColor = .black
-        txtBankName.lineColor = .black
-        txtBankAccountNo.lineColor = .black
-        txtBSB.lineColor = .black
+//        txtBankName.lineColor = .black
+//        txtBankAccountNo.lineColor = .black
+//        txtBSB.lineColor = .black
     }
     
     @objc func btnBackAction() {
@@ -137,7 +151,7 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
     @IBAction func btnWithdrawFunds(_ sender: UIButton) {
         
         if (validationOfTransferToBank()) {
-            
+        
             webserviceOfTransferToBank()
         }
     }
@@ -265,38 +279,41 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
 //            }
 //            return false
 //        }
-        if txtBSB.text!.count == 0 {
-            
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter BSB Number") { (index, title) in
-            }
-            return false
-        }
-        else if txtAmount.text!.count == 0 {
-           
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Amount") { (index, title) in
-            }
-            return false
-        }
-        else if txtBankName.text!.count == 0 {
-            
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Bank Name") { (index, title) in
-            }
-            return false
-        }
-        else if txtBankAccountNo.text!.count == 0 {
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Bank Account Number") { (index, title) in
-            }
+//        if txtBSB.text!.count == 0 {
+//
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Enter BSB Number") { (index, title) in
+//            }
+//            return false
+//        }
+//        else
+        if txtAmount.text!.count == 0 {
+            UtilityClass.showAlert("", message: "Please enter amount.", vc: self)
+//            UtilityClass.setCustomAlert(title: "", message: "Enter Amount") { (index, title) in
+//            }
             return false
         }
         else if txtAccountHolderName.text!.count == 0 {
-    
-            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Account Holder Name") { (index, title) in
-            }
+            UtilityClass.showAlert("", message: "Please enter account holder name.", vc: self)
+//            UtilityClass.setCustomAlert(title: "Missing", message: "Enter Account Holder Name") { (index, title) in
+//            }
             return false
         }
+        else if txtBankName.text!.count == 0 {
+              UtilityClass.showAlert("", message: "Please enter bank name.", vc: self)
+//            UtilityClass.setCustomAlert(title: "", message: "Enter Bank Name") { (index, title) in
+//            }
+            return false
+        }
+        else if txtBankAccountNo.text!.count == 0 {
+             UtilityClass.showAlert("", message: "Please enter bank account number.", vc: self)
+//            UtilityClass.setCustomAlert(title: "", message: "Enter Bank Account Number") { (index, title) in
+//            }
+            return false
+        }
+       
         else if Double(strAmt)! > SingletonClass.sharedInstance.strCurrentBalance {
 
-            UtilityClass.setCustomAlert(title: "Missing", message: "Entered amout is more than current balance") { (index, title) in
+            UtilityClass.setCustomAlert(title: "Info Message", message: "Sorry you have insufficient funds!") { (index, title) in
             }
             return false
         }
@@ -312,15 +329,21 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
     
     func webserviceOfTransferToBank() {
 //        PassengerId,Amount,HolderName,ABN,BankName,BSB,AccountNo
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         var param = [String:AnyObject]()
         
         param["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
         param["Amount"] = strAmt as AnyObject
         param["HolderName"] = txtAccountHolderName.text as AnyObject
-        param["ABN"] = txtABN.text as AnyObject
+//        param["ABN"] = txtABN.text as AnyObject
         param["BankName"] = txtBankName.text as AnyObject
-        param["BSB"] = txtBSB.text as AnyObject
+        param["BSB"] = "" as AnyObject
         param["AccountNo"] = txtBankAccountNo.text as AnyObject
 
         
@@ -330,19 +353,22 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
                 print(result)
               
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Done", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Success Message", message: res) { (index, title) in
+                         self.perform(#selector(self.goBack), with: nil, afterDelay: 1.0)
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Done", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Success Message", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                         self.perform(#selector(self.goBack), with: nil, afterDelay: 1.0)
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Done", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: "Success Message", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                         self.perform(#selector(self.goBack), with: nil, afterDelay: 1.0)
                     }
                 }
                 
-                self.webserviceOfTransactionHistory()
+//                self.webserviceOfTransactionHistory()
                 
             }
             else {
@@ -350,15 +376,15 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
                
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
             }
@@ -366,18 +392,29 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
         
     }
     
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func webserviceOfTransactionHistory() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         webserviceForTransactionHistory(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
             
             if (status) {
                 print(result)
                 
                 SingletonClass.sharedInstance.strCurrentBalance = ((result as! NSDictionary).object(forKey: "walletBalance") as AnyObject).doubleValue
-                self.lblCurrentBalanceTitle.text = "\(SingletonClass.sharedInstance.strCurrentBalance)"
+                self.lblCurrentBalanceTitle.text = "\(currencySign)\(String(format: "%.2f", SingletonClass.sharedInstance.strCurrentBalance))"
+//                "\(currencySign)\(SingletonClass.sharedInstance.strCurrentBalance)"
                 
                 
                 SingletonClass.sharedInstance.walletHistoryData = (result as! NSDictionary).object(forKey: "history") as! [[String:AnyObject]]
+                self.navigationController?.popViewController(animated: false)
                 
                 
             }
@@ -385,15 +422,15 @@ class WalletTransferToBankVC: ParentViewController, SelectBankCardDelegate {
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 

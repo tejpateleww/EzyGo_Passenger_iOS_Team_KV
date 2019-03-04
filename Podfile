@@ -26,11 +26,16 @@ target 'EZYGO Rider' do
   pod 'FormTextField'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  
+  pod 'ActionSheetPicker-3.0'
   pod 'GoogleAnalytics'
-
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+#  pod 'FacebookSDK'
+  pod 'GoogleSignIn'
   # pod 'WWCalendarTimeSelector'
   pod 'DOAlertController', :git => 'https://github.com/okmr-d/DOAlertController.git', :branch => 'master'
   # Pods for TickTok User
+  pod 'GoogleAnalytics'
 
 end

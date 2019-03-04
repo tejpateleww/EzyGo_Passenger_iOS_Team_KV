@@ -20,8 +20,8 @@ class ChangePasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        btnSubmit.layer.cornerRadius = 5
-        btnSubmit.layer.masksToBounds = true
+//        btnSubmit.layer.cornerRadius = 5
+//        btnSubmit.layer.masksToBounds = true
         
        
     }
@@ -42,30 +42,64 @@ class ChangePasswordVC: UIViewController {
     // MARK: - Outlets
     //-------------------------------------------------------------
     
-    @IBOutlet weak var txtNewPassword: ACFloatingTextfield!
-    @IBOutlet weak var txtConfirmPassword: ACFloatingTextfield!
+    @IBOutlet weak var txtNewPassword: UITextField!
+    @IBOutlet weak var txtConfirmPassword: UITextField!
+    
     @IBOutlet weak var btnSubmit: UIButton!
     
     
     @IBAction func btnSubmit(_ sender: UIButton) {
+       
+        let ValidationError = self.isValidateRequest()
         
-        let str = txtNewPassword.text
-        
-        if txtNewPassword.text == txtConfirmPassword.text {
-        
-            if str!.count >= 8  {
-                webserviceOfChangePassword()
-            }
-            else {
-                UtilityClass.setCustomAlert(title: "", message: "Password should be minimum 8 characters.") { (index, title) in
-            }
-            }
-        }
-        else {
-            UtilityClass.setCustomAlert(title: "Password did not match", message: "Please re-enter password") { (index, title) in
-            }
+        if ValidationError.1 == true {
+            webserviceOfChangePassword()
+        } else {
+            UtilityClass.showAlert("", message: ValidationError.0, vc: self)
         }
         
+//        let str = txtNewPassword.text
+//
+//        if txtNewPassword.text == txtConfirmPassword.text {
+//
+//            if str!.count >= 8  {
+//                webserviceOfChangePassword()
+//            }
+//            else {
+//                UtilityClass.setCustomAlert(title: "", message: "Password should be minimum 8 characters.") { (index, title) in
+//            }
+//            }
+//        }
+//        else {
+//            UtilityClass.setCustomAlert(title: "Password did not match", message: "Please re-enter password") { (index, title) in
+//            }
+//        }
+        
+    }
+    
+    func isValidateRequest() -> (String,Bool) {
+        
+        var ValidationStatus:Bool = true
+        var ValidationMessage:String = ""
+        
+        if txtNewPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && txtConfirmPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please fill all details."
+        } else if txtNewPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please enter new password."
+        } else if (txtNewPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count)! <= 5 {
+            ValidationStatus = false
+            ValidationMessage = "Password must contain atleast 6 characters."
+        } else if txtConfirmPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            ValidationStatus = false
+            ValidationMessage = "Please enter confirm password"
+        } else if txtNewPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines) != txtConfirmPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            ValidationStatus = false
+            ValidationMessage = "Password and confirm password doesn't match"
+        }
+        
+        return (ValidationMessage,ValidationStatus)
     }
     
     
@@ -105,8 +139,12 @@ class ChangePasswordVC: UIViewController {
     //-------------------------------------------------------------
     
     func webserviceOfChangePassword() {
-        
-    
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var dictData = [String:AnyObject]()
         
         dictData["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject
@@ -127,7 +165,8 @@ class ChangePasswordVC: UIViewController {
                 
                 UtilityClass.setCustomAlert(title: appName, message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     
-                    self.navigationController?.popViewController(animated: true)
+                    self.perform(#selector(self.goBack), with: nil, afterDelay: 1.0)
+                    
             }
                 
 //                UtilityClass.showAlert("", message: (result as! NSDictionary).object(forKey: "message") as! String, vc: self)
@@ -146,5 +185,11 @@ class ChangePasswordVC: UIViewController {
         
     }
     
+    @objc func goBack() {
+        self.navigationController?.popViewController(animated: true)
+    }
 
 }
+
+
+

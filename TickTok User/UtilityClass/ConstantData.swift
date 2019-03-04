@@ -15,8 +15,10 @@ let themeGrayColor: UIColor = UIColor.init(red: 114/255, green: 114/255, blue: 1
 
 let currencySign = "$"
 let appName = "EZYGO Rider"
+let alertTitle = "Ezygo"
 let helpLineNumber = "1234567890"
 
+ let kIsSocketEmited = "SocketEmited"
 
 let googleAnalyticsTrackId = "UA-122360832-1"
 
@@ -24,11 +26,15 @@ let googleAnalyticsTrackId = "UA-122360832-1"
 
 
 struct WebserviceURLs {
-    static let kBaseURL                                 = "http://13.237.0.107/web/Passenger_Api/"
+    static let kTermOfUse_PrivacyPolicyURL = "https://ezygo.co.nz/web/ezygo-terms-conditions-without-JavaScript.pdf"
+    
+    static let kBaseURL                                 = "https://ezygo.co.nz/web/Passenger_Api/"
+//    "http://13.237.0.107/web/Passenger_Api/"
     
     // "http://54.169.67.226/web/Passenger_Api/" // "https://pickngolk.info/web/Passenger_Api/" "http://54.169.67.226/web/Passenger_Api/" //
     static let kDriverRegister                          = "Register"
     static let kDriverLogin                             = "Login"
+    static let kSocialLogin                             = "SocialLogin"
     static let kChangePassword                          = "ChangePassword"
     static let kUpdateProfile                           = "UpdateProfile"
     static let kForgotPassword                          = "ForgotPassword"
@@ -37,10 +43,16 @@ struct WebserviceURLs {
     static let kAdvancedBooking                         = "AdvancedBooking"
     static let kDriver                                  = "Driver"
     static let kBookingHistory                          = "BookingHistory/"
+    static let kTripHistory                             = "TripReceipt"
+    static let kPastBooking                             = "PastBooking/"
+    static let kUpcomingBooking                         = "UpcomingBooking/"
+    static let kOngoingBooking                          = "OngoingBooking/"
     static let kGetEstimateFare                         = "GetEstimateFare"
     static let kGetPromoCodeList                        = "PromoCodeList"
     static let kGetFeedbackList                         = "FeedbackList/"
-    static let kImageBaseURL                            = "http://13.237.0.107/web/" // "https://pickngolk.info/web/" "http://54.169.67.226/web/" //
+    static let kCheckPromocode                          = "PromoCodeCheck"
+    static let kImageBaseURL                            = "https://ezygo.co.nz/web/"
+//    "http://13.237.0.107/web/" // "https://pickngolk.info/web/" "http://54.169.67.226/web/" //
     
     static let kCardsList                               = "Cards/"
     static let kPackageBookingHistory                   = "PackageBookingHistory"
@@ -60,6 +72,8 @@ struct WebserviceURLs {
     static let kTickpayInvoice                          = "TickpayInvoice"
     static let kGetTickpayRate                          = "GetTickpayRate"
     static let kInit                                    = "Init/"
+    static let kContactUs                               = "ContactUs"
+    
     
     static let kReviewRating                            = "ReviewRating"
     static let kGetTickpayApprovalStatus                = "GetTickpayApprovalStatus/"
@@ -69,7 +83,7 @@ struct WebserviceURLs {
     static let kGetPackages                             = "Packages"
     static let kMissBokkingRequest                      = "BookingMissRequest"
     static let kTrackRunningTrip                        = "TrackRunningTrip/"
-    
+    static let kLogout                                  = "Logout/"
 
 //    https://pickngolk.info/web/Passenger_Api/OtpForRegister
     
@@ -77,29 +91,30 @@ struct WebserviceURLs {
 
 struct SocketData {
     
-    static let kBaseURL                                     = "http://13.237.0.107:8080/"
-    // "http://54.255.222.125:8080/" // "https://pickngolk.info:8081" "http://54.169.67.226:8080" // 
+    static let kBaseURL                                     = "https://ezygo.co.nz:8080/"
+//    "http://13.237.0.107:8080/"
+    // "http://54.255.222.125:8080/" // "https://pickngolk.info:8081" "http://54.169.67.226:8080" //
     static let kNearByDriverList                            = "NearByDriverListIOS"
     static let kUpdatePassengerLatLong                      = "UpdatePassengerLatLong"
     static let kAcceptBookingRequestNotification            = "AcceptBookingRequestNotification"
+    static let kArrivedDriverBookNowRequest                 = "DriverArrivedAtPickupLocation"
     static let kRejectBookingRequestNotification            = "RejectBookingRequestNotification"
     static let kPickupPassengerNotification                 = "PickupPassengerNotification"
     static let kBookingCompletedNotification                = "BookingDetails"
     static let kCancelTripByPassenger                       = "CancelTripByPassenger"
     static let kCancelTripByDriverNotficication             = "PassengerCancelTripNotification"
-    static let kSendDriverLocationRequestByPassenger        = "DriverLocation"
+    static let kSendDriverLocationRequestByPassenger        = "se"
     static let kReceiveDriverLocationToPassenger            = "GetDriverLocation"
     static let kReceiveHoldingNotificationToPassenger       = "TripHoldNotification"
     static let kSendRequestForGetEstimateFare               = "EstimateFare"
     static let kReceiveGetEstimateFare                      = "GetEstimateFare"
-    
     static let kAcceptAdvancedBookingRequestNotification    = "AcceptAdvancedBookingRequestNotification"
+    static let kArrivedDriverBookLaterRequest               = "AdvanceBookingDriverArrivedAtPickupLocation"
     static let kRejectAdvancedBookingRequestNotification    = "RejectAdvancedBookingRequestNotification"
     static let kAdvancedBookingPickupPassengerNotification  = "AdvancedBookingPickupPassengerNotification"
     static let kAdvancedBookingTripHoldNotification         = "AdvancedBookingTripHoldNotification"
     static let kAdvancedBookingDetails                      = "AdvancedBookingDetails"
     static let kAdvancedBookingCancelTripByPassenger        = "AdvancedBookingCancelTripByPassenger"
-    
     static let kInformPassengerForAdvancedTrip              = "InformPassengerForAdvancedTrip"
     static let kAcceptAdvancedBookingRequestNotify          = "AcceptAdvancedBookingRequestNotify"
     
@@ -165,18 +180,17 @@ struct setiPhoneX {
     
 }
 
-
-
+ //MARK: - Notification Identifire
+ 
+let NotificationKeyforUpdateProfileDetail = NSNotification.Name("UpdateProfile")
 let NotificationKeyFroAllDriver =  NSNotification.Name("NotificationKeyFroAllDriver")
 
 let NotificationBookNow = NSNotification.Name("NotificationBookNow")
 let NotificationBookLater = NSNotification.Name("NotificationBookLater")
-
+let NotificationSocketOff = NSNotification.Name("NotificationSocketOff")
 let NotificationTrackRunningTrip = NSNotification.Name("NotificationTrackRunningTrip")
 let NotificationForBookingNewTrip = NSNotification.Name("NotificationForBookingNewTrip")
 let NotificationForAddNewBooingOnSideMenu = NSNotification.Name("NotificationForAddNewBooingOnSideMenu")
-
-
 
 
 

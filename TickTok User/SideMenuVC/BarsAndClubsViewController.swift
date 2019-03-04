@@ -230,6 +230,14 @@ class BarsAndClubsViewController: ParentViewController, UITableViewDataSource, U
             
         }
         else {
+            if Connectivity.isConnectedToInternet() == false {
+                
+                UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+                    
+                }
+                return
+            }
+            
             let creentLocation = "\(SingletonClass.sharedInstance.currentLatitude),\(SingletonClass.sharedInstance.currentLongitude)"
             let type = "bar"
             

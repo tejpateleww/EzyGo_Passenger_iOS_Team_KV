@@ -21,9 +21,13 @@ let header: [String:String] = ["key":"EzyGo123*#*"]
 func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ result: AnyObject, _ sucess: Bool) -> Void)
 {
     let url = WebserviceURLs.kBaseURL + nsURL
-
-    UtilityClass.showACProgressHUD()
     
+    if Connectivity.isConnectedToInternet() == false {
+        completion("Internet connection not available" as AnyObject, false)
+        return
+    }
+    
+    UtilityClass.showACProgressHUD()
     Alamofire.request(url, method: .post, parameters: dictParams as? [String : AnyObject], encoding: URLEncoding.default, headers: header)
         .validate()
         .responseJSON
@@ -62,9 +66,14 @@ func postData(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ r
 func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void)
 {
     let url = WebserviceURLs.kBaseURL + nsURL
-
-    UtilityClass.showACProgressHUD()
     
+    if Connectivity.isConnectedToInternet() == false {
+        completion("Internet connection not available" as AnyObject, false)
+        return
+    }
+    
+    
+    UtilityClass.showACProgressHUD()
     Alamofire.request(url, method: .get, parameters: dictParams as? [String : AnyObject], encoding: URLEncoding.default, headers: header)
         .validate()
         .responseString(completionHandler: { (ResponseString:DataResponse<String>) in
@@ -96,6 +105,50 @@ func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ r
     }
 }
 
+
+//-------------------------------------------------------------
+// MARK: - Webservice For GetData Method
+//-------------------------------------------------------------
+
+func getDataWithoutLoader(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = WebserviceURLs.kBaseURL + nsURL
+    
+    if Connectivity.isConnectedToInternet() == false {
+        completion("Internet connection not available" as AnyObject, false)
+        return
+    }
+    
+    Alamofire.request(url, method: .get, parameters: dictParams as? [String : AnyObject], encoding: URLEncoding.default, headers: header)
+        .validate()
+        .responseString(completionHandler: { (ResponseString:DataResponse<String>) in
+            print(ResponseString)
+        })
+        .responseJSON
+        { (response) in
+            
+            if let JSON = response.result.value
+            {
+                
+                if (JSON as AnyObject).object(forKey:("status")) as! Bool == false
+                {
+                    completion(JSON as AnyObject, false)
+                    //                    HUD.flash(HUDContentType.systemActivity, delay: 0.0)
+            
+                }
+                else
+                {
+                    completion(JSON as AnyObject, true)
+                }
+            }
+            else
+            {
+                print("Data not Found")
+            }
+    }
+}
+
+
 //-------------------------------------------------------------
 // MARK: - Webservice For Send Image Method
 //-------------------------------------------------------------
@@ -103,6 +156,10 @@ func getData(_ dictParams: AnyObject, nsURL: String,  completion: @escaping (_ r
 func sendImage(_ dictParams: [String:AnyObject], image1: UIImage, nsURL: String, completion: @escaping (_ result: AnyObject, _ success: Bool) -> Void) {
     
     let url = WebserviceURLs.kBaseURL + nsURL
+    if Connectivity.isConnectedToInternet() == false {
+        completion("Internet connection not available" as AnyObject, false)
+        return
+    }
     
     UtilityClass.showACProgressHUD()
     
@@ -168,6 +225,11 @@ func postTwoImageMethod(_ dictParams: [String:AnyObject], image1: UIImage, image
     
     let url = WebserviceURLs.kBaseURL + nsURL
     
+    if Connectivity.isConnectedToInternet() == false {
+        completion("Internet connection not available" as AnyObject, false)
+        return
+    }
+    
     UtilityClass.showACProgressHUD()
     
     Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -226,12 +288,63 @@ func postTwoImageMethod(_ dictParams: [String:AnyObject], image1: UIImage, image
     }
 }
 
+
+////-------------------------------------------------------------
+//// MARK: - Webservice For Get Address From LatLong
+////-------------------------------------------------------------
+//
+//func GetAddressFromLatLong(_ dictParams: AnyObject, Location: String,  completion: @escaping (_ result: NSDictionary, _ success: Bool) -> Void)
+//{
+//    let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(Location)&key=\()"
+//
+//    if Connectivity.isConnectedToInternet() == false {
+//        completion(("Internet connection not available" as AnyObject) as! NSDictionary, false)
+//        return
+//    }
+//
+//    UtilityClass.showACProgressHUD()
+//
+//    Alamofire.request(url, method: .get, parameters: dictParams as? [String : AnyObject], encoding: URLEncoding.default, headers: header)
+//        .validate()
+//        .responseJSON
+//        { (response) in
+//
+//            if let JSON = response.result.value
+//            {
+//
+//                if ((JSON as! NSDictionary).object(forKey:("status"))) as! String == "OK"
+//                {
+//                    completion(JSON as! NSDictionary, true)
+//                    //                    HUD.flash(HUDContentType.systemActivity, delay: 0.0)
+//                    UtilityClass.hideACProgressHUD()
+//                }
+//                else
+//                {
+//                    completion(JSON as! NSDictionary, false)
+//                    UtilityClass.hideACProgressHUD()
+//
+//                }
+//            }
+//            else
+//            {
+//                print("Data not Found")
+//                UtilityClass.hideACProgressHUD()
+//            }
+//    }
+//}
+
+
 //-------------------------------------------------------------
 // MARK: - Webservice For Bar And Clubs
 //-------------------------------------------------------------
 
 func BarsAndClubs(_ dictParams: AnyObject, Location: String, Type: String,  completion: @escaping (_ result: NSDictionary, _ success: Bool) -> Void)
 {
+    if Connectivity.isConnectedToInternet() == false {
+        completion(("Internet connection not available" as AnyObject) as! NSDictionary, false)
+        return
+    }
+    
     let CurrentLocation = Location
     let types = Type
     let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(CurrentLocation)&radius=5000&type=\(types)&key=AIzaSyCRaduVCKdm1ll3kHPY-ebtvwwPV2VVozo"
@@ -276,6 +389,11 @@ func BookTable(_ dictParams: AnyObject, Location: String, Type: String, Item: St
     let CurrentLocation = Location
     let types = Type
     let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(CurrentLocation)&radius=5000&type=\(types)&keyword=\(Item)&key=AIzaSyCRaduVCKdm1ll3kHPY-ebtvwwPV2VVozo"
+    if Connectivity.isConnectedToInternet() == false {
+        completion(("Internet connection not available" as AnyObject) as! NSDictionary, false)
+        return
+    }
+    
     
     UtilityClass.showACProgressHUD()
     
@@ -316,6 +434,12 @@ func ShoppingListOfGoogle(_ dictParams: AnyObject, Location: String, Type: Strin
 {
     let CurrentLocation = Location
     let types = Type
+    
+    if Connectivity.isConnectedToInternet() == false {
+        completion(("Internet connection not available" as AnyObject) as! NSDictionary, false)
+        return
+    }
+    
     let url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=\(types)\(CurrentLocation)&key=AIzaSyCRaduVCKdm1ll3kHPY-ebtvwwPV2VVozo"
     
     UtilityClass.showACProgressHUD()
@@ -354,6 +478,12 @@ func ShoppingListOfGoogle(_ dictParams: AnyObject, Location: String, Type: Strin
 
 func estimateMethod(_ dictParams: AnyObject, nsURL: String, completion: @escaping (_ result: AnyObject, _ sucess: Bool) -> Void)
 {
+    
+    if Connectivity.isConnectedToInternet() == false {
+        completion("Internet connection not available" as AnyObject, false)
+        return
+    }
+    
     let url = WebserviceURLs.kBaseURL + nsURL
     
 //    UtilityClass.showACProgressHUD()

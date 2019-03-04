@@ -26,9 +26,9 @@ class WalletTransferViewController: ParentViewController, UITextFieldDelegate {
 
         scrollObj.isScrollEnabled = false
         
-        btnSubmitMoney.layer.cornerRadius = 5
-        btnSubmitMoney.layer.masksToBounds = true
-        
+//        btnSubmitMoney.layer.cornerRadius = 5
+//        btnSubmitMoney.layer.masksToBounds = true
+        txtEnterMoney.setCurrencyLeftView()
         // Do any additional setup after loading the view.
     }
 
@@ -50,10 +50,10 @@ class WalletTransferViewController: ParentViewController, UITextFieldDelegate {
     @IBOutlet weak var scrollObj: UIScrollView!
     @IBOutlet weak var btnSendMoney: UIButton!
     @IBOutlet weak var viewEnterMoney: UIView!
-    
     @IBOutlet weak var btnSubmitMoney: UIButton!
     @IBOutlet weak var txtEnterMoney: UITextField!
     
+    @IBOutlet weak var lblAmountRef: UILabel!
     
     //-------------------------------------------------------------
     // MARK: - Action
@@ -95,15 +95,19 @@ class WalletTransferViewController: ParentViewController, UITextFieldDelegate {
     
     }
     
+    @IBAction func txtDidUpdate(_ sender: Any) {
+        
+        self.lblAmountRef.text = self.txtEnterMoney.text
+        
+    }
+    
+    
     @IBAction func txtEnterMoney(_ sender: UITextField) {
     
         if let amountString = txtEnterMoney.text?.currencyInputFormatting() {
-            txtEnterMoney.text = amountString
-            
+//            txtEnterMoney.text = amountString
             
             let unfiltered = amountString   //  "!   !! yuahl! !"
-            
-            
             let space = " "
             let comma = " "
             let currencySymboleInString = "\(currencySign),\(comma),\(space)"
@@ -134,6 +138,7 @@ class WalletTransferViewController: ParentViewController, UITextFieldDelegate {
             
             amount = String(unfiltered.characters.filter { !removal.contains($0) })
             print("amount : \(amount)")
+            self.txtEnterMoney.text = amount
             
             print("QRCode : \(SingletonClass.sharedInstance.strQRCodeForSendMoney)")
         
@@ -173,7 +178,12 @@ class WalletTransferViewController: ParentViewController, UITextFieldDelegate {
     
     func webserviceOfSendMoney() {
         // QRCode,SenderId,Amount
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         
         var dictParam = [String:AnyObject]()
 
@@ -215,15 +225,15 @@ class WalletTransferViewController: ParentViewController, UITextFieldDelegate {
                 print(result)
                 
                 if let res = result as? String {
-                    UtilityClass.setCustomAlert(title: "Error", message: res) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
                     }
                 }
                 else if let resDict = result as? NSDictionary {
-                    UtilityClass.setCustomAlert(title: "Error", message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 else if let resAry = result as? NSArray {
-                    UtilityClass.setCustomAlert(title: "Error", message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                     }
                 }
                 
@@ -302,7 +312,7 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("isSendMoneySucessfully"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.isSendMoneySucessfully), name: Notification.Name("isSendMoneySucessfully"), object: nil)
         
         self.lblQRScanner.isHidden = false
@@ -330,19 +340,62 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
     @IBOutlet weak var imgQRCode: UIImageView!
     @IBOutlet weak var lblQRScanner: UILabel!
     
+    
     //-------------------------------------------------------------
     // MARK: - Action
     //-------------------------------------------------------------
     
     @IBAction func btnOpenCameraForQRCode(_ sender: UIBarButtonItem) {
-        
+//        askforCamera()
         startStopClick()
-        
-        if SingletonClass.sharedInstance.isSendMoneySuccessFully {
-            
+        if SingletonClass.sharedInstance.isSendMoneySuccessFully {}
+//        checkPermissions()
+    }
+    
+    func askforCamera() {
+        if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
+            //already authorized
+        } else {
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
+                if granted {
+                    //access allowed
+                } else {
+                    //access denied
+                }
+            })
         }
     }
     
+    func checkPermissions() {
+//        let authStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        
+//        switch authStatus {
+//        case .authorized:
+//            startStopClick()
+//            if SingletonClass.sharedInstance.isSendMoneySuccessFully {}
+//        case .denied:
+//            alertPromptToAllowCameraAccessViaSetting()
+//        case .notDetermined:
+////            break
+//            // Not determined fill fall here - after first use, when is't neither authorized, nor denied
+//            alertPromptToAllowCameraAccessViaSetting()
+//        default:
+//            break
+//            // we try to use camera, because system will ask itself for camera permissions
+//        }
+    }
+    
+    func alertPromptToAllowCameraAccessViaSetting() {
+        
+        let alert = UIAlertController(title: "EZYGO Rider Would Like to Access the Camera", message: "Camera access required for capturing photos!", preferredStyle: UIAlertControllerStyle.alert)
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alert.addAction(UIAlertAction(title: "Settings", style: .cancel) { (alert) -> Void in
+            UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+        })
+
+        present(alert, animated: true)
+    }
     
     //-------------------------------------------------------------
     // MARK: - Custom Methods
@@ -377,6 +430,7 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
         } catch let error as NSError {
             // Handle any errors
             print(error)
+            alertPromptToAllowCameraAccessViaSetting()
             return false
         }
         
@@ -398,9 +452,11 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
     
     @objc func stopReading() {
         
+        if videoPreviewLayer != nil {
         captureSession?.stopRunning()
         captureSession = nil
         videoPreviewLayer.removeFromSuperlayer()
+        }
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
@@ -427,7 +483,12 @@ class WalletTransferSend: UIViewController, AVCaptureMetadataOutputObjectsDelega
     }
     
     func webserviceOfQRCodeDetails() {
-        
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
         var param = [String:AnyObject]()
         param["QRCode"] = SingletonClass.sharedInstance.strQRCodeForSendMoney as AnyObject
  
