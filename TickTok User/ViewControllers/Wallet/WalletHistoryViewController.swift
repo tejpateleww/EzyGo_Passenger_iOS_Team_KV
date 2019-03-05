@@ -125,7 +125,7 @@ class WalletHistoryViewController: ParentViewController, UITableViewDataSource, 
 //                cell.lblTransferStatusHeight.constant = 0
                 cell.lblTransferStatus.isHidden = true
                 
-                cell.lblAmount.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double(dictData["Amount"] as! String)!))"
+                cell.lblAmount.text = "\(dictData["Type"] as! String)\(currencySign)\(String(format: "%.2f", Double((dictData["Amount"] as! String != "") ? dictData["Amount"] as! String : "0")!))"
                 cell.lblAmount.textColor = UIColor.black
             }
             else {

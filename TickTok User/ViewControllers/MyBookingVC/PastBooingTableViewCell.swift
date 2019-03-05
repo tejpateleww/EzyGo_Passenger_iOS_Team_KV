@@ -73,6 +73,7 @@ class PastBooingTableViewCell: UITableViewCell {
     @IBOutlet weak var PlusChargesStack: UIStackView!
     @IBOutlet weak var LessStack: UIStackView!
     
+    @IBOutlet weak var PaymentStatusStack: UIStackView!
     
 //    @IBOutlet weak var lblPickupTime: UILabel!
 //
@@ -165,10 +166,11 @@ class PastBooingTableViewCell: UITableViewCell {
     
     @IBOutlet weak var lblPaymentinCancel: UILabel!
     
-    @IBAction func btnAction(_ sender: UIButton) {
+    @IBOutlet weak var lblPaymentStatusTitle: UILabel!
+    @IBOutlet weak var lblPaymentStatusValue: UILabel!
     
+    @IBAction func btnAction(_ sender: UIButton) {
         self.Delegate.DelegateWithCell(CustomCell: self)
-        
     }
     
     

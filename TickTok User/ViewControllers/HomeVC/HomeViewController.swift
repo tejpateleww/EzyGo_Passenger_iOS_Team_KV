@@ -758,8 +758,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         
                         //                     UtilityClass.showACProgressHUD()
                         
-                        
-                        self.btnDoneForLocationSelected.isHidden = false
+                        if self.bookingIDNow == "" && self.advanceBookingID == "" {
+                            self.btnDoneForLocationSelected.isHidden = false
+                        }
+                       
                         if self.selectedIndexPath != nil {
                             self.selectedIndexPath = nil
                         }
@@ -937,19 +939,21 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     }
                 }
                 
-                if markerType == currentLocationMarkerText {
-                    self.txtCurrentLocation.text = addressString
-                    self.strPickupLocation = addressString
-                    btnDoneForLocationSelected.isHidden = false
-                    if self.selectedIndexPath != nil {
-                        self.selectedIndexPath = nil
-                    }
-                } else if markerType == destinationLocationMarkerText {
-                    self.txtDestinationLocation.text = addressString
-                    self.strDropoffLocation = addressString
-                    btnDoneForLocationSelected.isHidden = false
-                    if self.selectedIndexPath != nil {
-                        self.selectedIndexPath = nil
+                if self.bookingIDNow == "" && self.advanceBookingID == "" {
+                    if markerType == currentLocationMarkerText {
+                        self.txtCurrentLocation.text = addressString
+                        self.strPickupLocation = addressString
+                        btnDoneForLocationSelected.isHidden = false
+                        if self.selectedIndexPath != nil {
+                            self.selectedIndexPath = nil
+                        }
+                    } else if markerType == destinationLocationMarkerText {
+                        self.txtDestinationLocation.text = addressString
+                        self.strDropoffLocation = addressString
+                        btnDoneForLocationSelected.isHidden = false
+                        if self.selectedIndexPath != nil {
+                            self.selectedIndexPath = nil
+                        }
                     }
                 }
            
@@ -2333,7 +2337,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         else if(SingletonClass.sharedInstance.strCurrentBalance < 0)
         {
-            UtilityClass.showAlert("", message: "Please top up your wallet", vc: self)
+            UtilityClass.showAlert("Negative Wallet Balance", message: "Sorry you will need to top up your wallet\nbefore booking another ride", vc: self)
 
             return false
         }
@@ -3798,7 +3802,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
         if let strArrivedTime = (bookingInfo as! [String:Any])["ArrivedTime"] as? String {
-            if Int(strArrivedTime)! >= 0 {
+            if Int(strArrivedTime)! > 0 {
                 self.btnRequest.isHidden = true
                 self.btnCancelStartedTrip.isHidden = true
             }

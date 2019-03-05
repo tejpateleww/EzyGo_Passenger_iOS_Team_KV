@@ -136,8 +136,9 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
             
             if let DateandTime:String = currentData[ "CreatedDate"] as? String {
-                let createdDate = DateandTime.components(separatedBy: " ")
-                cell.lblTripDate.text = createdDate[0]
+//                let createdDate = DateandTime.components(separatedBy: " ")
+                cell.lblTripDate.text = DateandTime
+//                    createdDate[0]
             }
             
             if let PickupLocation:String = currentData[ "PickupLocation"] as? String {
@@ -241,6 +242,18 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             
             if let PaymentType:String = currentData[ "PaymentType"] as? String {
                 cell.lblPaymentDetail.text = (PaymentType == "card") ? "Payment By Credit Card" : "Payment By \(PaymentType)"
+            
+                if let PaymentStatus:String = currentData["UnpaidDriverStatus"] as? String {
+                    if PaymentStatus == "0" {
+                        cell.PaymentStatusStack.isHidden     = false
+                        cell.lblPaymentDetail.isHidden   = true
+                        cell.lblPaymentStatusValue.text = "Pending"
+                        
+                    } else if PaymentStatus == "1" {
+                        cell.PaymentStatusStack.isHidden     = true
+                        cell.lblPaymentDetail.isHidden   = false
+                    }
+                }
             }
             
             if let tripDuration:String = currentData[ "TripDuration"] as? String {
@@ -276,7 +289,16 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                         }
                         
                         cell.btnReceipt.isHidden = false
-                        cell.lblPaymentDetail.isHidden = false
+//                        cell.lblPaymentDetail.isHidden = false
+                        
+                        if let PaymentStatus:String = currentData["UnpaidDriverStatus"] as? String {
+                            if PaymentStatus == "0" {
+                                cell.lblPaymentDetail.isHidden   = true
+                            } else if PaymentStatus == "1" {
+                                cell.lblPaymentDetail.isHidden   = false
+                            }
+                        }
+                        
                         cell.buttonViewHeight.constant = 50.0
                         
                     } else {
@@ -334,7 +356,14 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                     
                     if TripStatus == "completed" {
                         cell.btnReceipt.isHidden = false
-                        cell.lblPaymentDetail.isHidden = false
+//                        cell.lblPaymentDetail.isHidden = false
+                        if let PaymentStatus:String = currentData["UnpaidDriverStatus"] as? String {
+                            if PaymentStatus == "0" {
+                                cell.lblPaymentDetail.isHidden   = true
+                            } else if PaymentStatus == "1" {
+                                cell.lblPaymentDetail.isHidden   = false
+                            }
+                        }
                         cell.buttonViewHeight.constant = 50.0
                     } else {
                         cell.btnReceipt.isHidden = true

@@ -5953,13 +5953,13 @@ Hours</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2iU-xJ-vj5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="858.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="877.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xb2-3I-fcF">
                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="811.5"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UyJ-hD-UJU">
-                                                                    <rect key="frame" x="3" y="0.0" width="294" height="808.5"/>
+                                                                    <rect key="frame" x="3" y="0.0" width="294" height="827.5"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scn-2X-QeW">
                                                                             <rect key="frame" x="0.0" y="0.0" width="294" height="224.5"/>
@@ -6013,7 +6013,7 @@ Hours</string>
                                                                                     <rect key="frame" x="0.0" y="98.5" width="294" height="31.5"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PICK UP LOCATION :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2S-7t-9cn">
-                                                                                            <rect key="frame" x="0.0" y="7.5" width="147" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="8" width="147" height="16"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
@@ -6048,10 +6048,10 @@ Hours</string>
                                                                                     <rect key="frame" x="0.0" y="156" width="294" height="65.5"/>
                                                                                     <subviews>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Dve-ho-ogA">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="294" height="0.5"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="294" height="0.0"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOC-0w-5Sb">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="0.5"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="0.0"/>
                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     <nil key="highlightedColor"/>
@@ -6065,7 +6065,7 @@ Hours</string>
                                                                                             </subviews>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bNS-pf-012">
-                                                                                            <rect key="frame" x="0.0" y="5.5" width="294" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="5" width="294" height="16"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancellation Charges :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTy-NS-t2z">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="147" height="16"/>
@@ -6082,7 +6082,7 @@ Hours</string>
                                                                                             </subviews>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5Md-9R-SXC">
-                                                                                            <rect key="frame" x="0.0" y="26.5" width="294" height="18"/>
+                                                                                            <rect key="frame" x="0.0" y="26" width="294" height="18"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Paid to Driver :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmG-dy-maX">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="147" height="18"/>
@@ -6099,10 +6099,10 @@ Hours</string>
                                                                                             </subviews>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KhE-6T-J2m">
-                                                                                            <rect key="frame" x="0.0" y="49.5" width="294" height="16"/>
+                                                                                            <rect key="frame" x="0.0" y="49" width="294" height="16.5"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Payment By cash Received With Thanks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOs-tK-rqq">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="16"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="294" height="16.5"/>
                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                     <nil key="highlightedColor"/>
@@ -6137,17 +6137,17 @@ Hours</string>
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxX-bd-Kj3">
-                                                                            <rect key="frame" x="0.0" y="224.5" width="294" height="584"/>
+                                                                            <rect key="frame" x="0.0" y="224.5" width="294" height="603"/>
                                                                             <subviews>
                                                                                 <view contentMode="scaleToFill" verticalHuggingPriority="241" translatesAutoresizingMaskIntoConstraints="NO" id="TKW-Gu-XAB">
-                                                                                    <rect key="frame" x="0.0" y="5" width="0.0" height="576"/>
+                                                                                    <rect key="frame" x="0.0" y="5" width="0.0" height="595"/>
                                                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" id="g9S-LE-k2N"/>
                                                                                     </constraints>
                                                                                 </view>
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="E6L-hR-z8r">
-                                                                                    <rect key="frame" x="0.0" y="5" width="294" height="284"/>
+                                                                                    <rect key="frame" x="0.0" y="5" width="294" height="303"/>
                                                                                     <subviews>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="d7B-vc-EtK">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="294" height="18"/>
@@ -6442,8 +6442,25 @@ Hours</string>
                                                                                                 </label>
                                                                                             </subviews>
                                                                                         </stackView>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment By Credit Card Received With Thanks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJm-3m-iUt">
+                                                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ulq-H2-4aI">
                                                                                             <rect key="frame" x="0.0" y="266" width="294" height="18"/>
+                                                                                            <subviews>
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Status :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGa-pM-eKR">
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="18"/>
+                                                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                                    <nil key="highlightedColor"/>
+                                                                                                </label>
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Pending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8t-Vm-1Sb">
+                                                                                                    <rect key="frame" x="147" y="0.0" width="147" height="18"/>
+                                                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                                    <nil key="highlightedColor"/>
+                                                                                                </label>
+                                                                                            </subviews>
+                                                                                        </stackView>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment By Credit Card Received With Thanks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJm-3m-iUt">
+                                                                                            <rect key="frame" x="0.0" y="285" width="294" height="18"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="fxu-vJ-H5L"/>
                                                                                             </constraints>
@@ -6454,7 +6471,7 @@ Hours</string>
                                                                                     </subviews>
                                                                                 </stackView>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBn-Zq-Sgd">
-                                                                                    <rect key="frame" x="0.0" y="299" width="294" height="285"/>
+                                                                                    <rect key="frame" x="0.0" y="318" width="294" height="285"/>
                                                                                     <subviews>
                                                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ezy_staticmap" translatesAutoresizingMaskIntoConstraints="NO" id="Log-Dq-zif">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="294" height="250"/>
@@ -6545,7 +6562,7 @@ Hours</string>
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDj-93-cxJ">
-                                                                    <rect key="frame" x="0.0" y="808.5" width="300" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="827.5" width="300" height="50"/>
                                                                     <subviews>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NgU-BY-pce">
                                                                             <rect key="frame" x="10" y="0.0" width="280" height="40"/>
@@ -6628,6 +6645,7 @@ Hours</string>
                                             <outlet property="LessStack" destination="pfo-p7-pq1" id="Aag-FG-yac"/>
                                             <outlet property="MapImage" destination="Log-Dq-zif" id="xpZ-Bc-WnA"/>
                                             <outlet property="MileageFareStack" destination="Ml5-bX-QAM" id="WqL-p9-0gc"/>
+                                            <outlet property="PaymentStatusStack" destination="ulq-H2-4aI" id="TAR-qG-Ugo"/>
                                             <outlet property="PlusChargesStack" destination="sEQ-eA-1UF" id="zPU-zs-UqY"/>
                                             <outlet property="PromoUsedStack" destination="d0x-DY-M3a" id="30A-43-l2Q"/>
                                             <outlet property="SubTotalFareStack" destination="NXp-wf-CQb" id="fTA-yr-TWr"/>
@@ -6651,6 +6669,8 @@ Hours</string>
                                             <outlet property="lblMileageCost" destination="LKD-9x-wT2" id="QDC-Bh-5K6"/>
                                             <outlet property="lblNote" destination="f3W-bQ-fha" id="kwI-AB-jPm"/>
                                             <outlet property="lblPaymentDetail" destination="JJm-3m-iUt" id="CC4-zs-gNi"/>
+                                            <outlet property="lblPaymentStatusTitle" destination="mGa-pM-eKR" id="0XP-eD-BJ5"/>
+                                            <outlet property="lblPaymentStatusValue" destination="X8t-Vm-1Sb" id="doX-Qs-Fpu"/>
                                             <outlet property="lblPaymentinCancel" destination="pOs-tK-rqq" id="0Jr-BK-woR"/>
                                             <outlet property="lblPickUpLocation" destination="6dJ-bA-dwb" id="OGP-nc-7ID"/>
                                             <outlet property="lblPickUpTime" destination="S5y-BS-Kwj" id="BPh-Y5-DIj"/>
@@ -11382,10 +11402,10 @@ Hours</string>
         <image name="costcoWholesale.png" width="1000" height="358"/>
         <image name="downArrow" width="28" height="28"/>
         <image name="ezy_staticmap" width="600" height="300"/>
-        <image name="facebook" width="365" height="365"/>
+        <image name="facebook" width="512" height="512"/>
         <image name="filter" width="25" height="25"/>
-        <image name="iConStarSelected" width="135" height="135"/>
-        <image name="iConStarUnselected" width="135" height="135"/>
+        <image name="iConStarSelected" width="60" height="60"/>
+        <image name="iConStarUnselected" width="60" height="60"/>
         <image name="iconArrow" width="40" height="40"/>
         <image name="iconArrowGray" width="42" height="42"/>
         <image name="iconArrowSmall" width="30" height="30"/>
@@ -11401,7 +11421,7 @@ Hours</string>
         <image name="iconDropDown" width="21" height="21"/>
         <image name="iconDummyCard" width="42" height="26"/>
         <image name="iconDummyProfilePic" width="170" height="170"/>
-        <image name="iconEmail" width="128" height="128"/>
+        <image name="iconEmail" width="64" height="64"/>
         <image name="iconFB" width="21" height="21"/>
         <image name="iconFerry" width="85" height="85"/>
         <image name="iconFestival" width="85" height="85"/>
@@ -11409,9 +11429,9 @@ Hours</string>
         <image name="iconGiftCard" width="85" height="85"/>
         <image name="iconGroceries" width="85" height="85"/>
         <image name="iconInvitefriendBanner" width="170" height="170"/>
-        <image name="iconLock" width="102.40000152587891" height="102.40000152587891"/>
-        <image name="iconLockBack" width="102.40000152587891" height="102.40000152587891"/>
-        <image name="iconLockStar" width="128" height="128"/>
+        <image name="iconLock" width="64" height="64"/>
+        <image name="iconLockBack" width="64" height="64"/>
+        <image name="iconLockStar" width="64" height="64"/>
         <image name="iconMovies" width="85" height="85"/>
         <image name="iconNab" width="133" height="133"/>
         <image name="iconNewLogo" width="150" height="150"/>
@@ -11422,15 +11442,15 @@ Hours</string>
         <image name="iconSMS" width="42" height="42"/>
         <image name="iconTrain" width="85" height="85"/>
         <image name="iconTram" width="85" height="85"/>
-        <image name="iconTwitter" width="128" height="128"/>
+        <image name="iconTwitter" width="64" height="64"/>
         <image name="iconVline" width="85" height="85"/>
-        <image name="iconWhatsApp" width="128" height="128"/>
+        <image name="iconWhatsApp" width="64" height="64"/>
         <image name="icon_FromAdd_Pin" width="30" height="30"/>
         <image name="icon_Logout_Unselected" width="30" height="30"/>
         <image name="icon_ToAdd_Pin" width="85" height="85"/>
         <image name="imgBackground" width="414" height="736"/>
         <image name="profile-pic2" width="85" height="85"/>
-        <image name="three-aligned-squares-in-vertical-line-interface-button" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="three-aligned-squares-in-vertical-line-interface-button" width="128" height="128"/>
         <image name="woolworths.jpg" width="420" height="130"/>
     </resources>
 </document>

@@ -115,8 +115,9 @@ class OnGoingVC: UIViewController, UITableViewDataSource, UITableViewDelegate, A
             }
             
             if let DateandTime:String = currentData[ "CreatedDate"] as? String {
-                let createdDate = DateandTime.components(separatedBy: " ")
-                cell.lblTripDate.text = createdDate[0]
+//                let createdDate = DateandTime.components(separatedBy: " ")
+                cell.lblTripDate.text = DateandTime
+//                    createdDate[0]
             }
             
             if let PickupLocation:String = currentData[ "PickupLocation"] as? String {
