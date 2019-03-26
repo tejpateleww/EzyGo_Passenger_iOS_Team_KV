@@ -419,7 +419,7 @@ func webserviceForGetTickPayRate(_ dictParams: AnyObject, completion: @escaping(
 
 func webserviceForAppSetting(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
 {
-    let url = "\(Init)/\(dictParams)"
+    let url = "\(Init)\(dictParams)"
     getDataWithoutLoader("" as AnyObject, nsURL: url, completion: completion)
 }
 

@@ -2345,6 +2345,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @IBAction func btnBookNow(_ sender: Any) {
+        
         //        if BookNowDate != nil {
         //            let DateComponentsRequest = Calendar.current.dateComponents([.second], from: BookNowDate, to: Date())
         //            if Int(DateComponentsRequest.second!) <= 30 {
@@ -3266,9 +3267,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         for j in 0..<self.arrTotalNumberOfCars.count
         {
-            
             if ((self.arrTotalNumberOfCars[j] as! [String:AnyObject])["Status"] as! String) == "1" {
-                
                 k = 0
                 let tempAryLocationOfDriver = NSMutableArray()
                 
@@ -3572,7 +3571,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 }
                 
                 self.socket.on(SocketData.kNearByDriverList, callback: { (data, ack) in
-                    //                print("data is \(data)")
+                    print("near by driver list is \(data)")
                     
                     //                var lat : Double!
                     //                var long : Double!

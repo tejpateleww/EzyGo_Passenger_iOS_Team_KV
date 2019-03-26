@@ -60,9 +60,6 @@ class WalletHistoryViewController: ParentViewController, UITableViewDataSource, 
         tracker.set(kGAIScreenName, value: "WalletHistoryViewController")
         tracker.get("WalletHistoryViewController")
         print("Tracker Name: \(tracker.name)")
-        
-        
-        
         guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
         tracker.send(builder.build() as [NSObject : AnyObject])
          

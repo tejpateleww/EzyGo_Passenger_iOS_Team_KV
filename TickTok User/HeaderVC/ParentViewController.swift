@@ -186,7 +186,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
-            case 2436:
+            case 2436,2688:
                 frame = CGRect(x: CGFloat(0), y: CGFloat(-20), width: screenWidth, height: CGFloat(heightWithoutLabelForX))
                 hView.contraintLabelCentr.constant = 10
 
