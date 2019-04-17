@@ -14,7 +14,8 @@ class ContactUsViewController: UIViewController {
     
     @IBOutlet weak var txtVwDescription: UITextView!
     
-    var arrData = ["Feedback","General Enquiry","Account Enquiry"]
+    var arrData = ["Feedback","General Enquiry", "Complaint"]
+//    "Account Enquiry"
     override func viewDidLoad() {
         super.viewDidLoad()
         txtVwDescription.text = "Description"

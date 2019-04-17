@@ -74,44 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "575192174.88169"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5538"
-            endingLineNumber = "5538"
-            landmarkName = "getDirectionsSeconMethod(origin:destination:completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
             timestampString = "575192174.883064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4942"
             endingLineNumber = "4942"
             landmarkName = "onReceiveNotificationWhenDriverAcceptRequest()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "575192174.884322"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "4774"
-            endingLineNumber = "4774"
-            landmarkName = "sendPassengerIDAndDriverIDToGetLocation(driverID:passengerID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -209,38 +177,6 @@
             endingLineNumber = "4502"
             landmarkName = "onAcceptBookLaterBookingRequestNotification()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;Any&gt;, SocketIO.SocketAckEmitter) -&gt; () in EZYGO_Rider.HomeViewController.onAcceptBookLaterBookingRequestNotification() -&gt; ()"
-                  moduleName = "EZYGO Rider"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok%20User/ViewControllers/HomeVC/HomeViewController.swift"
-                  timestampString = "574347673.132579"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "4502"
-                  endingLineNumber = "4502"
-                  offsetFromSymbolStart = "4647">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Int, Swift.String) -&gt; () in closure #1 (Swift.Array&lt;Any&gt;, SocketIO.SocketAckEmitter) -&gt; () in EZYGO_Rider.HomeViewController.onAcceptBookLaterBookingRequestNotification() -&gt; ()"
-                  moduleName = "EZYGO Rider"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok%20User/ViewControllers/HomeVC/HomeViewController.swift"
-                  timestampString = "574347673.135592"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "4503"
-                  endingLineNumber = "4503"
-                  offsetFromSymbolStart = "33">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -282,12 +218,12 @@
                   moduleName = "EZYGO Rider"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok%20User/ViewControllers/LoginVC/LoginViewController.swift"
-                  timestampString = "574347673.150209"
+                  timestampString = "575884376.806699"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "648"
                   endingLineNumber = "648"
-                  offsetFromSymbolStart = "283">
+                  offsetFromSymbolStart = "260">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -297,30 +233,14 @@
                   moduleName = "EZYGO Rider"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok%20User/ViewControllers/LoginVC/LoginViewController.swift"
-                  timestampString = "574347673.1535209"
+                  timestampString = "575884376.810078"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "649"
                   endingLineNumber = "649"
-                  offsetFromSymbolStart = "91">
+                  offsetFromSymbolStart = "68">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "575192174.8918101"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "3950"
-            endingLineNumber = "3950"
-            landmarkName = "methodAfterStartTrip(tripData:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -548,12 +468,12 @@
                   moduleName = "EZYGO Rider"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok%20User/ViewControllers/LoginVC/LoginViewController.swift"
-                  timestampString = "574347673.241091"
+                  timestampString = "575884377.033303"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "355"
                   endingLineNumber = "355"
-                  offsetFromSymbolStart = "1675">
+                  offsetFromSymbolStart = "1352">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -563,12 +483,12 @@
                   moduleName = "EZYGO Rider"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/baps/Documents/Bhautik/Bit_Bucket_Projects/ezygo-rider/TickTok%20User/ViewControllers/LoginVC/LoginViewController.swift"
-                  timestampString = "574347673.244271"
+                  timestampString = "575884377.036214"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "357"
                   endingLineNumber = "357"
-                  offsetFromSymbolStart = "53">
+                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -628,44 +548,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "575192174.898298"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6532"
-            endingLineNumber = "6532"
-            landmarkName = "sortCarListFirstTime()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
             timestampString = "575192174.899192"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "3267"
             endingLineNumber = "3267"
             landmarkName = "setData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TickTok User/ViewControllers/HomeVC/HomeViewController.swift"
-            timestampString = "575192174.900149"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
-            landmarkName = "viewWillLayoutSubviews()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -698,6 +586,22 @@
             startingLineNumber = "91"
             endingLineNumber = "91"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TickTok User/ViewControllers/UpdateProfileVC/UpdateProfileViewController.swift"
+            timestampString = "575884366.005123"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

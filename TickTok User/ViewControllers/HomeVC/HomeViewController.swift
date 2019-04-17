@@ -100,7 +100,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //    var BookNowDate:Date!
     
     @IBOutlet weak var MarkerCurrntLocation: UIButton!
-    
     @IBOutlet weak var viewMainFinalRating: UIView!
     @IBOutlet weak var viewSubFinalRating: UIView!
     @IBOutlet weak var txtFeedbackFinal: UITextField!
