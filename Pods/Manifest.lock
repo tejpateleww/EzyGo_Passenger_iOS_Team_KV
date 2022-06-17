@@ -72,13 +72,13 @@ PODS:
     - Protobuf (~> 3.1)
   - FormTextField (2.0.0)
   - GoogleAnalytics (3.17.0)
-  - GoogleMaps (2.5.0):
-    - GoogleMaps/Maps (= 2.5.0)
-  - GoogleMaps/Base (2.5.0)
-  - GoogleMaps/Maps (2.5.0):
+  - GoogleMaps (3.0.3):
+    - GoogleMaps/Maps (= 3.0.3)
+  - GoogleMaps/Base (3.0.3)
+  - GoogleMaps/Maps (3.0.3):
     - GoogleMaps/Base
-  - GooglePlaces (2.5.0):
-    - GoogleMaps/Base (= 2.5.0)
+  - GooglePlaces (3.0.3):
+    - GoogleMaps/Base (= 3.0.3)
   - GoogleSignIn (4.2.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
@@ -141,8 +141,8 @@ DEPENDENCIES:
   - Firebase/Messaging
   - FormTextField
   - GoogleAnalytics
-  - GoogleMaps
-  - GooglePlaces
+  - GoogleMaps (= 3.0.3)
+  - GooglePlaces (= 3.0.3)
   - GoogleSignIn
   - IQKeyboardManagerSwift
   - M13Checkbox
@@ -154,7 +154,7 @@ DEPENDENCIES:
   - TransitionButton
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - ACFloatingTextfield-Swift
     - ActionSheetPicker-3.0
     - Alamofire
@@ -229,11 +229,11 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 1a11d1c0a9ed9b3f75a0685bb0ae5932e1062f5f
   FormTextField: 40016d44fc3371410be6c5a0c968498e43f00d33
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
-  GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
+  GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
+  GooglePlaces: f09e76993c9c3ee4af8f4f7f535bb94d6aa3b649
   GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
+  GTMOAuth2: e8b6512c896235149df975c41d9a36c868ab7fba
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   M13Checkbox: 12376f5b128189432508c240e4a36dc945ab7e4e
@@ -247,6 +247,6 @@ SPEC CHECKSUMS:
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
   TransitionButton: 0bf7e5ffe80030f9d10d57983a04acf2f511998a
 
-PODFILE CHECKSUM: 79a03411fc791b8ad95d43f963adde395ce88632
+PODFILE CHECKSUM: 29996bad1384549dc10790df938e1c5e1bee18e4
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

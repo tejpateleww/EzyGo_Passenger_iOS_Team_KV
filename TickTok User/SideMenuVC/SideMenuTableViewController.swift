@@ -56,10 +56,10 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         self.setUserDetail()
         self.SetLayout()
         
-        arrMenuIcons = ["icon_MyProfile_Unselected","icon_MyBooking_Unselected", "icon_PaymentOption_Unselect", "icon_Wallet_Unselected", "icon_Promocode_Unselect", "icon_Receipts_Unselected", "icon_Rating_Unselected", "icon_Favourite_Unselected", "icon_InviteFriend_Unselected", "icon_CustomerSupport_Unselect","iconLogOut"]
-        
-        arrMenuTitle = ["My Profile","My Trips", "Credit Cards (Add/Delete)", "My Wallet", "Promo Codes", "My Receipts/Invoices", "My Ratings", "Favourites", "Invite Friends", "Customer Support","Logout"]
-        
+        arrMenuIcons = ["icon_MyProfile_Unselected","icon_MyBooking_Unselected", "icon_PaymentOption_Unselect", "icon_Promocode_Unselect", "icon_Receipts_Unselected", "icon_Rating_Unselected", "icon_Favourite_Unselected", "icon_InviteFriend_Unselected", "icon_CustomerSupport_Unselect","iconLogOut"]
+//        , "icon_Wallet_Unselected"
+        arrMenuTitle = ["My Profile","My Trips", "Credit Cards (Add/Delete)", "Promo Codes", "My Receipts/Invoices", "My Ratings", "Favourites", "Invite Friends", "Customer Support","Logout"]
+//        , "My Wallet"
     }
     
     override func didReceiveMemoryWarning() {

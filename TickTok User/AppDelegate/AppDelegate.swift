@@ -21,13 +21,18 @@ import FacebookLogin
 import GoogleSignIn
 
 
-let googlApiKey = "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w"
+let googlApiKey = "AIzaSyD9A_1VItzxiUnARQWpEbqT42KPND4TEwg"
+
+//changed 20-02-2020 "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w"
 
 //"AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
 
 //"AIzaSyCrTmm5JjgEWuauH42rGCVmJotYfes2Q-0"
 //"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
-let googlPlacesApiKey = "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w" // AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg
+let googlPlacesApiKey = "AIzaSyD9A_1VItzxiUnARQWpEbqT42KPND4TEwg"
+//changed 20-02-2020 "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w"
+
+// AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg
 //"AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
 //"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 
@@ -86,7 +91,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
 
         if ((UserDefaults.standard.object(forKey: "profileData")) != nil)
         {
-            SingletonClass.sharedInstance.dictProfile = UserDefaults.standard.object(forKey: "profileData") as! NSMutableDictionary
+            SingletonClass.sharedInstance.dictProfile = NSMutableDictionary(dictionary: UserDefaults.standard.object(forKey: "profileData") as! NSDictionary)
+//                UserDefaults.standard.object(forKey: "profileData") as! NSMutableDictionary
             SingletonClass.sharedInstance.strPassengerID = String(describing: SingletonClass.sharedInstance.dictProfile.object(forKey: "Id")!)
             SingletonClass.sharedInstance.arrCarLists = NSMutableArray(array:  UserDefaults.standard.object(forKey: "carLists") as! NSArray)
             SingletonClass.sharedInstance.isUserLoggedIN = true

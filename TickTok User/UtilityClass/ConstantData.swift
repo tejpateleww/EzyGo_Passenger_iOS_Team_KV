@@ -26,8 +26,9 @@ let googleAnalyticsTrackId = "UA-122360832-1"
 
 
 struct WebserviceURLs {
-    static let kTermOfUse_PrivacyPolicyURL = "https://ezygo.co.nz/web/ezygo-terms-conditions-without-JavaScript.pdf"
-    
+    static let kTermOfUse_PrivacyPolicyURL = "https://ezygo.co.nz/web/ezygo-terms-of-use-privacy.pdf"
+//    "https://ezygo.co.nz/web/ezygo-terms-conditions-without-JavaScript.pdf"
+   
     static let kBaseURL                                 = "https://ezygo.co.nz/web/Passenger_Api/"
 //    "http://13.237.0.107/web/Passenger_Api/"
     

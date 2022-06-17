@@ -201,7 +201,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
         {
             var MobileNumber:String = ""
             
-            if let CountryCode:String = self.txtContoryNum.text, let Phone:String = self.txtPhoneNumber.text{
+            if let CountryCode:String = self.txtContoryNum.text, let Phone:String = self.txtPhoneNumber.text {
                 if CountryCode == "AU +61" {
                     MobileNumber = "61\(Phone)"
                 } else if CountryCode == "NZ +64" {

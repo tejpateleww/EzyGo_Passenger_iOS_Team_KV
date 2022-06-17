@@ -358,13 +358,13 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         if (checkValidation())
         {
             let registerVC = (self.navigationController?.viewControllers.last as! RegistrationContainerViewController).childViewControllers[0] as! RegisterViewController
-            
+                                    
             var MobileNumber:String = ""
             
-            if let CountryCode:String = registerVC.txtContoryNum.text, let Phone:String = registerVC.txtPhoneNumber.text{
-                if CountryCode != "AU +61" {
+            if let CountryCode:String = registerVC.txtContoryNum.text, let Phone:String = registerVC.txtPhoneNumber.text {
+                if CountryCode == "AU +61" {
                     MobileNumber = "61\(Phone)"
-                } else if CountryCode != "NZ +64" {
+                } else if CountryCode == "NZ +64" {
                     MobileNumber = "64\(Phone)"
                 }
             }

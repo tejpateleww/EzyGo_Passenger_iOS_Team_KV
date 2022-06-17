@@ -1347,15 +1347,15 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
                 dict["CardNum2"] = "cash" as AnyObject
                 dict["Type"] = "iconCashBlack" as AnyObject
                 
-                var dict2 = [String:AnyObject]()
-                dict2["CardNum"] = "wallet" as AnyObject
-                dict2["CardNum2"] = "wallet" as AnyObject
-                dict2["Type"] = "iconWalletBlack" as AnyObject
+//changed at 20-02-2020                var dict2 = [String:AnyObject]()
+//changed at 20-02-2020              dict2["CardNum"] = "wallet" as AnyObject
+//changed at 20-02-2020                dict2["CardNum2"] = "wallet" as AnyObject
+//changed at 20-02-2020                dict2["Type"] = "iconWalletBlack" as AnyObject
                 
                 
                 self.aryCards.append(dict)
-                self.aryCards.append(dict2)
-                
+//changed at 20-02-2020                self.aryCards.append(dict2)
+
                 if self.aryCards.count == 2 {
                     var dict3 = [String:AnyObject]()
                     dict3["Id"] = "000" as AnyObject

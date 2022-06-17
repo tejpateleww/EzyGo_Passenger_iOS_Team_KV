@@ -2444,7 +2444,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
                     }
                     else {
-
                         UtilityClass.setCustomAlert(title: "", message: "Locations or select available car") { (index, title) in
                         }
                     }
@@ -5047,10 +5046,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.ConstantViewCarListsHeight.constant = 0
             self.viewCarLists.isHidden = true
             //            self.viewShareRideView.isHidden = true
-            
-            txtCurrentLocation.text = place.name + " " + place.formattedAddress!
+            if let PlaceName = place.name, let PlaceAddress = place.formattedAddress {
+                txtCurrentLocation.text = PlaceName + " " + PlaceAddress
             //                place.formattedAddress
-            strPickupLocation = place.name + " " + place.formattedAddress!
+                strPickupLocation = PlaceName + " " + PlaceAddress
+            }
             //                place.formattedAddress!
             doublePickupLat = place.coordinate.latitude
             doublePickupLng = place.coordinate.longitude
@@ -5072,10 +5072,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.viewCarLists.isHidden = true
             //            self.viewShareRideView.isHidden = true
             
-            
-            txtDestinationLocation.text = place.name + " " + place.formattedAddress!
-            strDropoffLocation = place.name + " " + place.formattedAddress!
-            
+            if let PlaceName = place.name, let PlaceAddress = place.formattedAddress {
+                txtDestinationLocation.text = PlaceName + " " + PlaceAddress
+                strDropoffLocation = PlaceName + " " + PlaceAddress
+            }
+                
             doubleDropOffLat = place.coordinate.latitude
             doubleDropOffLng = place.coordinate.longitude
             
