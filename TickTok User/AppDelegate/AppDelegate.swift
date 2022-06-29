@@ -10,8 +10,9 @@ import UIKit
 import IQKeyboardManagerSwift
 import GoogleMaps
 import GooglePlaces
-import Fabric
-import Crashlytics
+//import Fabric
+//import Crashlytics
+import FirebaseCrashlytics
 import SideMenuController
 import SocketIO
 import UserNotifications
@@ -23,18 +24,7 @@ import GoogleSignIn
 
 let googlApiKey = "AIzaSyD9A_1VItzxiUnARQWpEbqT42KPND4TEwg"
 
-//changed 20-02-2020 "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w"
-
-//"AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
-
-//"AIzaSyCrTmm5JjgEWuauH42rGCVmJotYfes2Q-0"
-//"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" //"AIzaSyBpHWct2Dal71hBjPis6R1CU0OHZNfMgCw"         // AIzaSyB08IH_NbumyQIAUCxbpgPCuZtFzIT5WQo
 let googlPlacesApiKey = "AIzaSyD9A_1VItzxiUnARQWpEbqT42KPND4TEwg"
-//changed 20-02-2020 "AIzaSyBQrINerq922ei_sb7oy3yqB6buUcfO_-w"
-
-// AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg
-//"AIzaSyDZbRqzGvylGV1ejO3GdQXqm0yaPHwxjJg"
-//"AIzaSyD7bq-RXLeSv9PMDB9x62c0d_ZlVy3ndNE" // "AIzaSyCKEP5WGD7n5QWtCopu0QXOzM9Qec4vAfE"   //   AIzaSyBBQGfB0ca6oApMpqqemhx8-UV-gFls_Zk
 
 let Google_Client_ID = "373665281960-g0j2euvsqe4b130bjt7o10631orq71h3.apps.googleusercontent.com"
 
@@ -53,11 +43,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
      let SocketManager = SocketIOClient(socketURL: URL(string: SocketData.kBaseURL)!, config: [.log(false), .compress])
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Override point for customization after applic    ation launch.
         
         // this is used only to stop all socket setup again while socket reconnect 
         UserDefaults.standard.set(false, forKey: kIsSocketEmited)
         UserDefaults.standard.synchronize()
+        if #available(iOS 13.0, *) {
+            window?.overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
 
         
         // Firebase
@@ -71,7 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = Google_Client_ID
         GIDSignIn.sharedInstance().delegate = self
-        Fabric.with([Crashlytics.self])
+//        FirebaseApp.configure()
+
         
         googleAnalyticsTracking()
         
@@ -129,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
         let remoteNotif = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
         
         if remoteNotif != nil {
-            let key = (remoteNotif as! NSDictionary).object(forKey: "gcm.notification.type")!
+            let key = (remoteNotif!).object(forKey: "gcm.notification.type")!
             NSLog("\n Custom: \(String(describing: key))")
             self.pushAfterReceiveNotification(typeKey: key as! String)
         }
@@ -193,7 +189,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         
-        let isSwitchOn = UserDefaults.standard.object(forKey: "isPasscodeON") as? Bool
+//        _ = UserDefaults.standard.object(forKey: "isPasscodeON") as? Bool
         let passCode = SingletonClass.sharedInstance.setPasscode
         
 //        SingletonClass.sharedInstance.isPasscodeON = isSwitchOn!
@@ -215,24 +211,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        let isFBOpenUrl = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation]) as! Bool
+        guard let isFBOpenUrl = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation]) else { return false }
 //            FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
         
         let isGoogleOpenUrl = GIDSignIn.sharedInstance().handle(url as URL?,
                                                                 sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
-                                                                annotation: options[UIApplicationOpenURLOptionsKey.annotation]) as! Bool
+                                                                annotation: options[UIApplicationOpenURLOptionsKey.annotation])
 
-        if isFBOpenUrl
-        {
-            return true
-            
-        }
-        
-        if isGoogleOpenUrl
-        {
+        if isFBOpenUrl{
             return true
         }
         
+        if isGoogleOpenUrl{
+            return true
+        }
+
         return false
     }
     func applicationWillTerminate(_ application: UIApplication) {
@@ -366,8 +359,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
     // MARK: - FireBase Methods
     //-------------------------------------------------------------
     
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(fcmToken ?? "")")
         
         // TODO: If necessary send token to application server.
         // Note: This callback is fired at each app startup and whenever a new token is generated.
@@ -403,23 +396,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
     }
     
     // MARK:- Login & Logout Methods
-    
     func GoToHome() {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+
         let storyborad = UIStoryboard(name: "Main", bundle: nil)
         let CustomSideMenu = storyborad.instantiateViewController(withIdentifier: "CustomSideMenuViewController") as! CustomSideMenuViewController
         let NavHomeVC = UINavigationController(rootViewController: CustomSideMenu)
         NavHomeVC.isNavigationBarHidden = true
-        UIApplication.shared.keyWindow?.rootViewController = NavHomeVC
+        keyWindow?.rootViewController = NavHomeVC
     }
     
     func GoToLogin() {
-        
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+
         let storyborad = UIStoryboard(name: "Login", bundle: nil)
         let Login = storyborad.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         //        let customNavigation = UINavigationController(rootViewController: Login)
         let NavHomeVC = UINavigationController(rootViewController: Login)
         NavHomeVC.isNavigationBarHidden = true
-        UIApplication.shared.keyWindow?.rootViewController = NavHomeVC
+        keyWindow?.rootViewController = NavHomeVC
         
     }
     

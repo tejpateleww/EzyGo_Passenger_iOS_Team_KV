@@ -169,8 +169,8 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
     
     func createHeaderView() {
         
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
-        
+        UIApplication.shared.statusBarUIView?.backgroundColor = UIColor.clear
+
         let screenRect: CGRect = UIScreen.main.bounds
         let screenWidth: CGFloat = screenRect.size.width
         let hView = HeaderView.headerView(withDelegate: self)
@@ -186,7 +186,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
         
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
-            case 2436,2688:
+            case 2436,2688,2532,1792:
                 frame = CGRect(x: CGFloat(0), y: CGFloat(-20), width: screenWidth, height: CGFloat(heightWithoutLabelForX))
                 hView.contraintLabelCentr.constant = 10
 
@@ -196,7 +196,7 @@ class ParentViewController: UIViewController, HeaderViewDelegate {
                     hView.lblHeaderTitle.text = strHeaderTitle
                 }
             default:
-                print("unknown")
+                print("The height of native bounds is \(UIScreen.main.nativeBounds.height)")
             }
         }
         
