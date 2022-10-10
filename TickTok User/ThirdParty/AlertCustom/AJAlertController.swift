@@ -55,11 +55,9 @@ class AJAlertController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAJAlertController()
+        
     }
-    
-    // MARK:- AJAlertController Private Functions
-    // MARK:-
-    
+    // MARK: - AJAlertController Private Functions
     /// Inital View Setup
     private func setupAJAlertController(){
         
@@ -124,7 +122,7 @@ class AJAlertController: UIViewController {
         }
     }
     
-    /// Create and Configure Alert Controller
+    //MARK: -   Create and Configure Alert Controller
     private func configure(title: String, message:String, btnCancelTitle:String?, btnOtherTitle:String?)
     {
         self.strAlertTitle = title
@@ -133,7 +131,7 @@ class AJAlertController: UIViewController {
         self.btnOtherTitle = btnOtherTitle
     }
     
-    /// Show Alert Controller
+    //MARK: -  Show Alert Controller
     private func show()
     {
         if let appDelegate = UIApplication.shared.delegate, let window = appDelegate.window, let rootViewController = window?.rootViewController {
@@ -166,7 +164,7 @@ class AJAlertController: UIViewController {
         }
     }
     
-    /// Hide Alert Controller
+    //MARK: -  Hide Alert Controller
     private func hide()
     {
         self.view.endEditing(true)
@@ -181,16 +179,13 @@ class AJAlertController: UIViewController {
             self.view.alpha = 0.0
             
         }) { (completed) -> Void in
-            
             self.view.removeFromSuperview()
             self.removeFromParentViewController()
         }
     }
     
-    // MARK:- UIButton Clicks
-    // MARK:-
-    
-    @IBAction func btnCancelTapped(sender: UIButton) {
+    // MARK: - UIButton Clicks
+       @IBAction func btnCancelTapped(sender: UIButton) {
         block!!(0,btnCancelTitle!)
         hide()
     }

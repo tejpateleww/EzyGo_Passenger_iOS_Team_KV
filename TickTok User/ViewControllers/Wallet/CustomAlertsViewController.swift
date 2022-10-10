@@ -146,6 +146,7 @@ class CustomAlertsViewController: UIViewController
         print("btnOK Pressed")
         
         self.dismiss(animated: false, completion: {
+          
         
          self.delegateOfAlertView?.didOKButtonPressed!()
         })

@@ -2,12 +2,6 @@ PODS:
   - ACFloatingTextfield-Swift (1.5)
   - ActionSheetPicker-3.0 (2.3.0)
   - Alamofire (4.5.1)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
   - CardIO (5.4.1)
   - CHIPageControl (0.1.4):
     - CHIPageControl/Aji (= 0.1.4)
@@ -28,25 +22,36 @@ PODS:
   - CHIPageControl/Puya (0.1.4)
   - CreditCardForm (0.1.5)
   - DOAlertController (2.0)
-  - FacebookCore (0.3.3):
-    - Bolts (~> 1.9)
-    - FBSDKCoreKit (~> 4.36)
-  - FacebookLogin (0.3.3):
-    - Bolts (~> 1.9)
-    - FacebookCore (~> 0.3.3)
-    - FBSDKCoreKit (~> 4.36)
-    - FBSDKLoginKit (~> 4.36)
-  - FacebookShare (0.3.3):
-    - Bolts (~> 1.9)
-    - FacebookCore (~> 0.3.3)
-    - FBSDKCoreKit (~> 4.36)
-    - FBSDKShareKit (~> 4.36)
-  - FBSDKCoreKit (4.36.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.36.0):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.36.0):
-    - FBSDKCoreKit (~> 4.36.0)
+  - FacebookSDK (5.15.1):
+    - FacebookSDK/CoreKit (= 5.15.1)
+    - FacebookSDK/MarketingKit (= 5.15.1)
+  - FacebookSDK/CoreKit (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
+  - FacebookSDK/LoginKit (5.15.1):
+    - FacebookSDK/CoreKit
+    - FBSDKLoginKit (~> 5.0)
+  - FacebookSDK/MarketingKit (5.15.1):
+    - FacebookSDK/CoreKit
+    - FBSDKMarketingKit (~> 5.0)
+  - FacebookSDK/ShareKit (5.15.1):
+    - FacebookSDK/CoreKit
+    - FBSDKShareKit (~> 5.0)
+  - FBSDKCoreKit (5.15.1):
+    - FBSDKCoreKit/Basics (= 5.15.1)
+    - FBSDKCoreKit/Core (= 5.15.1)
+  - FBSDKCoreKit/Basics (5.15.1)
+  - FBSDKCoreKit/Core (5.15.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.15.1):
+    - FBSDKLoginKit/Login (= 5.15.1)
+  - FBSDKLoginKit/Login (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKMarketingKit (5.14.0):
+    - FBSDKCoreKit (~> 5.5)
+  - FBSDKShareKit (5.15.1):
+    - FBSDKShareKit/Share (= 5.15.1)
+  - FBSDKShareKit/Share (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
   - Firebase/Analytics (8.1.0):
     - Firebase/Core
   - Firebase/Core (8.1.0):
@@ -208,9 +213,9 @@ DEPENDENCIES:
   - CHIPageControl
   - CreditCardForm
   - DOAlertController (from `https://github.com/okmr-d/DOAlertController.git`, branch `master`)
-  - FacebookCore
-  - FacebookLogin
-  - FacebookShare
+  - FacebookSDK (= 5.15.1)
+  - FacebookSDK/LoginKit (= 5.15.1)
+  - FacebookSDK/ShareKit (= 5.15.1)
   - Firebase/Analytics (= 8.1.0)
   - Firebase/Core
   - Firebase/Crashlytics
@@ -234,15 +239,13 @@ SPEC REPOS:
     - ACFloatingTextfield-Swift
     - ActionSheetPicker-3.0
     - Alamofire
-    - Bolts
     - CardIO
     - CHIPageControl
     - CreditCardForm
-    - FacebookCore
-    - FacebookLogin
-    - FacebookShare
+    - FacebookSDK
     - FBSDKCoreKit
     - FBSDKLoginKit
+    - FBSDKMarketingKit
     - FBSDKShareKit
     - Firebase
     - FirebaseAnalytics
@@ -288,17 +291,15 @@ SPEC CHECKSUMS:
   ACFloatingTextfield-Swift: ebcfb892acbce8545576dd224df7b1b7473a4bbd
   ActionSheetPicker-3.0: eef157d75e151f255c5333d26656c7fbfe905a51
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   CHIPageControl: 032b5ab68506c00711d5a61bd83e9fdf2a7ecb22
   CreditCardForm: 9ae830341997229abb0e284e66f301f834afe942
   DOAlertController: 4d4ee33bbf1656271895da4a3cac4fbaa1d3217e
-  FacebookCore: 9ecbe48cfd37c91a93add7f8cec2b4a2c50a1eec
-  FacebookLogin: bdaea5789e9b364fa8a1990ba3bbba4fd2197415
-  FacebookShare: 14e88f2dcc3a03376304d2a1e10254296076ce88
-  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
-  FBSDKLoginKit: 8bccb6064708ab2f4251a7fc4e3b6d8d00ad91ba
-  FBSDKShareKit: 7090fdd55c39b03941efddb64c83a64ff6b3949f
+  FacebookSDK: 40811aca4741187ac7e6b175f261edee4edfc58a
+  FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
+  FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
+  FBSDKMarketingKit: b9dd220b38cc613c71d3eb626cd60bc8e938fbb4
+  FBSDKShareKit: 259737eab3cc807087374553abdf588b3096ba55
   Firebase: b5956acddaaa53a6c292bec00649fadd18367344
   FirebaseAnalytics: d6dd061b26a04744cb988c66e29697181152b2a3
   FirebaseCore: 389c4ce9a7cce4a7e25eb22326b4bee0050557b2
@@ -329,6 +330,6 @@ SPEC CHECKSUMS:
   Starscream: 142bd8ef24592d985daee9fa48c936070b85b15f
   TransitionButton: 0bf7e5ffe80030f9d10d57983a04acf2f511998a
 
-PODFILE CHECKSUM: cb17908a3b70f94a60f8d7c7fe6d1c92b10f5ca7
+PODFILE CHECKSUM: 8e013ad90ffd4b3c61acd0141771f77e9b835faf
 
 COCOAPODS: 1.11.3

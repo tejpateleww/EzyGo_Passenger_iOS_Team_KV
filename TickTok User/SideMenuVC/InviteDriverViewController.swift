@@ -15,7 +15,11 @@ import FBSDKShareKit
 
 
 
-class InviteDriverViewController: ParentViewController, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, FBSDKSharingDelegate {
+class InviteDriverViewController: ParentViewController, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate, SharingDelegate {
+    func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
+        print("hello")
+    }
+    
 
     
     var strReferralCode = String()
@@ -107,13 +111,14 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
 //        let ContentForFacebook:FBSDKShareLinkContent = FBSDKShareLinkContent()
 //        ContentForFacebook. = URL(string: text)
 
-        let content : FBSDKShareLinkContent = FBSDKShareLinkContent()
+        let content : ShareLinkContent = ShareLinkContent()
         
-        content.contentURL = URL(string: "https://www.google.com")
+        content.contentURL = URL(string: "https://www.google.com")! //URL(string: "https://www.google.com") as? URL
 //        content.con  = "Content Title"
 //        content.contentDescription = "This is the description"
         
-        FBSDKShareDialog.show(from: self, with: content, delegate: self)
+       // ShareDialog.show(from: self, with: content, delegate: self)
+        ShareDialog.init(fromViewController: self, content: content, delegate: self)
 //        let FbDialog:FBSDKShareDialog = FBSDKShareDialog()
 //        FbDialog()
         
@@ -401,15 +406,15 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     }
     
     
-    func sharer(_ sharer: FBSDKSharing!, didFailWithError error: Error!) {
+    func sharer(_ sharer: Sharing!, didFailWithError error: Error!) {
         print("FailwithError")
     }
     
-    func sharerDidCancel(_ sharer: FBSDKSharing!) {
+    func sharerDidCancel(_ sharer: Sharing!) {
         print("did Cancel")
     }
     
-    func sharer(_ sharer: FBSDKSharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
+    func sharer(_ sharer: Sharing!, didCompleteWithResults results: [AnyHashable : Any]!) {
         print(results)
     }
     

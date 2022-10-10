@@ -199,7 +199,9 @@ fileprivate extension ACFloatingTextfield {
         labelPlaceholder?.textColor = placeHolderColor
         labelPlaceholder?.font = self.font
         labelPlaceholder?.isHidden = true
-        self.setValue(placeHolderColor, forKeyPath: "_placeholderLabel.textColor")
+        //self.setValue(placeHolderColor, forKeyPath: "_placeholderLabel.textColor")
+        self.setValue(placeHolderColor, forKeyPath: "placeholderLabel.textColor") // change for crash
+      
         if labelPlaceholder != nil {
             self.addSubview(labelPlaceholder!)
         }
@@ -317,13 +319,15 @@ fileprivate extension ACFloatingTextfield {
             bottomLineView?.backgroundColor = selectedLineColor
             self.labelPlaceholder?.textColor = self.selectedPlaceHolderColor
             bottomLineFrame?.origin.y = self.frame.height-2
-            self.setValue(self.selectedPlaceHolderColor, forKeyPath: "_placeholderLabel.textColor")
+           // self.setValue(self.selectedPlaceHolderColor, forKeyPath: "_placeholderLabel.textColor")
+            self.setValue(self.selectedPlaceHolderColor, forKeyPath: "placeholderLabel.textColor") //for crash
 
         } else {
             bottomLineView?.backgroundColor = lineColor;
             bottomLineFrame?.origin.y = self.frame.height-1
             self.labelPlaceholder?.textColor = self.placeHolderColor
-            self.setValue(placeHolderColor, forKeyPath: "_placeholderLabel.textColor")
+           // self.setValue(placeHolderColor, forKeyPath: "_placeholderLabel.textColor")
+            self.setValue(placeHolderColor, forKeyPath: "placeholderLabel.textColor") // for crash solution
 
         }
 
@@ -350,7 +354,8 @@ fileprivate extension ACFloatingTextfield {
     //MARK:- Resign the Placeholder
     func resignPlaceholder() -> Void {
 
-        self.setValue(self.placeHolderColor, forKeyPath: "_placeholderLabel.textColor")
+       // self.setValue(self.placeHolderColor, forKeyPath: "_placeholderLabel.textColor")
+        self.setValue(self.placeHolderColor, forKeyPath: "placeholderLabel.textColor")
 
         var bottomLineFrame = bottomLineView?.frame
         bottomLineFrame?.origin.y = self.frame.height-1

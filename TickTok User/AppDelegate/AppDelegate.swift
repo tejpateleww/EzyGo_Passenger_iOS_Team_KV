@@ -18,7 +18,8 @@ import SocketIO
 import UserNotifications
 import Firebase
 import FBSDKLoginKit
-import FacebookLogin
+//import FacebookLogin
+import FBSDKCoreKit
 import GoogleSignIn
 
 
@@ -63,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
         
         GMSServices.provideAPIKey(googlApiKey)
         GMSPlacesClient.provideAPIKey(googlApiKey)
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         GIDSignIn.sharedInstance().clientID = Google_Client_ID
         GIDSignIn.sharedInstance().delegate = self
 //        FirebaseApp.configure()
@@ -211,8 +212,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        guard let isFBOpenUrl = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation]) else { return false }
+        //guard let isFBOpenUrl = ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation]) else { return false }
 //            FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation])
+        let isFBOpenUrl = ApplicationDelegate.shared.application(app,open: url,options: options)
         
         let isGoogleOpenUrl = GIDSignIn.sharedInstance().handle(url as URL?,
                                                                 sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,

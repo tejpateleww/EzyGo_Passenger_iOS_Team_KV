@@ -30,10 +30,13 @@ target 'EZYGO Rider' do
   pod 'FormTextField'
   pod 'ActionSheetPicker-3.0'
   pod 'GoogleAnalytics'
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare'
-#  pod 'FacebookSDK'
+ # pod 'FacebookCore'
+ # pod 'FacebookLogin'
+ # pod 'FacebookShare'
+ #  pod 'FacebookSDK'
+ pod 'FacebookSDK','5.15.1'
+ pod 'FacebookSDK/LoginKit','5.15.1'
+ pod 'FacebookSDK/ShareKit','5.15.1'
   pod 'GoogleSignIn'
   # pod 'WWCalendarTimeSelector'
   pod 'DOAlertController', :git => 'https://github.com/okmr-d/DOAlertController.git', :branch => 'master'
@@ -43,7 +46,7 @@ target 'EZYGO Rider' do
 pod 'Firebase/Analytics', '8.1.0'
 pod 'Firebase/Crashlytics'
 pod 'Firebase/Core'
-pod 'Firebase/Messagin`g'
+pod 'Firebase/Messaging'
 
 
   

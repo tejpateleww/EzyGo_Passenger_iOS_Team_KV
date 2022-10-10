@@ -81,6 +81,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
             let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
             if registrationContainerVC.isFromSocialLogin == true {
                 self.txtEmail.text = registrationContainerVC.strEmail
+                txtPassword.isHidden =  true
+                txtConfirmPassword.isHidden = true
+                
             }
         }
         self.countoryPicker.reloadAllComponents()
@@ -197,20 +200,51 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     }
     
     @IBAction func btnNext(_ sender: UIButton) {
-        if (validateAllFields())
-        {
-            var MobileNumber:String = ""
-            
-            if let CountryCode:String = self.txtContoryNum.text, let Phone:String = self.txtPhoneNumber.text {
-                if CountryCode == "AU +61" {
-                    MobileNumber = "61\(Phone)"
-                } else if CountryCode == "NZ +64" {
-                    MobileNumber = "64\(Phone)"
+        let registrationContainerVC = self.navigationController?.viewControllers.last as! RegistrationContainerViewController
+        if registrationContainerVC.isFromSocialLogin == true {
+            //self.txtEmail.text = registrationContainerVC.strEmail
+            txtPassword.isHidden =  true
+            txtConfirmPassword.isHidden = true
+            if (validateSocialLogin())
+            {
+                var MobileNumber:String = ""
+                
+                if let CountryCode:String = self.txtContoryNum.text, let Phone:String = self.txtPhoneNumber.text {
+                    if CountryCode == "AU +61" {
+                        MobileNumber = "61\(Phone)"
+                    } else if CountryCode == "NZ +64" {
+                        MobileNumber = "64\(Phone)"
+                    }
                 }
+                webserviceForGetOTPCode(email: txtEmail.text!, mobile: MobileNumber)
+                
             }
-            webserviceForGetOTPCode(email: txtEmail.text!, mobile: MobileNumber)
+            
             
         }
+        else {
+            
+            if (validateAllFields())
+            {
+                var MobileNumber:String = ""
+                
+                if let CountryCode:String = self.txtContoryNum.text, let Phone:String = self.txtPhoneNumber.text {
+                    if CountryCode == "AU +61" {
+                        MobileNumber = "61\(Phone)"
+                    } else if CountryCode == "NZ +64" {
+                        MobileNumber = "64\(Phone)"
+                    }
+                }
+                webserviceForGetOTPCode(email: txtEmail.text!, mobile: MobileNumber)
+                
+            }
+            
+        }
+        
+        
+        
+        
+       
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -231,6 +265,47 @@ class RegisterViewController: UIViewController, UITextFieldDelegate ,UIPickerVie
     //-------------------------------------------------------------
     // MARK: - validation Email Methods
     //-------------------------------------------------------------
+    // validate Social login
+    func validateSocialLogin() -> Bool
+    {
+     
+        let isEmailAddressValid = (txtEmail.text!).isValidEmailAddress()
+        
+        if (txtPhoneNumber.text?.count == 0)
+        {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter Phone number.") { (index, title) in
+            }
+
+            return false
+        }
+        else if ((txtPhoneNumber.text?.count)! < 8)
+        {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter valid Phone number") { (index, title) in
+            }
+
+            return false
+        }
+        else if (txtEmail.text?.count == 0)
+        {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter email.") { (index, title) in
+            }
+
+            return false
+        }
+        
+        else if (!isEmailAddressValid)
+        {
+            UtilityClass.setCustomAlert(title: "", message: "Please enter valid email.") { (index, title) in
+            }
+
+            return false
+        }
+        //
+   
+       
+        return true
+    }
+    
     
     func validateAllFields() -> Bool
     {

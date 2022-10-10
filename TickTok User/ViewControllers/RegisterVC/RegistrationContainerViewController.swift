@@ -25,13 +25,14 @@ class RegistrationContainerViewController: UIViewController,UIScrollViewDelegate
     var isFromSocialLogin:Bool = false
     var strSocialID:String = ""
     var SocialType:String = ""
+  
 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollObject.delegate = self
-        
+        print(isFromSocialLogin)
   
     }
     

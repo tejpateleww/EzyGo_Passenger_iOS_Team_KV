@@ -14,10 +14,12 @@ import ACFloatingTextfield_Swift
 import NVActivityIndicatorView
 import CoreLocation
 import FBSDKLoginKit
-import FacebookLogin
+import FBSDKCoreKit
 import GoogleSignIn
 import GoogleMaps
 import GooglePlaces
+
+
 
 
 class LoginViewController: UIViewController, CLLocationManagerDelegate, alertViewMethodsDelegates,GIDSignInDelegate,GIDSignInUIDelegate, UITextFieldDelegate {
@@ -603,13 +605,15 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             }
             return
         }
-        let login = FBSDKLoginManager()
-        login.loginBehavior = FBSDKLoginBehavior.browser
+        let login = LoginManager()
+       // login.loginBehavior = LoginBehavior.browser
         UIApplication.shared.statusBarStyle = .default
         login.logOut()
-        login.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
-            
-            
+    
+        
+        login.logIn(permissions: ["email", "public_profile"], from: self) { (result, error) -> Void in
+
+
             if error != nil
             {
                 UIApplication.shared.statusBarStyle = .lightContent
@@ -620,17 +624,20 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
             }
             else
             {
-                if (result?.grantedPermissions.contains("email"))!
-                {
-                    UIApplication.shared.statusBarStyle = .lightContent
+                //if (result?.grantedPermissions.contains("email"))!
+                //{
+                   // UIApplication.shared.statusBarStyle = .lightContent
                     self.getFBUserData()
-                }
-                else
-                {
-                    print("you don't have permission")
-                }
+               // }
+               // else
+               // {
+                   // print("you don't have permission")
+               // }
             }
         }
+        
+        
+        
         
     }
     
@@ -641,18 +648,19 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     {
         
         //        Utilities.showActivityIndicator()
-        
-        var parameters = [AnyHashable: Any]()
+       // var parameters = [AnyHashable: Any]()
+
+        var parameters = [String: Any]()
         parameters["fields"] = "first_name, last_name, picture, email,id"
         
-        FBSDKGraphRequest.init(graphPath: "me", parameters: parameters).start { (connection, result, error) in
+        GraphRequest.init(graphPath: "me", parameters: parameters).start { (connection, result, error) in
             if error == nil
             {
                 print("\(#function) \(result)")
                 let dictData = result as! [String : AnyObject]
                 let strFirstName = String(describing: dictData["first_name"]!)
                 let strLastName = String(describing: dictData["last_name"]!)
-                let strEmail = String(describing: dictData["email"]!)
+                let strEmail = String(describing: dictData["email"] as? String ?? "")
                 let strUserId = String(describing: dictData["id"]!)
                 
                 //                //NSString *strPicurl = [NSString stringWithFormat:@"%@",[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
@@ -710,7 +718,6 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
     
     @IBAction func btnSignup(_ sender: Any) {
        let Registercontainer = self.storyboard?.instantiateViewController(withIdentifier: "RegistrationContainerViewController") as!  RegistrationContainerViewController
-      
         self.navigationController?.pushViewController(Registercontainer, animated: true)
         
     }

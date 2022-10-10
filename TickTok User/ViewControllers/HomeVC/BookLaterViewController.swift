@@ -1279,6 +1279,12 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
             dictData["FlightNumber"] = txtFlightNumber.text as AnyObject
             
         }
+        // add new parameter
+        dictData["PickupLat"] = doublePickupLat  as AnyObject
+        dictData["PickupLng"] = doublePickupLng as AnyObject
+        dictData["DropOffLat"] = doubleDropOffLat as AnyObject
+        dictData["DropOffLon"] = doubleDropOffLng as AnyObject
+    
         
         webserviceForBookLater(dictData as AnyObject) { (result, status) in
             self.btnSubmit.isEnabled = true
