@@ -243,6 +243,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var doubleUpdateNewLng = Double()
     var doubleDropOffLat = Double()
     var doubleDropOffLng = Double()
+    var estimateFire = Double()
     var arrDataAfterCompletetionOfTrip:[[String:Any]] = []
     var selectedIndexPath: IndexPath?
     var strSpecialRequest = String()
@@ -297,7 +298,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         NotificationCenter.default.removeObserver(self, name: NotificationBookNow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.setLocationFromBarAndClub(_:)), name: NotificationBookNow, object: nil)
@@ -1412,10 +1412,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         dictParams.setObject(doubleDropOffLat, forKey: SubmitBookingRequest.kDropOffLat as NSCopying)
         dictParams.setObject(doubleDropOffLng, forKey: SubmitBookingRequest.kDropOffLon as NSCopying)
+        dictParams.setObject(estimateFire, forKey: SubmitBookingRequest.kEstimateFare as NSCopying) // Estimate Fire
         
         
         dictParams.setObject(strSpecialRequest, forKey: SubmitBookingRequest.kSpecial as NSCopying)
         dictParams.setObject(self.btnNumberOfPassenger.currentTitle ?? "", forKey: SubmitBookingRequest.kNoOfPassenger as NSCopying)
+      
         
         if paymentType != "" {
             dictParams.setObject(paymentType, forKey: SubmitBookingRequest.kPaymentType as NSCopying)
@@ -2026,7 +2028,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func onGetEstimateFare() {
         
         self.socket.on(SocketData.kReceiveGetEstimateFare, callback: { (data, ack) in
-            //            print("onGetEstimateFare() is \(data)")
+//                        print("onGetEstimateFare() is \(data)")
             
             print("estimate Fare:\(data)")
             if (((data as NSArray).firstObject as? NSDictionary) != nil) {
@@ -2056,7 +2058,17 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
                 self.aryEstimateFareData = NSMutableArray(array: sortedArray as NSArray)
                 
+                if let price = (self.aryEstimateFareData.object(at: 0) as! NSDictionary).object(forKey: "total") as? Double {
+                    
+                    self.lblPrices.text = currencySign + String(format: "%.2f", price)
+                    //                        "\(currencySign) \(price)"
+                    self.estimateFire = price
+                   
+                    
+                }
+                
                 var count = Int()
+                  
                 for i in 0..<self.arrNumberOfOnlineCars.count
                 {
                     let dictOnlineCarData = (self.arrNumberOfOnlineCars.object(at: i) as! NSDictionary)
@@ -2094,6 +2106,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                     else if let price = (self.aryEstimateFareData.object(at: i) as! NSDictionary).object(forKey: "total") as? Double {
                                         self.lblPrices.text = currencySign + String(format: "%.2f", price)
                                         //                                        "\(currencySign) \(price)"
+                                        self.estimateFire = price
                                     }
                                 }
                                 else {
@@ -2621,6 +2634,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         next.strPickupLocation = strPickupLocation
                         next.doublePickupLat = doublePickupLat
                         next.doublePickupLng = doublePickupLng
+                        next.estimateAdvaceBooking =  estimateFire
                         
                         let visibleRegion = mapView.projection.visibleRegion()
                         let bounds = GMSCoordinateBounds(coordinate: visibleRegion.farLeft, coordinate: visibleRegion.nearRight)
@@ -2669,7 +2683,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         next.strDropoffLocation = strDropoffLocation
                         next.doubleDropOffLat = doubleDropOffLat
                         next.doubleDropOffLng = doubleDropOffLng
-                        
+                        next.estimateAdvaceBooking =  self.estimateFire
+                        print(self.estimateFire)
                         next.strFullname = profileData.object(forKey: "Fullname") as! String
                         next.strMobileNumber = profileData.object(forKey: "MobileNo") as! String
                         
@@ -2903,12 +2918,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarsCollectionViewCell", for: indexPath as IndexPath) as! CarsCollectionViewCell
         
-        if selectedIndexPath == indexPath {
+        if selectedIndexPath == nil {
+            selectedIndexPath = indexPath
+        }
+        if selectedIndexPath == indexPath  {
             cell.lblCarType.textColor = UIColor.init (red: 9.0/255.0, green: 149.0/255.0, blue: 184.0/255.0, alpha: 1.0)
             //            cell.selectedArrow.isHidden = false
         }
         else {
             //            cell.selectedArrow.isHidden = true
+            
             cell.lblCarType.textColor = UIColor.white
         }
         
@@ -3070,6 +3089,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         else if let price = (self.aryEstimateFareData.object(at: indexPath.row) as! NSDictionary).object(forKey: "total") as? Double {
                             
                             self.lblPrices.text = currencySign + String(format: "%.2f", price)
+                            self.estimateFire = price
                             //                        "\(currencySign) \(price)"
                             
                         }
@@ -3126,7 +3146,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 //            }
                 
                 
-                if available != 0 {
+//                if available != 0 {
                     
                     if self.aryEstimateFareData.count != 0 {
                         
@@ -3146,6 +3166,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             
                             self.lblPrices.text = currencySign + String(format: "%.2f", price)
                             //                        "\(currencySign) \(price)"
+                            self.estimateFire = price
                             
                         }
                     }
@@ -3154,11 +3175,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         self.lblPrices.text = "\(currencySign) \(0.00)"
                     }
                     
-                }
-                else {
-                    self.lblMinutes.text = "Approximate arrival time \(0) minutes"
-                    self.lblPrices.text = "\(currencySign) \(0.00)"
-                }
+//                }
+//                else {
+//                    self.lblMinutes.text = "Approximate arrival time \(0) minutes"
+//                    self.lblPrices.text = "\(currencySign) \(0.00)"
+//                }
                 
             }
             collectionViewCars.reloadData()
@@ -3555,6 +3576,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 }
                 
                 self.socket.on(SocketData.kNearByDriverList, callback: { (data, ack) in
+                  
+                    print("show estimate fare")
                     print("near by driver list is \(data)")
                     
                     //                var lat : Double!
@@ -3609,7 +3632,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         }
                     }
                     self.postPickupAndDropLocationForEstimateFare()
-                    if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0 && self.aryOfOnlineCarsIds.count != 0 {
+                    if self.txtCurrentLocation.text!.count != 0 && self.txtDestinationLocation.text!.count != 0  {
                         self.setData()
                     }
                 })
@@ -4959,7 +4982,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func postPickupAndDropLocationForEstimateFare()
     {
-        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 && aryOfOnlineCarsIds.count != 0 {
+        //&& aryOfOnlineCarsIds.count != 0
+        if txtCurrentLocation.text!.count != 0 && txtDestinationLocation.text!.count != 0 {
             let driverID = aryOfOnlineCarsIds.compactMap{ $0 }.joined(separator: ",")
             let myJSON = ["PassengerId" : SingletonClass.sharedInstance.strPassengerID,  "PickupLocation" : strPickupLocation ,"PickupLat" :  self.doublePickupLat , "PickupLong" :  self.doublePickupLng, "DropoffLocation" : strDropoffLocation,"DropoffLat" : self.doubleDropOffLat, "DropoffLon" : self.doubleDropOffLng,"Ids" : driverID, "ShareRiding": intShareRide ] as [String : Any]
             

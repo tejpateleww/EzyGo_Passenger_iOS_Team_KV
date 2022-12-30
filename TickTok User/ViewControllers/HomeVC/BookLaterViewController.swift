@@ -70,7 +70,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
     var arrNumberOfPassengerList:[String] = []
     var arrPromocodes:[[String:Any]] = []
     var arrPromocodeList:[String] = []
-    
+    var estimateAdvaceBooking =  Double()
     
     var placesClient = GMSPlacesClient()
     var locationManager = CLLocationManager()
@@ -96,6 +96,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         txtDropOffLocation.delegate = self
         txtPickupLocation.delegate = self
         self.btnSelectPromocode.setTitle("Select Promocode", for: .normal)
+        print("show estimate \(estimateAdvaceBooking)")
         //        UIApplication.shared.statusBarView?.backgroundColor = UIColor.black
         
         if #available(iOS 11.0, *) {
@@ -1245,6 +1246,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         dictData["PickupDateTime"] = convertDateToString as AnyObject
         dictData["NoOfPassenger"] = self.btnNumberOfPassenger.currentTitle as AnyObject
         dictData["ReceiptType"] = self.ReceiptType as AnyObject
+        dictData["EstimatedFare"] =  self.estimateAdvaceBooking as AnyObject
         
         if self.btnSelectPromocode.currentTitle != "Select Promocode" {
             if let Promodetail:String = self.btnSelectPromocode.currentTitle {

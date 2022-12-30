@@ -149,6 +149,7 @@ struct SubmitBookingRequest {
     static let kShareRide               = "ShareRide"
     static let kNoOfPassenger           = "NoOfPassenger"
     static let kReceiptType             = "ReceiptType"
+    static let kEstimateFare            = "EstimatedFare"
     
 }
 
