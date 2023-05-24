@@ -72,6 +72,7 @@ class AllDriversOnMapViewController: UIViewController, CLLocationManagerDelegate
                 if locationManager.location != nil
                 {
                     locationManager.startUpdatingLocation()
+                    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                     locationManager.delegate = self
 
                 }

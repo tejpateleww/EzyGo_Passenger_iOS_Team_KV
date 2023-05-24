@@ -67,6 +67,7 @@ class LoginViewController: UIViewController, CLLocationManagerDelegate, alertVie
                 if locationManager.location != nil
                 {
                     locationManager.startUpdatingLocation()
+                    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                     locationManager.delegate = self
                 }
                 //                manager.startUpdatingLocation()

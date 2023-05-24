@@ -137,6 +137,7 @@ class BookLaterViewController: UIViewController, GMSAutocompleteViewControllerDe
         aryOfPaymentOptionsImages = [""]
         
         locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.delegate = self
         
         setViewDidLoad()

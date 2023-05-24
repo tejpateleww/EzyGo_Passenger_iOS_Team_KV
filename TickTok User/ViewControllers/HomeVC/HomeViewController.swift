@@ -327,8 +327,18 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         moveMent = ARCarMovement()
         moveMent.delegate = self
-        
         mapView.delegate = self
+        
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+//
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+     //   locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.activityType = .automotiveNavigation
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.startUpdatingHeading()
         
         self.setupGoogleMap()
         
