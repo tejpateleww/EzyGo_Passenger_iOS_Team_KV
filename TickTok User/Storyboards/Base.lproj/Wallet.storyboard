@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -906,7 +906,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletCardsTableViewCell" rowHeight="164" id="uns-5O-2X3" customClass="WalletCardsTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="164"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="164"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uns-5O-2X3" id="FLr-ZP-mwa">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
@@ -963,6 +963,12 @@
                                                                 <action selector="btnDeleteCard:" destination="uns-5O-2X3" eventType="touchUpInside" id="632-rj-FbL"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abx-dn-Ahz">
+                                                            <rect key="frame" x="237" y="99" width="46" height="23"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -972,6 +978,8 @@
                                                         <constraint firstAttribute="bottom" secondItem="nVH-wx-9iD" secondAttribute="bottom" id="CfN-qH-Jpk"/>
                                                         <constraint firstAttribute="trailing" secondItem="Tlh-p1-yvK" secondAttribute="trailing" constant="20" id="FIP-zy-ocH"/>
                                                         <constraint firstAttribute="trailing" secondItem="2Jx-pN-T3h" secondAttribute="trailing" constant="17" id="L0j-My-VXS"/>
+                                                        <constraint firstItem="abx-dn-Ahz" firstAttribute="centerY" secondItem="hei-k6-6sT" secondAttribute="centerY" id="PaV-VJ-WCK"/>
+                                                        <constraint firstItem="abx-dn-Ahz" firstAttribute="trailing" secondItem="hei-k6-6sT" secondAttribute="trailing" id="QPu-lB-uOn"/>
                                                         <constraint firstItem="2Jx-pN-T3h" firstAttribute="leading" secondItem="w2c-WW-jeY" secondAttribute="leading" constant="17" id="SPE-pV-fGt"/>
                                                         <constraint firstItem="YPv-IE-C5a" firstAttribute="centerX" secondItem="w2c-WW-jeY" secondAttribute="centerX" id="TRo-Ty-Q3Z"/>
                                                         <constraint firstItem="Tlh-p1-yvK" firstAttribute="top" secondItem="w2c-WW-jeY" secondAttribute="top" constant="20" id="Vxd-v5-o3b"/>
@@ -998,12 +1006,13 @@
                                             <outlet property="imgCard" destination="nVH-wx-9iD" id="GlR-A2-rib"/>
                                             <outlet property="imgCardIcon" destination="o7U-Kd-X39" id="5lc-i1-GBV"/>
                                             <outlet property="lblCardNumber" destination="YPv-IE-C5a" id="NiR-xa-4CX"/>
+                                            <outlet property="lblIsDefault" destination="abx-dn-Ahz" id="Gi7-38-sBu"/>
                                             <outlet property="lblMonthExpiry" destination="2Jx-pN-T3h" id="dCW-J2-nok"/>
                                             <outlet property="viewCards" destination="w2c-WW-jeY" id="ODj-h5-xvE"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCard" rowHeight="75" id="BSS-0p-Go8" customClass="WalletCardsTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="208.5" width="320" height="75"/>
+                                        <rect key="frame" x="0.0" y="214" width="320" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BSS-0p-Go8" id="VDe-aJ-BoK">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
@@ -1534,7 +1543,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletHistoryTableViewCell" rowHeight="93" id="jaZ-mx-7Vl" customClass="WalletHistoryTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="300" height="93"/>
+                                                <rect key="frame" x="0.0" y="50" width="300" height="93"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jaZ-mx-7Vl" id="96U-zh-FYZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="93"/>
@@ -1837,7 +1846,7 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WalletBalanceMainTableViewCell" rowHeight="93" id="CiN-Wv-b3e" customClass="WalletBalanceMainTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="44.5" width="300" height="93"/>
+                                                                <rect key="frame" x="0.0" y="50" width="300" height="93"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CiN-Wv-b3e" id="4Ww-2c-dzs">
                                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="93"/>

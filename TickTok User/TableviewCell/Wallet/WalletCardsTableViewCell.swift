@@ -34,6 +34,8 @@ class WalletCardsTableViewCell: UITableViewCell {
     // MARK: - Outlets
     //-------------------------------------------------------------
     
+    @IBOutlet weak var lblIsDefault: UILabel!
+    
     var Delegate:DeleteCardDelegate!
     
     // Section 0

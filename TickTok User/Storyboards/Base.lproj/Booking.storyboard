@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -660,7 +660,7 @@
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavrouiteTableViewCell" rowHeight="60" id="ZYf-z6-6UI" customClass="FavrouiteTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="44.5" width="280" height="60"/>
+                                                        <rect key="frame" x="0.0" y="50" width="280" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZYf-z6-6UI" id="Jn9-oD-ahN">
                                                             <rect key="frame" x="0.0" y="0.0" width="280" height="60"/>
@@ -2174,7 +2174,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PromoCreditTableViewCell" rowHeight="74" id="1qV-D7-Dh6" customClass="PromoCreditTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="74"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1qV-D7-Dh6" id="Mgl-iC-Dfn">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
@@ -2434,7 +2434,7 @@
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyRatingTableViewCell" rowHeight="202" id="7GL-Kl-gQE" customClass="MyRatingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="300" height="202"/>
+                                                <rect key="frame" x="0.0" y="50" width="300" height="202"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7GL-Kl-gQE" id="owd-NB-ido">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="202"/>
@@ -4456,7 +4456,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Y0o-DO-C3D">
                                                                 <rect key="frame" x="0.0" y="250" width="240" height="25"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soiling/Damage :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ft-K5-XMj">
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soiling/Damage note:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ft-K5-XMj" userLabel="Soiling/Damage  note:">
                                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="25"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                         <nil key="textColor"/>
@@ -5035,7 +5035,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IAd-ko-s8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1624" y="176"/>
+            <point key="canvasLocation" x="1800" y="-73"/>
         </scene>
     </scenes>
     <resources>

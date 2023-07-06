@@ -85,7 +85,7 @@ struct WebserviceURLs {
     static let kMissBokkingRequest                      = "BookingMissRequest"
     static let kTrackRunningTrip                        = "TrackRunningTrip/"
     static let kLogout                                  = "Logout/"
-
+    static let kDefaultCards                            = "SetDefaultCards/"
 //    https://pickngolk.info/web/Passenger_Api/OtpForRegister
     
 }

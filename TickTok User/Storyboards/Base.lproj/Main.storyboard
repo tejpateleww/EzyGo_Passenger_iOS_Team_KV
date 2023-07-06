@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8lO-1E-18h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8lO-1E-18h">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -249,7 +249,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PacageHoursDaysTableViewCell" rowHeight="90" id="XQA-eu-48N" userLabel="PacageHoursDaysTableViewCell" customClass="PacageHoursDaysTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="90"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XQA-eu-48N" id="pQw-Py-txk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
@@ -966,7 +966,7 @@ Hours</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PackageHistoryListTableViewCell" rowHeight="353" id="fC3-2M-JNW" userLabel="PackageHistoryListTableViewCell" customClass="PackageHistoryListTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="353"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="353"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fC3-2M-JNW" id="Z4O-Kd-025">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="353"/>
@@ -1491,7 +1491,7 @@ Hours</string>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyFavouriteTableViewCell" rowHeight="110" id="j1F-Hq-j39" customClass="MyFavouriteTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="44.5" width="320" height="110"/>
+                                                        <rect key="frame" x="0.0" y="50" width="320" height="110"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j1F-Hq-j39" id="rTB-zd-PCj">
                                                             <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
@@ -1636,7 +1636,7 @@ Hours</string>
                                         <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BarsAndClubsTableViewCell" rowHeight="100" id="ZqR-Y7-k9g" customClass="BarsAndClubsTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="320" height="100"/>
+                                                <rect key="frame" x="0.0" y="50" width="320" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZqR-Y7-k9g" id="IcZ-xx-v34">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -1803,7 +1803,7 @@ Hours</string>
                                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HotelReservationTableViewCell" rowHeight="100" id="bic-ML-vew" customClass="HotelReservationTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="320" height="100"/>
+                                                <rect key="frame" x="0.0" y="50" width="320" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bic-ML-vew" id="OOG-ZT-X8x">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -2096,7 +2096,7 @@ Hours</string>
                                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookTableSelectedDataTableViewCell" rowHeight="100" id="LaJ-ok-e77" customClass="BookTableSelectedDataTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="320" height="100"/>
+                                                <rect key="frame" x="0.0" y="50" width="320" height="100"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LaJ-ok-e77" id="5JH-V0-Ks8">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -2582,7 +2582,7 @@ Hours</string>
                                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShoppingTableViewCell" rowHeight="126" id="3Wd-Es-WMZ" customClass="ShoppingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="320" height="126"/>
+                                                <rect key="frame" x="0.0" y="50" width="320" height="126"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Wd-Es-WMZ" id="04I-ma-tR5">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="126"/>
@@ -3304,7 +3304,7 @@ Hours</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="TripDetailsTableViewCell" rowHeight="91" id="VNs-uc-A2P" customClass="TripDetailsTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="91"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="91"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VNs-uc-A2P" id="zjK-gI-IRk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
@@ -3485,7 +3485,7 @@ Hours</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContentTableViewCell" rowHeight="60" id="7ZM-t6-ZWc" customClass="ContentTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="50" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7ZM-t6-ZWc" id="3MF-Tj-3c3">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
@@ -3526,7 +3526,7 @@ Hours</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LogoutTblCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutTblCell" rowHeight="80" id="ZuT-2E-cgJ" customClass="LogoutTblCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.5" width="320" height="80"/>
+                                        <rect key="frame" x="0.0" y="110" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZuT-2E-cgJ" id="M1Z-oz-FXv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
@@ -3572,7 +3572,7 @@ Hours</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTblCell" rowHeight="150" id="SR4-cD-g77" customClass="ContactTblCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="184.5" width="320" height="150"/>
+                                        <rect key="frame" x="0.0" y="190" width="320" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SR4-cD-g77" id="m9e-uw-OTD">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
@@ -3818,7 +3818,7 @@ Hours</string>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PastBooingTableViewCell" rowHeight="569" id="0hO-iq-p1C" customClass="PastBooingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="300" height="569"/>
+                                        <rect key="frame" x="0.0" y="50" width="300" height="569"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0hO-iq-p1C" id="vLS-Md-lqt">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="569"/>
@@ -4504,7 +4504,7 @@ Hours</string>
                     <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <prototypes>
                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OnGoingTableViewCell" rowHeight="338" id="y3K-nH-Dpl" customClass="OnGoingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="44.5" width="320" height="338"/>
+                            <rect key="frame" x="0.0" y="50" width="320" height="338"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y3K-nH-Dpl" id="yRY-sz-4VE">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="338"/>
@@ -4954,7 +4954,7 @@ Hours</string>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PastBooingTableViewCell" rowHeight="500" id="zDG-Yu-Jmm" customClass="PastBooingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="300" height="500"/>
+                                        <rect key="frame" x="0.0" y="50" width="300" height="500"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zDG-Yu-Jmm" id="Zyb-9W-Gv8">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
@@ -5658,7 +5658,7 @@ Hours</string>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <prototypes>
                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UpCommingTableViewCell" rowHeight="255" id="m4x-dA-beN" customClass="UpCommingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="44.5" width="320" height="255"/>
+                            <rect key="frame" x="0.0" y="50" width="320" height="255"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m4x-dA-beN" id="lpb-9o-Hos">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="255"/>
@@ -5938,7 +5938,7 @@ Hours</string>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PastBooingTableViewCell" rowHeight="569" id="Iag-jX-9VT" customClass="PastBooingTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="300" height="569"/>
+                                        <rect key="frame" x="0.0" y="50" width="300" height="569"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Iag-jX-9VT" id="Vqu-M2-kdI">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="569"/>
@@ -6330,7 +6330,7 @@ Hours</string>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="oix-Yx-Wib">
                                                                                             <rect key="frame" x="0.0" y="58.5" width="294" height="5"/>
                                                                                             <subviews>
-                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soiling/Damage :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-bt-Rya">
+                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Soiling/Damage note:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tsa-bt-Rya">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="147" height="5"/>
                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -8151,7 +8151,7 @@ Hours</string>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyRecepitTableViewCell" rowHeight="330" id="DeW-ME-53b" customClass="MyRecepitTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="300" height="330"/>
+                                                <rect key="frame" x="0.0" y="50" width="300" height="330"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DeW-ME-53b" id="tnb-tG-fb8">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="330"/>
@@ -8510,7 +8510,7 @@ Hours</string>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoDataFound" id="aVn-N4-9nY" customClass="DispatchedJobsForMyJobsTableViewCell" customModule="EZYGO_Rider" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="374.5" width="300" height="44"/>
+                                                <rect key="frame" x="0.0" y="380" width="300" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aVn-N4-9nY" id="pfN-wQ-92c">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>

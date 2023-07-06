@@ -216,12 +216,12 @@ class PastBookingVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             }
             cell.AirportDropOffStack.isHidden = ((cell.lblAirportDropOffTime.text == "0") || (cell.lblAirportDropOffTime.text == "$ 0.00")) ? true : false
             
-            if let SoilDamageCharge:String = currentData[ "SoilDamageCharge"] as? String {
-                cell.lblSoiling_Damage.text = SoilDamageCharge != "" ? "$ \(String(format: "%.2f", Double(SoilDamageCharge)!))" : "$ 0.00"
+            if let SoilDamageCharge:String = currentData[ "SoilDamageChargeNote"] as? String {
+                cell.lblSoiling_Damage.text = SoilDamageCharge  //!= "" ? "$ \(String(format: "%.2f", Double(SoilDamageCharge)!))" : "$ 0.00"
             } else {
                 cell.lblSoiling_Damage.text = "$ 0.00"
             }
-            cell.DamageChargeStack.isHidden = ((cell.lblSoiling_Damage.text == "0") || (cell.lblSoiling_Damage.text == "$ 0.00")) ? true : false
+            cell.DamageChargeStack.isHidden = ((cell.lblSoiling_Damage.text == "") || (cell.lblSoiling_Damage.text == "")) ? true : false
             
             cell.PlusChargesStack.isHidden = ((cell.AirportPickupStack.isHidden == true) && (cell.AirportDropOffStack.isHidden == true) && (cell.DamageChargeStack.isHidden == true)) ? true : false
             

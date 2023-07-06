@@ -60,7 +60,7 @@ let OTPVerify = WebserviceURLs.kOtpForRegister
 let ContactUs = WebserviceURLs.kContactUs
 let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
 let Logout = WebserviceURLs.kLogout
-
+let SetDefaultCards = WebserviceURLs.kDefaultCards
 //-------------------------------------------------------------
 // MARK: - Webservice For Registration
 //-------------------------------------------------------------
@@ -341,6 +341,18 @@ func webserviceForRemoveCard(_ dictParams: AnyObject, completion: @escaping(_ re
     let url = "\(RemoveCard)/\(dictParams)"
     getData("" as AnyObject, nsURL: url, completion: completion)
 }
+
+//-------------------------------------------------------------
+// MARK: - Webservice For Remove Card
+//-------------------------------------------------------------
+
+func webserviceForSetDefaultCards(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = "\(SetDefaultCards)/\(dictParams)"
+    getData("" as AnyObject, nsURL: url, completion: completion)
+}
+
+
 
 //-------------------------------------------------------------
 // MARK: - Webservice For TickPay

@@ -231,12 +231,12 @@ class TripDetailsViewController: ParentViewController {
             }
             
             
-            if let SoilDamageCharge:String = data["SoilDamageCharge"] as? String {
-                lblSoilingDamage.text = SoilDamageCharge != "" ? "$ \(String(format: "%.2f", Double(SoilDamageCharge)!))" : "$ 0.00"
+            if let SoilDamageCharge:String = data["SoilDamageChargeNote"] as? String {
+                lblSoilingDamage.text = SoilDamageCharge //!= "" ? "$ \(String(format: "%.2f", Double(SoilDamageCharge)!))" : "$ 0.00"
             } else {
-                lblSoilingDamage.text = "$ 0.00"
+                lblSoilingDamage.text = ""
             }
-            self.DamageChargeStack.isHidden = ((self.lblSoilingDamage.text == "0") || (self.lblSoilingDamage.text == "$ 0.00")) ? true : false
+            self.DamageChargeStack.isHidden = ((self.lblSoilingDamage.text == "") || (self.lblSoilingDamage.text == "")) ? true : false
             
             self.PlusChargesStack.isHidden = ((self.AirportPickupStack.isHidden == true) && (self.AirportDropOffStack.isHidden == true) && (self.DamageChargeStack.isHidden == true)) ? true : false
             

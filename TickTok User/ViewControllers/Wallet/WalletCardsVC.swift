@@ -189,6 +189,8 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 //            cell.lblCardType.text = "Credit Card"
             
             let expiryDate = (dictData["Expiry"] as! String)
+            let isDefault = (dictData["IsDefault"] as? String)
+          
 //                .split(separator: "/")
 //            let month = expiryDate.first
 //            let year = expiryDate.last
@@ -200,7 +202,15 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
             cell.viewCards.dropShadowToCardView(color: .gray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 5, scale: true)
             cell.viewCards.layer.cornerRadius = 5
             cell.viewCards.layer.masksToBounds = true
-
+            //New changes add default lable
+            if isDefault  == "1" {
+                cell.lblIsDefault.isHidden =  false
+                cell.lblIsDefault.text = "Default"
+            } else {
+                cell.lblIsDefault.text = " Make Default"
+               
+            }
+          
             
             let type = dictData["Type"] as! String
             
@@ -264,6 +274,11 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         if indexPath.section == 0 {
          
             let selectedData = aryData[indexPath.row] as [String:AnyObject]
+           
+            let selectedID = selectedData["Id"] as? String
+      
+            self.webserviceForSetDefaultCardsOnSelect(cardId: selectedID ?? "0")
+          
             
             print("selectedData : \(selectedData)")
             
@@ -561,6 +576,63 @@ class WalletCardsVC: UIViewController, UITableViewDataSource, UITableViewDelegat
                 
                 UtilityClass.setCustomAlert(title: "Removed", message: (result as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
                 }
+            }
+            else {
+                print(result)
+                
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+
+    }
+    
+    //Web Service for add default cards
+    
+    
+    func webserviceForSetDefaultCardsOnSelect(cardId : String) {
+        if Connectivity.isConnectedToInternet() == false {
+            
+                        UtilityClass.setCustomAlert(title: "Connection Error", message: "Internet connection not available") { (index, title) in
+            }
+            return
+        }
+        var params = String()
+        
+        params = "\(SingletonClass.sharedInstance.strPassengerID)/\(cardId)"
+
+        let activityData = ActivityData()
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+        
+        webserviceForSetDefaultCards(params as AnyObject) { [self] (result, status) in
+        
+            if (status) {
+                
+                print(result)
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                //self.aryData = (result as! NSDictionary).object(forKey: "cards") as! [[String:AnyObject]]
+                
+               // SingletonClass.sharedInstance.CardsVCHaveAryData = self.aryData
+                
+               // SingletonClass.sharedInstance.isCardsVCFirstTimeLoad = false
+                
+                // Post notification
+                self.webserviceOFGetAllCards()
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CardListReload"), object: nil)
+         
+                self.tableView.reloadData()
+                
+              
             }
             else {
                 print(result)
