@@ -47,8 +47,16 @@ pod 'Firebase/Analytics', '8.1.0'
 pod 'Firebase/Crashlytics'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+end
 
-
-  
-  
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
+      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      config.build_settings["ONLY_ACTIVE_ARCH"] = "NO"
+      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+    end
+  end
 end
