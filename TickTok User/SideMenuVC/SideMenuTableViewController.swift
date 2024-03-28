@@ -56,9 +56,9 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         self.setUserDetail()
         self.SetLayout()
         
-        arrMenuIcons = ["icon_MyProfile_Unselected","icon_MyBooking_Unselected", "icon_PaymentOption_Unselect", "icon_Promocode_Unselect", "icon_Receipts_Unselected", "icon_Rating_Unselected", "icon_Favourite_Unselected", "icon_InviteFriend_Unselected", "icon_CustomerSupport_Unselect","iconLogOut"]
+        arrMenuIcons = ["icon_MyProfile_Unselected","icon_MyBooking_Unselected", "icon_PaymentOption_Unselect", "icon_Promocode_Unselect", "icon_Receipts_Unselected", "icon_Rating_Unselected", "icon_Favourite_Unselected", "icon_InviteFriend_Unselected", "icon_CustomerSupport_Unselect","c_delete","iconLogOut"]
 //        , "icon_Wallet_Unselected"
-        arrMenuTitle = ["My Profile","My Trips", "Credit Cards (Add/Delete)", "Promo Codes", "My Receipts/Invoices", "My Ratings", "Favourites", "Invite Friends", "Customer Support","Logout"]
+        arrMenuTitle = ["My Profile","My Trips", "Credit Cards (Add/Delete)", "Promo Codes", "My Receipts/Invoices", "My Ratings", "Favourites", "Invite Friends", "Customer Support","Delete Account","Logout"]
 //        , "My Wallet"
     }
     
@@ -151,7 +151,7 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
             let LogoutCell = tableView.dequeueReusableCell(withIdentifier: "LogoutTblCell") as! UITableViewCell
             LogoutCell.selectionStyle = .none
             return LogoutCell
-        } else if (indexPath.row == self.arrMenuIcons.count - 2 )
+        } else if (indexPath.row == self.arrMenuIcons.count - 3 )
         {
             let CustomerSupportCell = tableView.dequeueReusableCell(withIdentifier: "ContactTblCell") as! ContactTblCell
             
@@ -250,6 +250,17 @@ class SideMenuTableViewController: UIViewController,UITableViewDataSource,UITabl
         else if arrMenuTitle[indexPath.row] == "Customer Support" {
             self.isSubMenuOpen = !self.isSubMenuOpen
             self.tableView.reloadRows(at: [indexPath], with: .none)
+        } else if (arrMenuTitle[indexPath.row] == "Delete Account") {
+            let alert = UIAlertController.init(title: "Are your sure you want to delete account" , message: nil, preferredStyle: .alert)
+           
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+                
+            }))
+            alert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { (action) in
+                self.webServiceForDeleteAccount()
+            }))
+            
+            (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
         else if (arrMenuTitle[indexPath.row] == "Logout")
         {
@@ -357,6 +368,34 @@ func webserviceOfTickPayStatus() {
     func webServicetoLogout() {
         
         webserviceForLogout(SingletonClass.sharedInstance.strPassengerID as AnyObject) { (result, status) in
+            
+            if (status) {
+                print(result)
+                 UtilityClass.getAppDelegate().GoToLogout()
+            }
+            else {
+                print(result)
+                if let res = result as? String {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: res) { (index, title) in
+                    }
+                }
+                else if let resDict = result as? NSDictionary {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: resDict.object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+                else if let resAry = result as? NSArray {
+                    UtilityClass.setCustomAlert(title: alertTitle, message: (resAry.object(at: 0) as! NSDictionary).object(forKey: "message") as! String) { (index, title) in
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func webServiceForDeleteAccount() {
+        var dictData = [String:AnyObject]()
+        dictData["PassengerId"] = SingletonClass.sharedInstance.strPassengerID as AnyObject as AnyObject
+        webserviceForDeleteAccount(dictData as AnyObject) { (result, status) in
             
             if (status) {
                 print(result)

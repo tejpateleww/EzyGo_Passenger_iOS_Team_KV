@@ -223,6 +223,12 @@ class UtilityClass: NSObject, alertViewMethodsDelegates {
         NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
     }
+    
+    class func shareUrl(_ strUrl: String) {
+            let activityViewController = UIActivityViewController(activityItems: [strUrl], applicationActivities: nil)
+            let appdelegate = UIApplication.shared.delegate as! AppDelegate
+            appdelegate.window!.rootViewController?.present(activityViewController, animated: true, completion: nil)
+        }
 
 }
 

@@ -5132,7 +5132,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         //                        alert.addAction(OK)
                         //                        (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
                         
-                        // new custom alert added by uttam
+                        // new custom alert added
                         
                         UtilityClass.setCustomAlert(title: "\(appName)", message: message) { (index, title) in
                             if (UIApplication.shared.delegate as! AppDelegate).audioPlayer != nil {
@@ -5163,7 +5163,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     //                    alert.addAction(OK)
                     //                    (UIApplication.shared.delegate as! AppDelegate).window?.rootViewController?.present(alert, animated: true, completion: nil)
                     
-                    // Custom alert added  by uttam
+                    // Custom alert added
                     UtilityClass.setCustomAlert(title: "\(appName)", message: message) { (index, title) in
                         if (UIApplication.shared.delegate as! AppDelegate).audioPlayer != nil {
                             (UIApplication.shared.delegate as! AppDelegate).audioPlayer.stop()

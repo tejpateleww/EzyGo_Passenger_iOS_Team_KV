@@ -7537,7 +7537,7 @@ Hours</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-pic2" translatesAutoresizingMaskIntoConstraints="NO" id="ihu-IA-1uT">
-                                        <rect key="frame" x="135" y="322" width="50" height="50"/>
+                                        <rect key="frame" x="135" y="342" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="9Bv-Af-ilJ"/>
                                             <constraint firstAttribute="height" constant="50" id="NSR-Nc-9at"/>
@@ -7555,13 +7555,13 @@ Hours</string>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Greeting" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyj-ct-NQT">
-                                        <rect key="frame" x="0.0" y="379" width="320" height="16"/>
+                                        <rect key="frame" x="0.0" y="399" width="320" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ml1-VY-TWa">
-                                        <rect key="frame" x="35" y="400" width="250" height="118"/>
+                                        <rect key="frame" x="35" y="420" width="250" height="98"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHARE YOUR INVITE CODE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkM-F1-Fng">
                                                 <rect key="frame" x="0.0" y="10" width="250" height="13.5"/>
@@ -7575,25 +7575,25 @@ Hours</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZPP-hV-DG2">
-                                                <rect key="frame" x="20" y="53" width="210" height="30"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZPP-hV-DG2">
+                                                <rect key="frame" x="20" y="53" width="210" height="10"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook" translatesAutoresizingMaskIntoConstraints="NO" id="aFu-Sf-C3F">
-                                                        <rect key="frame" x="15" y="5" width="20" height="20"/>
+                                                        <rect key="frame" x="15" y="5" width="20" height="0.0"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="20" id="HKB-69-dAL"/>
+                                                            <constraint firstAttribute="height" id="HKB-69-dAL"/>
                                                             <constraint firstAttribute="width" constant="20" id="fn6-jd-D5k"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Via Facebook" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvr-Gw-d7v">
-                                                        <rect key="frame" x="35" y="5" width="170" height="20"/>
+                                                        <rect key="frame" x="35" y="5" width="170" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H02-jQ-DZK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="210" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="210" height="10"/>
                                                         <connections>
                                                             <action selector="btnFacebook:" destination="3lg-DH-NT4" eventType="touchUpInside" id="VmJ-6s-AS3"/>
                                                         </connections>
@@ -7615,12 +7615,12 @@ Hours</string>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5Y-cq-CPJ">
-                                                <rect key="frame" x="20" y="93" width="210" height="25"/>
+                                                <rect key="frame" x="20" y="73" width="210" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="ahf-du-8AV"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                <state key="normal" title="More Option">
+                                                <state key="normal" title="Share">
                                                     <color key="titleColor" red="0.92941176469999998" green="0.47843137250000001" blue="0.015686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>

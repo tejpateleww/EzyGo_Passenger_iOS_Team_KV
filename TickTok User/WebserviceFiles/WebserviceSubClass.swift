@@ -58,6 +58,7 @@ let UpdateBankAccountDetails = WebserviceURLs.kUpdateBankAccountDetails
 
 let OTPVerify = WebserviceURLs.kOtpForRegister
 let ContactUs = WebserviceURLs.kContactUs
+let DeleteAccount = WebserviceURLs.kDeleteAccount
 let TrackRunningTrip = WebserviceURLs.kTrackRunningTrip
 let Logout = WebserviceURLs.kLogout
 let SetDefaultCards = WebserviceURLs.kDefaultCards
@@ -564,6 +565,12 @@ func webserviceForContactUs(_ dictParams: AnyObject, completion: @escaping(_ res
     postData(dictParams, nsURL: url, completion: completion)
 }
 
+
+func webserviceForDeleteAccount(_ dictParams: AnyObject, completion: @escaping(_ result: AnyObject, _ success: Bool) -> Void)
+{
+    let url = DeleteAccount
+    postData(dictParams, nsURL: url, completion: completion)
+}
 
 //-------------------------------------------------------------
 // MARK: - Webservice For Logout

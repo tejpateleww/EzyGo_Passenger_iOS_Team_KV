@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BJv-dT-fKY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BJv-dT-fKY">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -224,7 +224,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LT6-ZL-F2F" customClass="TransitionButton" customModule="TransitionButton">
-                                        <rect key="frame" x="60" y="534.5" width="255" height="40"/>
+                                        <rect key="frame" x="60" y="494.5" width="255" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="z9l-gO-BHv"/>
@@ -245,10 +245,10 @@
                                             <action selector="btnSignup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d1T-Nv-KhV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sc-pd-4e0">
-                                        <rect key="frame" x="132" y="446.5" width="50" height="50"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sc-pd-4e0">
+                                        <rect key="frame" x="132" y="446.5" width="10" height="10"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="IRZ-O5-Pfz"/>
+                                            <constraint firstAttribute="height" constant="10" id="IRZ-O5-Pfz"/>
                                             <constraint firstAttribute="width" secondItem="8Sc-pd-4e0" secondAttribute="height" multiplier="1:1" id="g0K-RM-PLo"/>
                                         </constraints>
                                         <state key="normal" image="iconFb"/>
@@ -256,11 +256,11 @@
                                             <action selector="btnFBClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="COe-e6-6AF"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVu-Qk-oE3">
-                                        <rect key="frame" x="212" y="446.5" width="50" height="50"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVu-Qk-oE3">
+                                        <rect key="frame" x="252" y="446.5" width="10" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="WVu-Qk-oE3" secondAttribute="height" multiplier="1:1" id="K1I-m3-qTd"/>
-                                            <constraint firstAttribute="height" constant="50" id="mn2-rO-rgy"/>
+                                            <constraint firstAttribute="height" constant="10" id="mn2-rO-rgy"/>
                                         </constraints>
                                         <state key="normal" image="iconGoogle"/>
                                         <connections>
@@ -268,7 +268,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyJ-I0-Tqe">
-                                        <rect key="frame" x="177" y="506.5" width="21" height="18"/>
+                                        <rect key="frame" x="177" y="466.5" width="21" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -285,7 +285,7 @@
                                     <constraint firstItem="zRo-TR-N6H" firstAttribute="leading" secondItem="xdu-Mf-Nt2" secondAttribute="leading" constant="30" id="Cbz-lA-rlC"/>
                                     <constraint firstItem="8Sc-pd-4e0" firstAttribute="top" secondItem="aXI-Cx-6wN" secondAttribute="bottom" constant="20" id="FbB-WJ-5wp"/>
                                     <constraint firstItem="LT6-ZL-F2F" firstAttribute="top" secondItem="yyJ-I0-Tqe" secondAttribute="bottom" constant="10" id="JJ2-q1-zFb"/>
-                                    <constraint firstItem="WVu-Qk-oE3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Sc-pd-4e0" secondAttribute="trailing" symbolic="YES" id="LGe-rl-5b1"/>
+                                    <constraint firstItem="WVu-Qk-oE3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8Sc-pd-4e0" secondAttribute="trailing" constant="8" symbolic="YES" id="LGe-rl-5b1"/>
                                     <constraint firstItem="zRo-TR-N6H" firstAttribute="top" secondItem="Z5Q-0D-ebS" secondAttribute="bottom" constant="20" id="PuL-uw-orC"/>
                                     <constraint firstItem="h3O-3Y-rKX" firstAttribute="top" secondItem="xdu-Mf-Nt2" secondAttribute="top" constant="50" id="SdH-tj-Pmn"/>
                                     <constraint firstItem="aXI-Cx-6wN" firstAttribute="centerX" secondItem="xdu-Mf-Nt2" secondAttribute="centerX" id="UlW-KT-QbF"/>
@@ -1499,7 +1499,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="oeb-Ea-QzW"/>
+        <segue reference="24f-p1-b17"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="HorizonalLine" width="20" height="20"/>

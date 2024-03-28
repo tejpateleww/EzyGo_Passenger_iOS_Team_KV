@@ -74,6 +74,7 @@ struct WebserviceURLs {
     static let kGetTickpayRate                          = "GetTickpayRate"
     static let kInit                                    = "Init/"
     static let kContactUs                               = "ContactUs"
+    static let kDeleteAccount                           = "DeleteAccount"
     
     
     static let kReviewRating                            = "ReviewRating"

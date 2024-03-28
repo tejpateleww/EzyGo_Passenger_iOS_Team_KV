@@ -40,7 +40,7 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     //-------------------------------------------------------------
     // MARK: - Base Methods
     //-------------------------------------------------------------
-    
+    var passengerName = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,6 +51,11 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
         if let ReferralCode = profileData.object(forKey: "ReferralCode") as? String {
             strReferralCode = ReferralCode
             self.lblReferralCode.text = self.strReferralCode
+        }
+        
+        if let passengerName = profileData.object(forKey: "Fullname") as? String {
+            self.passengerName = passengerName
+          
         }
         
         if let RefarMoney = profileData.object(forKey: "ReferralAmount") as? Double {
@@ -343,16 +348,24 @@ class InviteDriverViewController: ParentViewController, MFMailComposeViewControl
     
     @IBAction func btnMoreOption(_ sender: Any) {
         
-        let messageBody = codeToSend()
+      //  let messageBody = codeToSend()
 //        "\n Please download from below link \n \n"// \(urlForMail)\\url backend mle
-        let activityViewController = UIActivityViewController(activityItems: [messageBody], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
-        
-        // exclude some activity types from the list (optional)
-        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
-        
-        // present the view controller
-        self.present(activityViewController, animated: true, completion: nil)
+//        let activityViewController = UIActivityViewController(activityItems: [messageBody], applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+//
+//        // exclude some activity types from the list (optional)
+//        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+//
+//        // present the view controller
+//        self.present(activityViewController, animated: true, completion: nil)
+//
+
+        let strInviteMessage = "\(passengerName) has invited you to become a EzyGo Passenger\n"
+        let strInviteCode = "Your invite code is: \(strReferralCode)"
+        let urlStr = "Click here: \nitems: https://apps.apple.com/us/app/ezygo-rider/id1444264480 \n \n"
+        //let finalShareUrl = strInviteMessage + strInviteCode
+        let finalShareUrl = strInviteMessage + urlStr + strInviteCode
+        UtilityClass.shareUrl(finalShareUrl)
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
