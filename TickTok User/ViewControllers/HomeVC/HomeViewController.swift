@@ -3850,37 +3850,24 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         txtCurrentLocation.text = bookingInfo.object(forKey: "PickupLocation") as? String
         txtDestinationLocation.text = bookingInfo.object(forKey: "DropoffLocation") as? String
         
-        
-        //        let PickupLat = defaultLocation.coordinate.latitude
-        //        let PickupLng =  defaultLocation.coordinate.longitude
-        
-        let PickupLat = bookingInfo.object(forKey: "PickupLat") as! String
-        let PickupLng =  bookingInfo.object(forKey: "PickupLng") as! String
-        
-        //        let DropOffLat = driverInfo.object(forKey: "PickupLat") as! String
-        //        let DropOffLon = driverInfo.object(forKey: "PickupLng") as! String
-        
-        let DropOffLat = DriverInfo.object(forKey: "Lat") as! String
-        let DropOffLon = DriverInfo.object(forKey: "Lng") as! String
-        
-        
-        //        let dummyLatitude = Double(PickupLat)! - Double(DropOffLat)!
-        //        let dummyLongitude = Double(PickupLng)! - Double(DropOffLon)!
-        
-        //        _ = Double(PickupLat)! - dummyLatitude
-        //        _ = Double(PickupLng)! - dummyLongitude
-        
-        //        let originalLoc: String = "\(PickupLat),\(PickupLng)"
-        //        let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
-        
+        guard let PickupLat = bookingInfo.object(forKey: "PickupLat") as? String,
+              let PickupLng =  bookingInfo.object(forKey: "PickupLng") as? String,
+              let DropOffLat = DriverInfo.object(forKey: "Lat") as? String,
+              let DropOffLon = DriverInfo.object(forKey: "Lng") as? String else {
+            return
+        }
+    
         strPickUpLatitude = PickupLat
         strPickUpLongitude = PickupLng
         
-        let camera = GMSCameraPosition.camera(withLatitude: Double(DropOffLat)!,
-                                              longitude: Double(DropOffLon)!,
-                                              zoom: 18)
+        if let dropOffLat = Double(DropOffLat), let dropOffLng = Double(DropOffLon) {
+            let camera = GMSCameraPosition.camera(withLatitude: dropOffLat,
+                                                  longitude: dropOffLng,
+                                                  zoom: 18)
+            
+            mapView.camera = camera
+        }
         
-        mapView.camera = camera
         
         //commented for Query Limit Issue //MARK:- Rahul
         //        self.getDirectionsAcceptRequest(origin: originalLoc, destination: destiantionLoc) { (index, title) in
