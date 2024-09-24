@@ -76,6 +76,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, GIDSig
      //   self.logUser()
         
         // ------------------------------------------------------------
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
         
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "menu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft

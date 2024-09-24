@@ -63,7 +63,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var zoomLevel: Float = 17.0
     //    var likelyPlaces: [GMSPlace] = []
     //    var selectedPlace: GMSPlace?
-    var defaultLocation = CLLocation(latitude: 6.9422744, longitude: 79.9196117)
+    var defaultLocation = CLLocation(latitude: 0, longitude: 0)
     var arrNumberOfAvailableCars = NSMutableArray()
     var arrTotalNumberOfCars = NSMutableArray()
     var arrNumberOfOnlineCars = NSMutableArray()
@@ -291,8 +291,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var lblPassengers: UILabel!
     
-    var dropoffLat = Double()
-    var dropoffLng = Double()
+    var dropOffLat: Double = 0
+    var dropOffLng: Double = 0
     var PasangerDefinedLimit:Int = 0
     
     
@@ -695,21 +695,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //        self.viewShareRideView.isHidden = true
         
         mapView.delegate = self
-        
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
                                               longitude: defaultLocation.coordinate.longitude,
                                               zoom: 17.5)
-        
+        self.doublePickupLat = (defaultLocation.coordinate.latitude)
+        self.doublePickupLng = (defaultLocation.coordinate.longitude)
         mapView.camera = camera
-        
         self.MarkerCurrntLocation.isHidden = false
         self.btnDoneForLocationSelected.isHidden = false
         if self.selectedIndexPath != nil {
             self.selectedIndexPath = nil
         }
         
-        self.doublePickupLat = (defaultLocation.coordinate.latitude)
-        self.doublePickupLng = (defaultLocation.coordinate.longitude)
+        
         
         //        let strLati: String = "\(self.doublePickupLat)"
         //        let strlongi: String = "\(self.doublePickupLng)"
@@ -767,7 +765,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             self.doublePickupLat = cameraPosition.target.latitude
                             self.doublePickupLng = cameraPosition.target.longitude
                             
-                            getAddressForLatLng(latitude: "\(cameraPosition.target.latitude)", Longintude: "\(cameraPosition.target.longitude)", markerType: strLocationType)
+                            getAddressForLatLng(latitude: cameraPosition.target.latitude, Longintude: cameraPosition.target.longitude, markerType: strLocationType)
                             
                             
                         }
@@ -776,7 +774,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             self.doubleDropOffLat = cameraPosition.target.latitude
                             self.doubleDropOffLng = cameraPosition.target.longitude
                             
-                            getAddressForLatLng(latitude: "\(cameraPosition.target.latitude)", Longintude: "\(cameraPosition.target.longitude)", markerType: strLocationType)
+                            getAddressForLatLng(latitude: cameraPosition.target.latitude, Longintude: cameraPosition.target.longitude, markerType: strLocationType)
                             
                             
                         }
@@ -906,11 +904,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
          */
     }
     
-    func getAddressForLatLng(latitude:String, Longintude:String, markerType: String) {
+    func getAddressForLatLng(latitude:Double, Longintude:Double, markerType: String) {
         //        self.StartingPointLatitude = Double(latitude)!
         //        self.StartingPointLongitude = Double(Longintude)!
         
-        let location = CLLocation(latitude: Double(latitude)!, longitude: Double(Longintude)!)
+        let location = CLLocation(latitude: latitude, longitude: Longintude)
         geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
             self.processResponse(withPlacemarks: placemarks, error: error,markerType: markerType)
         }
@@ -2243,7 +2241,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
         
         mapView.camera = camera
-        
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
         
@@ -2269,8 +2266,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func getPlaceFromLatLong()
     {
+        
         self.strLocationType = self.currentLocationMarkerText
-        self.getAddressForLatLng(latitude: "\(self.defaultLocation.coordinate.latitude )", Longintude: "\(self.defaultLocation.coordinate.longitude )", markerType: strLocationType)
+        self.getAddressForLatLng(latitude: defaultLocation.coordinate.latitude, Longintude: defaultLocation.coordinate.longitude, markerType: strLocationType)
         //        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
         //            if let error = error {
         //                print("Pick Place error: \(error.localizedDescription)")
@@ -3880,12 +3878,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func methodAfterStartTrip(tripData: NSArray) {
-        
+       
         self.MarkerCurrntLocation.isHidden = true
         
         SingletonClass.sharedInstance.isTripContinue = true
-        
-        destinationCordinate = CLLocationCoordinate2D(latitude: dropoffLat, longitude: dropoffLng)
+        destinationCordinate = CLLocationCoordinate2D(latitude: dropOffLat, longitude: dropOffLng)
         self.stopTimerforUpdatePassengerLatlong()
         self.setHideAndShowTopViewWhenRequestAcceptedAndTripStarted(status: true)
         self.viewTripActions.isHidden = false
@@ -3939,46 +3936,33 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //        showDriverInfo(bookingInfo: bookingInfo, DriverInfo: DriverInfo, carInfo: carInfo)
         
         // ------------------------------------------------------------
-        let DropOffLat = bookingInfo.object(forKey: "DropOffLat") as! String
-        let DropOffLon = bookingInfo.object(forKey: "DropOffLon") as! String
+    
+        let DropOffLat = bookingInfo.value(forKey: "DropOffLat") as? String ?? ""
+        let DropOffLon = bookingInfo.object(forKey: "DropOffLon") as? String ?? ""
         
-        let picklat = bookingInfo.object(forKey: "PickupLat") as! String
-        let picklng = bookingInfo.object(forKey: "PickupLng") as! String
+        let picklat = bookingInfo.object(forKey: "PickupLat") as? String ?? ""
+        let picklng = bookingInfo.object(forKey: "PickupLng") as? String ?? ""
         
-        dropoffLat = Double(DropOffLat)!
-        dropoffLng = Double(DropOffLon)!
         
         self.txtDestinationLocation.text = bookingInfo.object(forKey: "DropoffLocation") as? String
         self.txtCurrentLocation.text = bookingInfo.object(forKey: "PickupLocation") as? String
         
         let PickupLat = self.defaultLocation.coordinate.latitude
         let PickupLng = self.defaultLocation.coordinate.longitude
-        
-        //        let PickupLat = Double(picklat)
-        //        let PickupLng = Double(picklng)
-        
-        
-        //        let dummyLatitude = Double(PickupLat) - Double(DropOffLat)!
-        //        let dummyLongitude = Double(PickupLng) - Double(DropOffLon)!
-        //
-        //        let waypointLatitude = self.defaultLocation.coordinate.latitude - dummyLatitude
-        //        let waypointSetLongitude = self.defaultLocation.coordinate.longitude - dummyLongitude
-        //
         let originalLoc: String = "\(PickupLat),\(PickupLng)"
         let destiantionLoc: String = "\(DropOffLat),\(DropOffLon)"
         
-        let bounds = GMSCoordinateBounds(coordinate: CLLocationCoordinate2D(latitude: Double(picklat)!, longitude: Double(picklng)!), coordinate: CLLocationCoordinate2D(latitude: Double(DropOffLat)!, longitude: Double(DropOffLon)!))
+        let bounds = GMSCoordinateBounds(coordinate: CLLocationCoordinate2D(latitude: Double(picklat) ?? 0, longitude: Double(picklng) ?? 0), coordinate: CLLocationCoordinate2D(latitude: Double(DropOffLat) ?? 0, longitude: Double(DropOffLon) ?? 0))
         
         let update = GMSCameraUpdate.fit(bounds, withPadding: CGFloat(100))
         
         self.mapView.animate(with: update)
         
         self.mapView.moveCamera(update)
-        
         //commented for Query Limit Issue -
         self.getDirectionsSeconMethod(origin: originalLoc, destination: destiantionLoc, completionHandler: nil)
         //        self.callforMapLine(functionname: #function)
-        
+       
         NotificationCenter.default.post(name: NotificationForAddNewBooingOnSideMenu, object: nil)
         
     }
@@ -4431,7 +4415,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.collectionViewCars.reloadData()
         self.txtCurrentLocation.text = ""
         self.txtDestinationLocation.text = ""
-        self.dropoffLat = 0
+        self.dropOffLat = 0
         self.doublePickupLng = 0
         
         //        SingletonClass.sharedInstance.strPassengerID = ""

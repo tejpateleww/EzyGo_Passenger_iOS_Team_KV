@@ -9,7 +9,7 @@
 import UIKit
 import FormTextField
 
-class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource, UIPickerViewDelegate, CardIOPaymentViewControllerDelegate {
+class WalletAddCardsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CardIOPaymentViewControllerDelegate {
     
     
     var aryMonth = [String]()
@@ -306,6 +306,36 @@ class WalletAddCardsViewController: ParentViewController, UIPickerViewDataSource
             } else {
                 validateCardNumber(number: number)
                 detectCardNumberType(number: number)
+            }
+        }
+    }
+    
+    @IBAction func backButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    @IBAction func btnCallAction(_ sender: Any) {
+        let contactNumber = helpLineNumber
+        
+        if contactNumber == "" {
+            
+            UtilityClass.setCustomAlert(title: "\(appName)", message: "Contact number is not available") { (index, title) in
+            }
+        }
+        else
+        {
+            callNumber(phoneNumber: contactNumber)
+        }
+    }
+    
+    private func callNumber(phoneNumber:String) {
+        
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+            
+            let application:UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
             }
         }
     }
