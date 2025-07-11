@@ -306,11 +306,11 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         let picker = UIImagePickerController()
         picker.delegate = self
         
-        picker.allowsEditing = false
+        picker.allowsEditing = true
         picker.sourceType = .photoLibrary
-        
+        picker.mediaTypes = ["public.image"]
         // picker.stopVideoCapture()
-        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        //picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         present(picker, animated: true, completion: nil)
     }
     
@@ -319,7 +319,7 @@ class UpdateProfileViewController: UIViewController, UIImagePickerControllerDele
         let picker = UIImagePickerController()
         
         picker.delegate = self
-        picker.allowsEditing = false
+        picker.allowsEditing = true
         picker.sourceType = .camera
         picker.cameraCaptureMode = .photo
         

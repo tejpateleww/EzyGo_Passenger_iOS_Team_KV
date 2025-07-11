@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BJv-dT-fKY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BJv-dT-fKY">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ePk-y2-NGC">
-                                <rect key="frame" x="50" y="38" width="275" height="120"/>
+                                <rect key="frame" x="50" y="58" width="275" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="8oz-l5-weD"/>
                                 </constraints>
@@ -107,7 +107,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xdu-Mf-Nt2">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXI-Cx-6wN">
                                         <rect key="frame" x="98" y="406" width="179" height="20.5"/>
@@ -344,10 +344,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgBackground" translatesAutoresizingMaskIntoConstraints="NO" id="HhD-Js-MUz">
-                                <rect key="frame" x="0.0" y="-20" width="375" height="687"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wb2-l7-WLw">
-                                <rect key="frame" x="10" y="250" width="355" height="50"/>
+                                <rect key="frame" x="10" y="270" width="355" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.92941176469999998" green="0.47843137250000001" blue="0.015686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -363,13 +363,13 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ua0-6A-Ms0">
-                                <rect key="frame" x="54" y="100" width="275" height="120"/>
+                                <rect key="frame" x="54" y="120" width="275" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="ZXK-M1-dVG"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYN-oQ-xY6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIE-gu-oi3">
                                         <rect key="frame" x="123.5" y="21.5" width="128" height="21"/>
@@ -401,7 +401,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HxS-Sa-37v" customClass="TransitionButton" customModule="TransitionButton">
-                                <rect key="frame" x="30" y="330" width="315" height="50"/>
+                                <rect key="frame" x="30" y="350" width="315" height="50"/>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.47843137250000001" blue="0.015686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Iqd-Jr-DAD"/>
@@ -569,7 +569,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJP-Ck-TLM">
-                                <rect key="frame" x="18" y="5" width="30" height="30"/>
+                                <rect key="frame" x="18" y="25" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aJP-Ck-TLM" secondAttribute="height" multiplier="1:1" id="38G-a5-ZQD"/>
                                     <constraint firstAttribute="height" constant="30" id="L3V-yc-j5d"/>
@@ -813,7 +813,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogo" translatesAutoresizingMaskIntoConstraints="NO" id="JFy-bz-KgT">
-                                <rect key="frame" x="50.5" y="30" width="274" height="62"/>
+                                <rect key="frame" x="50.5" y="50" width="274" height="62"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="62" id="04U-rP-2J6"/>
                                 </constraints>
@@ -1072,7 +1072,7 @@
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pcd-Hg-kAM" customClass="M13Checkbox" customModule="M13Checkbox">
                                                 <rect key="frame" x="15" y="547" width="25" height="25"/>
-                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="Dd9-qf-bbu"/>
                                                     <constraint firstAttribute="width" constant="25" id="r5T-k3-DSm"/>
@@ -1266,11 +1266,11 @@
             <objects>
                 <viewController id="8Za-Z5-mio" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gfi-H3-1MG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yae-5D-ZI0">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7Z-g7-4he">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
@@ -1499,7 +1499,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="24f-p1-b17"/>
+        <segue reference="oeb-Ea-QzW"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="HorizonalLine" width="20" height="20"/>

@@ -95,6 +95,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         UtilityClass.setCornerRadiusButton(button: btnMale, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
         
           UtilityClass.setCornerRadiusButton(button: btnFemale, borderColor: UIColor.white, bgColor: UIColor.clear, textColor: UIColor.white)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,7 +166,7 @@ class RegistrationNewViewController: UIViewController,AKRadioButtonsControllerDe
         
         picker.allowsEditing = false
         picker.sourceType = .photoLibrary
-        
+        picker.mediaTypes = [kUTTypeImage as String]
         // picker.stopVideoCapture()
         picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         self.iscameFromCamera = true

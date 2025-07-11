@@ -52,5 +52,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5451207E-88DD-402C-855A-F8BEA8A6C607"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TickTok User/ViewControllers/RegisterVC/RegistrationNewViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "PickingImageFromGallery()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5451207E-88DD-402C-855A-F8BEA8A6C607 - 3c0ac167bd7264cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EZYGO_Rider.RegistrationNewViewController.PickingImageFromGallery() -&gt; ()"
+                  moduleName = "EZYGO Rider"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Documents/EzyGoPassenger/TickTok%20User/ViewControllers/RegisterVC/RegistrationNewViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "5451207E-88DD-402C-855A-F8BEA8A6C607 - 3c0ac167bd7264cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EZYGO_Rider.RegistrationNewViewController.PickingImageFromGallery() -&gt; ()"
+                  moduleName = "EZYGO Rider"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Documents/EzyGoPassenger/TickTok%20User/ViewControllers/RegisterVC/RegistrationNewViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169"
+                  offsetFromSymbolStart = "208">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
